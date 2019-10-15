@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= full_title(yield(:title)) %></title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <link rel="icon"  href="/favicon.ico" sizes="16x16" />
+  </head>
+
+  <body>
+  <div class="container">
+    <div id="header">
+    <%= render 'layouts/navigation' %>
+    </div>
+
+   <div id="body">
+      <%= render 'layouts/messages' %>
+      <%= yield %>
+   </div>
+  </div>
+
+   <div id="footer">
+      <%= render 'layouts/footer'  %>
+      <%# debug(params) if DEBUG_FLAG >0  %>
+   </div>
+  </body>
+</html>
+

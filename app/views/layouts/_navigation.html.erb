@@ -1,0 +1,23 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+
+    <%= render 'layouts/logo' %>
+
+    </div>
+    <div class="collapse navbar-collapse">
+      <ul class="nav navbar-nav navbar-right">
+      <% if current_user %>
+	<% if current_user.production? %>
+           <%= render 'layouts/prod_navigation_links' %>
+	<% else %>
+           <%= render 'layouts/navigation_links' %>
+	<% end %>
+      <% else %>
+  	   <li><%= link_to "Log in", new_user_session_path %></li>
+      <% end %>
+      </ul>
+    </div>
+  </div>
+</nav>
+
