@@ -1,5 +1,21 @@
   <%= render 'layouts/find' %>
+
+  <% current_user.role %>
+
+  <% case current_user.role.to_sym %>
+  <% when :user %>
+  <li class="<%= 'active' if controller_name == 'products' %>"><%= link_to "Products", root_path %></li>
+  <% when :staff %>
+  <li class="<%= 'active' if controller_name == 'products' %>"><%= link_to "Products", root_path %></li>
+  <% when :production %>
+  <li class="<%= 'active' if controller_name == 'products' %>"><%= link_to "Products", root_path %></li>
+  <% when :distributor %>
+  <li class="<%= 'active' if controller_name == 'products' %>"><%= link_to "Products", root_path %></li>
+  <% when :admin %>
   <li class="<%= 'active' if controller_name == 'products' %>"><%= link_to "Products", root_path %></li>
   <li><%= link_to "Orders", root_path %></li>
   <li><%= link_to "Clients", root_path %></li>
-  <li><%= link_to "Users", root_path %></li>
+  <li><%= link_to "Users", users_path %></li>
+<% else %>
+  Unknown role
+<% end %>

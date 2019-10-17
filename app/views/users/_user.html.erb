@@ -1,0 +1,14 @@
+<tr>
+  <td><%= link_to user.name, edit_user_registration_path(user) %></td>
+  <td><%= user.email %></td>
+  <td><%= user.role %></td>
+  <td><%= user.active? %></td>
+  <td><%= user.created_at %></td>
+  <td><%= user.last_sign_in_at %></td>
+
+  <% if current_user.admin? %>
+     <% if !current_user?(user) %>
+       <td><%= link_to '<i class="glyphicon glyphicon-remove-sign"></i>'.html_safe, registration_path(user), method: :delete, data: { confirm: "Delete user #{user.name}, #{user.email}?" } %></td>
+     <% end %>
+  <% end %>
+ </tr>
