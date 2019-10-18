@@ -4,6 +4,13 @@
 # or operating system, you probably want to add a global ignore instead:
 #   git config --global core.excludesfile '~/.gitignore_global'
 
+# Ignore master key for decrypting credentials and more.
+/config/master.key
+# Ignore Site initialization file
+/config/initializers/01_globals.rb
+# Cron jobs - platform-dependent
+/config/schedule.rb
+
 # Ignore bundler config.
 /.bundle
 
@@ -16,6 +23,7 @@
 /tmp/*
 !/log/.keep
 !/tmp/.keep
+/lib/DS_Store
 
 # Ignore uploaded files in development
 /storage/*
@@ -27,5 +35,16 @@
 /public/assets
 .byebug_history
 
-# Ignore master key for decrypting credentials and more.
-/config/master.key
+# Ignore vendor bundle
+/vendor/*
+
+/passenger.80.pid
+.DS_Store
+/.idea/*
+*.swp
+
+# ignore pg restore script - platform specific
+/utils/pgrestore.pl
+
+# ignore Postgres backups
+/backup/**

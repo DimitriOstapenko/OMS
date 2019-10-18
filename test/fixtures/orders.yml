@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  order_no: MyString
+  product: one
+  client: one
+  pcs: 1
+  date: 2019-10-17 11:29:10
+  cartons: 1
+  total: 9.99
+
+two:
+  order_no: MyString
+  product: two
+  client: two
+  pcs: 1
+  date: 2019-10-17 11:29:10
+  cartons: 1
+  total: 9.99

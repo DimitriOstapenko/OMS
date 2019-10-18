@@ -11,39 +11,42 @@ class ProductsController < ApplicationController
     @products = Product.paginate(page: params[:page]) #, per_page: 40)
   end
 
-  def find
-      str = params[:findstr].strip
-      @docs = myfind(str)
-      if @docs.any?
-	 flash.now[:info] = "Found #{@docs.count} #{'product'.pluralize(@docs.count)} matching string #{str.inspect}"
-      else
-	 @docs = Product.all
-	 flash[:danger] = "No products found"
-      end
-      @products = @docs.paginate(page: params[:page])
-      render 'index'
-  end
-
   def show
-  end
-
-  def edit
+    @product = Product.find(params[:id])
   end
 
   def create
-     @product = Product.new(product_params)
+    @product = Product.new(product_params)
     if @product.save
-       flash[:success] = "Product created"
-       redirect_to @product
+       flash[:success] = "New product created"
+       redirect_to products_path
     else
        render 'new'
     end
-  end  
+  end
 
   def destroy
-    @product.destroy
+    Product.find(params[:id]).destroy
     flash[:success] = "Product deleted"
-    redirect_to products_url, page: params[:page]
+    redirect_to products_path
+  end
+
+  def edit
+    @product = Product.find(params[:id])
+  end
+
+  def find
+      str = params[:findstr].strip
+      flash.now[:info] = "Called find with '#{params[:findstr]}' param"
+      @products = myfind(str)
+      if @products.any?
+	 flash.now[:info] = "Found #{@products.count} #{'product'.pluralize(@products.count)} matching string #{str.inspect}"
+      else
+	 @products = Product.all
+	 flash[:danger] = "No products found"
+      end
+      @products = @products.paginate(page: params[:page])
+      render 'index'
   end
 
   def update

@@ -1,0 +1,19 @@
+<%= simple_form_for @user do |f| %>
+
+<div class="col-md-4 col-sm-5 col-md-offset-4 col-sm-offset-4">
+<h3 class='display-1'>Edit User</h3>
+<div class="well">
+
+    <%= f.input :name, autofocus: true, autocomplete: "name" %>
+    <%= f.input :email, autofocus: true, autocomplete: "email" %>
+
+    <%= f.input :password, autocomplete: "new-password", hint: "<i>Leave blank if you don't want to change it</i>".html_safe %>
+    <%# f.input :password_confirmation, autocomplete: "new-password", hint: '6 characters minimum' %>
+    <%# f.input :current_password, hint: "<i>(we need your current password to confirm your changes)</i>".html_safe, autocomplete: "current-password" %>
+    <%= f.input :role, collection: ROLES,  prompt: 'Select', selected: @user.role %>
+
+    <%= f.button :submit, yield(:button_text), class: "btn btn-primary" %>
+
+</div>
+</div>
+<% end %>
