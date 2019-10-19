@@ -1,0 +1,27 @@
+<% provide(:title, @product.name) %>
+
+<div class="col-md-8 col-md-offset-2">
+	<h3 class='display-1'>Product:  <%= @product.name %> - details  </h3>
+	   <pre>
+
+<%# name, type, category, description, scale, release_date, price_eu, price_usd %>
+	      Type:          <%= @product.prtype %>
+	      Category:      <%= @product.category %>
+
+	      Scale:         <%= @product.scale %>
+	      Release Date : <%= @product.ctns %>
+	      Price Europe : <%= @product.price_eu %>
+	      Price Other  : <%= @product.price_usd %>
+              <img src="/images/model1.png" height="200px"> <img src="/images/model2.png" height="200px">
+
+           </pre>
+           <div class="panel panel-info">
+	      Description:   <%= @product.description %>
+           </div>
+<div class="col-md-6">
+    <%= button_to "Edit", edit_product_path(@product), class: "btn btn-primary", :method => "get" %>
+</div>
+<div class="col-md-6">
+    <%= button_to "Back", products_path, class: "btn btn-primary", :method => "get" %>
+</div>
+</div>

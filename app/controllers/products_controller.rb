@@ -50,6 +50,7 @@ class ProductsController < ApplicationController
   end
 
   def update
+    @product = Product.find(params[:id])
     if @product.update_attributes(product_params)
       flash[:success] = "Product updated"
       redirect_to products_path
@@ -58,17 +59,15 @@ class ProductsController < ApplicationController
     end
   end
 
-
 private
-
   def product_params
-    params.require(:product).permit( :name, :type, :category, :description, :scale, :release_date, :price_eu, :price_usd ) 
+    params.require(:product).permit( :name, :prtype, :category, :description, :scale, :release_date, :price_eu, :price_usd ) 
   end
 
   # Find product by name or scale, depending on input format
   def myfind (str)
 	  if str.match(/^[[:digit:]]{,6}$/)
-          Product.where("scale like ?", "%#{str}%")
+          Product.where("scale::text like ?", "%#{str}%")
         elsif str.match(/^[[:graph:]]+$/)
 	  Product.where("lower(name) like ?", "%#{str.downcase}%")
         else

@@ -4,22 +4,26 @@ one:
   name: MyString
   type: 1
   code: MyString
-  description: MyString
   country: MyString
   state_prov: MyString
   address: MyString
-  zip: MyString
+  zip_postal: MyString
   email: MyString
   phone: MyString
+  contact_person: MyString
+  web: MyString
+  notes: MyText
 
 two:
   name: MyString
   type: 1
   code: MyString
-  description: MyString
   country: MyString
   state_prov: MyString
   address: MyString
-  zip: MyString
+  zip_postal: MyString
   email: MyString
   phone: MyString
+  contact_person: MyString
+  web: MyString
+  notes: MyText

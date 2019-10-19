@@ -1,2 +1,29 @@
-<h1>Clients#show</h1>
-<p>Find me in app/views/clients/show.html.erb</p>
+<% provide(:title, @client.name) %>
+
+<div class="col-md-8 col-md-offset-2">
+	<h3 class='display-1'>Product:  <%= @client.name %> - details  </h3>
+	   <pre>
+
+<%# name, type, category, description, scale, release_date, price_eu, price_usd %>
+	      Type:           <%= @client.cltype %>
+	      Code:           <%= @client.code %>
+	      Country:        <%= @client.country %>
+	      Province/State: <%= @client.state_prov %>
+	      Address:        <%= @client.address %>
+	      Postal/Zip:     <%= @client.zip_postal %>
+	      Contact Name:   <%= @client.contact_person %>
+	      Email:          <%= @client.email %>
+	      Phone number:   <%= @client.phone %>
+	      Website:        <%= @client.web %>
+
+           </pre>
+           <div class="panel panel-info">
+	      Description:   <%= @client.notes %>
+           </div>
+<div class="col-md-6">
+    <%= button_to "Edit", edit_client_path(@client), class: "btn btn-primary", :method => "get" %>
+</div>
+<div class="col-md-6">
+    <%= button_to "Back", clients_path, class: "btn btn-primary", :method => "get" %>
+</div>
+</div>

@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   get '/users/', to: 'users#index'
   get '/products/index(/:id)' => 'products#find', constraints: { query_string: /findstr/ }
   get '/products/index'
+  get '/reports', to: 'reports#index'
+  get '/inventories', to: 'inventories#index'
 
   get '/home', to: 'static_pages#home'
   get '/help', to: 'static_pages#help'
@@ -14,5 +16,5 @@ Rails.application.routes.draw do
   get '/terms', to: 'static_pages#terms'
   get '/privacy', to: 'static_pages#privacy'
 
-  resources :products, :clients, :orders, :users
+  resources :products, :clients, :orders, :users, :inventories
 end

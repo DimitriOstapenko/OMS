@@ -1,0 +1,35 @@
+<%# name, type, category, description, scale, release_date, price_eu, price_usd %>
+
+<div class='well'>
+<%= simple_form_for @product do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <%= f.input :name %>
+  <div class="col-md-6">
+  <%= f.input :prtype, label: "Type", hint: "Top Marques, GP Replicas..." %>
+  </div>
+  <div class="col-md-6">
+  <%= f.input :category, hint: "Street, racing ..." %>
+  </div>
+  <div class="col-md-6">
+  <%= f.input :scale  %>
+  </div>
+  <div class="col-md-6">
+  <%= f.input :release_date, as: :date,  html5: true  %>
+  </div>
+  <div class="col-md-6">
+  <%= f.input :price_eu %>
+  </div>
+  <div class="col-md-6">
+  <%= f.input :price_usd %>
+  </div>
+
+  <%= f.input :description, as: :text %>
+  <% unless action_name == 'show' %>
+  <%= f.submit yield(:button_text), class: "btn btn-primary" %>
+  <% end %>
+
+<% end %>
+</div>
+
+

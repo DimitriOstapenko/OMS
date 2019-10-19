@@ -10,22 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_17_201435) do
+ActiveRecord::Schema.define(version: 2019_10_19_123829) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "clients", force: :cascade do |t|
     t.string "name"
-    t.integer "type"
+    t.integer "cltype", default: 0
     t.string "code"
-    t.string "description"
     t.string "country"
     t.string "state_prov"
     t.string "address"
-    t.string "zip"
+    t.string "zip_postal"
     t.string "email"
     t.string "phone"
+    t.string "contact_person"
+    t.string "web"
+    t.text "notes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -34,10 +36,11 @@ ActiveRecord::Schema.define(version: 2019_10_17_201435) do
     t.string "order_no"
     t.bigint "product_id"
     t.bigint "client_id"
+    t.integer "status"
+    t.string "po_num"
+    t.decimal "price"
     t.integer "pcs"
     t.datetime "date"
-    t.integer "cartons"
-    t.decimal "total"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["client_id"], name: "index_orders_on_client_id"

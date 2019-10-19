@@ -1,2 +1,37 @@
-<h1>Clients#index</h1>
-<p>Find me in app/views/clients/index.html.erb</p>
+<h1>Client List</h1>
+
+
+<table class="tbl2 table-hover table-striped table-bordered" >
+  <thead>
+      <tr>
+          <th class="tbl_md">Name</th>
+	  <th class="tbl_sm">Type</th>
+	  <th class="tbl_sm">Code</th>
+	  <th class="tbl_md">Country</th>
+	  <th class="tbl_sm">State/Prov</th>
+          <th class="tbl_lg">Address</th>
+          <th class="tbl_sm">Postal/Zip</th>
+          <th class="tbl_sm">Contact</th>
+          <th class="tbl_sm">email</th>
+          <th class="tbl_sm">Phone</th>
+          <th class="tbl_sm">Website</th>
+          <th>&nbsp;</th>
+          <th>&nbsp;</th>
+      </tr>
+  </thead>
+  <tbody>
+
+  <%= render @clients, remote: device_is_desktop? %>
+
+  </tbody>
+</table>
+
+
+<div class="row">
+<div class="bottom_buttons ">
+<%= button_to "Add Client", new_product_path, class: "btn btn-primary col-md-2", method: :get %>
+</div>
+
+<div class="bottom_nav">
+<%= will_paginate @clients, class: "btn" %>
+</div>

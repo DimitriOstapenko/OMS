@@ -1,6 +1,4 @@
-  <% if current_user.user? %>
-    <li class="navbar-text active">user <%= current_user.email %></li>
-  <% end %>
+  <li class="navbar-text active">user <%= current_user.email %></li>
   <li style="width:40px">&nbsp;</li>
   <%= render 'layouts/find' %>
 

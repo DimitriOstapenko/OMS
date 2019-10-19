@@ -1,10 +1,13 @@
-  <tr>
-	<td><%= link_to product.name, product %> </td>
+  <tr align='center'>
+	<td align='left'><%= link_to product.name, product %> </td>
 	<td><%= product.prtype %></td> 
 	<td><%= product.category %></td> 
-	<td><%= product.scale %></td> 
+	<td><%= product.scale_str %></td> 
 	<td><%= product.ctns %></td> 
-        <td align="center"> <%= link_to '<i class="glyphicon glyphicon-edit"></i>'.html_safe, edit_product_path(product) %> </td>
-        <td align="center"> <%= link_to '<i class="glyphicon glyphicon-remove-sign"></i>'.html_safe, product, method: :delete, data: { confirm: "Are you sure you want to delete #{product.name}?" } %> </td>
+        <td><%= product.release_date %></td>
+        <td><%= product.price_eu %></td>
+        <td><%= product.price_usd %></td>
+        <td><%= link_to '<i class="glyphicon glyphicon-edit"></i>'.html_safe, edit_product_path(product) %> </td>
+        <td><%= link_to '<i class="glyphicon glyphicon-remove-sign"></i>'.html_safe, product, method: :delete, data: { confirm: "Are you sure you want to delete #{product.name}?" } %> </td>
      </tr>
 

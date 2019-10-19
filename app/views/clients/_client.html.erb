@@ -1,0 +1,15 @@
+  <tr align='center'>
+	<td align='left'><%= link_to client.name, client %> </td>
+	<td><%= client.cltype %></td> 
+	<td><%= client.code %></td> 
+	<td><%= client.country %></td> 
+	<td><%= client.state_prov %></td> 
+        <td><%= client.address %></td>
+        <td><%= client.zip_postal %></td>
+        <td><%= client.contact_person%></td>
+        <td><%= client.email %></td>
+        <td><%= client.phone %></td>
+        <td><%= client.web %></td>
+        <td><%= link_to '<i class="glyphicon glyphicon-edit"></i>'.html_safe, edit_client_path(client) %> </td>
+        <td><%= link_to '<i class="glyphicon glyphicon-remove-sign"></i>'.html_safe, client, method: :delete, data: { confirm: "Are you sure you want to delete #{client.name}?" } %> </td>
+     </tr>

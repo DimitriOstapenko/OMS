@@ -4,16 +4,18 @@ one:
   order_no: MyString
   product: one
   client: one
+  status: 1
+  po_num: MyString
+  price: 9.99
   pcs: 1
-  date: 2019-10-17 11:29:10
-  cartons: 1
-  total: 9.99
+  date: 2019-10-19 14:18:58
 
 two:
   order_no: MyString
   product: two
   client: two
+  status: 1
+  po_num: MyString
+  price: 9.99
   pcs: 1
-  date: 2019-10-17 11:29:10
-  cartons: 1
-  total: 9.99
+  date: 2019-10-19 14:18:58
