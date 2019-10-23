@@ -25,7 +25,7 @@ end
 
 # Returns the full title on a per-page basis.
     def full_title(page_title = '')
-      base_title = "Order Management System"
+      base_title = PROJECT_NAME 
       if page_title.empty?
         base_title
       else
@@ -34,7 +34,7 @@ end
     end
 
     def project_url 
-	'http://oms.drlena.com'
+      PROJECT_URL	
     end
 
     def num_to_phone( phone, area_code = true )

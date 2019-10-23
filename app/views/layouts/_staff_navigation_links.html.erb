@@ -3,6 +3,5 @@
   <% current_user.role %>
 
   <li class="<%= 'active' if controller_name == 'products' %>"><%= link_to "Products", products_path %></li>
-  <li><%= link_to "Orders", orders_path %></li>
   <li><%= link_to "Clients", clients_path %></li>
-  <li><%= link_to "Users", users_path %></li>
+  <li><%= link_to "Orders", orders_path %></li>

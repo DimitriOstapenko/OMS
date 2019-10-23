@@ -8,6 +8,7 @@ gem 'rails', '~> 5.2.3'
 gem 'pg'
 gem 'puma', '~> 3.11'
 gem 'sass-rails', '~> 5.0'
+gem 'sassc',                   '~> 2.0'
 gem 'uglifier', '>= 1.3.0'
 
 gem 'coffee-rails', '~> 4.2'
@@ -38,7 +39,7 @@ end
 group :test do
   gem 'capybara', '>= 2.15'
   gem 'selenium-webdriver'
-  gem 'chromedriver-helper'
+#  gem 'chromedriver-helper'
 end
 
 gem 'simple_form', '~> 5.0.0'
