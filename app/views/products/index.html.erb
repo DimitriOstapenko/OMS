@@ -3,16 +3,20 @@
 <table class="tbl2 table-hover table-striped table-bordered" >
   <thead>
       <tr>
-          <th class="tbl_lg">Name</th>
-	  <th class="tbl_md">Brand</th>
-	  <th class="tbl_md">Category</th>
-	  <th class="tbl_md">Scale</th>
-	  <th class="tbl_md">Cartons</th>
-          <th class="tbl_md">Release Date</th>
-          <th class="tbl_sm">Price EU</th>
-          <th class="tbl_sm">Price World</th>
+          <th class="tbl_lg, text-center">Name</th>
+          <th class="tbl_sm, text-center">Ref.Code</th>
+	  <th class="tbl_md, text-center">Brand</th>
+	  <th class="tbl_md, text-center">Category</th>
+	  <th class="tbl_md, text-center">Scale</th>
+	  <th class="tbl_md, text-center">Cartons</th>
+          <th class="tbl_md, text-center">Release Date</th>
+          <th class="tbl_sm, text-center">Price EU</th>
+          <th class="tbl_sm, text-center">Price EU2</th>
+          <th class="tbl_sm, text-center">Price World</th>
+          <% if product_editable? %>
           <th>&nbsp;</th>
           <th>&nbsp;</th>
+          <% end %>
       </tr>
   </thead>
   <tbody>

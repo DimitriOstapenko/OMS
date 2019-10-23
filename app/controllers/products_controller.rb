@@ -61,7 +61,7 @@ class ProductsController < ApplicationController
 
 private
   def product_params
-    params.require(:product).permit( :name, :prtype, :category, :description, :scale, :release_date, :price_eu, :price_usd ) 
+    params.require(:product).permit( :name, :ref_code, :brand, :category, :description, :scale, :ctns, :release_date, :price_eu, :price_eu2, :price_usd ) 
   end
 
   # Find product by name or scale, depending on input format

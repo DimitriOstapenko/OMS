@@ -4,8 +4,8 @@
 	<h3 class='display-1'>Product:  <%= @product.name %> - details  </h3>
 	   <pre>
 
-<%# name, type, category, description, scale, release_date, price_eu, price_usd %>
-	      Type:          <%= @product.prtype %>
+	      Ref.Code:      <%= @product.brand %>
+	      Brand:         <%= @product.brand %>
 	      Category:      <%= @product.category %>
 
 	      Scale:         <%= @product.scale %>
@@ -18,10 +18,14 @@
            <div class="panel panel-info">
 	      Description:   <%= @product.description %>
            </div>
+</div>
+
+
+<% if product_editable? %>
 <div class="col-md-6">
     <%= button_to "Edit", edit_product_path(@product), class: "btn btn-primary", :method => "get" %>
 </div>
 <div class="col-md-6">
     <%= button_to "Back", products_path, class: "btn btn-primary", :method => "get" %>
 </div>
-</div>
+<% end %>

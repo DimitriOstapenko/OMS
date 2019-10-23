@@ -1,27 +1,46 @@
-<%# name, type, category, description, scale, release_date, price_eu, price_usd %>
-
-<div class='well'>
 <%= simple_form_for @product do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
 
+  <div class="row" %>
+  <div class="col-md-12">
   <%= f.input :name %>
-  <div class="col-md-6">
-  <%= f.input :prtype, label: "Type", hint: "Top Marques, GP Replicas..." %>
   </div>
-  <div class="col-md-6">
+  </div>
+
+  <div class="row" %>
+  <div class="col-md-4">
+  <%= f.input :ref_code, hint: "Unique product code" %>
+  </div>
+  <div class="col-md-4">
+  <%= f.input :brand, hint: "Top Marques, GP Replicas..." %>
+  </div>
+  <div class="col-md-4">
   <%= f.input :category, hint: "Street, racing ..." %>
   </div>
-  <div class="col-md-6">
+  </div>
+
+  <div class="row" %>
+  <div class="col-md-4">
   <%= f.input :scale  %>
   </div>
-  <div class="col-md-6">
+  <div class="col-md-4">
   <%= f.input :release_date, as: :date,  html5: true  %>
   </div>
-  <div class="col-md-6">
+  <div class="col-md-4">
+  <%= f.input :ctns  %>
+  </div>
+  </div>
+
+  <div class="row" %>
+  <div class="col-md-4">
   <%= f.input :price_eu %>
   </div>
-  <div class="col-md-6">
+  <div class="col-md-4">
+  <%= f.input :price_eu2 %>
+  </div>
+  <div class="col-md-4">
   <%= f.input :price_usd %>
+  </div>
   </div>
 
   <%= f.input :description, as: :text %>
@@ -30,6 +49,5 @@
   <% end %>
 
 <% end %>
-</div>
 
 
