@@ -3,6 +3,9 @@ class Product < ApplicationRecord
   require 'action_view'
   include ActionView::Helpers::NumberHelper
 
+   default_scope -> { order(name: :asc, release_date: :asc) }
+
+
   def scale_str
     '1:'+scale.to_s
   end
