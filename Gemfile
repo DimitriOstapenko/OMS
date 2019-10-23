@@ -44,3 +44,4 @@ end
 
 gem 'simple_form', '~> 5.0.0'
 gem 'whenever', require: false
+gem 'country_select', '~> 3.1.1'

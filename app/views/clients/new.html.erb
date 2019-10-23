@@ -1,2 +1,13 @@
-<h1>Clients#new</h1>
-<p>Find me in app/views/clients/new.html.erb</p>
+<%
+   provide(:title, 'New Client')
+   provide(:button_text, 'Save changes')
+%>
+
+<div class="col-md-8 col-md-offset-2">
+<h3 class='display-1'>New Client</h3>
+<div class="well">
+ 
+       <%= render 'form' %>
+
+</div>
+</div>

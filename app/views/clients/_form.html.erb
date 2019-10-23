@@ -1,0 +1,67 @@
+<%= simple_form_for @client do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <div class="row">
+  <div class="col-md-12">
+  <%= f.input :name %>
+  </div>
+  </div>
+
+  <div class="row">
+  <div class="col-md-6">
+  <%= f.input :cltype, label: "Type" %>
+  </div>
+  <div class="col-md-6">
+  <%= f.input :code %>
+  </div>
+  </div>
+  
+  <div class="row">
+  <div class="col-md-6">
+  <%= f.input :country, as: :country  %>
+  </div>
+  <div class="col-md-6">
+  <%= f.input :state_prov  %>
+  </div>
+  </div>
+  
+  <div class="row">
+  <div class="col-md-6">
+  <%= f.input :address %>
+  </div>
+  <div class="col-md-6">
+  <%= f.input :zip_postal %>
+  </div>
+  </div>
+
+  <div class="row">
+  <div class="col-md-6">
+  <%= f.input :email %>
+  </div>
+  <div class="col-md-6">
+  <%= f.input :phone %>
+  </div>
+  </div>
+
+  <div class="row">
+  <div class="col-md-6">
+  <%= f.input :contact_person %>
+  </div>
+  <div class="col-md-6">
+  <%= f.input :web, label: 'Website' %>
+  </div>
+  </div>
+
+  <div class="row">
+  <div class="col-md-12">
+  <%= f.input :notes %>
+  </div>
+  </div>
+
+  <% unless action_name == 'show' %>
+  <%= f.submit yield(:button_text), class: "btn btn-primary" %>
+  <% end %>
+
+<% end %>
+
+
