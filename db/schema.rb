@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_23_132400) do
+ActiveRecord::Schema.define(version: 2019_10_24_140250) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,6 +62,10 @@ ActiveRecord::Schema.define(version: 2019_10_23_132400) do
     t.integer "ctns"
     t.string "ref_code"
     t.decimal "price_eu2"
+    t.date "added"
+    t.string "supplier"
+    t.string "manager"
+    t.integer "progress"
     t.index ["ref_code"], name: "index_products_on_ref_code"
   end
 

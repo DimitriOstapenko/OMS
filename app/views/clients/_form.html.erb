@@ -9,7 +9,7 @@
 
   <div class="row">
   <div class="col-md-6">
-  <%= f.input :cltype, label: "Type" %>
+    <%= f.input :cltype, collection: CLIENT_TYPES, label: "Type", include_blank: false %>
   </div>
   <div class="col-md-6">
   <%= f.input :code %>

@@ -1,7 +1,6 @@
 class ProductsController < ApplicationController
   
-  before_action :logged_in_user
-  before_action :admin_user, only: :destroy
+  before_action :admin_or_staff_user, only: [:edit, :update, :destroy]
 
   def new
     @product = Product.new
@@ -61,7 +60,8 @@ class ProductsController < ApplicationController
 
 private
   def product_params
-    params.require(:product).permit( :name, :ref_code, :brand, :category, :description, :scale, :ctns, :release_date, :price_eu, :price_eu2, :price_usd ) 
+    params.require(:product).permit( :name, :ref_code, :brand, :category, :description, :scale, :ctns, :release_date, 
+                                     :price_eu, :price_eu2, :price_usd, :added, :supplier, :manager, :progress ) 
   end
 
   # Find product by name or scale, depending on input format

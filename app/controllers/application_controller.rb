@@ -15,7 +15,17 @@ class ApplicationController < ActionController::Base
 
 # Confirms an admin user.
   def admin_user
-    redirect_to(root_url) unless current_user && current_user.admin?
+    redirect_to root_url, alert: "You have no rights for this operation" unless current_user && current_user.admin?
+  end
+
+# Confirms staff user  
+  def staff_user
+    redirect_to root_url, alert: "You have no rights for this operation" unless current_user && current_user.staff?
+  end
+
+# Confirms staff user  
+  def admin_or_staff_user
+    redirect_to root_url, alert: "You have no rights for this operation" unless current_user && (current_user.admin? || current_user.staff?)
   end
 
 protected

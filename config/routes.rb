@@ -4,6 +4,9 @@ Rails.application.routes.draw do
   devise_for :users
   get '/users/', to: 'users#index'
   get '/products/index(/:id)' => 'products#find', constraints: { query_string: /findstr/ }
+  get '/clients/index(/:id)' => 'clients#find', constraints: { query_string: /findstr/ }
+
+  get '/clients/index'
   get '/products/index'
   get '/reports', to: 'reports#index'
   get '/inventories', to: 'inventories#index'
