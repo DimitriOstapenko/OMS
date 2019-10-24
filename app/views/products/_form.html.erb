@@ -12,7 +12,7 @@
   <%= f.input :ref_code, hint: "Unique product code" %>
   </div>
   <div class="col-md-4">
-  <%= f.input :brand, hint: "Top Marques, GP Replicas..." %>
+  <%= f.input :brand, collection: BRANDS, include_blank: false %> 
   </div>
   <div class="col-md-4">
   <%= f.input :category, hint: "Street, racing ..." %>
@@ -24,10 +24,10 @@
   <%= f.input :scale  %>
   </div>
   <div class="col-md-4">
-  <%= f.input :release_date, as: :date,  html5: true  %>
+  <%= f.input :added, as: :date, html5: true  %>
   </div>
   <div class="col-md-4">
-  <%= f.input :ctns  %>
+  <%= f.input :release_date, as: :date,  html5: true  %>
   </div>
   </div>
 
@@ -40,6 +40,19 @@
   </div>
   <div class="col-md-4">
   <%= f.input :price_usd %>
+  </div>
+  </div>
+
+
+  <div class="row" %>
+  <div class="col-md-4">
+  <%= f.input :manager %>
+  </div>
+  <div class="col-md-4">
+  <%= f.input :supplier %>
+  </div>
+  <div class="col-md-4">
+  <%= f.input :progress, label: '% Complete' %>
   </div>
   </div>
 
