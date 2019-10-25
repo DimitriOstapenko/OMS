@@ -11,6 +11,10 @@ class Product < ApplicationRecord
     '1:'+scale.to_s
   end
 
+  def brand_str
+    BRANDS.invert[self.brand] rescue nil
+  end
+
   def price_eu_str
     number_to_currency(price_eu, locale: :fr)
   end
@@ -21,5 +25,13 @@ class Product < ApplicationRecord
 
   def price_usd_str
     number_to_currency(price_usd, locale: :us)
+  end
+
+  def release_date_str
+    self.release_date.strftime("%m/%Y") rescue nil
+  end
+  
+  def added_date_str
+    self.added_date.strftime("%m/%Y") rescue nil
   end
 end
