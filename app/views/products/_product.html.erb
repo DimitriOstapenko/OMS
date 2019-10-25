@@ -1,18 +1,20 @@
   <tr align='center'>
-	<td align='left'><%= link_to product.name, product %> </td>
-	<td><%= product.ref_code %></td> 
-	<td><%= product.brand %></td> 
-	<td><%= product.category %></td> 
+	<td><%= link_to product.ref_code, product %></td> 
 	<td><%= product.scale_str %></td> 
-	<td><%= product.added %></td> 
+        <td align='left'><%= product.description %></td>
+	<td><%= product.category %></td> 
+	<td><%= product.brand %></td> 
+	<td><%= product.ctns %></td> 
+	<td><%= product.added_date %></td> 
         <td><%= product.release_date %></td>
         <td><%= product.supplier %></td>
+        <td><%= product.manager  %></td>
         <td><%= product.price_eu_str %></td>
-        <td><%= product.price_eu2_str %></td>
-        <td><%= product.price_usd_str %></td>
         <td><%= product.progress %></td>
         <% if product_editable? %>
           <td><%= link_to '<i class="glyphicon glyphicon-edit"></i>'.html_safe, edit_product_path(product) %> </td>
-          <td><%= link_to '<i class="glyphicon glyphicon-remove-sign"></i>'.html_safe, product, method: :delete, data: { confirm: "Are you sure you want to delete #{product.name}?" } %> </td>
+          <td><%= link_to '<i class="glyphicon glyphicon-remove-sign"></i>'.html_safe, product, method: :delete, data: { confirm: "Are you sure you want to delete #{product.ref_code}?" } %> </td>
         <% end %>
      </tr>
+
+

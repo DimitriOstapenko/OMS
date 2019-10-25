@@ -1,31 +1,38 @@
-<% provide(:title, @product.name) %>
+<% provide(:title, @product.ref_code) %>
 
+<div class="row">
 <div class="col-md-8 col-md-offset-2">
-	<h3 class='display-1'>Product:  <%= @product.name %> - details  </h3>
+	<h3 class='display-1'>Product:  <%= @product.ref_code %> - details  </h3>
 	   <pre>
-
-	      Ref.Code:      <%= @product.brand %>
-	      Brand:         <%= @product.brand %>
-	      Category:      <%= @product.category %>
-
-	      Scale:         <%= @product.scale %>
-	      Release Date : <%= @product.ctns %>
-	      Price Europe : <%= @product.price_eu %>
-	      Price Other  : <%= @product.price_usd %>
-              <img src="/images/model1.png" height="200px"> <img src="/images/model2.png" height="200px">
-
-           </pre>
-           <div class="panel panel-info">
 	      Description:   <%= @product.description %>
+	      Scale:         <%= @product.scale %>
+	      Category:      <%= @product.category %>
+	      Brand:         <%= @product.brand %>
+	      Cartons:       <%= @product.ctns %>
+	      Date Added :   <%= @product.added_date %>
+	      Release Date : <%= @product.release_date %>
+	      Supplier :     <%= @product.supplier %>
+	      Manager :      <%= @product.manager %>
+	      Price Europe : <%= @product.price_eu %>
+	      Price Europe2: <%= @product.price_eu2 %>
+	      Price Other :  <%= @product.price_usd %>
+              <img src="/images/model1.png" height="200px"> <img src="/images/model2.png" height="200px">
+           </pre>
+           <div>
+	      Notes:   <%= @product.notes %>
            </div>
+</div>
 </div>
 
 
 <% if product_editable? %>
-<div class="col-md-6">
+<div class="row">
+<div class="col-md-4 col-md-offset-2">
     <%= button_to "Edit", edit_product_path(@product), class: "btn btn-primary", :method => "get" %>
 </div>
-<div class="col-md-6">
+<div class="col-md-4">
     <%= button_to "Back", products_path, class: "btn btn-primary", :method => "get" %>
 </div>
+</div>
 <% end %>
+

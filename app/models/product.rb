@@ -3,8 +3,9 @@ class Product < ApplicationRecord
   require 'action_view'
   include ActionView::Helpers::NumberHelper
 
-   default_scope -> { order(name: :asc, release_date: :asc) }
+   default_scope -> { order(ref_code: :asc, release_date: :asc) }
 
+   validates :ref_code, presence: true, length: { maximum: 10 }, uniqueness: true
 
   def scale_str
     '1:'+scale.to_s

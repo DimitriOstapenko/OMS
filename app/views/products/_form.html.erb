@@ -3,7 +3,7 @@
 
   <div class="row" %>
   <div class="col-md-12">
-  <%= f.input :name %>
+  <%= f.input :description %>
   </div>
   </div>
 
@@ -24,7 +24,7 @@
   <%= f.input :scale  %>
   </div>
   <div class="col-md-4">
-  <%= f.input :added, as: :date, html5: true  %>
+  <%= f.input :added_date, as: :date, html5: true  %>
   </div>
   <div class="col-md-4">
   <%= f.input :release_date, as: :date,  html5: true  %>
@@ -56,7 +56,7 @@
   </div>
   </div>
 
-  <%= f.input :description, as: :text %>
+  <%= f.input :notes, as: :text %>
   <% unless action_name == 'show' %>
   <%= f.submit yield(:button_text), class: "btn btn-primary" %>
   <% end %>

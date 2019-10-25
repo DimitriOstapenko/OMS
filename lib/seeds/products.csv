@@ -1,56 +1,422 @@
-﻿,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
-,,"BMW 323 ALPINA,1983-GREY
-REPROD",,,,"BMW 323 ALPINA, 1983-WHITE
-reprod.",,,,"BMW 323 ALPINA,1983-RED
-REPROD",,,,"BMW 323 ALPINA, 1983 Dark Grey with Silver stripes-
-REPROD.",,,,"Jaguar XJ6 1982 
-GREEN",,,,"Jaguar XJ6 1982 
-RED",,,,"Tesla Model S, BLACK",,,,"Tesla Model X, BLU",,,,Toyota Celica - Supra MKII  Bordeaux,,,,"Mitsubishi Starion -
-Bordeaux",,,,"Lancia Delta Integrale 
-EVO II, red",,,,"Lancia Delta Integrale 
-EVO II, Black, Club Italia",,,,"AMG Mercedes  CL600  7.0 
-Coupè GREEN",,,,"Honda Prelude 1997-2001 N.American Base Spec, PURPLE",,,,"Honda Prelude 1997-2001 N.American Base Spec, GREEN",,,,"Ferrari 312T4 
-N.11 -1979-JODY SCHECKTER, MONTECARLO-short spoiler
-
-
-",,,,"Ferrari F1 87/88C n. 28 Gerhard Berger
-sc.1.18-mc: 4 pcs",,,,"Ferrari F1 87/88C n. 27 Michele Alboreto
-sc.1.18-mc: 4 pcs",,,,"Lotus 72C Jochen Rindt 
-World Champion-n.2
-Jochen Rindt",,,,"312 T2 1977 Niki Lauda World Champion
-The last 10 pcs will be put in GPset001
-",,,,"126 C2 1982  n. 27 Gilles Villeneuve 
-(the same model as per GP12-10A but in 1:18 scale)
-",,,,Ferrari 312 B3 1974 - n. 12 -Niki Lauda,,,,"Ferrari 312 B3 1974 - n. 11
-Clay Regazzoni",,,,Ferrari 312 T 1975 - n. 12 -Niki Lauda,,,,Ferrari 312 T 1975 - n. 12 -Niki Lauda,,,,Ferrari 312 T 1975 - n. 11 -Cay Regazzoni,,,,APOLLO ARROW 2016 - GREEN,,,,Ford Mustang Hoonigan,,,,"275  GTB/4, YELLOW",,,,"street 
-scale 1:18 mc:4 pcs","Ferrari P6 Prototype, light blu",,,"street scale 
-1:18 mc:4 pcs","LAMBORGHINI 350 GT, RED",,,"street scale 
-1:18 mc:4 pcs","LAMBORGHINI 350 GT, BLACK",,,"street
-scale 1:12
-MC:2 PCS","Lancia Delta Integrale EVO II-Final Edition, red",,,"street
-scale 1:12
-MC:2 PCS",Lancia Delta Integrale EVO II - VERDE YORK-SPECIAL EDITION,,,"street scale
- 1:12 MC:2 PCS",275 GTB/4 - RED,,,"street 
-scale 1:12
-MC:2 PCS","275 GTB/4 NART  
-Spyder 1967, yellow WITH BLACK INTERIOR",,,"street 
-scale 1:12
-MC:2 PCS","F40, RED",,,"racing 
-scale 1:12
-MC:2 PCS","Lancia Delta S4 1986 N. 7 - 
-H.Toivonen
-S.Cresto - Montecarlo Winner",,,"racing 
-scale 1:12
-MC:2 PCS","Lancia Delta S4 
-1986 N. 7 - H.Toivonen
-S.Cresto - Montecarlo Winner-DIRTY VERSION",,,"tot 
-pcs","tot 
-ctns",FERRARI 643 - 1991  N. 27 - A.Prost,,,,Ferrari 643 - 1991  N. 28 - J. Alesi,,,,AMG Mercedes  CL600  7.0  Coupè BLACK,,,,AMG Mercedes  CL600  7.0  Coupè SILVER,,,,"MAZDA RX 7, 1989 - RED",,,,"MAZDA RX 7, 1989 - WHITE",,,,"MAZDA RX 7, 1989 - BLACK",,,,"street 
-scale 1:18 mc:4 pcs","Ferrari 512S Berlinetta Concept, Yellow",,,"street 
-scale 1:18 mc:4 pcs","Ferrari 512 Prototype Salone di Torino 1969, white-Ltd ed. 250 pcs ",,,"street scale 
-1:18 mc:4 pcs","HOONIGAN PICK UP 
-(euro ds EU/ASIA 119,85)SEE ITALY-CARMODEL-MAGIC",,,"racing 
-scale 1:12
-MC:2 PCS","TOYOTA CELICA ST 185 - n. 3 - Montecarlo Winner 1993 -Occelli/Auriol, ",,,"racing 
-scale 1:12
-MC:2 PCS","TOYOTA CELICA ST 185 - n. 3 - Montecarlo Winner 1993 - Occelli/Auriol, DIRTY VERSION",,,,,,
+﻿refcode;scale;description;category;brand;ctns;price_eu
+GP 002C;1:18;312 T4 Montecarlo 1979 Villeneue;Rac;Gp;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+GP 002D;1:18;312 T4 Montecarlo 1979 Scheckter;Rac;Gp;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+GP 002E;1:18;312 T4 Villeneuve ;Rac;Gp;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+GP 002F;1:18;312 T4 Scheckter ;Rac;Gp;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+GP 005A;1:18;McLaren Lauda W.C.;Rac;Gp;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+GP 005B;1:18;McLaren Prost;Rac;Gp;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+GP 006A;1:18;Ferrari 330 p4 n.24 2nd Daytona '67;Rac;Gp;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+GP 006B;1:18;Ferrari 330 p4 n.3 W. 1000km Monza;Rac;Gp;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+GP 006C;1:18;Ferrari 330 p4W red;Rac;Gp;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+GP 006D;1:18;Ferrari 330 p4 n.3 LeMans ;Rac;Gp;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+GP 007A;1:18;Lotus type 78, 1977 - N. 5 - Mario Andretti;Rac;Gp;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+GP 007B;1:18;Lotus type 78, 1977 - Ronnie Peterson;Rac;Gp;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+GP 008A;1:18;F1 87/88C Gerhard Berger;Rac;Gp;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+GP 008B;1:18;F1 87/88C Michele Alboreto;Rac;Gp;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+GP 013A;1:18;Lotus 72C Jochen Rindt W.Ch;Racing;Gp;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+GP 013B;1:18;Lotus 72C Johan Miles ;Racing;Gp;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+GP 014A;1:18;Formula Niki Lauda World Chapion ;Racing;Gp;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+GP 014B;1:18;FormulaCarlos Reutemann ;Racing;Gp;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+GP 014C;1:18;Formula Cilles Villeneuve ;Racing;Gp;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+GP 014D;1:18;Formula Niki Lauda ;Racing;Gp;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+GP 15B;1:18;W196 wheel Belgin Grand Prix W;Racing;Gp;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+GP 017A;1:18;Formula Nigel Mansel ;Racing;Gp;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+GP 017B;1:18;Formula Gerhard Berger;Racing;Gp;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+GP 019A;1:18;Ferrari 126 C2 1982;Racing;Gp;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+GP 019B;1:18;Ferrari 126 C2 1982;Racing;Gp;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+GP 020A;1:18;F92A Jean Alesi ;Racing;Gp;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+GP 020B;1:18;F92A Ivan Capelli ;Racing;Gp;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+GP12 01A;1:12;312 T4 Jody Scheckter;Racing;Gp;2;184,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+GP12 01B;1:12;Ferrari 312T4 n.12  Villeneuve;Racing;Gp;2;184,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+GP12 01C;1:12;Ferrari 312T4 n.12  Jody Shecter;Racing;Gp;2;184,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+GP12 01D;1:12;Ferrari 312T4 n.12  Villeneuve Short Tail ;Racing;Gp;2;184,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+GP12 04A;1:12;Model  mp4/2 1984 - Nicky Lauda W.C. -;Racing;Gp;2;184,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+GP12 04B;1:12;Model mp4/2 1984 - A.Prost-2nd place W.C.;Racing;Gp;2;184,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+GP12 05A;1:12;Model  mp4/2 1984 - Nicky Lauda W.C. -;Racing;Gp;2;184,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+GP12 05B;1:12;Model mp4/2 1984 - A.Prost-2nd place W.C.  ;Racing;Gp;2;184,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+GP12 07A;1:12;Merceded W196 Streamliner-n. 18  - red;Racing;Gp;2;184,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+GP12 07B;1:12;Merceded W196 Streamliner-n. 18 - green;Racing;Gp;2;184,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+GP12 07C;1:12;Merceded W196 Streamliner-n. 18 - purple;Racing;Gp;2;184,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+GP12 08A;1:12;Ferrari Testa Rossa 250 red ;Street;Gp;2;169,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+GP12 08B;1:12;Ferrari Testa Rossa 250 white/blue;Racing;Gp;2;184,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+GP12 08C;1:12;Ferrari Testa Rossa 250 back/red;Racing;Gp;2;184,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+GP12 08D;1:12;Ferrari Testa Rossa 250 yellow/black;Racing;Gp;2;184,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+GP12 08E;1:12;Ferrari Testa Rossa 250 silver/red;Racing;Gp;2;184,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+GP12 09A;1:12;330 P4 Monza w.67 N.3;Racing;Gp;2;184,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+GP12 09B;1:12;330 2nd Place Daytona 67 N.24;Racing;Gp;2;184,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+GP12 10A;1:12;126 C2 1982, Gilles Villeneuve;Racing;Gp;2;184,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+GP12 10B;1:12;126 C2 1982, Didier Pironi;Racing;Gp;2;184,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+GP12 10C;1:12;126 C2 1980, Patrick Tambay;Racing;Gp;2;184,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+GP12 10E;1:12;126 C2 1982, Gilles Villeneuve long beach twin;Racing;Gp;2;184,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+GP12 10F;1:12;126 C2 1982, Didier Pironi long beach twin;Racing;Gp;2;184,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+GP12 11A;1:12;312 T4 1975 Niky Lauda ;Racing;Gp;2;184,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+GP12 11B;1:12;312 T4 197 Clary Regazzoni ;Racing;Gp;2;184,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 001A;1:18;Range Rover 1986 Series 1 green;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 001B;1:18;Range Rover 1986 Series - silver;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 001C;1:18;Range Rover - blue;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 002A;1:18;Triumph TR6 - green;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 002B;1:18;Triumph TR6 - blue;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 004A;1:18;Mercedes ML63 AMG black ;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 004B;1:18;Mercedes ML63 AMG silver;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 004C;1:18;Mercedes ML63 AMG white;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 008A;1:18;TVR Sgaris 2005, green;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 008B;1:18;TVR Sgaris 2005, yellow pearl;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 008C;1:18;TVR Sgaris 2005, gray;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 014A;1:18;Toyota Supra MKIV 1993 red;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 015A;1:18;Toyota Supra MKIV 1993 red;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 015S;1:18;Toyota Supra MKIV 1993 blu;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 016A;1:18;Dodge Viper GTS met. blu;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 016B;1:18;Dodge Viper GTS met. red;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 016C;1:18;Dodge Viper GTS met.silver;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 018A;1:18;Nissan 300 ZX '92 cherry red;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 018B;1:18;Nissan 300 ZX '92 yellow;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 018C;1:18;Nissan 300 ZX '92 black;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 018D;1:18;Nissan 300 ZX '92 white ;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 018E;1:18;Nissan 300 ZX 1992 - red;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 018F;1:18;Nissan 300 ZX 1992 - grey;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 019A;1:18;Mitsubishi 3000 gto 199 red;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 019B;1:18;Mitsubishi 3000 GTO 1992 black;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 019C;1:18;Mitsubishi 3000 GTO 1992 white;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 019D;1:18;Mitsubishi 3000 GTO 1992-blue;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 020A;1:18;BMW 323 Alpina, 1983 gray;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 020B;1:18;BMW 323 Alpina, 1983 white;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 020C;1:18;BMW 323 Alpina, 1983 red;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 020D;1:18;BMW 323 Alpina, 1983 green;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 020E;1:18;BMW 323 Alpina, 1983 dark gray;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 022A;1:18;Porsche 928 S4 blue;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 022B;1:18;Porsche 928 S4 black;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 022C;1:18;Porsche 928 Club Sport 1988 white;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 022D;1:18;Porsche 928 Club Sport 1988 red;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 022DC;1:18;Porsche 928 S4 red;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 023A;1:18;Porsche 944 turbo S red;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 023B;1:18;Porsche 944 turbo  S silver;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 023C;1:18;Porsche 944 turbo S black;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 023DC;1:18;Porsche 944 - white special color ;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 023E;1:18;Porsche 944 turbo  S metal red - black interior;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 023F;1:18;Porsche 944 turbo  S  metal blue - black interior;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 024A;1:18;Aston Martin lagonda '74 red;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 024B;1:18;Aston Martin lagonda '74 silver;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 024C;1:18;Aston Martin lagonda '74 blue;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 024D;1:18;Aston Martin lagonda '74 greay;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 025A;1:18;Jaguar XJ6 green;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 025B;1:18;Jaguar XJ6 blue;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 025C;1:18;Jaguar XJ6 bordeaux;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 025D;1:18;Jaguar XJ6 silver;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 025E;1:18;Jaguar XJ6 black;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 025F;1:18;Jaguar XJ6 blue;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 025G;1:18;Jaguar XJ6 white ;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 025H;1:18;Jaguar XJ6 bronze ;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 025I;1:18;Jaguar XJ6 green;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 028A;1:18;Tesla model S,2012 blue;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 028B;1:18;Tesla model S,2012 white;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 028C;1:18;Tesla model S,2012 grey;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 028D;1:18;Tesla model S facelift red ;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 028E;1:18;Tesla model S facelift blue;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 028F;1:18;Tesla model S facelift grey;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 028G;1:18;Tesla model S facelift white ;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 028H;1:18;Tesla model S facelift blck;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 028J;1:18;Tesla model S facelift white ;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 029A;1:18;BMW Alpina B7 white ;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 029B;1:18;BMW Alpina B7 green;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 029C;1:18;BMW Alpina B7black;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 029D;1:18;BMW Alpina B7 blue;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 030A;1:18;Tesla model X blu;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 030B;1:18;Tesla model X red;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 030C;1:18;Tesla model X dark ;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 030D;1:18;Tesla model X white;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 030E;1:18;Tesla model X black;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 030F;1:18;Tesla model X blue ;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 031A;1:18;Toyota Celica ST205 black ;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 031B;1:18;Toyota Celica ST205 red;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 031C;1:18;Toyota Celica ST205 yellow;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 031D;1:18;Toyota Celica ST205 ;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 032A;1:18;Toyota Celica Supra MK2, black ;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 032B;1:18;Toyota Celica Supra MK2,red;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 032C;1:18;Toyota Celica Supra MK2, blue;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 032D;1:18;Toyota Celica Supra MK2,white;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 032E;1:18;waiting;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 032F;1:18;waiting;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 032G;1:18;Toyota Celica Supra MK2,brown;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 033A;1:18;Mitsubishi Starior  red;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 033B;1:18;Mitsubishi Starior blue  ;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 033C;1:18;Mitsubishi Starior  black ;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 033D;1:18;Mitsubishi Starior  white;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 033E;1:18;Mitsubishi Starior  red;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 033F;1:18;Mitsubishi Starior  gray;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 033G;1:18;Mitsubishi Starior  yellow;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 034A;1:18;Lancia Delta Integrale Evolution II - yellow;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 034B;1:18;Lancia Delta Integrale Evolution II -white;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 034C;1:18;Lancia Delta Integrale Evolution II - cherry;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 034D;1:18;Lancia Delta Integrale Evolution II -blue;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 034E;1:18;Lancia Delta Integrale Evolution II - black;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 034F;1:18;Lancia Delta Integrale Evolution II - red;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 034H;1:18;Lancia Delta Integrale Evolution II - white ;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 034I;1:18;Lancia Delta Integrale Evolution II - red;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 034J;1:18;Lancia Delta Integrale Evolution II - black;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 036A;1:18;AMG Mercedes, red;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 036B;1:18;AMG Mercedes , green;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 036C;1:18;AMG Mercedes yellow ;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 036D;1:18;AMG Mercedes black;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 036E;1:18;AMG Mercedes silver;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 037A;1:18;Jeep Grand Wagoneer blue;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 037B;1:18;Jeep Grand Wagoneer orenge;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 037C;1:18;Jeep Grand Wagoneer white;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 037D;1:18;Jeep Grand Wagoneer yellow;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 037E;1:18;Jeep Grand Wagoneer black;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 038A;1:18;Honda Prelude red;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 038B;1:18;Honda Prelude purple ;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 038C;1:18;Honda Prelude blue ;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 038D;1:18;Honda Prelude grey ;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 038E;1:18;Honda Prelude white;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 039A;1:18;ZL1 1LE Camaro Hennessey Exorcist - white ;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 039B;1:18;ZL1 1LE Camaro Hennessey Exorcist - red;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 040A;1:18;Nisan Fairlady Z300ZX Turbo red;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 040B;1:18;Nisan Fairlady Z300ZX Turbo silver;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 040C;1:18;Nisan Fairlady Z300ZX Turbo black;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 041A;1:18;Toyota Soarer Lexus SC300;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 042A;1:18;Mazda RX7 red;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 042B;1:18;Mazda RX7 yellow;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 042C;1:18;Mazda RX7 black;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 043A;1:18;Mazda RX7 red 1989;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 043B;1:18;Mazda RX7 1989;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 043C;1:18;Mazda RX7 1989;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 044A;1:18;BMW Alpina B10 black ;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 044B;1:18;BMW Alpina B10 green;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+LS 044C;1:18;BMW Alpina B10 red;Street;Ls;4;74,25;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TM8 01A;1:8;Lancia Delta Integrale Evolution, Cherry ;Street;ToP;1;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TM12 01A;1:12;Lancia Delta Integrale Evolution II - yellow;Street;ToP;2;169,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TM12 01B;1:12;Lancia Delta Integrale Evolution II - Martini;Street;ToP;2;169,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TM12 01C;1:12;Lancia Delta Integrale Evolution II - red;Street;ToP;2;169,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TM12 01D;1:12;Lancia Delta Integrale Evolution II - blue Lagos;Street;ToP;2;169,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TM12 01E;1:12;Lancia Delta Integrale Evolution II Jolly Club- Dark Blu;Street;ToP;2;169,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TM12 01F;1:12;Lancia Delta Integrale Evolution , Red;Street;ToP;2;169,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TM12 01G;1:12;Lancia Delta Integrale Bianca , Red;Street;ToP;2;169,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TM12 01H;1:12;Lancia Delta Integrale Bianca ,white;Street;ToP;2;169,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TM12 01I;1:12;Lancia Delta Integrale  Bianca , black;Street;ToP;2;169,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TM12 01K;1:12;Lancia Delta Integrale  Bianca , green;Street;ToP;2;169,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TM12 02A;1:12;Dino 246 GT '72 red;Street;ToP;2;169,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TM12 02B;1:12;Dino 246 GT '72 yellow;Street;ToP;2;169,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TM12 02C;1:12;Dino 246 GT '72 dark blue;Street;ToP;2;169,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TM12 02D;1:12;Dino 246 GT '72 yellow - light ;Street;ToP;2;169,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TM12 02E;1:12;Dino 246 GT '72 dark blue;Street;ToP;2;169,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TM12 02F;1:12;Dino 246 GT '72 black;Street;ToP;2;169,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TM12 02G;1:12;Dino 246 GT '72 red;Street;ToP;2;169,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TM12 02H;1:12;Dino 246 GT '72 green ;Street;ToP;2;169,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TM12 02I;1:12;Dino 246 GT '72orange;Street;ToP;2;169,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TM12 02J;1:12;Dino 246 GT '72 red;Street;ToP;2;169,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TM12 02K;1:12;Dino 246 GT '72 race;Racing;ToP;2;184,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TM12 03A;1:12;Tosla S 2012 white;Street;ToP;2;169,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TM12 03B;1:12;Tosla S 2012 red;Street;ToP;2;169,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TM12 03C;1:12;Tosla S 2012 blue;Street;ToP;2;169,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TM12 04A;1:12;Ferarri 275 red;Street;ToP;2;169,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TM12 04B;1:12;Ferarri 275 yellow;Street;ToP;2;169,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TM12 04C;1:12;Ferarri 275 blue;Street;ToP;2;169,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TM12 04D;1:12;Ferarri 275 GTB/4 NART Spyder 1967, red;Street;ToP;2;169,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TM12 04E;1:12;Ferarri 275 GTB/4 NART Spyder 1967, green ;Street;ToP;2;169,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TM12 04F;1:12;Ferarri 275 GTB/4 NART Spyder 1967, yellow;Street;ToP;2;169,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TM12 04G;1:12;Ferarri 275 GTB/4 NART Spyder 1967, silver ;Street;ToP;2;169,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TM12 04H;1:12;Ferarri 275 GTB/4 NART Spyder red ;Street;ToP;2;169,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TM12 04K;1:12;Ferarri 275 GTB/4 Alloy wheels red;Street;ToP;2;169,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TM12 04L;1:12;Ferarri 275 GTB/4 Alloy wheels silver;Street;ToP;2;169,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TM12 04M;1:12;Ferarri 275 GTB/4 Alloy wheels black;Street;ToP;2;169,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TM12 09A;1:12;Ferarri 512 Bbi red;Street;ToP;2;169,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TM12 09B;1:12;Ferarri 512 Bbi yellow;Street;ToP;2;169,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TM12 09C;1:12;Ferarri 512 Bbi silver;Street;ToP;2;169,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TM12 10A;1:12;Audi RS2 ;Street;ToP;2;169,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TM12 12A;1:12;250 Lusso red;Street;ToP;2;169,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TM12 12C;1:12;250 Lusso blue;Street;ToP;2;169,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TM12 12D;1:12;250 Lusso cherry ;Street;ToP;2;169,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TM12 12E;1:12;250 Lusso grey;Street;ToP;2;169,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TM12 13A;1:12;Prorche 911 ;Street;ToP;2;169,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TM12 14A;1:12;Mercedes CLK silver ;Street;ToP;2;169,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TM12 14B;1:12;Mercedes CLK black ;Street;ToP;2;169,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TM12 17A;1:12;Ferrari F40 red;Street;ToP;2;169,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TM12 17E;1:12;Ferrari F40 blue ;Street;ToP;2;169,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TM12 18A;1:12;Prosche 993 Carrera yellow ;Street;ToP;2;169,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TM12 18B;1:12;Prosche 993 Carrera silver ;Street;ToP;2;169,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TMPD 01A;1:18;Range Rover W. Paris dacar 1986;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TMPD 01AD;1:18;Range Rover W. Paris dacar 1986 d.v.;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TMPD 03A;1:18;Peugeot 405 GT  w.1990 ;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TMPD 03AD;1:18;Peugeot 405 GT w.1990 d.v.;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TMPD 03B;1:18;Peugeot 405 GT  2nd number 204;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TMPD 03C;1:18;Peugeot 405 GT  w.1989 blue;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TMPD 03CD;1:18;Peugeot 405 GT  w.1989 blue dirty;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TMPD 03D;1:18;Peugeot 405 GT  2nd place 1990;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TMPD 03DD;1:18;Peugeot 405 GT  w.1989 blue dirty with lights;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TMPD 04B;1:18;Renault RW 20 Paris Dakar winner 82;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TMR12 01A;1:12;Lancia Delta MC w 1992;Racing;ToP;2;184,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TMR12 01AD;1:12;Lancia Delta MC w 1992 d.v.;Racing;ToP;2;184,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TMR12 01C;1:12;Lancia Delta Tour de Course win 92;Racing;ToP;2;184,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TMR12 01CD;1:12;Lancia Delta Tour de Course win 92;Racing;ToP;2;184,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TMR12 02A;1:12;Subaru Impreza S4 WRC 1998 racing;Racing;ToP;2;184,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TMR12 02AD;1:12;Subaru Impreza S4 WRC 1998 dirty;Racing;ToP;2;184,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TMR12 02AW;1:12;Subaru Impreza S4 WRC 1998 blue;Racing;ToP;2;184,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TMR12 02B;1:12;Subaru 98 Tour De Corse Winner Mc Rae Grist;Racing;ToP;2;184,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TMR12 02BAW;1:12;Subaru ready to Race ;Street;ToP;2;169,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TMR12 02BD;1:12;Subaru Impreza S4 WRC 98 Tour De corse dirty ;Racing;ToP;2;184,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TMR12 03A;1:12;Ford Mustang  '65 Hoonigan ;Racing;ToP;2;184,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TMR12 03B;1:12;Ford Mustang  '65 Hoonigan with stars;Racing;ToP;2;184,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TMR12 03C;1:12;Ford Mustang  '65 Hoonigan black edition;Street;ToP;2;184,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TMR12 04A;1:12;Lancia Delta S4 86 Montecarlo W ;Racing;ToP;2;184,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TMR12 04AD;1:12;Lancia Delta S4 86 Montecarlo W dirty ;Racing;ToP;2;184,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TMR12 04B;1:12;Lancia Delta S4 86 Montecarlo W dirty ;Racing;ToP;2;184,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TMR12 04BD;1:12;Lancia Delta S4 86 San Remo  W dirty ;Racing;ToP;2;184,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TMR12 04C;1:12;Lancia Delta S4 86 Esso;Racing;ToP;2;184,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TMR12 04CD;1:12;Lancia Delta S4 86 Esso  dirty ;Racing;ToP;2;184,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TMR12 04D;1:12;Lancia Delta S4 86 San Remo  W ;Racing;ToP;2;184,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TMR12 04E;1:12;Lancia Delta S4 Tour de Cose 86;Racing;ToP;2;184,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TMR12 05A;1:12;250 GT SWB red;Street;ToP;2;184,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TMR12 05B;1:12;250 GT SWB yellow;Street;ToP;2;184,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TMR12 05C;1:12;250 GT SWB silver;Street;ToP;2;184,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TMR12 05D;1:12;250 GT SWB black;Street;ToP;2;184,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TMR12 05E;1:12;250 GT SWB silver Chassis black;Racing;ToP;2;184,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TMR12 05G;1:12;250 GT SWB silver number;Racing;ToP;2;184,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TMR12 06A;1:12;Lancia Delta 4WD 87 winner ;Racing;ToP;2;184,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TMR12 14A;1:12;Toyota Celica St 185 MC w 93;Racing;ToP;2;184,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TMR12 14AD;1:12;Toyota Celica St 185 MC w 93 dirty;Racing;ToP;2;184,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TMR12 16A;1:12;Subaru Impreza S7 555;Racing;ToP;2;184,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TMR12 18A;1:12;Lancia Delta 16V integrale ;Racing;ToP;2;184,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 021A;1:18;Lancia Beta Montecarlo Le Mans 65;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 021B;1:18;Lancia Beta Montecarlo Le Mans 66;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 021C;1:18;Lancia Beta Montecarlo Le Mans 67;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 022A;1:18;Lancia Beta Montecarlo Turbo Fruit;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 023A;1:18;Maserati Quattroporte III - black;Street;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 023BS;1:18;Maserati Quattroporte III - brown;Street;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 023P;1:18;Maserati Quattroporte III - presidenziale;Street;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 024A;1:18;Lancia 4WD MC 1987;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 024AD;1:18;Lancia 4WD MC 1987 dirty;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 024B;1:18;Lancia 4WD MRAC rally w 1987;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 024C;1:18;Lancia 4WD MC 1988;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 024D;1:18;Lancia 4WD MC 1988 dirty ;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 024E;1:18;Lancia 4WD  San Remo 1987 ;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 024F;1:18;Lancia 4WD Esso 1987;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 025A;1:18;Maserati Bora - red;Street;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 025B;1:18;Maserati Bora - blue;Street;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 029A;1:18;Audi Pikes Peak W Bon Unser ;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 030AS;1:18;Lykan Hypersport red;Street;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 030C;1:18;Lykan Hypersport black;Street;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 030D;1:18;Lykan Hypersport blue;Street;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 030E;1:18;Lykan Hypersport cheries ;Street;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 032;1:18;Alfa Romeo 75 Turvo Evo ;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 033A;1:18;Maserati Khamsin red;Street;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 033B;1:18;Maserati Khamsin yellow;Street;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 033C;1:18;Maserati Khamsin silver;Street;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 034A;1:18;Toyota W. Mcarlo'93 Castrol raice;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 034AD;1:18;Toyota W. Mcarlo'93 Castrol dirty;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 034AW;1:18;Toyota Celica St 185 Test car white;Street;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 034B;1:18;Toyota Celica 1992  white;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 034BN;1:18;Toyota Celica W. rac'92 repsol night version;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 034C;1:18;Toyota Celica W.rac'94 Castrol ;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 034CD;1:18;Toyota Celica W. Sanremo dirty ;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 034D;1:18;Toyota Celica 1000 lakes rally'93;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 034E;1:18;Toyota Celica w tour de Corse'94;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 034F;1:18;Toyota Celica w. Safari'92;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 034G;1:18;Toyota Celica 4WD Rally Catalunia'92;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 034H;1:18;Toyota Celica 4WD Rally Safari'93;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 034HD;1:18;Toyota Celica w. Safari 1993  castrol dirty;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 036A;1:18;Huracan 2016 World Finals ;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 036B;1:18;Huracan 2015 Presentation;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 037A;1:18;Subaru Impreza S7 555WRT;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 037AB;1:18;SubaruImpreza S7 w/out decals;Street;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 037AD;1:18;Subaru Impreza S7 555 dirty ;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 037B;1:18;Subaru Impreza N. 5 w. New Zealand 2001;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 037BD;1:18;Subaru Impreza N. 5 w. New Zealand 2001 dirty;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 037C;1:18;Subaru Impreza N. 5 handlamps;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 037CD;1:18;Subaru Impreza N. 5 handlamps d.v.;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 039A;1:18;Jaguar 220 green ;Street;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 039B;1:18;Jaguar 220 dark met. Blue;Street;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 039C;1:18;Jaguar 220 silver ;Street;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 039D;1:18;Jaguar 220 black ;Street;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 039E;1:18;Jaguar 220 dark red ;Street;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 039F;1:18;Jaguar 220 dark purple;Street;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 039G;1:18;Jaguar 220 Dow Law edition;Street;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 040A;1:18;Subaru M.Carlo '98 2p;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 040AD;1:18;Subaru M.Carlo '98 2p d.v.;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 040AW;1:18;Subaru M.Carlo '98 2p ready to race ;Street;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 040B;1:18;Subaru Impreza S4 WRC Tour de Corse 1998 ;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 040BD;1:18;Subaru Impreza S4 WRC Tour de Corse 1998 d.v.;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 040C;1:18;Subaru Impreza S4 WRC 2nd San Remo 98;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 040CD;1:18;Subaru Impreza S4 WRC San Remo dirty;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 040D;1:18;Subaru Impreza S4 Portogal w 98;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 040DD;1:18;Subaru Impreza S4 WRC Portugal dirty;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 042A;1:18;Dodge Viper GTS-R Oreca Le Mansa W.99;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 042AD;1:18;Dodge Viper GTS-R Oreca W.99;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 042B;1:18;Dodge Viper GTS-R Oreca Daytona w.2000;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 042BD;1:18;Dodge Viper GTS-R Dirty;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 043A;1:18;Fiat 131 Abarth San Remo w;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 043A1W ;1:18;Fiat 131 Abarth Winn,S.Remo d.v.;Street;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 043A1Y ;1:18;Fiat 131 Abarth white;Street;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 043AD;1:18;Fiat 131 Abarth yellow;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 043B;1:18;Fiat 131 Abarth M. Carlo;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 043BD;1:18;Fiat 131 Abarth M. Carlo d.v.;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 043C;1:18;Fiat 131 Abarth W.Mcarlo;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 043CD;1:18;Fiat 131 Abarth W.Mcarlo d.v.;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 043D;1:18;Fiat 131 Abarth W.Sanremo 1980;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 043DD;1:18;Fiat 131 Abarth W.Sanremo 1980 d.v.;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 043E;1:18;Fiat 131 Abarth W.1000 Lakes ;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 043ED;1:18;Fiat 131 Abarth W.1000 Lakes d.v.;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 043HD;1:18;waiting;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 044A;1:18;Toyota St. 165 n.2 W. M.Carlo '91;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 044AD;1:18;Toyota St. 165 n.2 W. M.Carlo '91 d.v.;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 044AW;1:18;Toyota St. 165 white col. w/out;Street;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 044B;1:18;Toyota St. 165 Safari'90;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 044BD;1:18;Toyota St. 165 Safari'90 dirty;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 046A;1:18;Mosler MT900 orange;Street;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 046B;1:18;Mosler MT900 silver;Street;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 046C;1:18;Mosler MT900 yellow;Street;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 047A;1:18;Apollo Arrow 2016 orange;Street;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 047B;1:18;Apollo Arrow, blue ;Street;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 047C;1:18;Apollo Arrow,white;Street;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 047D;1:18;Apollo Arrow, green;Street;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 048A;1:18;Ford Mustang  '65 Hoonigan;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 048B;1:18;Ford Mustang  '65 Hoonigan with stars;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 048C;1:18;Ford Mustang  '65 Hoonigan black;Street;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 051A;1:18;Morgan Aero Sport red;Street;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 051B;1:18;Morgan Aero Sport purple ;Street;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 051C;1:18;Morgan Aero Sport gray;Street;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 052A;1:18;Nobe M600 blue ;Street;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 052B;1:18;Nobe M600 red;Street;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 052C;1:18;Nobe M600 orange;Street;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 053A;1:18;Saleen S7 Twin Turbo red;Street;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 053B;1:18;Saleen S7 Twin Turbo orenge;Street;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 053C;1:18;Saleen S7 Twin Turbo blue;Street;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 053D;1:18;Saleen S7 Twin Turbo yellow;Street;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 053E;1:18;Saleen S7 Twin Turbo silver;Street;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 055A;1:18;Lotus Elise Gt1 black;Street;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 055B;1:18;Lotus Elise Gt1 thai racing ;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 055C;1:18;Lotus Elise Gt1 yellow green racing ;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 056A;1:18;Toyota Castrol Toms GT/4;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 056B;1:18;Toyota Castr Black edidion;Street;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 064A;1:18;Gemballa MIG, yellow;Street;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 064B;1:18;Gemballa MIG, blue;Street;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 064C;1:18;Gemballa MIG, black;Street;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 064D;1:18;Gemballa MIG, red;Street;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 066A;1:18;Lancia Dleta Mc W 92;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 066AD;1:18;Lancia Dleta Mc W 92 dirty ;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 066C;1:18;Lancia Dlet Astra WRC Portugal 93;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 066H;1:18;Lancia Dleta Integrale Tour de Corse ;Racing;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 067A;1:18;Lancia Statos Zero conept red;Street;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 067B;1:18;Lancia Statos Zero conept silver;Street;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 068A;1:18;Ferrari F40 LM Barchetta yellow ;Street;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 068B;1:18;Ferrari F40 LM Barchetta red;Street;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 083A;1:18;Pinifarna Modulo 1970 Genova white;Street;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 083B;1:18;Pinifarna Modulo 1970 Genova black;Street;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 085A;1:18;Ferrari 512S yellow ;Street;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 086A;1:18;Honigan Supra Mech red;Street;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 086B;1:18;Honigan Supra Mech light red ;Street;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 086C;1:18;Honigan Supra Mech grey;Street;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 088A;1:18;Dino 246 red;Street;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 088B;1:18;Dino 246 yellow;Street;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 088C;1:18;Dino 246 black;Street;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 089A;1:18;Ferri 275 gtb/4 red;Street;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 089B;1:18;Ferri 275 gtb/4 yellow ;Street;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 089C;1:18;Ferri 275 gtb/4 blue ;Street;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 090A;1:18;Ford F150 Hoonitruck;Racing;ToP;4;119,85;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 094A;1:18;Ferrari P06 blue ;Street;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 094B;1:18;Ferrari P06 silver;Street;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 094C;1:18;Ferrari P06 white ;Street;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 095A;1:18;Lamborghini 350GT- sivler ;Street;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP 095B;1:18;Lamborghini 350GT - red;Street;ToP;4;115,50;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP SET 001;1:12;Ford Mustang  '65 Hoonigan SET;Racing;ToP;1;154,90;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP SET 002;1:12;Toytoa MC SET;Racing;ToP;1;154,90;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+TOP SET 003;1:12; MC SET Paris Dakar;Racing;ToP;1;154,90;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

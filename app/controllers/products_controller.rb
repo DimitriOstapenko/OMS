@@ -61,16 +61,16 @@ class ProductsController < ApplicationController
 
 private
   def product_params
-    params.require(:product).permit( :name, :ref_code, :brand, :category, :description, :scale, :ctns, :release_date, 
-                                     :price_eu, :price_eu2, :price_usd, :added, :supplier, :manager, :progress ) 
+    params.require(:product).permit( :ref_code, :description, :brand, :category, :scale, :ctns, :release_date, :added_date,
+                                     :price_eu, :price_eu2, :price_usd, :supplier, :manager, :progress, :notes ) 
   end
 
-  # Find product by name or scale, depending on input format
+  # Find product by code, description or scale, depending on input format
   def myfind (str)
-	  if str.match(/^[[:digit:]]{,6}$/)
+	if str.match(/^[[:digit:]]{,6}$/)
           Product.where("scale::text like ?", "%#{str}%")
         elsif str.match(/^[[:graph:]]+$/)
-	  Product.where("lower(name) like ?", "%#{str.downcase}%")
+	  Product.where("lower(description) like ?", "%#{str.downcase}%")
         else
           []
         end

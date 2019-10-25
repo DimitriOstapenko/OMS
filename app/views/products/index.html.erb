@@ -1,18 +1,18 @@
 <table class="tbl2 table-hover table-striped table-bordered" >
   <thead>
       <tr>
-          <th class="tbl_lg">Name</th>
           <th class="tbl_sm, text-center">Ref.Code</th>
-	  <th class="tbl_md, text-center">Brand</th>
-	  <th class="tbl_md, text-center">Category</th>
 	  <th class="tbl_md, text-center">Scale</th>
-	  <th class="tbl_md, text-center">Added</th>
-          <th class="tbl_md, text-center">Released</th>
-          <th class="tbl_md, text-center">Supplier</th>
+          <th class="tbl_lg">Description</th>
+	  <th class="tbl_md, text-center">Category</th>
+	  <th class="tbl_md, text-center">Brand</th>
+	  <th class="tbl_md, text-center">PcsxCartons</th>
+	  <th class="tbl_md, text-center">Added </th>
+          <th class="tbl_md, text-center">Release Date </th>
+          <th class="tbl_md, text-center">Supplier *</th>
+          <th class="tbl_md, text-center">Manager *</th>
           <th class="tbl_sm, text-center">Price EU</th>
-          <th class="tbl_sm, text-center">Price EU2</th>
-          <th class="tbl_sm, text-center">Price World</th>
-          <th class="tbl_sm, text-center">Progress (%)</th>
+          <th class="tbl_sm, text-center">Progress (%)*</th>
           <% if product_editable? %>
           <th>&nbsp;</th>
           <th>&nbsp;</th>
@@ -26,6 +26,7 @@
   </tbody>
 </table>
 
+* Will only appear for staff & admin users
 
 <div class="row">
 <div class="bottom_buttons ">
