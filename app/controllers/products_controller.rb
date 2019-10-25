@@ -1,7 +1,8 @@
 class ProductsController < ApplicationController
   
   before_action :logged_in_user
-  before_action :admin_or_staff_user, only: [:edit, :update, :destroy]
+  before_action :admin_or_staff_user, only: [:edit, :update]
+  before_action :admin_user, only: [:destroy]
 
   def new
     @product = Product.new
@@ -67,9 +68,11 @@ private
 
   # Find product by code, description or scale, depending on input format
   def myfind (str)
-	if str.match(/^[[:digit:]]{,6}$/)
+	if str.match(/^[[:digit:]]{,6}$/)                                 # Scale 
           Product.where("scale::text like ?", "%#{str}%")
-        elsif str.match(/^[[:graph:]]+$/)
+        elsif str.match(/^[A-Z]+/)                                        # Ref. Code
+	  Product.where("ref_code like ?", "%#{str.upcase}%")
+        elsif str.match(/^[[:graph:]]+$/)                                 # Description
 	  Product.where("lower(description) like ?", "%#{str.downcase}%")
         else
           []

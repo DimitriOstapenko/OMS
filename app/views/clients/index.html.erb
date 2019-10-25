@@ -12,8 +12,14 @@
           <th class="tbl_sm">email</th>
           <th class="tbl_sm">Phone</th>
           <th class="tbl_sm">Website</th>
-          <th>&nbsp;</th>
-          <th>&nbsp;</th>
+
+          <% if current_user.staff? || current_user.admin? %>`
+            <th>&nbsp;</th>
+          <% end %>
+
+          <% if current_user.admin? %>
+            <th>&nbsp;</th>
+          <% end %>
       </tr>
   </thead>
   <tbody>

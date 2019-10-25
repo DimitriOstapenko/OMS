@@ -11,8 +11,12 @@
         <td><%= product.manager  %></td>
         <td><%= product.price_eu_str %></td>
         <td><%= product.progress %></td>
+
         <% if product_editable? %>
           <td><%= link_to '<i class="glyphicon glyphicon-edit"></i>'.html_safe, edit_product_path(product) %> </td>
+        <% end %>
+     
+        <% if current_user.admin? %>
           <td><%= link_to '<i class="glyphicon glyphicon-remove-sign"></i>'.html_safe, product, method: :delete, data: { confirm: "Are you sure you want to delete #{product.ref_code}?" } %> </td>
         <% end %>
      </tr>

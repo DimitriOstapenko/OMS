@@ -2,12 +2,6 @@
   <%= render 'shared/error_messages', object: f.object %>
 
   <div class="row" %>
-  <div class="col-md-12">
-  <%= f.input :description %>
-  </div>
-  </div>
-
-  <div class="row" %>
   <div class="col-md-4">
   <%= f.input :ref_code, hint: "Unique product code" %>
   </div>
@@ -16,6 +10,12 @@
   </div>
   <div class="col-md-4">
   <%= f.input :category, hint: "Street, racing ..." %>
+  </div>
+  </div>
+
+  <div class="row" %>
+  <div class="col-md-12">
+  <%= f.input :description %>
   </div>
   </div>
 
