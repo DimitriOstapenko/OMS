@@ -15,6 +15,10 @@ class Product < ApplicationRecord
     BRANDS.invert[self.brand] rescue nil
   end
 
+  def supplier_str
+    SUPPLIERS.invert[self.supplier] rescue nil
+  end
+
   def price_eu_str
     number_to_currency(price_eu, locale: :fr)
   end

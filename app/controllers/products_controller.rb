@@ -70,8 +70,9 @@ private
   def myfind (str)
 	if str.match(/^[[:digit:]]{,6}$/)                                 # Scale 
           Product.where("scale::text like ?", "%#{str}%")
-        elsif str.match(/^[A-Z]+/)                                        # Ref. Code
-	  Product.where("ref_code like ?", "%#{str.upcase}%")
+        elsif str.match(/^[A-Z]{2,}/)                                     # Ref. Code || Description
+	  Product.where("ref_code like ?", "%#{str.upcase}%") &&
+	  Product.where("lower(description) like ?", "%#{str.downcase}%")
         elsif str.match(/^[[:graph:]]+$/)                                 # Description
 	  Product.where("lower(description) like ?", "%#{str.downcase}%")
         else

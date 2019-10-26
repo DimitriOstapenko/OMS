@@ -43,13 +43,12 @@
   </div>
   </div>
 
-
   <div class="row" %>
   <div class="col-md-4">
   <%= f.input :manager %>
   </div>
   <div class="col-md-4">
-  <%= f.input :supplier %>
+  <%= f.input :supplier, collection: SUPPLIERS,  include_blank: false %>
   </div>
   <div class="col-md-4">
   <%= f.input :progress, label: '% Complete' %>
