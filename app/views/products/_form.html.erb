@@ -2,14 +2,17 @@
   <%= render 'shared/error_messages', object: f.object %>
 
   <div class="row" %>
-  <div class="col-md-4">
+  <div class="col-md-3">
   <%= f.input :ref_code, hint: "Unique product code" %>
   </div>
-  <div class="col-md-4">
+  <div class="col-md-3">
   <%= f.input :brand, collection: BRANDS, include_blank: false %> 
   </div>
-  <div class="col-md-4">
+  <div class="col-md-3">
   <%= f.input :category, hint: "Street, racing ..." %>
+  </div>
+  <div class="col-md-3">
+  <%= f.input :ctns, label: 'Pcs x Cartons' %>
   </div>
   </div>
 

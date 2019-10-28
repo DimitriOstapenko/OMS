@@ -3,6 +3,10 @@
   <%= render 'layouts/find_form', tool_tip_title: 'Search by Ref.Code, Description or Scale' %>
 <% when 'clients' %>
   <%= render 'layouts/find_form', tool_tip_title: 'Search by name/country' %>
+<% when 'suppliers' %>
+  <%= render 'layouts/find_form', tool_tip_title: 'Search by name' %>
+<% when 'managers' %>
+  <%= render 'layouts/find_form', tool_tip_title: 'Search by name' %>
 <% end %>
 
 

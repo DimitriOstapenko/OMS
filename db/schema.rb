@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_26_081359) do
+ActiveRecord::Schema.define(version: 2019_10_27_201525) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,15 @@ ActiveRecord::Schema.define(version: 2019_10_26_081359) do
     t.string "contact_person"
     t.string "web"
     t.text "notes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "managers", force: :cascade do |t|
+    t.string "lname"
+    t.string "fname"
+    t.string "phone"
+    t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -67,6 +76,16 @@ ActiveRecord::Schema.define(version: 2019_10_26_081359) do
     t.string "manager"
     t.integer "progress"
     t.index ["ref_code"], name: "index_products_on_ref_code"
+  end
+
+  create_table "suppliers", force: :cascade do |t|
+    t.string "company"
+    t.string "lname"
+    t.string "fname"
+    t.string "phone"
+    t.string "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|

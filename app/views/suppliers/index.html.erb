@@ -1,0 +1,25 @@
+<% provide(:title, 'Suppliers') %>
+  
+<table class="tbl table-hover">
+   <thead>
+      <tr>
+          <th>Name</th>
+          <th>Company</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th></th>
+      </tr>
+  </thead>
+  <tbody>
+
+  <%= render @suppliers %>
+
+  </tbody>
+</table>
+
+<% if current_user.admin? %>
+<div class="bottom_buttons ">
+<%= will_paginate @suppliers, class: "btn" %>
+<%= button_to "Add Supplier", new_supplier_path, class: "btn btn-primary col-md-2 ", method: 'get'  %>
+</div>
+<% end %>

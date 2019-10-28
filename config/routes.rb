@@ -5,11 +5,15 @@ Rails.application.routes.draw do
   get '/users/', to: 'users#index'
   get '/products/index(/:id)' => 'products#find', constraints: { query_string: /findstr/ }
   get '/clients/index(/:id)' => 'clients#find', constraints: { query_string: /findstr/ }
+  get '/suppliers/index(/:id)' => 'suppliers#find', constraints: { query_string: /findstr/ }
+  get '/managers/index(/:id)' => 'managers#find', constraints: { query_string: /findstr/ }
 
+  get  '/switch_to/:id', to: 'users#switch_to', as: :switch_user
   get '/clients/index'
   get '/products/index'
+  get '/suppliers/index'
+  get '/managers/index'
   get '/reports', to: 'reports#index'
-  get '/inventories', to: 'inventories#index'
 
   get '/home', to: 'static_pages#home'
   get '/help', to: 'static_pages#help'
@@ -19,5 +23,5 @@ Rails.application.routes.draw do
   get '/terms', to: 'static_pages#terms'
   get '/privacy', to: 'static_pages#privacy'
 
-  resources :products, :clients, :orders, :users, :inventories
+  resources :products, :clients, :orders, :users, :inventories, :suppliers, :managers
 end

@@ -1,0 +1,10 @@
+<tr>
+  <td><%= supplier.full_name %></td>
+  <td><%= supplier.company %></td>
+  <td><%= supplier.phone %></td>
+  <td><%= supplier.email %></td>
+
+  <% if current_user.admin? %>
+       <td><%= link_to '<i class="glyphicon glyphicon-edit"></i>'.html_safe, edit_supplier_path(supplier) %> </td>
+  <% end %>
+ </tr>

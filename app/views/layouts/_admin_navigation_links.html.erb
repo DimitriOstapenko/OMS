@@ -5,16 +5,7 @@
  
   <%= render 'layouts/orders' %>
 
-  <li><%# link_to "Inventory", inventories_path %></li>
   <li><%= link_to "Reports", reports_path %></li>
 
-  <li class="dropdown nav-item">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin<b class="caret"></b> </a>
-  <ul class="dropdown-menu">
-  <li><%= link_to "Users", users_path %></li>
-  <li class="divider"></li>
-  <li><%= link_to "Item 2", root_path %></li>
-  <li><%= link_to "Item 3", root_path %></li>
-  <li><%= link_to "Item 4", root_path %></li>
-  </ul>
-  </li>
+  <%= render 'layouts/admin' %>
+

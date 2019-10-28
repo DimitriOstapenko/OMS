@@ -1,0 +1,9 @@
+<tr>
+  <td><%= manager.full_name %></td>
+  <td><%= manager.phone %></td>
+  <td><%= manager.email %></td>
+
+  <% if current_user.admin? %>
+       <td><%= link_to '<i class="glyphicon glyphicon-edit"></i>'.html_safe, edit_manager_path(manager) %> </td>
+  <% end %>
+ </tr>

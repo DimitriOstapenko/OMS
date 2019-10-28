@@ -1,0 +1,24 @@
+<% provide(:title, 'Managers') %>
+  
+<table class="tbl table-hover">
+   <thead>
+      <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th></th>
+      </tr>
+  </thead>
+  <tbody>
+
+  <%= render @managers %>
+
+  </tbody>
+</table>
+
+<% if current_user.admin? %>
+<div class="bottom_buttons ">
+<%= will_paginate @managers, class: "btn" %>
+<%= button_to "Add Manager", new_manager_path, class: "btn btn-primary col-md-2 ", method: 'get'  %>
+</div>
+<% end %>

@@ -36,6 +36,16 @@ class UsersController < ApplicationController
     redirect_to users_url
   end
 
+  def switch_to
+    if current_user.admin?
+      sign_in(User.find(params[:id]), scope: :user)
+      flash.now[:info] = 'Switched to new user'
+    else
+      flash.now[:danger] = 'Invalid email/password combination'
+    end
+    redirect_to root_url
+  end
+
 
 private
 
