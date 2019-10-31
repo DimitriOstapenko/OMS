@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_27_201525) do
+ActiveRecord::Schema.define(version: 2019_10_30_105707) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,18 +42,21 @@ ActiveRecord::Schema.define(version: 2019_10_27_201525) do
   end
 
   create_table "orders", force: :cascade do |t|
-    t.string "order_no"
-    t.bigint "product_id"
     t.bigint "client_id"
-    t.integer "status"
-    t.string "po_num"
-    t.decimal "price"
-    t.integer "pcs"
-    t.datetime "date"
+    t.decimal "total"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["client_id"], name: "index_orders_on_client_id"
-    t.index ["product_id"], name: "index_orders_on_product_id"
+  end
+
+  create_table "placements", force: :cascade do |t|
+    t.bigint "order_id"
+    t.bigint "product_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "quantity", default: 0
+    t.index ["order_id"], name: "index_placements_on_order_id"
+    t.index ["product_id"], name: "index_placements_on_product_id"
   end
 
   create_table "products", force: :cascade do |t|
@@ -75,6 +78,7 @@ ActiveRecord::Schema.define(version: 2019_10_27_201525) do
     t.integer "supplier"
     t.string "manager"
     t.integer "progress"
+    t.integer "quantity", default: 0
     t.index ["ref_code"], name: "index_products_on_ref_code"
   end
 
@@ -108,10 +112,14 @@ ActiveRecord::Schema.define(version: 2019_10_27_201525) do
     t.integer "role"
     t.string "name"
     t.boolean "active", default: true
+    t.bigint "client_id"
+    t.index ["client_id"], name: "index_users_on_client_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "orders", "clients"
-  add_foreign_key "orders", "products"
+  add_foreign_key "placements", "orders"
+  add_foreign_key "placements", "products"
+  add_foreign_key "users", "clients"
 end

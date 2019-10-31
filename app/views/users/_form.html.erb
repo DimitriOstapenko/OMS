@@ -2,7 +2,6 @@
 
 <div class="col-md-4 col-sm-5 col-md-offset-4 col-sm-offset-4">
 <h3 class='display-1'>Edit User</h3>
-<div class="well">
 
     <%= f.input :name, autofocus: true, autocomplete: "name" %>
     <%= f.input :email, autofocus: true, autocomplete: "email" %>
@@ -11,9 +10,25 @@
     <%# f.input :password_confirmation, autocomplete: "new-password", hint: '6 characters minimum' %>
     <%# f.input :current_password, hint: "<i>(we need your current password to confirm your changes)</i>".html_safe, autocomplete: "current-password" %>
     <%= f.input :role, collection: ROLES,  prompt: 'Select', selected: @user.role %>
+    
+    <div id="client">
+      <%= f.input :client_id, collection: Client.all,  prompt: 'Select',  include_blank: false  %>
+    </div>
 
     <%= f.button :submit, yield(:button_text), class: "btn btn-primary" %>
 
 </div>
-</div>
 <% end %>
+
+<script>
+  $(document).ready(function () {
+    var role = $('select[name="user[role]"]');
+
+   (role.val() =='client') ? $('#client').show() : $('#client').hide();
+   role.change(function () {
+     (role.val() =='client') ? $('#client').show() : $('#client').hide();
+
+  });
+  });
+
+</script>

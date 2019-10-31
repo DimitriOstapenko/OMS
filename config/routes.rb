@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get 'placements/index'
+  get 'placements/show'
   root 'static_pages#home'
   devise_for :users
   get '/users/', to: 'users#index'
@@ -13,6 +15,7 @@ Rails.application.routes.draw do
   get '/products/index'
   get '/suppliers/index'
   get '/managers/index'
+  get '/inventories', to: 'inventories#index'
   get '/reports', to: 'reports#index'
 
   get '/home', to: 'static_pages#home'
@@ -23,5 +26,9 @@ Rails.application.routes.draw do
   get '/terms', to: 'static_pages#terms'
   get '/privacy', to: 'static_pages#privacy'
 
-  resources :products, :clients, :orders, :users, :inventories, :suppliers, :managers
+  resources :products, :clients, :suppliers, :managers, :users
+  resources :orders, only: [:new, :index, :show, :create] do
+    resources :placements, only: [:index, :show, :create]
+  end
+
 end

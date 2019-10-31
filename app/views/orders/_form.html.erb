@@ -1,0 +1,12 @@
+<%= simple_form_for @order do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <%= f.input :products, collection: Product.all, label_method: :description, value_method: :id, include_blank: 'Please select product' %> <%#, input_html: { multiple: true, size: 20 }  %>
+
+  <% unless action_name == 'show' %>
+  <%= f.submit yield(:button_text), class: "btn btn-primary" %>
+  <% end %>
+
+<% end %>
+
+

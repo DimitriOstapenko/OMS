@@ -1,0 +1,25 @@
+<div class="col-md-8 col-md-offset-2">
+<h3 class='display-1'>Order details</h3>
+<div class="well">
+
+<table class="tbl2 table-hover table-striped table-bordered" >
+  <thead>
+      <tr>
+          <th class="tbl_sm, text-center">Product</th>
+          <th class="tbl_sm, text-center">Description</th>
+          <th class="tbl_sm, text-center">Price EU</th>
+          <th class="tbl_md, text-center">Date</th>
+          <th class="tbl_md, text-center">Quantity</th>
+      </tr>
+  </thead>
+  <tbody>
+<%= render @placements, remote: device_is_desktop? %>
+  </tbody>
+</table>
+
+<div class="bottom_nav">
+<%= will_paginate @placements, class: "btn" %>
+</div>
+
+</div>
+</div>

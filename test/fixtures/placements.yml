@@ -1,9 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  client: one
-  total: 9.99
+  order: one
+  product: one
 
 two:
-  client: two
-  total: 9.99
+  order: two
+  product: two

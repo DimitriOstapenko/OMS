@@ -1,7 +1,9 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable, :confirmable,
+  devise :database_authenticatable, 
+    :registerable, 
+    :confirmable,
     :recoverable, :rememberable, :validatable, :trackable, :timeoutable
 
   enum role: ROLES
@@ -9,6 +11,7 @@ class User < ApplicationRecord
   validates :name, presence: true, length: { maximum: 50 }
   validates :email, presence: true, length: { maximum: 50 }
   validates :password, length: {minimum: 6}, allow_blank: true
+  validates :client_id, presence: true, if: Proc.new { |u| u.client? } 
   
   after_initialize :set_default_role, :if => :new_record?
 
@@ -17,7 +20,11 @@ class User < ApplicationRecord
   end
 
   def timeout_in 
-    10.minutes
+    15.minutes
+  end
+
+  def client_name
+    Client.find(self.client_id).name if self.client_id 
   end
 
 end

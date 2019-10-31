@@ -7,6 +7,7 @@
           <th>Email</th>
           <th>Role</th>
           <th>Active?</th>
+          <th>Client</th>
           <th>Created</th>
           <th>Last Login</th>
           <th class='tbl_sm'>Sw.To</th>
@@ -23,6 +24,6 @@
 <% if current_user.admin? %>
 <div class="bottom_buttons ">
 <%= will_paginate @users, class: "btn" %>
-<%= button_to "Add User", new_user_registration_path, class: "btn btn-primary col-md-2 ", method: 'get'  %>
+<%# button_to "Add User", new_user_registration_path, class: "btn btn-primary col-md-2 ", method: 'get'  %>
 </div>
 <% end %>

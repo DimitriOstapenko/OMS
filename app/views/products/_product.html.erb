@@ -7,9 +7,11 @@
 	<td><%= product.ctns %></td> 
 	<td><%= product.added_date_str %></td> 
         <td><%= product.release_date_str %></td>
+        <td><%= product.price_eu_str %></td>
+        <% if current_user.admin? || current_user.staff? %>
         <td><%= product.supplier_str %></td>
         <td><%= product.manager  %></td>
-        <td><%= product.price_eu_str %></td>
+        <% end %>
         <td><%= product.progress %></td>
 
         <% if product_editable? %>

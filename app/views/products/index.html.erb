@@ -9,9 +9,11 @@
 	  <th class="tbl_md, text-center">Pcs x Ctns</th>
 	  <th class="tbl_md, text-center">Added </th>
           <th class="tbl_md, text-center">Release Date </th>
+          <th class="tbl_sm, text-center">Price EU</th>
+          <% if current_user.admin? || current_user.staff? %>
           <th class="tbl_md, text-center">Supplier *</th>
           <th class="tbl_md, text-center">Manager *</th>
-          <th class="tbl_sm, text-center">Price EU</th>
+          <% end %>
           <th class="tbl_sm, text-center">Progress (%)*</th>
           <% if product_editable? %>
           <th>&nbsp;</th>
