@@ -6,8 +6,6 @@ class Product < ApplicationRecord
   has_many :placements
   has_many :orders, through: :placements
 
-#  belongs_to :client  # Does not let admin to edit
-
   default_scope -> { order(ref_code: :asc, release_date: :asc) }
 
   scope :filter_by_title, lambda { |keyword|

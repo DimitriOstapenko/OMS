@@ -12,13 +12,13 @@
     <%= f.input :cltype, collection: CLIENT_TYPES, label: "Type", include_blank: false %>
   </div>
   <div class="col-md-6">
-  <%= f.input :code %>
+  <%= f.input :code, hint: "Unique Client Code; 8 symbols, no spaces" %>
   </div>
   </div>
   
   <div class="row">
   <div class="col-md-6">
-  <%= f.input :country, as: :country  %>
+  <%= f.input :country, as: :country, include_blank: 'Please Select'  %>
   </div>
   <div class="col-md-6">
   <%= f.input :state_prov  %>
@@ -36,16 +36,25 @@
 
   <div class="row">
   <div class="col-md-6">
-  <%= f.input :email %>
+  <%= f.input :contact_email %>
   </div>
   <div class="col-md-6">
-  <%= f.input :phone %>
+  <%= f.input :contact_phone %>
   </div>
   </div>
 
   <div class="row">
   <div class="col-md-6">
-  <%= f.input :contact_person %>
+  <%= f.input :contact_lname %>
+  </div>
+  <div class="col-md-6">
+  <%= f.input :contact_fname %>
+  </div>
+  </div>
+  
+  <div class="row">
+  <div class="col-md-6">
+  <%= f.input :vat %>
   </div>
   <div class="col-md-6">
   <%= f.input :web, label: 'Website' %>

@@ -5,16 +5,17 @@
 	   <pre>
 
 <%# name, type, category, description, scale, release_date, price_eu, price_usd %>
-	      Type:           <%= @client.cltype %>
+	      Type:           <%= @client.cltype_str %>
 	      Code:           <%= @client.code %>
 	      Country:        <%= @client.country %>
 	      Province/State: <%= @client.state_prov %>
 	      Address:        <%= @client.address %>
 	      Postal/Zip:     <%= @client.zip_postal %>
-	      Contact Name:   <%= @client.contact_person %>
-	      Email:          <%= @client.email %>
-	      Phone number:   <%= @client.phone %>
+	      Contact Name:   <%= @client.contact_fullname %>
+	      Email:          <%= @client.contact_email %>
+	      Phone number:   <%= @client.contact_phone %>
 	      Website:        <%= @client.web %>
+	      VAT:            <%= @client.vat %>
 
            </pre>
            <div class="panel panel-info">

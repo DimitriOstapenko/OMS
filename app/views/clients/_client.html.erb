@@ -1,15 +1,15 @@
   <tr align='center'>
 	<td align='left'><%= link_to client.name, client %> </td>
 	<td><%= client.client_type %></td> 
-	<td><%= client.code %></td> 
 	<td><%= client.country %></td> 
 	<td><%= client.state_prov %></td> 
         <td><%= client.address %></td>
         <td><%= client.zip_postal %></td>
-        <td><%= client.contact_person%></td>
-        <td><%= client.email %></td>
-        <td><%= client.phone %></td>
+        <td><%= client.contact_fullname %></td>
+        <td><%= client.contact_email %></td>
+        <td><%= client.contact_phone %></td>
         <td><%= client.web %></td>
+        <td><%= client.vat %></td>
 
         <% if current_user.staff? || current_user.admin? %>
           <td><%= link_to '<i class="glyphicon glyphicon-edit"></i>'.html_safe, edit_client_path(client) %> </td>
