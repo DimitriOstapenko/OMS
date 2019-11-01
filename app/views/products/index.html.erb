@@ -11,10 +11,10 @@
           <th class="tbl_md, text-center">Release Date </th>
           <th class="tbl_sm, text-center">Price EU</th>
           <% if current_user.admin? || current_user.staff? %>
-          <th class="tbl_md, text-center">Supplier *</th>
-          <th class="tbl_md, text-center">Manager *</th>
+          <th class="tbl_md, text-center">Supplier</th>
+          <th class="tbl_md, text-center">Manager</th>
           <% end %>
-          <th class="tbl_sm, text-center">Progress (%)*</th>
+          <th class="tbl_sm, text-center">Progress (%)</th>
           <% if product_editable? %>
           <th>&nbsp;</th>
           <% end %>
@@ -30,12 +30,12 @@
   </tbody>
 </table>
 
-* Will only appear for staff & admin users
-
+<% if current_user.admin? %>
 <div class="row">
 <div class="bottom_buttons ">
 <%= button_to "Add Product", new_product_path, class: "btn btn-primary col-md-2", method: :get %>
 </div>
+<% end %>
 
 <div class="bottom_nav">
 <%= will_paginate @products, class: "btn" %>

@@ -7,6 +7,8 @@ class Order < ApplicationRecord
   has_many :placements
   has_many :products, through: :placements
 
+  attr_accessor :quantity
+
   before_validation :set_total!
 
   def set_total!

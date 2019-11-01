@@ -32,6 +32,10 @@ class ApplicationController < ActionController::Base
      redirect_back fallback_location: root_path, alert: "This operation is reserved to clients" unless current_user && current_user.client?
   end
 
+  def no_user_user
+     redirect_back fallback_location: root_path, alert: "You have no rights for this operation" if current_user && current_user.user?
+  end
+
   def current_client
     Client.find(current_user.client_id) rescue nil
   end

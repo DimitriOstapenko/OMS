@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
 
+#  root 'static_pages#home'
+  root 'products#index'
+
   get 'placements/index'
   get 'placements/show'
-  root 'static_pages#home'
   devise_for :users
   get '/users/', to: 'users#index'
   get '/products/index(/:id)' => 'products#find', constraints: { query_string: /findstr/ }

@@ -1,10 +1,17 @@
 <div class="col-md-8 col-md-offset-2">
+  <% if current_user.client? %>
 <h3 class='display-1'>Orders for client <%= current_user.client_name %></h3>
+  <% else %>
+<h3 class='display-1'>Orders for all clients </h3>
+  <% end %>
 <div class="well">
 
 <table class="tbl2 table-hover table-striped table-bordered" >
   <thead>
       <tr>
+          <% unless current_user.client? %>
+          <th class="tbl_md, text-center">Client</th>
+          <% end %>
           <th class="tbl_sm, text-center">Order #</th>
           <th class="tbl_md, text-center">Date</th>
           <th class="tbl_md, text-center">Total</th>
@@ -13,15 +20,27 @@
   <tbody>
 <%= render @orders, remote: device_is_desktop? %>
   </tbody>
+
+<tfoot>
+  <tr>
+    <% unless current_user.client? %>
+    <th></th>
+    <% end %>
+    <th></th>
+    <th></th>
+    <th class="text-center"><%= number_to_currency(@orders.sum{|s| s[:total]}, locale: :fr) %></th>
+  </tr>
+</tfoot>
 </table>
 </div>
 
-
+<% if current_user.client? %>
 <%= button_to "Add Order", new_order_path, class: "btn btn-primary col-md-2 ", method: 'get'  %>
+<% end %>
 
 </div>
 
 <div class="bottom_nav">
-<%= will_paginate @products, class: "btn" %>
+<%= will_paginate @orders, class: "btn" %>
 </div>
 

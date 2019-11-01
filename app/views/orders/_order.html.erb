@@ -1,4 +1,7 @@
 <tr align='center'>
+        <% unless current_user.client? %>
+        <td><%= link_to order.client.name, client_path(order.client_id) %></td>
+        <% end %>
         <td><%= link_to order.id, order_placements_path(order.id) %></td>
         <td><%= order.updated_at %></td>
         <td><%= order.total %></td>
