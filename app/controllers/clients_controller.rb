@@ -9,7 +9,16 @@ class ClientsController < ApplicationController
   end
 
   def index
-    @clients = Client.paginate(page: params[:page]) #, per_page: 40)
+    if params[:findstr]
+      @clients = Client.search(params).paginate(page: params[:page])
+      if @clients.any?
+        flash.now[:info] = "Found #{@clients.count} #{'client'.pluralize(@clients.count)} matching string #{params[:findstr].inspect}"
+      else
+        flash.now[:info] = "No clients found matching string #{params[:findstr].inspect}"
+      end
+    else
+      @clients = Client.paginate(page: params[:page]) 
+    end
   end
 
   def show
@@ -36,20 +45,6 @@ class ClientsController < ApplicationController
     @client = Client.find(params[:id])
   end
 
-  def find
-      str = params[:findstr].strip
-      flash.now[:info] = "Called find with '#{params[:findstr]}' param"
-      @clients = myfind(str)
-      if @clients.any?
-         flash.now[:info] = "Found #{@clients.count} #{'client'.pluralize(@clients.count)} matching string #{str.inspect}"
-      else
-         @clients = Client.all
-         flash[:danger] = "No clients found"
-      end
-      @clients = @clients.paginate(page: params[:page])
-      render 'index'
-  end
-
   def update
     @client = Client.find(params[:id])
     if @client.update_attributes(client_params)
@@ -65,16 +60,6 @@ private
     params.require(:client).permit( :name, :cltype, :code, :country, :state_prov, :address, :zip_postal, :email, :phone, :contact_person, :web, :notes)
   end
 
-  # Find client by name or scale, depending on input format
-  def myfind (str)
-        if str.match(/^[[:alpha:]]{,2}$/)
-          Client.where("country like ?", "%#{str}%")
-        elsif str.match(/^[[:graph:]]+$/)
-          Client.where("lower(name) like ?", "%#{str.downcase}%")
-        else
-          []
-        end
-  end
 end
 
 

@@ -8,8 +8,9 @@ class Product < ApplicationRecord
 
   default_scope -> { order(ref_code: :asc, release_date: :asc) }
 
-  scope :filter_by_title, lambda { |keyword|
-    where("lower(description) LIKE ?", "%#{keyword.downcase}%" )
+  scope :filter_by_title_or_refcode, lambda { |keyword|
+    where("lower(description) LIKE ?", "%#{keyword.downcase}%" ) &&
+    where("lower(ref_code) LIKE ?", "%#{keyword.downcase}%" )
   }
 
   scope :above_or_equal_to_price, lambda { |price|
@@ -60,14 +61,14 @@ class Product < ApplicationRecord
     self.added_date.strftime("%m/%Y") rescue nil
   end
 
+# Global method; search by keyword, price below, price above and recently added
   def self.search(params = {})
-    products = params[:product_ids].present? ? Product.where(id: params[:product_ids]) : Product.all
-
-    products = products.filter_by_title(params[:keyword]) if params[:keyword]
+    products =  Product.all
+    products = products.filter_by_title_or_refcode(params[:findstr]) if params[:findstr]
     products = products.above_or_equal_to_price(params[:min_price].to_f) if params[:min_price]
     products = products.below_or_equal_to_price(params[:max_price].to_f) if params[:max_price]
     products = products.recent(params[:recent]) if params[:recent].present?
-
     products
   end
+  
 end

@@ -7,14 +7,12 @@ Rails.application.routes.draw do
   get 'placements/show'
   devise_for :users
   get '/users/', to: 'users#index'
-  get '/products/index(/:id)' => 'products#find', constraints: { query_string: /findstr/ }
-  get '/clients/index(/:id)' => 'clients#find', constraints: { query_string: /findstr/ }
+#  get '/clients/index(/:id)' => 'clients#find', constraints: { query_string: /findstr/ }
   get '/suppliers/index(/:id)' => 'suppliers#find', constraints: { query_string: /findstr/ }
   get '/managers/index(/:id)' => 'managers#find', constraints: { query_string: /findstr/ }
 
   get  '/switch_to/:id', to: 'users#switch_to', as: :switch_user
-  get '/clients/index'
-  get '/products/index'
+#  get '/clients/index'
   get '/suppliers/index'
   get '/managers/index'
   get '/inventories', to: 'inventories#index'

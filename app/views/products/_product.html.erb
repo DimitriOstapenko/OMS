@@ -11,8 +11,9 @@
         <% if current_user.admin? || current_user.staff? %>
         <td><%= product.supplier_str %></td>
         <td><%= product.manager  %></td>
-        <% end %>
+        <td><%= product.quantity  %></td>
         <td><%= product.progress %></td>
+        <% end %>
 
         <% if product_editable? %>
           <td><%= link_to '<i class="glyphicon glyphicon-edit"></i>'.html_safe, edit_product_path(product) %> </td>

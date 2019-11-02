@@ -9,11 +9,21 @@ class ProductsController < ApplicationController
   end
 
   def index
-    @products = Product.paginate(page: params[:page]) #, per_page: 40)
+    if params[:findstr] 
+      @products = Product.search(params).paginate(page: params[:page])
+      if @products.any?
+        flash.now[:info] = "Found #{@products.count} #{'product'.pluralize(@products.count)} matching string #{params[:findstr].inspect}"
+      else
+        flash.now[:info] = "No products found"
+      end
+    else
+      @products = Product.paginate(page: params[:page])
+    end
   end
 
   def show
-    @product = Product.find(params[:id])
+    @product = Product.find(params[:id]) rescue nil
+    redirect_to products_path unless @product
   end
 
   def create
@@ -34,20 +44,6 @@ class ProductsController < ApplicationController
 
   def edit
     @product = Product.find(params[:id])
-  end
-
-  def find
-      str = params[:findstr].strip
-      flash.now[:info] = "Called find with '#{params[:findstr]}' param"
-      @products = myfind(str)
-      if @products.any?
-	 flash.now[:info] = "Found #{@products.count} #{'product'.pluralize(@products.count)} matching string #{str.inspect}"
-      else
-	 @products = Product.all
-	 flash[:danger] = "No products found"
-      end
-      @products = @products.paginate(page: params[:page])
-      render 'index'
   end
 
   def update

@@ -14,6 +14,7 @@
           <% end %>
           <th class="tbl_sm, text-center">Order #</th>
           <th class="tbl_md, text-center">Date</th>
+          <th class="tbl_md, text-center">PO#</th>
           <th class="tbl_md, text-center">Total</th>
       </tr>
   </thead>
@@ -26,6 +27,7 @@
     <% unless current_user.client? %>
     <th></th>
     <% end %>
+    <th></th>
     <th></th>
     <th></th>
     <th class="text-center"><%= number_to_currency(@orders.sum{|s| s[:total]}, locale: :fr) %></th>
