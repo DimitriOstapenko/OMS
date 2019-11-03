@@ -11,7 +11,6 @@ class Client < ApplicationRecord
     where("lower(country) like ?", "%#{keyword.downcase}%")
   }
 
-
   def client_type
     CLIENT_TYPES.invert[self.cltype] rescue CLIENT_TYPES[0]
   end
@@ -30,5 +29,10 @@ class Client < ApplicationRecord
     clients = clients.filter_by_name_or_country(params[:findstr]) if params[:findstr]
     clients
   end
+
+# Grand total of all orders
+  def self.orders_total(orders=[], locale=:fr)
+    ActionController::Base.helpers.number_to_currency(orders.sum{|s| s[:total]}, locale: locale)
+  end  
 
 end

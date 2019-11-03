@@ -1,0 +1,31 @@
+@import 'bootstrap-email';
+
+body {
+margin-left: 20px;
+}
+
+
+h3 {
+  font-size: 18px;
+}
+
+.email-table {
+//  float: left;
+  width: 50%;
+  padding: 20px;
+  background: #ddd;
+  margin: 20px auto;
+  text-align: left;
+  font-family: 'Helvetica Neue';
+  border: 1px solid black;
+  }
+
+.header-row {
+  background: #ccc;
+  height: 20px;
+  }
+
+.p {
+  margin-top: 10px;
+  font-size: 15px;
+  }

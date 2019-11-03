@@ -1,0 +1,37 @@
+<div>
+<h3>Confirmation of your Order: #<%= @order.id %></h3>
+
+  <p>You ordered <%= @order.products.count %> <%= 'product'.pluralize(@order.products.count) %></p>
+  
+  <table class='email-table' align=left> 
+<thead>
+  <tr class="header-row">
+    <th> Ref.Code </th>
+    <th> Description </th>
+    <th> Price/Unit </th>
+    <th> Qty </th>
+  </tr>
+</thead>
+<tbody>
+<% @order.placements.each do |placement| %>
+  <tr class="body_row">
+  <td><%= placement.product.ref_code %></td>
+  <td><%= placement.product.description %> </td>
+  <td><%= number_to_currency placement.product.price_eu_str %></td>
+  <td><%= placement.quantity %></td>
+  </tr>
+<% end %>
+</tbody>
+</table>
+</div>
+
+<div style="clear:both">
+<p> Order Total: <%= @order.total_str %></p>
+
+<p>&nbsp;</p>
+<p>
+You can see all your orders with us <%= link_to 'here', orders_url(@client) %>
+</p>
+
+<p> Thank you for your business </p>
+</div>

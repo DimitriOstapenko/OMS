@@ -1,5 +1,9 @@
 <div class="col-md-8 col-md-offset-2">
-  <h3 class='display-1'>Client <%= @order.client.name %>: Order details</h3>
+  <% if current_user.client? %>
+    <h3 class='display-1'> Order #<%= @order.id  %> - details</h3>
+  <% else %>
+    <h3 class='display-1'>Client <%= @order.client.name %>: Order # <%= @order.id %>- details</h3>
+  <% end %>
 <div class="well">
 
 <table class="tbl2 table-hover table-striped table-bordered" >

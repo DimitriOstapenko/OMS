@@ -2,7 +2,7 @@ class OrdersController < ApplicationController
 
   before_action :logged_in_user
   before_action :admin_or_staff_user, only: [:edit, :update]
-#  before_action :client_user, only: [:create]
+  before_action :client_user, only: [:create]
   before_action :admin_user, only: [:destroy]
   before_action :no_user_user, only: [:index]
 
@@ -28,16 +28,20 @@ class OrdersController < ApplicationController
     @order = @client.orders.build
     @placement = @order.placements.first
     @product_ids_and_quantities = [[params[:order][:products], params[:order][:quantity]]]
-    @order.build_placements_with_product_ids_and_quantities(@product_ids_and_quantities)  #(params[:order][:product_ids_and_quantities])
+    @order.build_placements_with_product_ids_and_quantities(@product_ids_and_quantities)
 
     if @order.save
       @order.reload
-#      OrderMailer.delay.send_confirmation(order)
-       flash.now[:info] = 'Order saved'
-       redirect_to orders_path
+       flash[:info] = 'Order saved, confirmation sent'
+       if Rails.env.development?
+         OrderMailer.send_confirmation(@order).deliver_now
+       else
+         OrderMailer.delay.send_confirmation(@order).deliver_later
+       end
     else
-      flash.now[:error] =  order.errors.full_messages 
+      flash[:error] = "Errors saving order: #{@order.errors.full_messages.join}"
     end
+    redirect_to orders_path
   end
 
 private

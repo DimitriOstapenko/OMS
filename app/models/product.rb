@@ -1,6 +1,5 @@
 class Product < ApplicationRecord
 
-  require 'action_view'
   include ActionView::Helpers::NumberHelper
   
   has_many :placements
@@ -65,9 +64,9 @@ class Product < ApplicationRecord
   def self.search(params = {})
     products =  Product.all
     products = products.filter_by_title_or_refcode(params[:findstr]) if params[:findstr]
-    products = products.above_or_equal_to_price(params[:min_price].to_f) if params[:min_price]
-    products = products.below_or_equal_to_price(params[:max_price].to_f) if params[:max_price]
-    products = products.recent(params[:recent]) if params[:recent].present?
+#    products = products.above_or_equal_to_price(params[:min_price].to_f) if params[:min_price]
+#    products = products.below_or_equal_to_price(params[:max_price].to_f) if params[:max_price]
+#    products = products.recent(params[:recent]) if params[:recent].present?
     products
   end
   

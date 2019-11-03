@@ -1,0 +1,13 @@
+Confirmation of your Order: #<%= @order.id %>
+
+You ordered <%= @order.products.count %> <%= 'product'.pluralize(@order.products.count) %>
+
+  <% @order.placements.each do |placement| %>
+    <%= placement.product.ref_code %> <%= placement.product.description %> Price: <%= number_to_currency placement.product.price_eu_str %> Qty: <%= placement.quantity %>
+  <% end %>
+
+Order Total: <%= @order.total_str %>
+
+You can see all your orders with us <%= link_to 'here', orders_url(@client) %>
+
+Thank you for your business 

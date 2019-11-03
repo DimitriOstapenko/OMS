@@ -441,11 +441,15 @@ input, select{
   height: 26px;
   padding: 2px;
 }
+.tbl2 td {
+  font-size: 1em;
+}
 
 .tbl td,
 .tbl th {
   text-align: left;
   padding: 0px 5px;
+  font-size: 1em;
 }
 
 .tbl tr:nth-child(even) {

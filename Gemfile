@@ -45,3 +45,5 @@ end
 gem 'simple_form', '~> 5.0.0'
 gem 'whenever', require: false
 gem 'country_select', '~> 3.1.1'
+#gem 'delayed_job_active_record'
+gem 'bootstrap-email'

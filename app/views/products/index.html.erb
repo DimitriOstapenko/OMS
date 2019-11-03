@@ -13,9 +13,9 @@
           <% if current_user.admin? || current_user.staff? %>
           <th class="tbl_md, text-center">Supplier</th>
           <th class="tbl_md, text-center">Manager</th>
-          <th class="tbl_md, text-center">Quantity</th>
           <th class="tbl_sm, text-center">Progress (%)</th>
           <% end %>
+          <th class="tbl_md, text-center">Quantity</th>
           <% if product_editable? %>
           <th>&nbsp;</th>
           <% end %>
@@ -42,3 +42,4 @@
 <%= will_paginate @products, class: "btn" %>
 </div>
 </div>
+

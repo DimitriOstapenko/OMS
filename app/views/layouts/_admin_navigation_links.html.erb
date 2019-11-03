@@ -5,7 +5,7 @@
  
   <%= render 'layouts/orders' %>
 
-  <li><%= link_to "Reports", reports_path %></li>
+  <li class="<%= 'active' if controller_name == 'reports' %>"><%= link_to "Reports", reports_path %></li>
 
   <%= render 'layouts/admin' %>
 
