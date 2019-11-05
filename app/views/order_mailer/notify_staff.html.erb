@@ -1,7 +1,7 @@
 <div>
-<h3>Confirmation of your Order: #<%= @order.id %></h3>
-<p>You ordered <%= @order.products.count %> <%= 'product'.pluralize(@order.products.count) %></p>
-<p>&nbsp;</p>
+  <h3>New Order (#<%= @order.id %>) received from <%= @client.name %></h3>
+
+  <p>Ordered <%= @order.products.count %> <%= 'product'.pluralize(@order.products.count) %></p>
   
 <table class='table table-striped table-bordered'> 
 <thead>
@@ -30,8 +30,7 @@
 
 <p>&nbsp;</p>
 <p>
-You can see all your orders with us <%= link_to 'here', orders_url(@client) %>
+<%= link_to 'Follow this link to see the order online', orders_url(@client) %>
 </p>
 
-<p> Thank you for your business </p>
 </div>

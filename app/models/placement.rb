@@ -8,4 +8,9 @@ class Placement < ApplicationRecord
   def decrement_product_quantity!
     self.product.decrement!(:quantity, quantity)
   end
+
+  def total
+    self.quantity * self.product.price_eu
+  end
+
 end

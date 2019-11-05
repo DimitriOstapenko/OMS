@@ -1,7 +1,5 @@
 class Product < ApplicationRecord
 
-  include ActionView::Helpers::NumberHelper
-  
   has_many :placements
   has_many :orders, through: :placements
 
@@ -38,18 +36,6 @@ class Product < ApplicationRecord
 
   def supplier_str
     SUPPLIERS.invert[self.supplier] rescue nil
-  end
-
-  def price_eu_str
-    number_to_currency(price_eu, locale: :fr)
-  end
-  
-  def price_eu2_str
-    number_to_currency(price_eu2, locale: :fr)
-  end
-
-  def price_usd_str
-    number_to_currency(price_usd, locale: :us)
   end
 
   def release_date_str

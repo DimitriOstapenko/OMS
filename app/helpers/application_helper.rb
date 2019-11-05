@@ -42,4 +42,8 @@ end
       number_to_phone(phone, area_code: :true)
     end
 
+    def to_currency (number, locale: :fr)
+      number_to_currency(number, locale: locale)
+    end
+
 end

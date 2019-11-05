@@ -7,7 +7,7 @@
 	<td><%= product.ctns %></td> 
 	<td><%= product.added_date_str %></td> 
         <td><%= product.release_date_str %></td>
-        <td><%= product.price_eu_str %></td>
+        <td><%= to_currency(product.price_eu) %></td>
         <% if current_user.admin? || current_user.staff? %>
         <td><%= product.supplier_str %></td>
         <td><%= product.manager  %></td>

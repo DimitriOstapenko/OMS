@@ -1,6 +1,5 @@
 class Order < ApplicationRecord
 
-  include ActionView::Helpers::NumberHelper
   belongs_to :client
 
   validates :client_id, presence: true
@@ -18,11 +17,6 @@ class Order < ApplicationRecord
     placements.each do |placement|
       self.total += placement.product.price_eu * placement.quantity
     end
-  end
-
-# Total order amount; localized  
-  def total_str (locale=:fr)
-    number_to_currency(self.total, locale: locale)
   end
 
   def build_placements_with_product_ids_and_quantities(product_ids_and_quantities)

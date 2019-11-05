@@ -8,9 +8,13 @@ class OrdersController < ApplicationController
 
   def index
     if current_user.client?
-      @orders = current_client.orders.paginate(page: params[:page])
+      @orders = current_client.orders
+      @grand_total = @orders.sum{|o| o[:total]}
+      @orders = @orders.paginate(page: params[:page])
     else
-      @orders = Order.all.paginate(page: params[:page])
+      @orders = Order.all
+      @grand_total = @orders.sum{|o| o[:total]}
+      @orders = @orders.paginate(page: params[:page])
     end
   end 
 
@@ -31,13 +35,12 @@ class OrdersController < ApplicationController
     @order.build_placements_with_product_ids_and_quantities(@product_ids_and_quantities)
 
     if @order.save
+      po_number = 'LS'+Time.now.strftime("%Y%m%d")+'-'+@order.id.to_s
+      @order.update_attribute(:po_number, po_number)
       @order.reload
-       flash[:info] = 'Order saved, confirmation sent'
-       if Rails.env.development?
-         OrderMailer.send_confirmation(@order).deliver_now
-       else
-         OrderMailer.delay.send_confirmation(@order).deliver_later
-       end
+      flash[:info] = 'Order saved, confirmation sent'
+      OrderMailer.send_confirmation(@order).deliver_later
+      OrderMailer.notify_staff(@order).deliver_now
     else
       flash[:error] = "Errors saving order: #{@order.errors.full_messages.join}"
     end

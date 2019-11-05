@@ -26,6 +26,7 @@
   </tr>
 </tfoot>
 </table>
+<b>Grand Total: <%= to_currency(@grand_total) %></b>
 
 <% if current_user.client? %>
 <div class="row">
@@ -35,10 +36,12 @@
 </div>
 <% end %>
 
+
 <div class="row">
 <div class="bottom_nav">
 <%= will_paginate @orders, class: "btn" %>
 </div>
 </div>
+
 
 

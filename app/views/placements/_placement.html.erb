@@ -1,7 +1,8 @@
-<tr align='center'>
-    <td><%= link_to placement.product.ref_code, product_path(placement.product_id) %></td>
-    <td><%= placement.product.description %></td>
-    <td><%= placement.product.price_eu %></td>
-    <td><%= placement.updated_at %></td>
-    <td><%= placement.quantity %></td>
+<tr>
+    <td class="text-center"><%= link_to placement.product.ref_code, product_path(placement.product_id) %></td>
+    <td class="text-center"><%= placement.product.description %></td>
+    <td class="text-center"><%= placement.product.price_eu %></td>
+    <td class="text-center"><%= placement.updated_at %></td>
+    <td class="text-center"><%= placement.quantity %></td>
+    <td class="text-center"><%= to_currency placement.total %></td>
 </tr>
