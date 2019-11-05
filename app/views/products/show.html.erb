@@ -13,12 +13,12 @@
 	      Release Date : <%= @product.release_date %>
 	      Supplier :     <%= @product.supplier %>
 	      Manager :      <%= @product.manager %>
-	      Price Europe : <%= @product.price_eu_str %>
-	      Price Europe2: <%= @product.price_eu2_str %>
-	      Price Other :  <%= @product.price_usd_str %>
+	      Price Europe : <%= to_currency @product.price_eu %>
+	      Price Europe2: <%= to_currency @product.price_eu2 %>
+	      Price Other :  <%= to_currency(@product.price_usd, locale: :us) %>
               Quantity Available: <%= @product.quantity %>
 
-              <img src="/images/model1.png" height="200px"> <img src="/images/model2.png" height="200px">
+              <img src="/images/model1.png" width="200px"> 
            </pre>
            <div>
 	      Notes:   <%= @product.notes %>
