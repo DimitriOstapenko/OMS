@@ -9,7 +9,7 @@ class Placement < ApplicationRecord
     self.product.decrement!(:quantity, quantity)
   end
 
-  def total
+  def ptotal
     self.quantity * self.price
   end
 
