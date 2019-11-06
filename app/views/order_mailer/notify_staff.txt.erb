@@ -1,12 +1,13 @@
-New order #<%= @order.id %> just received from client <%= @client.name %>
+New Order (#<%= @order.id %>) received from <%= @client.name %>
 
 Ordered <%= @order.products.count %> <%= 'product'.pluralize(@order.products.count) %>
+  
+     Ref.Code | Description | Price/Unit | Qty 
+<% @order.placements.each do |placement| %>
+  <%= placement.product.ref_code %> | <%= placement.product.description %> | <%= number_to_currency(placement.price, locale: @client.locale) %> | <%= placement.quantity %>
+<% end %>
 
-  <% @order.placements.each do |placement| %>
-    <%= placement.product.ref_code %> <%= placement.product.description %> Price: <%= number_to_currency placement.product.price_eu %> Qty: <%= placement.quantity %>
-  <% end %>
+Order Total: <%= number_to_currency(@order.total,locale: @client.locale) %>
 
-Order Total: <%= number_to_currency @order.total %>
-
-<%= link_to 'Follow this link to see the order', orders_url(@client) %>
+<%= link_to 'Follow this link to see the order online', orders_url(@client) %>
 

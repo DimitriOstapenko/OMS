@@ -4,6 +4,7 @@ class Client < ApplicationRecord
   has_many :orders #, dependent: :destroy   # remove when seeding clients
   has_one :user
 
+  validates :name, :country, :cltype, :price_type, presence: true
   default_scope -> { order(name: :asc, country: :asc) }
   
   scope :filter_by_name_or_country, lambda { |keyword|
@@ -13,6 +14,11 @@ class Client < ApplicationRecord
 
   def client_type
     CLIENT_TYPES.invert[self.cltype] rescue CLIENT_TYPES[0]
+  end
+
+  def locale
+    country = Country[self.country]
+    locale = (country.continent == 'Europe')?:fr:'us'.to_sym
   end
 
   def contact_fullname

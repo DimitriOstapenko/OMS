@@ -15,15 +15,28 @@ class Order < ApplicationRecord
   def set_total!
     self.total = 0
     placements.each do |placement|
-      self.total += placement.product.price_eu * placement.quantity
+#      self.total += placement.product.price_eu * placement.quantity
+      self.total += placement.price * placement.quantity
     end
   end
 
   def build_placements_with_product_ids_and_quantities(product_ids_and_quantities)
     product_ids_and_quantities.each do |product_id_and_quantity|
       id, quantity = product_id_and_quantity # [1,5]
+      product = Product.find(id)
+      case self.client.price_type
+      when EU_PRICE 
+        product_price = product.price_eu
+      when EU2_PRICE
+        product_price = product.price_eu2
+      when USD_PRICE
+        product_price = product.price_usd
+      else
+        record.errors["Invalid price_type for product #{product.ref_code}"] 
+      end 
 
-      self.placements.build(product_id: id, quantity: quantity)
+#      self.placements.build(product_id: id, quantity: quantity)
+      self.placements.build(product_id: id, quantity: quantity, price: product_price)
     end
   end
 

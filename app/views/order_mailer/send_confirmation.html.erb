@@ -9,7 +9,7 @@
     <th> Ref.Code </th>
     <th> Description </th>
     <th> Price/Unit </th>
-    <th> Qty </th>
+    <th> Qty. </th>
   </tr>
 </thead>
 <tbody>
@@ -17,7 +17,7 @@
   <tr>
   <td><%= placement.product.ref_code %></td>
   <td><%= placement.product.description %> </td>
-  <td><%= number_to_currency placement.product.price_eu %></td>
+  <td><%= number_to_currency(placement.price, locale: @client.locale) %>
   <td><%= placement.quantity %></td>
   </tr>
 <% end %>
@@ -26,11 +26,11 @@
 </div>
 
 <div style="clear:both">
-<p> Order Total: <%= number_to_currency(@order.total) %></p>
+<p> Order Total: <%= number_to_currency(@order.total, locale: @client.locale) %></p> 
 
 <p>&nbsp;</p>
 <p>
-You can see all your orders with us <%= link_to 'here', orders_url(@client) %>
+You can see all your orders with us <%= link_to 'here', orders_url(@client) %> 
 </p>
 
 <p> Thank you for your business </p>

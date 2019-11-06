@@ -10,7 +10,7 @@ class Placement < ApplicationRecord
   end
 
   def total
-    self.quantity * self.product.price_eu
+    self.quantity * self.price
   end
 
 end

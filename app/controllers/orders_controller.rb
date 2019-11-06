@@ -35,7 +35,7 @@ class OrdersController < ApplicationController
     @order.build_placements_with_product_ids_and_quantities(@product_ids_and_quantities)
 
     if @order.save
-      po_number = 'LS'+Time.now.strftime("%Y%m%d")+'-'+@order.id.to_s
+      po_number = 'PO'+Time.now.strftime("%Y%m%d")+'-'+@order.id.to_s
       @order.update_attribute(:po_number, po_number)
       @order.reload
       flash[:info] = 'Order saved, confirmation sent'
