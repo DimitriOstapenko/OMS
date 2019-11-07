@@ -82,7 +82,7 @@ table {
 }
 
 /* navbar */
-.navbar-inverse {
+.navbar-inverse .navbar-expand {
     padding-left: 5px;
     padding-right: 5px;
 //    font-size: 1.1em;
@@ -90,11 +90,11 @@ table {
 //    height: 30px;
 }
 
-.navbar-inverse .navbar-nav > .active > a,
-.navbar-inverse .navbar-nav > .active > a:hover,
-.navbar-inverse .navbar-nav > .active > a:focus {
-    color: #FFF;
-    background-color: #222;
+.navbar-nav > .active > a,
+.navbar-nav > .active > a:hover,
+.navbar-nav > .active > a:focus {
+    color: red;
+//    background-color: #222;
 }
 
 .spacer-10 {
@@ -506,6 +506,7 @@ input, select{
   height: 30px;
   line-height:30px;
   padding:2px 35px 5px 5px;
+  float: left;
 }
 
 .alert .glyphicon{

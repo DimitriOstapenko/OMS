@@ -6,7 +6,7 @@ class Product < ApplicationRecord
   default_scope -> { order(ref_code: :asc, release_date: :asc) }
 
   scope :filter_by_title_or_refcode, lambda { |keyword|
-    where("lower(description) LIKE ?", "%#{keyword.downcase}%" ) &&
+    where("lower(description) LIKE ?", "%#{keyword.downcase}%" ) ||
     where("lower(ref_code) LIKE ?", "%#{keyword.downcase}%" )
   }
 
@@ -23,8 +23,8 @@ class Product < ApplicationRecord
   }
 
   validates :ref_code, presence: true, length: { maximum: 10 }, uniqueness: true
-  validates :description, :brand, :category, presence: true
-  validates :price_eu, numericality: { greater_than_or_equal_to: 0 }, presence: true
+  validates :description, :brand, :category, :scale,  presence: true
+  validates :price_eu, :price_eu2, :price_usd,  numericality: { greater_than_or_equal_to: 0 }, presence: true
 
   def scale_str
     '1:'+scale.to_s

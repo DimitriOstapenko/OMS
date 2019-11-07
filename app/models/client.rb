@@ -8,7 +8,7 @@ class Client < ApplicationRecord
   default_scope -> { order(name: :asc, country: :asc) }
   
   scope :filter_by_name_or_country, lambda { |keyword|
-    where("lower(name) LIKE ?", "%#{keyword.downcase}%" ) &&
+    where("lower(name) LIKE ?", "%#{keyword.downcase}%" ) ||
     where("lower(country) like ?", "%#{keyword.downcase}%")
   }
 
@@ -27,6 +27,10 @@ class Client < ApplicationRecord
 
   def cltype_str
     CLIENT_TYPES.invert[self.cltype]
+  end
+
+  def country_str
+    Country[self.country].name rescue ''
   end
 
 # Global method; search by keyword, price below, price above and recently added
