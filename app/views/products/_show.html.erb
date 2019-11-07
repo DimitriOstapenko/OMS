@@ -1,0 +1,14 @@
+<%
+   provide(:title, 'Product details')
+%>
+
+<div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <b class="modal-title" id="myModalLabel">Product <%= @product.ref_code %> - Details</b>
+</div>
+<div class="modal-body">
+   <%= render "show_prod" %>
+</div>
+
+<div class="modal-footer">
+</div>

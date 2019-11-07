@@ -22,7 +22,7 @@ class Client < ApplicationRecord
   end
 
   def contact_fullname
-     "#{self.contact_lname}, #{self.contact_fname}" 
+    (self.contact_lname.present?)?"#{self.contact_lname}, #{self.contact_fname}":self.contact_fname
   end
 
   def cltype_str

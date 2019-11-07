@@ -1,5 +1,5 @@
   <tr align='center'>
-	<td><%= link_to product.ref_code, product %></td> 
+	<td><%= link_to product.ref_code, product, remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %></td> 
 	<td class="text-center"><%= product.scale_str %></td> 
         <td align='left'><%= product.description %></td>
 	<td><%= product.category %></td> 

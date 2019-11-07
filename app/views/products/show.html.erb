@@ -3,26 +3,9 @@
 <div class="row">
 <div class="col-md-8 col-md-offset-2">
 	<h3 class='display-1'>Product:  <%= @product.ref_code %> - details  </h3>
-	   <pre>
-	      Description:   <%= @product.description %>
-	      Scale:         <%= @product.scale %>
-	      Category:      <%= @product.category %>
-	      Brand:         <%= @product.brand_str %>
-	      Cartons:       <%= @product.ctns %>
-	      Date Added :   <%= @product.added_date %>
-	      Release Date : <%= @product.release_date %>
-	      Supplier :     <%= @product.supplier %>
-	      Manager :      <%= @product.manager %>
-	      Price Europe : <%= to_currency @product.price_eu %>
-	      Price Europe2: <%= to_currency @product.price_eu2 %>
-	      Price Other :  <%= to_currency(@product.price_usd, locale: :us) %>
-              Quantity Available: <%= @product.quantity %>
 
-              <img src="/images/model1.png" width="200px"> 
-           </pre>
-           <div>
-	      Notes:   <%= @product.notes %>
-           </div>
+        <%= render "show_prod" %>
+
 </div>
 </div>
 

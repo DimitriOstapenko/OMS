@@ -8,11 +8,15 @@
   </div>
 
   <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-4">
     <%= f.input :cltype, collection: CLIENT_TYPES, label: "Type", include_blank: false %>
   </div>
-  <div class="col-md-6">
+  <div class="col-md-4">
   <%= f.input :code, hint: "Unique Client Code; 8 symbols, no spaces" %>
+  </div>
+  <div class="col-md-4">
+    <% readonly = (action_name == 'edit')?true:false %>
+    <%= f.input :price_type, collection: PRICE_TYPES,  include_blank: false, readonly:  readonly %> 
   </div>
   </div>
   
