@@ -6,7 +6,9 @@
           <th class="tbl_md, text-center">Client</th>
           <% end %>
           <th class="tbl_sm, text-center">Order #</th>
+          <th class="tbl_sm, text-center">Web Order Id</th>
           <th class="tbl_md, text-center">Date</th>
+          <th class="tbl_md, text-center">Status</th>
           <th class="tbl_md, text-center">PO#</th>
           <th class="tbl_md, text-center">Total</th>
       </tr>
@@ -20,9 +22,7 @@
     <% unless current_user.client? %>
     <th></th>
     <% end %>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th colspan=5></th>
     <th class="text-center"><%= Client.orders_total(@orders) %></th>
   </tr>
 </tfoot>

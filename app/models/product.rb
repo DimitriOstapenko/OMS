@@ -6,8 +6,7 @@ class Product < ApplicationRecord
   default_scope -> { order(ref_code: :asc, release_date: :asc) }
 
   scope :filter_by_title_or_refcode, lambda { |keyword|
-    where("lower(description) LIKE ?", "%#{keyword.downcase}%" ) ||
-    where("lower(ref_code) LIKE ?", "%#{keyword.downcase}%" )
+    where("lower(description) LIKE '%#{keyword.downcase}%' OR lower(ref_code) LIKE '%#{keyword.downcase}%'" )
   }
 
   scope :above_or_equal_to_price, lambda { |price|

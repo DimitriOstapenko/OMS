@@ -15,7 +15,6 @@ class Order < ApplicationRecord
   def set_total!
     self.total = 0
     placements.each do |placement|
-#      self.total += placement.product.price_eu * placement.quantity
       self.total += placement.price * placement.quantity
     end
   end
@@ -38,6 +37,10 @@ class Order < ApplicationRecord
 #      self.placements.build(product_id: id, quantity: quantity)
       self.placements.build(product_id: id, quantity: quantity, price: product_price)
     end
+  end
+
+  def status_str
+    ORDER_STATUSES.invert[self.status] rescue nil
   end
 
 end

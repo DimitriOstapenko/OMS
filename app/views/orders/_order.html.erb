@@ -3,7 +3,9 @@
         <td><%= link_to order.client.name, client_path(order.client_id), remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %></td>
         <% end %>
         <td class="text-center"><%= link_to order.id, order_placements_path(order.id), remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %></td>
+        <td class="text-center"><%= order.web_id %></td>
         <td class="text-center"><%= order.updated_at %></td>
+        <td class="text-center"><%= order.status_str %></td>
         <td class="text-center"><%= order.po_number %></td>
         <td class="text-center"><%= order.total %></td>
 </tr>

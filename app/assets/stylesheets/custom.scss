@@ -82,10 +82,9 @@ table {
 }
 
 /* navbar */
-.navbar-inverse .navbar-expand {
-    padding-left: 5px;
+.navbar-light {
     padding-right: 5px;
-//    font-size: 1.1em;
+    font-size: 15px;
 //    background-color: #333;
 //    height: 30px;
 }
@@ -94,7 +93,7 @@ table {
 .navbar-nav > .active > a:hover,
 .navbar-nav > .active > a:focus {
     color: red;
-//    background-color: #222;
+    background-color: white;
 }
 
 .spacer-10 {
@@ -172,7 +171,7 @@ td.hlight {
   padding-top: 10px;
   font-weight: bold;
   &:hover {
-    color: white;
+    color: red;
     text-decoration: none;
   }
 }
@@ -457,7 +456,7 @@ input, select{
 }
 
 .table-hover tbody tr:hover td {
-    background: #5bc0de;
+    background: $gray-lighter; //#5bc0de;
 }
 
 /* Pagination */

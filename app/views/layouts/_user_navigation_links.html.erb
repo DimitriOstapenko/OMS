@@ -1,3 +1,2 @@
   <%= render 'layouts/find' %>
-
-  <li style="width: 200px;"></li> 
+  <li class="<%= 'active' if controller_name == 'products' %>"><%= link_to "Products", products_path %></li>
