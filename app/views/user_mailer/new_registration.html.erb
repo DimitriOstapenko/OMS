@@ -1,0 +1,15 @@
+<div>
+  <h3>New Registration: <%= @user.email %></h3>
+
+  <p>New user "<%= @user.name %>", role: <%= @user.role %>  with email <%= @user.email %> registered online on <%= @user.created_at %> </p>
+
+</div>
+
+<div style="clear:both">
+
+<p>&nbsp;</p>
+<p>
+<%= link_to 'Follow this link to see their profile', edit_user_url(@user) %>
+</p>
+
+</div>

@@ -1,5 +1,5 @@
-<% active = 'active' if controller_name == 'users' || controller_name == 'suppliers' || controller_name == 'managers'%>
-<li class="<%= active %> dropdown nav-item">
+<% menu_items = %w(orders inventories ) %>
+<li class="dropdown nav-item <%= 'active' if menu_items.include?(controller_name) %>">
 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Orders<b class="caret"></b> </a>
 <ul class="dropdown-menu">
 <li><%= link_to "Purchase", orders_path %></li>

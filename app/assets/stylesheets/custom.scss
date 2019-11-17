@@ -62,8 +62,8 @@ table {
 }
 
 #header {
-   padding: 5px;
-   height: 56px;
+//   padding: 5px;
+//   height: 56px;
 }
 
 #body {
@@ -84,7 +84,7 @@ table {
 /* navbar */
 .navbar-light {
     padding-right: 5px;
-    font-size: 15px;
+    font-size: 14px;
 //    background-color: #333;
 //    height: 30px;
 }
@@ -163,8 +163,7 @@ td.hlight {
 
 #logo {
   float: left;
-  margin-right: 10px;
-  font-size: 1.6em;
+  font-size: 20px;
   color: grey;
   text-transform: uppercase;
   letter-spacing: -2px;

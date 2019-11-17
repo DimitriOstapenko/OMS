@@ -2,13 +2,13 @@ class OrderMailerPreview < ActionMailer::Preview
 
 # Existing Client with orders!  
   def send_confirmation 
-    client = Client.find(2328)
+    client = Client.second
     order = client.orders.first
     OrderMailer.send_confirmation(order)
   end
 
   def notify_staff
-    client = Client.find(2328)
+    client = Client.second
     order = client.orders.first
     OrderMailer.notify_staff(order)
   end

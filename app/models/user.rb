@@ -6,8 +6,7 @@ class User < ApplicationRecord
 
   enum role: ROLES
 
-  validates :name, presence: true, length: { maximum: 50 }
-  validates :email, presence: true, length: { maximum: 50 }
+  validates :name, :email,  presence: true, length: { maximum: 50 }
   validates :password, length: {minimum: 6}, allow_blank: true
   validates :client_id, presence: true, if: Proc.new { |u| u.client? } 
   

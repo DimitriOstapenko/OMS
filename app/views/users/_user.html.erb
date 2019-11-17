@@ -1,5 +1,9 @@
 <tr>
-  <td><%= link_to user.name, edit_user_path(user) %></td>
+  <% if current_user?(user) %>
+     <td><%= link_to user.name, edit_user_registration_path(user) %></td>
+  <% else %>
+     <td><%= link_to user.name, edit_user_path(user) %></td>
+  <% end %>
   <td><%= user.email %></td>
   <td><%= user.role %></td>
   <td><%= user.active? %></td>
@@ -11,6 +15,9 @@
      <% if !current_user?(user) %>
        <td><%= link_to '<i class="glyphicon glyphicon-random"></i>'.html_safe, switch_user_path(user),  method: :get %> </td>
        <td><%= link_to '<i class="glyphicon glyphicon-remove-sign"></i>'.html_safe, user, method: :delete, data: { confirm: "Delete user #{user.name}, #{user.email}?" } %></td>
+     <% else %>
+       <td colspan=2></td>
      <% end %>
+
   <% end %>
  </tr>

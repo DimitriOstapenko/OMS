@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
 
-#  before_action :correct_user, only: [:show, :edit, :update]
-  before_action :admin_user #, except: [:show, :edit, :update]   #,     only: [:index, :new, :create, :destroy]
+  before_action :admin_user 
 
   def index
     @users = User.paginate(page: params[:page])
@@ -22,7 +21,8 @@ class UsersController < ApplicationController
       params[:user].delete(:password_confirmation)
     end
     if @user.update_attributes(user_params)
-      flash[:success] = "Profile updated"
+      msg = "New email will be active once confirmed by the user" if @user.unconfirmed_email.present?
+      flash[:success] = "Profile updated. #{msg}"
       redirect_to users_path
 #      redirect_to destroy_user_session_path
     else

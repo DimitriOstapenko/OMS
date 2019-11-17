@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   get 'placements/index'
   get 'placements/show'
-  devise_for :users
+  devise_for :users, :controllers => { :registrations => "my_registrations" } # mailer added to default action
   get '/users/', to: 'users#index'
 #  get '/clients/index(/:id)' => 'clients#find', constraints: { query_string: /findstr/ }
   get '/suppliers/index(/:id)' => 'suppliers#find', constraints: { query_string: /findstr/ }
