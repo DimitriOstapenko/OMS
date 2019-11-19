@@ -11,6 +11,7 @@ class User < ApplicationRecord
   validates :client_id, presence: true, if: Proc.new { |u| u.client? } 
   
   after_initialize :set_default_role, :if => :new_record?
+  before_save :set_client, :if => :new_record?
 
   def set_default_role
     self.role ||= :user
@@ -22,6 +23,11 @@ class User < ApplicationRecord
 
   def client_name
     Client.find(self.client_id).name if self.client_id 
+  end
+
+  def set_client
+    client = Client.find_by(contact_email: self.email)
+    self.client_id = client.id if client.present?
   end
 
 end
