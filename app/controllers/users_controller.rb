@@ -20,7 +20,9 @@ class UsersController < ApplicationController
       params[:user].delete(:password)
       params[:user].delete(:password_confirmation)
     end
+  
     if @user.update_attributes(user_params)
+      @user.update_attribute(:client_id, nil) unless @user.role == 'client'
       msg = "New email will be active once confirmed by the user" if @user.unconfirmed_email.present?
       flash[:success] = "Profile updated. #{msg}"
       redirect_to users_path

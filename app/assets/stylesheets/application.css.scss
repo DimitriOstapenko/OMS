@@ -14,11 +14,17 @@
  *= require_self
  *= require select2
  *= require select2-bootstrap
+
+
  */
 
 /*
+in custom.css:
 @import "bootstrap-sprockets";
-@import "bootstrap";
-
 @import "bootstrap/modals";
+@import "bootstrap";
 */
+
+
+// simple_form helpers
+// @import "simple_form-bootstrap/simple_form-bootstrap";

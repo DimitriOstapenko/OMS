@@ -43,6 +43,7 @@ group :test do
 end
 
 gem 'simple_form', '~> 5.0.0'
+#gem 'simple_form-bootstrap', '~> 1.4'
 gem 'whenever', require: false
 gem 'country_select'  #, '~> 3.1.1'
 gem 'countries', require: 'countries/global'

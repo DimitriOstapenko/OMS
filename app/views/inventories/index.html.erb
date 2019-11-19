@@ -1,1 +1,28 @@
-inventories#index
+<%= render "shared/modal" %>
+
+<div id="status">
+
+</div>
+
+<table class="tbl2 table-hover table-striped table-bordered" >
+  <thead>
+      <tr>
+          <th class="tbl_sm, text-center">Ref.Code</th>
+	  <th class="tbl_md, text-center">Scale</th>
+          <th class="tbl_lg">Description</th>
+	  <th class="tbl_md, text-center">Category</th>
+	  <th class="tbl_md, text-center">Brand</th>
+          <th class="tbl_sm, text-center">Quantity</th>
+      </tr>
+  </thead>
+  <tbody>
+
+  <%= render partial: 'product', collection: @products, as: :product, remote: device_is_desktop? %>
+
+  </tbody>
+</table>
+
+<div class="bottom_nav">
+<%= will_paginate @products, class: "btn" %>
+</div>
+

@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   get '/suppliers/index'
   get '/managers/index'
   get '/inventories', to: 'inventories#index'
+  post '/update_quantity/:id', to: 'products#update_quantity', as:  :update_quantity 
   get '/reports', to: 'reports#index'
 
   get '/home', to: 'static_pages#home'

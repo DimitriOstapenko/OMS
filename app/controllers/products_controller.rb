@@ -56,6 +56,13 @@ class ProductsController < ApplicationController
     end
   end
 
+  def update_quantity
+    @product = Product.find(params[:id])
+    @product.update_attribute(:quantity, params[:product][:quantity])
+    flash[:info] = "Product : #{@product.ref_code} - updated quantity: #{@product.quantity}"
+    redirect_back(fallback_location: inventories_path)
+  end
+
 private
   def product_params
     params.require(:product).permit( :ref_code, :description, :brand, :category, :scale, :ctns, :release_date, :added_date,

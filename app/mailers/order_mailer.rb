@@ -12,15 +12,15 @@ class OrderMailer < ActionMailer::Base
   def notify_staff(order)
     @order = order
     @client = @order.client
-    staffuser = User.where('role=?', STAFF_ROLE).first
-    mail to: staffuser.email, subject: "OMS New order just received"
+    emails = User.where('role=?', STAFF_ROLE).pluck(:email)
+    mail to: emails, subject: "OMS New order just received"
   end  
 
 # Notify staff of a low quantity for product  
   def product_quantity_alert(product, newqty)
     @product = product
     @product.quantity = newqty
-    staffuser = User.where('role=?', STAFF_ROLE).first
-    mail to: staffuser.email, subject: "OMS Low Product Quantity alert"
+    emails = User.where('role=?', STAFF_ROLE).pluck(:email)
+    mail to: emails, subject: "OMS Low Product Quantity alert"
   end
 end
