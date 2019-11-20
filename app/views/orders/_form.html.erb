@@ -5,7 +5,7 @@
 <%= simple_form_for @order do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
 
-  <%= f.input :products, collection: Product.all, label_method: :description, value_method: :id, include_blank: 'Please select product' %> <%#, input_html: { multiple: true, size: 20 }  %>
+  <%= f.input :products, collection: Product.all, label_method: "ref_code_and_descr", value_method: :id, include_blank: 'Please select product' %> <%#, input_html: { multiple: true, size: 20 }  %>
   <%= f.input :quantity %> 
 
   <% unless action_name == 'show' %>

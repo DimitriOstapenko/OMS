@@ -15,6 +15,20 @@ class Client < ApplicationRecord
   def client_type
     CLIENT_TYPES.invert[self.cltype] rescue CLIENT_TYPES[0]
   end
+  
+  def price(product)
+      case self.price_type
+        when EU_PRICE 
+          product.price_eu
+        when EU2_PRICE
+          product.price_eu2
+        when USD_PRICE
+          product.price_usd
+        else
+          errors.add('*',"Client price_type is invalid")
+          return false
+      end 
+  end
 
   def locale
     country = Country[self.country]
@@ -25,9 +39,9 @@ class Client < ApplicationRecord
     (self.contact_lname.present?)?"#{self.contact_lname}, #{self.contact_fname}":self.contact_fname
   end
 
-  def cltype_str
-    CLIENT_TYPES.invert[self.cltype]
-  end
+#  def cltype_str
+#    CLIENT_TYPES.invert[self.cltype]
+#  end
 
   def country_str
     Country[self.country].name rescue ''

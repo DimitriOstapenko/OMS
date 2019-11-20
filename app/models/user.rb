@@ -27,7 +27,10 @@ class User < ApplicationRecord
 
   def set_client
     client = Client.find_by(contact_email: self.email)
-    self.client_id = client.id if client.present?
+    if client.present?
+      self.client_id = client.id 
+      self.role = :client
+    end
   end
 
 end

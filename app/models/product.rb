@@ -45,6 +45,10 @@ class Product < ApplicationRecord
     self.added_date.strftime("%m/%Y") rescue nil
   end
 
+  def ref_code_and_descr
+   "#{ref_code} : #{description}"
+  end
+
 # Global method; search by keyword, price below, price above and recently added
   def self.search(params = {})
     products =  Product.all
