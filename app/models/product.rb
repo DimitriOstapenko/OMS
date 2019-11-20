@@ -24,6 +24,10 @@ class Product < ApplicationRecord
   validates :ref_code, presence: true, length: { maximum: 10 }, uniqueness: true
   validates :description, :brand, :category, :scale,  presence: true
   validates :price_eu, :price_eu2, :price_usd,  numericality: { greater_than_or_equal_to: 0 }, presence: true
+  
+  before_validation { description.strip!.gsub!(/\s+/,' ') rescue '' }
+  before_validation { category.strip!.gsub!(/\s+/,' ') rescue '' }
+  before_validation { ref_code.strip!.gsub!(/\s+/,' ') rescue '' }
 
   def scale_str
     '1:'+scale.to_s

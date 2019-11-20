@@ -4,6 +4,8 @@ class ProductsController < ApplicationController
   before_action :admin_or_staff_user, only: [:edit, :update]
   before_action :admin_user, only: [:destroy]
 
+  helper_method :sort_column, :sort_direction
+
   def new
     @product = Product.new
   end
@@ -18,10 +20,10 @@ class ProductsController < ApplicationController
           flash.now[:info] = "No products found"
         end
       else
-        @products = Product.paginate(page: params[:page])
+        @products = Product.reorder(sort_column + ' ' + sort_direction, "ref_code asc").paginate(page: params[:page])
       end
     else 
-      render html: '', layout: true
+      render inline: '', layout: true
     end  
   end
 
@@ -73,17 +75,13 @@ private
                                      :price_eu, :price_eu2, :price_usd, :supplier, :manager, :progress, :notes ) 
   end
 
-  # Find product by code, description or scale, depending on input format
-  def myfind (str)
-	if str.match(/^[[:digit:]]{,6}$/)                                 # Scale 
-          Product.where("scale::text like ?", "%#{str}%")
-        elsif str.match(/^[A-Z]{2,}/)                                     # Ref. Code || Description
-	  Product.where("ref_code like ?", "%#{str.upcase}%") &&
-	  Product.where("lower(description) like ?", "%#{str.downcase}%")
-        elsif str.match(/^[[:graph:]]+$/)                                 # Description
-	  Product.where("lower(description) like ?", "%#{str.downcase}%")
-        else
-          []
-        end
+  def sort_column
+          Product.column_names.include?(params[:sort]) ? params[:sort] : "ref_code"
   end
+
+  def sort_direction
+          %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+  end
+
+
 end

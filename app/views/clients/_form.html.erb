@@ -8,32 +8,26 @@
   </div>
 
   <div class="row">
-  <div class="col-md-4">
+  <div class="col-md-3">
     <%= f.input :cltype, collection: CLIENT_TYPES, label: "Type", include_blank: false %>
   </div>
-  <div class="col-md-4">
-  <%= f.input :code, hint: "Unique Client Code; 8 symbols, no spaces" %>
-  </div>
-  <div class="col-md-4">
+  <div class="col-md-3">
     <% readonly = (action_name == 'edit')?true:false %>
-    <%= f.input :price_type, collection: PRICE_TYPES,  include_blank: false, readonly:  readonly %> 
+    <%= f.input :price_type, collection: PRICE_TYPES,  include_blank: false %> 
   </div>
-  </div>
-  
-  <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-3">
   <%= f.input :country, as: :country, include_blank: 'Please Select'  %>
   </div>
-  <div class="col-md-6">
+  <div class="col-md-3">
   <%= f.input :state_prov  %>
   </div>
   </div>
   
   <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-10">
   <%= f.input :address %>
   </div>
-  <div class="col-md-6">
+  <div class="col-md-2">
   <%= f.input :zip_postal %>
   </div>
   </div>

@@ -2,25 +2,27 @@
 <table class="tbl2 table-hover table-striped table-bordered" >
   <thead>
       <tr>
-          <th class="tbl_md">Name</th>
-	  <th class="tbl_sm">Type</th>
-	  <th class="tbl_md">Country</th>
-	  <th class="tbl_sm">State/Prov</th>
-          <th class="tbl_lg">Address</th>
-          <th class="tbl_sm">Postal/Zip</th>
-          <th class="tbl_md">Contact</th>
-          <th class="tbl_sm">email</th>
-          <th class="tbl_sm">Phone</th>
-          <th class="tbl_sm">Website</th>
-          <th class="tbl_sm">VAT</th>
+        <th class="tbl_md"><%= sortable 'name', 'Name' %></th>
+        <th class="tbl_lsm"><%= sortable 'code', 'Code' %></th>
+        <th class="tbl_lsm"><%= sortable 'cltype', 'Type' %></th>
+        <th class="tbl_md"><%= sortable 'country', 'Country' %></th>
+        <th class="tbl_sm"><%= sortable 'state_prov', 'State/Prov' %></th>
+        <th class="tbl_lg"><%= sortable 'address', 'Address' %></th>
+        <th class="tbl_sm"><%= sortable 'zip_postal', 'Postal/Zip' %></th>
+        <th class="tbl_md"><%= sortable 'contact_fname', 'First Name' %></th>
+        <th class="tbl_md"><%= sortable 'contact_lname', 'Last Name' %></th>
+        <th class="tbl_sm"><%= sortable 'contact_email', 'Email' %></th>
+        <th class="tbl_sm"><%= sortable 'contact_phone', 'Phone' %></th>
+        <th class="tbl_sm"><%= sortable 'web', 'Website' %></th>
+        <th class="tbl_sm"><%= sortable 'vat', 'VAT' %></th>
 
-          <% if current_user.staff? || current_user.admin? %>
-            <th>&nbsp;</th>
-          <% end %>
+        <% if current_user.staff? || current_user.admin? %>
+          <th>&nbsp;</th>
+        <% end %>
 
-          <% if current_user.admin? %>
-            <th>&nbsp;</th>
-          <% end %>
+        <% if current_user.admin? %>
+          <th>&nbsp;</th>
+        <% end %>
       </tr>
   </thead>
   <tbody>

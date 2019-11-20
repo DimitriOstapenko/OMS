@@ -4,6 +4,8 @@ class ClientsController < ApplicationController
   before_action :admin_or_staff_user #, only: [:index, :edit, :update]
   before_action :admin_user, only: [:destroy]
 
+  helper_method :sort_column, :sort_direction
+
   def new
     @client = Client.new
   end
@@ -17,7 +19,7 @@ class ClientsController < ApplicationController
         flash.now[:info] = "No clients found matching string #{params[:findstr].inspect}"
       end
     else
-      @clients = Client.paginate(page: params[:page]) 
+      @clients = Client.reorder(sort_column + ' ' + sort_direction, "name asc").paginate(page: params[:page]) 
     end
   end
 
@@ -59,6 +61,14 @@ private
   def client_params
     params.require(:client).permit( :name, :cltype, :code, :country, :state_prov, :address, :zip_postal, :web, :notes, 
                                     :contact_fname, :contact_lname, :vat, :contact_phone, :contact_email, :price_type)
+  end
+
+  def sort_column
+    Client.column_names.include?(params[:sort]) ? params[:sort] : "name"
+  end
+
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
   end
 
 end

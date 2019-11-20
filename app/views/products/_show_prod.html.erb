@@ -1,12 +1,12 @@
 <pre>
               Description:   <%= @product.description %>
-              Scale:         <%= @product.scale %>
+              Scale:         <%= @product.scale_str %>
               Category:      <%= @product.category %>
               Brand:         <%= @product.brand_str %>
               Cartons:       <%= @product.ctns %>
               Date Added :   <%= @product.added_date %>
               Release Date : <%= @product.release_date %>
-              Supplier :     <%= @product.supplier %>
+              Supplier :     <%= @product.supplier_str %>
               Manager :      <%= @product.manager %>
               Price Europe : <%= to_currency @product.price_eu %>
               Price Europe2: <%= to_currency @product.price_eu2 %>
