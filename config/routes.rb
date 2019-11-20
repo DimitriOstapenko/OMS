@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
-  root 'static_pages#home'
-#  root 'products#index'
+#  root 'static_pages#home'
+  root 'products#index'
 
   get 'placements/index'
   get 'placements/show'

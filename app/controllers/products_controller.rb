@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
   
-  before_action :logged_in_user
+  before_action :logged_in_user, except: [:index]
   before_action :admin_or_staff_user, only: [:edit, :update]
   before_action :admin_user, only: [:destroy]
 
@@ -9,16 +9,20 @@ class ProductsController < ApplicationController
   end
 
   def index
-    if params[:findstr] 
-      @products = Product.search(params).paginate(page: params[:page])
-      if @products.any?
-        flash.now[:info] = "Found #{@products.count} #{'product'.pluralize(@products.count)} matching string #{params[:findstr].inspect}"
+    if current_user
+      if params[:findstr] 
+        @products = Product.search(params).paginate(page: params[:page])
+        if @products.any?
+          flash.now[:info] = "Found #{@products.count} #{'product'.pluralize(@products.count)} matching string #{params[:findstr].inspect}"
+        else
+          flash.now[:info] = "No products found"
+        end
       else
-        flash.now[:info] = "No products found"
+        @products = Product.paginate(page: params[:page])
       end
-    else
-      @products = Product.paginate(page: params[:page])
-    end
+    else 
+      render html: '', layout: true
+    end  
   end
 
   def show

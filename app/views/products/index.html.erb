@@ -12,6 +12,8 @@
           <th class="tbl_md, text-center">Release Date </th>
           <th class="tbl_sm, text-center">Price EU</th>
           <% if current_user.admin? || current_user.staff? %>
+          <th class="tbl_sm, text-center">Price EU2</th>
+          <th class="tbl_sm, text-center">Price USD</th>
           <th class="tbl_md, text-center">Supplier</th>
           <th class="tbl_md, text-center">Manager</th>
           <th class="tbl_sm, text-center">Progress (%)</th>
@@ -27,7 +29,7 @@
   </thead>
   <tbody>
 
-  <%= render @products, remote: device_is_desktop? %>
+  <%= render @products, remote: device_is_desktop?, cached: true %>
 
   </tbody>
 </table>

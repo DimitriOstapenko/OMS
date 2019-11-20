@@ -9,6 +9,8 @@
         <td><%= product.release_date_str %></td>
         <td><%= to_currency(product.price_eu) %></td>
         <% if current_user.admin? || current_user.staff? %>
+        <td><%= to_currency(product.price_eu2) %></td>
+        <td><%= to_currency(product.price_usd, locale: :us) %></td>
         <td class="text-center"><%= product.supplier_str %></td>
         <td><%= product.manager  %></td>
         <td><%= product.progress %></td>
