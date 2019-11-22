@@ -1,5 +1,5 @@
 <div>
-<h3>Confirmation of your Order: #<%= @order.id %></h3>
+<div class='email-header'>Confirmation of your Order: #<%= @order.id %></div>
 <p>You ordered <%= @order.products.count %> <%= 'product'.pluralize(@order.products.count) %></p>
 <p>&nbsp;</p>
   
@@ -30,8 +30,7 @@
 
 <p>&nbsp;</p>
 <p>
-You can see all your orders with us <%= link_to 'here', orders_url(@client) %> 
+<%= button_to 'See your orders online', orders_url(@client), class: "email-btn" %>
 </p>
 
-<p> Thank you for your business </p>
 </div>

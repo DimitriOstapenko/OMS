@@ -1,15 +1,16 @@
-<div>
-  <h3>New Registration: <%= @user.email %></h3>
+<div class='email-header'>
+New Registration: <%= @user.email %>
+</div>
+
 
   <p>New user "<%= @user.name %>", role: <%= @user.role %>  with email <%= @user.email %> registered online on <%= @user.created_at %> </p>
 
-</div>
 
 <div style="clear:both">
 
 <p>&nbsp;</p>
 <p>
-<%= link_to 'Follow this link to see their profile', edit_user_url(@user) %>
+<%= button_to "Show new user's profile", edit_user_url(@user), class: "email-btn" %>
 </p>
 
 </div>

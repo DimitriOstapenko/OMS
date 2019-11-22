@@ -1,5 +1,5 @@
 <div>
-  <h3>New Order (#<%= @order.id %>) received from <%= @client.name %></h3>
+  <div class='email-header'>New Order (#<%= @order.id %>) received from <%= @client.name %></div>
 
   <p>Ordered <%= @order.products.count %> <%= 'product'.pluralize(@order.products.count) %></p>
   
@@ -30,7 +30,7 @@
 
 <p>&nbsp;</p>
 <p>
-<%= link_to 'Follow this link to see the order online', orders_url(@client) %>
+<%= button_to 'Follow this link to see the order online', orders_url(@client), class: "email-btn" %>
 </p>
 
 </div>

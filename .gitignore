@@ -7,9 +7,6 @@
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 
-# Credentials are encrypted with server-specific key, so ignore
-/config/credentials.yml.enc
-
 # Ignore Site initialization file
 /config/initializers/01_globals.rb
 
