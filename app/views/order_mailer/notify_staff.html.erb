@@ -1,4 +1,4 @@
-<div>
+<div class="email-container">
   <div class='email-header'>New Order (#<%= @order.id %>) received from <%= @client.name %></div>
 
   <p>Ordered <%= @order.products.count %> <%= 'product'.pluralize(@order.products.count) %></p>
@@ -23,10 +23,9 @@
 <% end %>
 </tbody>
 </table>
-</div>
 
 <div style="clear:both">
-<p> Order Total: <%= number_to_currency(@order.total,locale: @client.locale) %></p>
+<p style="float:right;"> Order Total: <%= number_to_currency(@order.total,locale: @client.locale) %></p>
 
 <p>&nbsp;</p>
 <p>

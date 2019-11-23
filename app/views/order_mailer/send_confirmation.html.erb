@@ -1,4 +1,4 @@
-<div>
+<div class="email-container">
 <div class='email-header'>Confirmation of your Order: #<%= @order.id %></div>
 <p>You ordered <%= @order.products.count %> <%= 'product'.pluralize(@order.products.count) %></p>
 <p>&nbsp;</p>
@@ -6,6 +6,7 @@
 <table class='table table-striped table-bordered'> 
 <thead>
   <tr>
+    <th></th>
     <th> Ref.Code </th>
     <th> Description </th>
     <th> Price/Unit </th>
@@ -15,6 +16,7 @@
 <tbody>
 <% @order.placements.each do |placement| %>
   <tr>
+  <td><img src="<%= '/images/'.concat(placement.product.ref_code+'.jpg') %>"></td>
   <td><%= placement.product.ref_code %></td>
   <td><%= placement.product.description %> </td>
   <td><%= number_to_currency(placement.price, locale: @client.locale) %>
@@ -23,14 +25,14 @@
 <% end %>
 </tbody>
 </table>
-</div>
 
 <div style="clear:both">
-<p> Order Total: <%= number_to_currency(@order.total, locale: @client.locale) %></p> 
+<p style="float:right"> Order Total: <%= number_to_currency(@order.total, locale: @client.locale) %></p> 
 
 <p>&nbsp;</p>
 <p>
 <%= button_to 'See your orders online', orders_url(@client), class: "email-btn" %>
 </p>
 
+</div>
 </div>

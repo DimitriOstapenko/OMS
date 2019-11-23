@@ -1,14 +1,17 @@
 @import 'bootstrap-email';
 @import 'bootstrap/variables';
 
-body {
-margin-left: 20px; 
-}
+.email-container {
+  margin: 10px 20px 20px;
+  }
 
 .email-header {
   font-size: $font-size-h4;
+  line-height: 40px;
   background: $brand-info;
   margin-bottom: 40px;
+  height: 40px;
+  padding-left: 20px;
 }
 
 .email-table {
