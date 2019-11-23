@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_17_173320) do
+ActiveRecord::Schema.define(version: 2019_11_23_182525) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,6 +64,15 @@ ActiveRecord::Schema.define(version: 2019_11_17_173320) do
     t.decimal "price"
     t.index ["order_id"], name: "index_placements_on_order_id"
     t.index ["product_id"], name: "index_placements_on_product_id"
+  end
+
+  create_table "prices", force: :cascade do |t|
+    t.integer "scale", default: 18
+    t.decimal "price_eu"
+    t.decimal "price_eu2"
+    t.decimal "price_usd"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "products", force: :cascade do |t|

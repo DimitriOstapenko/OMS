@@ -69,6 +69,11 @@ class ProductsController < ApplicationController
     redirect_back(fallback_location: inventories_path)
   end
 
+  def apply_price_rules
+    flash[:success] = "Price rules applied to all products"
+    redirect_back(fallback_location: prices_path)
+  end
+
 private
   def product_params
     params.require(:product).permit( :ref_code, :description, :brand, :category, :scale, :ctns, :release_date, :added_date,

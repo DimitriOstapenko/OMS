@@ -27,7 +27,7 @@ class Product < ApplicationRecord
   
   before_validation { description.strip!.gsub!(/\s+/,' ') rescue '' }
   before_validation { category.strip!.gsub!(/\s+/,' ') rescue '' }
-  before_validation { ref_code.strip!.gsub!(/\s+/,' ') rescue '' }
+  before_validation { ref_code.gsub!(/\W+/,'') rescue '' }
 
   def scale_str
     '1:'+scale.to_s

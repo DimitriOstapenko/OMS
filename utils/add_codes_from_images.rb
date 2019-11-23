@@ -1,4 +1,4 @@
-# go throug images and add missing ones along with ref_code to products table 
+# go through all images and add missing ones along with ref_code to products table 
 
 require_relative '../config/environment'
 require 'pathname'

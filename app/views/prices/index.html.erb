@@ -1,0 +1,30 @@
+<table class="tbl2 table-hover table-striped table-bordered" >
+  <thead>
+      <tr>
+          <th>Scale</th>
+          <th>Price EU</th>
+          <th>Price EU2</th>
+          <th>Price USD</th>
+          <th colspan=2></th>
+      </tr>
+  </thead>
+  <tbody>
+
+  <%= render @prices %>
+
+  </tbody>
+</table>
+
+<div class="bottom_buttons">
+  <div class="row">
+    <div class="col-md-2">
+    <%= button_to "Add Price Rule", new_price_path, class: "btn btn-primary", method: :get %>
+    </div>
+    <div class="col-md-3">
+    <%= button_to "Apply Price Rules to All Products", apply_price_rules_path, class: "btn btn-warning mr-1", method: :post %>
+    </div>
+    <div class="col-md-7"></div>
+  </div>
+</div>
+
+

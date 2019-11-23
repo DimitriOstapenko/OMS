@@ -1,0 +1,28 @@
+<%= simple_form_for @price do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <div class="row">
+  <div class="col-md-3">
+  <%= f.input :scale %>
+  </div>
+
+  <div class="col-md-3">
+  <%= f.input :price_eu %>
+  </div>
+  
+  <div class="col-md-3">
+  <%= f.input :price_eu2 %>
+  </div>
+
+  <div class="col-md-3">
+  <%= f.input :price_usd %>
+  </div>
+
+  <% unless action_name == 'show' %>
+  <%= f.submit yield(:button_text), class: "btn btn-primary" %>
+  <% end %>
+  </div>
+
+<% end %>
+
+

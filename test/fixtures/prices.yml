@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  scale: 1
+  price_eu: 9.99
+  price_eu2: 9.99
+  price: 
+
+two:
+  scale: 1
+  price_eu: 9.99
+  price_eu2: 9.99
+  price: 
