@@ -18,7 +18,7 @@
         <td class="text-center"><%= product.quantity %></td>
 
         <% if product_editable? %>
-          <td><%= link_to '<i class="glyphicon glyphicon-edit"></i>'.html_safe, edit_product_path(product) %> </td>
+          <td><%= link_to '<i class="glyphicon glyphicon-edit"></i>'.html_safe, edit_product_path(product), remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %> </td>
         <% end %>
      
         <% if current_user.admin? %>

@@ -56,7 +56,7 @@ class ProductsController < ApplicationController
     @product = Product.find(params[:id])
     if @product.update_attributes(product_params)
       flash[:success] = "Product updated"
-      redirect_to products_path
+      redirect_back(fallback_location: products_path)
     else
       render 'edit'
     end
@@ -77,7 +77,7 @@ class ProductsController < ApplicationController
 private
   def product_params
     params.require(:product).permit( :ref_code, :description, :brand, :category, :scale, :colour, :ctns, :release_date, :added_date,
-                                     :price_eu, :price_eu2, :price_usd, :supplier, :manager, :progress, :notes ) 
+                                     :price_eu, :price_eu2, :price_usd, :supplier, :manager, :progress, :notes, :page ) 
   end
 
   def sort_column
