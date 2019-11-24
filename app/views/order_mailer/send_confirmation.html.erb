@@ -16,7 +16,7 @@
 <tbody>
 <% @order.placements.each do |placement| %>
   <tr>
-  <td><img src="<%= '/images/'.concat(placement.product.ref_code+'.jpg') %>"></td>
+  <td><img src="<%= PROJECT_URL + '/images/' + placement.product.ref_code + '.jpg' %>"></td>
   <td><%= placement.product.ref_code %></td>
   <td><%= placement.product.description %> </td>
   <td><%= number_to_currency(placement.price, locale: @client.locale) %>

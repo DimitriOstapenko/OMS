@@ -46,7 +46,7 @@
 *.swp
 
 # ignore pg restore script - platform specific
-/utils/pgrestore.pl
+/utils/pgrestore.rb
 
 # ignore Postgres backups
 /backup/**
