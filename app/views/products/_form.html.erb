@@ -7,15 +7,18 @@
 
   <div class="row" %>
   <div class="col-md-3">
-  <%= f.input :ref_code, hint: "Unique product code" %>
+  <%= f.input :ref_code, hint: "Unique product code, alphanumeric" %>
   </div>
   <div class="col-md-3">
   <%= f.input :brand, collection: BRANDS, include_blank: false %> 
   </div>
-  <div class="col-md-3">
-  <%= f.input :category, hint: "Street, racing ..." %>
+  <div class="col-md-2">
+  <%= f.input :category, collection: CATEGORIES, include_blank: false %>
   </div>
-  <div class="col-md-3">
+  <div class="col-md-2">
+  <%= f.input :colour, collection: COLOURS, include_blank: false  %>
+  </div>
+  <div class="col-md-2">
   <%= f.input :ctns, label: 'Pcs x Cartons' %>
   </div>
   </div>

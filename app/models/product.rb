@@ -26,7 +26,6 @@ class Product < ApplicationRecord
   validates :price_eu, :price_eu2, :price_usd,  numericality: { greater_than_or_equal_to: 0 }, presence: true
   
   before_validation { description.strip!.gsub!(/\s+/,' ') rescue '' }
-  before_validation { category.strip!.gsub!(/\s+/,' ') rescue '' }
   before_validation { ref_code.gsub!(/\W+/,'') rescue '' }
 
   def scale_str
@@ -35,6 +34,14 @@ class Product < ApplicationRecord
 
   def brand_str
     BRANDS.invert[self.brand] rescue nil
+  end
+  
+  def category_str
+    CATEGORIES.invert[self.category] rescue nil
+  end
+
+  def colour_str
+    COLOURS.invert[self.colour] rescue nil
   end
 
   def supplier_str
