@@ -23,7 +23,11 @@ class Client < ApplicationRecord
   }
 
   def client_type
-    CLIENT_TYPES.invert[self.cltype] rescue CLIENT_TYPES[0]
+    CLIENT_TYPES.invert[self.cltype] rescue nil
+  end
+
+  def price_type_str
+    PRICE_TYPES.invert[self.price_type] rescue nil
   end
   
 # Client price depends on location, defined by price_type  
@@ -68,8 +72,9 @@ class Client < ApplicationRecord
 
 # Generate unique client code
   def set_client_code
-    c = self.name.upcase.strip.gsub(/\s/,'')[0..3] rescue ''
-    self.code = c + '-' + Client.maximum(:id).next.to_s  
+    c = self.name.upcase.strip.gsub(/\W/,'')[0..3] rescue ''
+    id = self.id || Client.maximum(:id).next
+    self.code = c + id.to_s
   end
 
 end

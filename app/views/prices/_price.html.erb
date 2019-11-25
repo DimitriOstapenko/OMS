@@ -1,8 +1,12 @@
-  <tr align='center'>
-        <td><%= price.scale %></td>
-        <td><%= price.price_eu %></td>
-        <td><%= price.price_eu2 %></td>
-        <td><%= price.price_usd %></td>
-        <td><%= 'edit' %></td>
-        <td><%= 'delete' %></td>
+  <tr>
+        <td class='text-center'>1:<%= price.scale %></td>
+        <td class='text-center'><%= to_currency price.price_eu %></td>
+        <td class='text-center'><%= to_currency price.price_eu2 %></td>
+        <td class='text-center'><%= to_currency price.price_usd, locale: :us %></td>
+        <td class='text-center'><%= link_to '<i class="glyphicon glyphicon-edit"></i>'.html_safe, edit_price_path(price),
+          remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %> 
+        </td>
+        <td class='text-center'><%= link_to '<i class="glyphicon glyphicon-remove-sign"></i>'.html_safe, price, method: :delete, 
+          data: { confirm: "Are you sure you want to delete this price rule?" } %> 
+        </td>
   </tr>

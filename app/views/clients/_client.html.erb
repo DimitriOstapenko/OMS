@@ -2,6 +2,7 @@
 	<td align='left'><%= link_to client.name, client, remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %> </td>
 	<td><%= client.code %></td> 
 	<td><%= client.client_type %></td> 
+	<td class="text-center"><%= client.price_type_str %></td> 
 	<td class="text-center"><%= client.country_str %></td> 
 	<td><%= client.state_prov %></td> 
         <td><%= client.address %></td>

@@ -19,7 +19,9 @@
   </div>
 
   <% unless action_name == 'show' %>
+    <div class="col-md-12">
   <%= f.submit yield(:button_text), class: "btn btn-primary" %>
+  </div>
   <% end %>
   </div>
 

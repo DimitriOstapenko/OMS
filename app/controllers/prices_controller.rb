@@ -19,6 +19,10 @@ class PricesController < ApplicationController
        render 'new'
     end
   end
+  
+  def edit
+    @price = Price.find(params[:id])
+  end
 
   def update
     @price = Price.find(params[:id])
@@ -28,10 +32,6 @@ class PricesController < ApplicationController
     else
       render 'edit'
     end
-  end
-
-  def edit
-    @product = Price.find(params[:id])
   end
 
   def show

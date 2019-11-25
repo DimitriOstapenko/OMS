@@ -50,3 +50,4 @@
 
 # ignore Postgres backups
 /backup/**
+/pgbackup/**
