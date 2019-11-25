@@ -12,7 +12,7 @@
 	      Phone number:   <%= @client.contact_phone %>
 	      Website:        <%= @client.web %>
 	      VAT:            <%= @client.vat %>
-              Price model:    <%= PRICE_TYPES[@client.price_type] %>
+              Price model:    <%= @client.price_type_str%>
 
 </pre>
 <div class="panel panel-info">
