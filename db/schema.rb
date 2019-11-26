@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_24_011009) do
+ActiveRecord::Schema.define(version: 2019_11_26_000544) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -91,7 +91,7 @@ ActiveRecord::Schema.define(version: 2019_11_24_011009) do
     t.string "ref_code"
     t.date "added_date"
     t.integer "supplier"
-    t.string "manager"
+    t.integer "manager"
     t.integer "progress"
     t.integer "quantity", default: 0
     t.decimal "price_eu2", default: "0.0"

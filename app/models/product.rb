@@ -1,5 +1,7 @@
 class Product < ApplicationRecord
 
+  include ApplicationHelper
+
   has_many :placements
   has_many :orders, through: :placements
 
@@ -45,7 +47,11 @@ class Product < ApplicationRecord
   end
 
   def supplier_str
-    SUPPLIERS.invert[self.supplier] rescue nil
+    get_suppliers.invert[self.supplier]
+  end
+
+  def manager_str
+    get_managers.invert[self.manager]
   end
 
   def release_date_str

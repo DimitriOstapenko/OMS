@@ -40,7 +40,7 @@ class ClientsController < ApplicationController
   def destroy
     Client.find(params[:id]).destroy
     flash[:success] = "Client deleted"
-    redirect_to clients_path
+    redirect_back(fallback_location: clients_path)
   end
 
    def edit
@@ -51,7 +51,7 @@ class ClientsController < ApplicationController
     @client = Client.find(params[:id])
     if @client.update_attributes(client_params)
       flash[:success] = "Client updated"
-      redirect_to clients_path
+      redirect_back(fallback_location: clients_path)
     else
       render 'edit'
     end

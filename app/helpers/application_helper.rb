@@ -46,4 +46,13 @@ end
       number_to_currency(number, locale: locale)
     end
 
+# Build suppliers hash     
+    def get_suppliers
+      Supplier.all.pluck("CONCAT_WS(' ', fname, lname)",:id).to_h
+    end
+
+# Build managers hash     
+    def get_managers
+      Manager.all.pluck("CONCAT_WS(' ', fname, lname)",:id).to_h
+    end
 end

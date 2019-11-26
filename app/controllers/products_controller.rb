@@ -70,6 +70,9 @@ class ProductsController < ApplicationController
   end
 
   def apply_price_rules
+    Price.all.each do |pr|
+      Product.where(scale: pr.scale).update_all(price_eu: pr.price_eu, price_eu2: pr.price_eu2, price_usd: pr.price_usd)
+    end
     flash[:success] = "Price rules applied to all products"
     redirect_back(fallback_location: prices_path)
   end
@@ -77,7 +80,7 @@ class ProductsController < ApplicationController
 private
   def product_params
     params.require(:product).permit( :ref_code, :description, :brand, :category, :scale, :colour, :ctns, :release_date, :added_date,
-                                     :price_eu, :price_eu2, :price_usd, :supplier, :manager, :progress, :notes, :page ) 
+                                     :price_eu, :price_eu2, :price_usd, :supplier, :manager, :progress, :notes ) 
   end
 
   def sort_column
