@@ -33,6 +33,10 @@ end
       end
     end
 
+    def short_title
+      PROJECT_SHORT_NAME
+    end    
+
     def project_url 
       PROJECT_URL	
     end

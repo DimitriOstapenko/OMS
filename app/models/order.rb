@@ -1,5 +1,7 @@
 class Order < ApplicationRecord
 
+  require 'csv'
+
   belongs_to :client
 
   validates :client_id, presence: true
@@ -29,6 +31,23 @@ class Order < ApplicationRecord
 
   def status_str
     ORDER_STATUSES.invert[self.status] rescue nil
+  end
+
+  def self.to_csv
+    attributes = %w{id client_id cre_date total status}
+    CSV.generate(headers: true) do |csv|
+      all.each do |order|
+        csv << attributes.map{ |attr| order.send(attr) }
+      end
+    end
+  end
+
+  def client_code(id)
+    Client.find(id).code rescue nil
+  end
+
+  def cre_date
+    created_at.to_date
   end
 
 end

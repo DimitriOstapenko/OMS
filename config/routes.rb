@@ -3,8 +3,8 @@ Rails.application.routes.draw do
 #  root 'static_pages#home'
   root 'products#index'
 
-  get 'placements/index'
-  get 'placements/show'
+#  get 'placements/index'
+#  get 'placements/show'
   devise_for :users, :controllers => { :registrations => "my_registrations" } # mailer added to default action
   get '/users/', to: 'users#index'
 
@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   get '/news', to: 'static_pages#news'
   get '/terms', to: 'static_pages#terms'
   get '/privacy', to: 'static_pages#privacy'
+  get '/export', to: 'orders#export', as: :export
 
   resources :products, :clients, :suppliers, :managers, :users, :prices
   resources :orders, only: [:new, :index, :show, :create] do

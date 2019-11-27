@@ -6,7 +6,9 @@
           <th>Name</th>
           <th>Email</th>
           <th>Phone</th>
-          <th></th>
+          <% if current_user.admin? %>
+            <th class="tbl_sm" colspan=2></th>
+          <% end %>
       </tr>
   </thead>
   <tbody>

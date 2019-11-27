@@ -47,6 +47,12 @@ class OrdersController < ApplicationController
     redirect_to orders_path
   end
 
+  def export
+    @orders = Order.all
+    send_data @orders.to_csv, filename: "orders-#{Date.today}.csv"
+    flash.now[:info] = 'Orders exported to CSV file'
+  end
+
 private
 
 #  def order_params

@@ -9,12 +9,12 @@
       </ul>
     </li>
   </ul>
-    <%= link_to "OMS", root_path, id: "logo" %>
+    <%= link_to "APD OMS", root_path, id: "logo" %>
     <% if current_user && current_user.client? %>
         <span class="navbar-brand"> <%= current_user.client_name %> </span>
     <% end %>
 <% else %>  
-    <%= link_to "ORDER MANAGEMENT SYSTEM", root_path, id: "logo" %>
+    <%= link_to "APD ORDER MANAGEMENT SYSTEM", root_path, id: "logo" %>
 <% end %>
 
     
