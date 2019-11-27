@@ -34,8 +34,8 @@
   </tbody>
 </table>
 
-<% if current_user.admin? %>
 <div class="row">
+<% if current_user.admin? %>
 <div class="bottom_buttons ">
 <%= button_to "Add Product", new_product_path, class: "btn btn-primary col-md-2", method: :get %>
 </div>
@@ -45,4 +45,5 @@
 <%= will_paginate @products, class: "btn" %>
 </div>
 </div>
+
 

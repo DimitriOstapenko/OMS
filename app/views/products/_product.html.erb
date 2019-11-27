@@ -1,8 +1,8 @@
-  <tr align='center'>
+  <tr>
 	<td><%= link_to product.ref_code, product, remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %></td> 
 	<td class="text-center"><%= product.scale_str %></td> 
 	<td class="text-center"><%= product.colour_str %></td> 
-        <td align='left'><%= product.description %></td>
+        <td><%= product.description %></td>
 	<td><%= product.category_str %></td> 
 	<td><%= product.brand_str %></td> 
 	<td class="text-center"><%= product.ctns %></td> 
@@ -10,10 +10,10 @@
         <td><%= product.release_date_str %></td>
         <td><%= to_currency(product.price_eu) %></td>
         <% if current_user.admin? || current_user.staff? %>
-        <td><%= to_currency(product.price_eu2) %></td>
-        <td><%= to_currency(product.price_usd, locale: :us) %></td>
-        <td class="text-center"><%= product.supplier_str %></td>
-        <td><%= product.manager_str  %></td>
+          <td><%= to_currency(product.price_eu2) %></td>
+          <td><%= to_currency(product.price_usd, locale: :us) %></td>
+          <td class="text-center"><%= product.supplier_str %></td>
+          <td><%= product.manager_str  %></td>
         <% end %>
         <td class="text-center"><%= product.quantity %></td>
 

@@ -1,21 +1,22 @@
 <%= render "shared/modal" %>
+
 <table class="tbl2 table-hover table-striped table-bordered" >
   <thead>
       <tr>
-        <th class="tbl_md"><%= sortable 'name', 'Name' %></th>
-        <th class="tbl_lsm"><%= sortable 'code', 'Code' %></th>
-        <th class="tbl_lsm"><%= sortable 'cltype', 'Type' %></th>
-        <th class="tbl_lsm"><%= sortable 'price_type', 'Price Type' %></th>
-        <th class="tbl_md"><%= sortable 'country', 'Country' %></th>
-        <th class="tbl_sm"><%= sortable 'state_prov', 'State/Prov' %></th>
-        <th class="tbl_lg"><%= sortable 'address', 'Address' %></th>
-        <th class="tbl_sm"><%= sortable 'zip_postal', 'Postal/Zip' %></th>
-        <th class="tbl_md"><%= sortable 'contact_fname', 'First Name' %></th>
-        <th class="tbl_md"><%= sortable 'contact_lname', 'Last Name' %></th>
-        <th class="tbl_sm"><%= sortable 'contact_email', 'Email' %></th>
-        <th class="tbl_sm"><%= sortable 'contact_phone', 'Phone' %></th>
-        <th class="tbl_sm"><%= sortable 'web', 'Website' %></th>
-        <th class="tbl_sm"><%= sortable 'vat', 'VAT' %></th>
+        <th><%= sortable 'name', 'Name' %></th>
+        <th><%= sortable 'code', 'Code' %></th>
+        <th><%= sortable 'cltype', 'Type' %></th>
+        <th><%= sortable 'price_type', 'Price Type' %></th>
+        <th><%= sortable 'country', 'Country' %></th>
+        <th><%= sortable 'state_prov', 'State/Prov' %></th>
+        <th><%= sortable 'address', 'Address' %></th>
+        <th><%= sortable 'zip_postal', 'Postal/Zip' %></th>
+        <th><%= sortable 'contact_fname', 'First Name' %></th>
+        <th><%= sortable 'contact_lname', 'Last Name' %></th>
+        <th><%= sortable 'contact_email', 'Email' %></th>
+        <th><%= sortable 'contact_phone', 'Phone' %></th>
+        <th><%= sortable 'web', 'Website' %></th>
+        <th><%= sortable 'vat', 'VAT' %></th>
 
         <% if current_user.staff? || current_user.admin? %>
           <th>&nbsp;</th>
@@ -28,18 +29,18 @@
   </thead>
   <tbody>
 
-  <%= render @clients, remote: device_is_desktop? %>
+  <%= render @clients, remote: device_is_desktop?, cached: true %>
 
   </tbody>
 </table>
 
-
-<div class="row">
-<div class="bottom_buttons ">
-<%= button_to "Add Client", new_client_path, class: "btn btn-primary col-md-2", method: :get %>
+<div class="row" style="clear: both;">
+<div class="bottom_buttons">
+<%= button_to "Add Client", new_client_path, class: "btn btn-primary col-md-2 col-sm-2", method: :get %>
 </div>
 
 <div class="bottom_nav">
 <%= will_paginate @clients, class: "btn" %>
 </div>
 </div>
+

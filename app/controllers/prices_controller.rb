@@ -48,7 +48,7 @@ class PricesController < ApplicationController
 
 private
   def price_params
-    params.require(:price).permit( :scale, :price_eu, :price_eu2, :price_usd )
+    params.require(:price).permit( :scale, :category, :price_eu, :price_eu2, :price_usd )
   end  
 
 end

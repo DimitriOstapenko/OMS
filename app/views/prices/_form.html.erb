@@ -1,29 +1,37 @@
 <%= simple_form_for @price do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
 
+  <% readonly = (action_name == 'edit')? true : false %>  
+
   <div class="row">
   <div class="col-md-3">
-  <%= f.input :scale %>
+  <%= f.input :scale, readonly: readonly %>
   </div>
 
   <div class="col-md-3">
+  <%= f.input :category, collection: CATEGORIES, include_blank: false, readonly: readonly %>
+  </div>
+
+  <div class="col-md-2">
   <%= f.input :price_eu %>
   </div>
   
-  <div class="col-md-3">
+  <div class="col-md-2">
   <%= f.input :price_eu2 %>
   </div>
 
-  <div class="col-md-3">
+  <div class="col-md-2">
   <%= f.input :price_usd %>
+  </div>
   </div>
 
   <% unless action_name == 'show' %>
+  <div class="row">
     <div class="col-md-12">
-  <%= f.submit yield(:button_text), class: "btn btn-primary" %>
+    <%= f.submit yield(:button_text), class: "btn btn-primary" %>
+    </div>
   </div>
   <% end %>
-  </div>
 
 <% end %>
 

@@ -71,7 +71,7 @@ class ProductsController < ApplicationController
 
   def apply_price_rules
     Price.all.each do |pr|
-      Product.where(scale: pr.scale).update_all(price_eu: pr.price_eu, price_eu2: pr.price_eu2, price_usd: pr.price_usd)
+      Product.where(scale: pr.scale).where(category: pr.category).update_all(price_eu: pr.price_eu, price_eu2: pr.price_eu2, price_usd: pr.price_usd)
     end
     flash[:success] = "Price rules applied to all products"
     redirect_back(fallback_location: prices_path)
