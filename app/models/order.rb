@@ -34,7 +34,7 @@ class Order < ApplicationRecord
   end
 
   def self.to_csv
-    attributes = %w{id client_id cre_date total status}
+    attributes = %w{id client_code cre_date total po_number status_str}
     CSV.generate(headers: true) do |csv|
       all.each do |order|
         csv << attributes.map{ |attr| order.send(attr) }
@@ -42,8 +42,8 @@ class Order < ApplicationRecord
     end
   end
 
-  def client_code(id)
-    Client.find(id).code rescue nil
+  def client_code
+    Client.find(self.client_id).code rescue nil
   end
 
   def cre_date
