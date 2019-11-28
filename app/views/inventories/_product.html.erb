@@ -2,15 +2,13 @@
       <td class="text-center"><%= link_to product.ref_code, product, remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %></td> 
       <td class="text-center"><%= product.scale_str %></td> 
       <td><%= product.description %></td>
-      <td class="text-center"><%= product.category %></td> 
+      <td class="text-center"><%= product.category_str %></td> 
       <td class="text-center"><%= product.brand_str %></td> 
 
       <% if product_editable? %>
         <td style="width: 20px; align: center;"> 
-          <%# form_with url: update_quantity_path(product), method: :post, remote: true do |f| %>
           <%= simple_form_for product, url: update_quantity_path(product), method: :post do |f| %>
-          <%# f.text_field :quantity, label: false, value:product.quantity, onchange: "this.form.submit();"  %>
-          <%= f.input :quantity, label: false, input_html: {onchange: 'this.form.submit();'}  %>
+            <%= f.input :quantity, label: false, input_html: {onchange: 'this.form.submit();'}  %>
           <% end %>
         </td>
       <% end %>

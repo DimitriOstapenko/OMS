@@ -59,4 +59,11 @@ end
     def get_managers
       Manager.all.pluck("CONCAT_WS(' ', fname, lname)",:id).to_h
     end
+
+# Build array of clients with orders
+    def get_clients_with_orders
+#      Order.joins(:clients).group(:client_id).pluck(:client_id, :name)
+      Order.joins(:client).group(:client_id,:name).pluck('name,client_id')
+    end
+    
 end

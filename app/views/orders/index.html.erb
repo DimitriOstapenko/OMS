@@ -1,4 +1,13 @@
 <%= render "shared/modal" %>
+
+<% selected =  params[:order][:client_id] rescue nil %>
+<%=  simple_form_for :order, url: orders_path, method: :get, html: { class: "form-inline" } do |f| %>
+  <b>Filter By Client:</b> <%= f.input :client_id, collection: get_clients_with_orders, label: false, 
+                               selected: selected,
+                               include_blank: 'All', input_html: {onchange: 'this.form.submit();', size: 1} %>
+<% end %>
+
+<p></p>
 <table class="tbl2 table-hover table-striped table-bordered" >
   <thead>
       <tr>

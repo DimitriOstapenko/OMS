@@ -2,9 +2,11 @@
 <%= simple_form_for @product do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
 
+  <% readonly = (action_name == 'new')? false: true %>
+
   <div class="row" %>
   <div class="col-md-3">
-  <%= f.input :ref_code, hint: "Unique product code, alphanumeric" %>
+  <%= f.input :ref_code, hint: "Unique product code, alphanumeric", readonly: readonly %>
   </div>
   <div class="col-md-3">
   <%= f.input :brand, collection: BRANDS, include_blank: false %> 
@@ -52,10 +54,10 @@
 
   <div class="row" %>
   <div class="col-md-4">
-  <%= f.input :manager, collection: get_managers, include_blank: false %>
+  <%= f.input :manager, collection: get_managers, include_blank: 'unknown'  %>
   </div>
   <div class="col-md-4">
-  <%= f.input :supplier, collection: get_suppliers,  include_blank: false %>
+  <%= f.input :supplier, collection: get_suppliers,  include_blank: 'unknown' %>
   </div>
   <div class="col-md-4">
   <%= f.input :progress, label: '% Complete' %>

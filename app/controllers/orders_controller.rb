@@ -7,8 +7,11 @@ class OrdersController < ApplicationController
   before_action :no_user_user, only: [:index]
 
   def index
-    if current_user.client?
-      @orders = current_client.orders
+    client_id = params[:order][:client_id] rescue nil
+    client = Client.find(client_id) if client_id.present?
+    client = current_client if current_user.client?  
+    if client.present?
+      @orders = client.orders
       @grand_total = @orders.sum{|o| o[:total]}
       @orders = @orders.paginate(page: params[:page])
     else
