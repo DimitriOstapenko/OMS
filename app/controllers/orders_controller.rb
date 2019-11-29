@@ -11,7 +11,7 @@ class OrdersController < ApplicationController
     @client = Client.find(client_id) if client_id.present?
     @client = current_client if current_user.client?  
     if @client.present?
-      @orders = client.orders
+      @orders = @client.orders
       @orders = @orders.paginate(page: params[:page])
     else
       @orders = Order.all
