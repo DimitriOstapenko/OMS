@@ -1,9 +1,8 @@
 <%= render "shared/modal" %>
-<% client = current_client || Client.find(params[:order][:client_id]) rescue nil %>
-<% locale = client.locale rescue :fr %>
+<% locale = @client.locale rescue :fr %>
 
 <% unless current_user.client? %>
-<% selected =  params[:order][:client_id] rescue nil %>
+<% selected = @client.id rescue nil %>
 <%= simple_form_for :order, url: orders_path, method: :get, html: { class: "form-inline" } do |f| %>
   <b>Filter By Client:</b> <%= f.input :client_id, collection: get_clients_with_orders, label: false, 
                                selected: selected,
@@ -15,7 +14,7 @@
 <table class="tbl2 table-hover table-striped table-bordered" >
   <thead>
       <tr>
-          <% unless client.present? %>
+          <% unless @client.present? %>
           <th class="tbl_md, text-center">Client</th>
           <% end %>
           <th class="tbl_sm, text-center">Order #</th>
@@ -27,12 +26,12 @@
       </tr>
   </thead>
   <tbody>
-<%= render @orders, remote: device_is_desktop? %>
+<%= render @orders, remote: device_is_desktop?, client: @client %>
   </tbody>
 
 <tfoot>
   <tr>
-    <% if client.present? %>
+    <% if @client.present? %>
     <th colspan=5></th>
     <th class="text-center"><%= to_currency Client.orders_total(@orders), locale: locale %></th>
     <% end %>

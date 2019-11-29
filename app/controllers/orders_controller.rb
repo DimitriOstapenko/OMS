@@ -8,9 +8,9 @@ class OrdersController < ApplicationController
 
   def index
     client_id = params[:order][:client_id] rescue nil
-    client = Client.find(client_id) if client_id.present?
-    client = current_client if current_user.client?  
-    if client.present?
+    @client = Client.find(client_id) if client_id.present?
+    @client = current_client if current_user.client?  
+    if @client.present?
       @orders = client.orders
       @orders = @orders.paginate(page: params[:page])
     else

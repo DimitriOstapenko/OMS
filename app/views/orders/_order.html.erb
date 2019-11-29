@@ -1,6 +1,6 @@
 <tr>
-        <% unless current_user.client? %>
-        <td><%= link_to order.client.name, client_path(order.client_id), remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %></td>
+        <% unless client.present? %>
+          <td><%= link_to order.client.name, client_path(order.client_id), remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %></td>
         <% end %>
         <td class="text-center"><%= link_to order.id, order_placements_path(order.id), remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %></td>
         <td class="text-center"><%= order.web_id %></td>
