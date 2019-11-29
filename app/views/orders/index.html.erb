@@ -1,18 +1,21 @@
 <%= render "shared/modal" %>
-<% locale = current_client.locale rescue :fr %>
+<% client = current_client || Client.find(params[:order][:client_id]) rescue nil %>
+<% locale = client.locale rescue :fr %>
 
+<% unless current_user.client? %>
 <% selected =  params[:order][:client_id] rescue nil %>
-<%=  simple_form_for :order, url: orders_path, method: :get, html: { class: "form-inline" } do |f| %>
+<%= simple_form_for :order, url: orders_path, method: :get, html: { class: "form-inline" } do |f| %>
   <b>Filter By Client:</b> <%= f.input :client_id, collection: get_clients_with_orders, label: false, 
                                selected: selected,
                                include_blank: 'All', input_html: {onchange: 'this.form.submit();', size: 1} %>
+<% end %>
 <% end %>
 
 <p></p>
 <table class="tbl2 table-hover table-striped table-bordered" >
   <thead>
       <tr>
-          <% unless current_user.client? %>
+          <% unless client.present? %>
           <th class="tbl_md, text-center">Client</th>
           <% end %>
           <th class="tbl_sm, text-center">Order #</th>
@@ -29,14 +32,16 @@
 
 <tfoot>
   <tr>
-    <% if current_user.client? %>
+    <% if client.present? %>
     <th colspan=5></th>
     <th class="text-center"><%= to_currency Client.orders_total(@orders), locale: locale %></th>
     <% end %>
   </tr>
 </tfoot>
 </table>
-<b>Grand Total: <%= to_currency @grand_total, locale: locale %></b>
+<!-- always in base currency: -->
+<b>Grand Total: <%= to_currency @grand_total %></b> 
+<p><small>USD/EUR fx: <%= USD_EUR_FX %></small>
 
 <% if current_user.client? %>
 <div class="row">

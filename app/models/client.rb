@@ -45,9 +45,14 @@ class Client < ApplicationRecord
       end 
   end
 
+# locale to be used in currency conversions and total calculations  
   def locale
     country = Country[self.country]
     locale = (country.continent == 'Europe')?:fr:'us'.to_sym
+  end
+
+  def fx_rate
+    (self.locale == :us)? USD_EUR_FX : 1
   end
 
   def contact_fullname
@@ -65,9 +70,9 @@ class Client < ApplicationRecord
     clients
   end
 
-# Grand total of all orders
+# Grand total of all orders in client's currency
   def self.orders_total(orders=[])
-    orders.sum{|s| s[:total]}
+    orders.sum{|o| o[:total]}
   end  
 
 # Generate unique client code

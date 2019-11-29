@@ -12,13 +12,12 @@ class OrdersController < ApplicationController
     client = current_client if current_user.client?  
     if client.present?
       @orders = client.orders
-      @grand_total = @orders.sum{|o| o[:total]}
       @orders = @orders.paginate(page: params[:page])
     else
       @orders = Order.all
-      @grand_total = @orders.sum{|o| o[:total]}
       @orders = @orders.paginate(page: params[:page])
     end
+    @grand_total = @orders.sum{|o| o[:total]*o.client.fx_rate}
   end 
 
   def show

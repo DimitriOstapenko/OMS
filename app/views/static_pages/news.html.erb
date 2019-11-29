@@ -1,2 +1,27 @@
-<h1>StaticPages#news</h1>
-<p>Find me in app/views/static_pages/news.html.erb</p>
+<%# if logged_in? %>
+
+  <h1> Recent changes to APD OMS </h1>
+
+  <b> Nov 2019 </b>
+  <ul>
+    <li> For logged in clients product profile page now excludes manager, supplier and prices irrelevant to the client. </li> 
+    <li> EUR/USD exchange is now handled; Totals are converted as per client's currency. Amounts are shown using client's locale </li>
+    <li> CSV export of all orders is implemented in admin section </li>
+    <li> Order filter by client added to order index page </li>
+    <li> show/edit/new pages are now shown as modals throughout the site </li> 
+    <li> Suppliers, managers MVC added </li>
+    <li> Price rules are now implemented and placed in admin section. 3 different prices can now be applied to all products in database based on scale and category </li>  
+    <li> Product pictures are imported, thumbnails created. New Ref codes are generated during import based on picture file name. Pictures are now shown in order email and on product profile page </li> 
+    <li> 4 mailers implemented: 
+      <ul>
+      <li> Client Order mailer: sends order confirmation email to the client </li>
+      <li> Staff Order mailer: sends notification of a new order to the staff users </li>
+      <li> Low product quantity alert: sends notifications to staff about low quantity of the product </li>
+      <li> New user registration alert: notifies staff of new user registration </li>
+      </ul>
+      <li> New registered users are now assigned client role automatically if their email is registered in client database and confirmed by them as active </li>
+      <li> Basic inventory functionality is now implemented. Product quantity can be change on inventory index page </li>
+    </li>
+  </ul>
+
+<%# end %>
