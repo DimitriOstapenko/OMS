@@ -6,12 +6,14 @@
 	<td><%= product.category_str %></td> 
 	<td><%= product.brand_str %></td> 
 	<td class="text-center"><%= product.ctns %></td> 
-	<td><%= product.added_date_str %></td> 
-        <td><%= product.release_date_str %></td>
-        <td><%= to_currency(product.price_eu) %></td>
-        <% if current_user.admin? || current_user.staff? %>
-          <td><%= to_currency(product.price_eu2) %></td>
-          <td><%= to_currency(product.price_usd, locale: :us) %></td>
+	<td class="text-center"><%= product.added_date_str %></td> 
+        <td class="text-center"><%= product.release_date_str %></td>
+        <% if current_user.client? %>
+          <td class="text-center"><%= to_currency(current_client.price(product), locale: current_client.locale) %></td>
+        <% elsif current_user.admin? || current_user.staff? %>
+          <td class="text-center"><%= to_currency(product.price_eu) %></td>
+          <td class="text-center"><%= to_currency(product.price_eu2) %></td>
+          <td class="text-center"><%= to_currency(product.price_usd, locale: :us) %></td>
           <td class="text-center"><%= product.supplier_str %></td>
           <td><%= product.manager_str  %></td>
         <% end %>

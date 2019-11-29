@@ -66,4 +66,8 @@ end
       Order.joins(:client).group(:client_id,:name).pluck('name,client_id')
     end
     
+# same as in app controller - for views  
+   def current_client
+     Client.find(current_user.client_id) rescue nil
+   end
 end

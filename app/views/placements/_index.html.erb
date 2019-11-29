@@ -3,9 +3,14 @@
 %>
  
 <div class="modal-header">
-	<button type="button" class="close" data-dismiss="modal">&times;</button>
-	<b class="modal-title" id="myModalLabel">Order <%= @order.id %> - Details</b>
+  <button type="button" class="close" data-dismiss="modal">&times;</button>
+  <% if current_user.client? %>
+        <b class="modal-title" id="myModalLabel">Order <%= @order.id %> - Details</b>
+  <% else %>
+        <b class="modal-title" id="myModalLabel">Client <%= @client.name %>: Order # <%= @order.id %> - Details</b>
+  <% end %>
 </div>
+
 <div class="modal-body">
   <div class="well">
 
@@ -14,7 +19,7 @@
       <tr>
           <th class="tbl_sm, text-center">Product</th>
           <th class="tbl_sm, text-center">Description</th>
-          <th class="tbl_sm, text-center">Price EU</th>
+          <th class="tbl_sm, text-center">Price</th>
           <th class="tbl_md, text-center">Date Ordered</th>
           <th class="tbl_md, text-center">Quantity</th>
           <th class="tbl_md, text-center">Total</th>

@@ -19,10 +19,9 @@
 
 <div class="bottom_buttons">
   <div class="row">
-    <!--
     <div class="col-md-2">
-    <%# button_to "Add Price Rule", new_price_path, class: "btn btn-primary", remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window', method: :get %>
-    </div> -->
+    <%= button_to "Add Price Rule", new_price_path, class: "btn btn-primary", remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window', method: :get %>
+    </div>
     <div class="col-md-4">
     <%= button_to "Apply Price Rules to All Products", apply_price_rules_path, class: "btn btn-warning mr-1", method: :post %>
     </div>

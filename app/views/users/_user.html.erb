@@ -1,23 +1,17 @@
 <tr>
-  <% if current_user?(user) %>
-     <td><%= link_to user.name, edit_user_registration_path(user) %></td>
-  <% else %>
-     <td><%= link_to user.name, edit_user_path(user) %></td>
-  <% end %>
+  <td><%= user.name %>
   <td><%= user.email %></td>
   <td><%= user.role %></td>
   <td><%= user.active? %></td>
   <td><%= user.client_name %></td>
-  <td><%= user.created_at %></td>
+  <td><%= user.created_at.to_date %></td>
   <td><%= user.last_sign_in_at %></td>
 
-  <% if current_user.admin? %>
-     <% if !current_user?(user) %>
-       <td><%= link_to '<i class="glyphicon glyphicon-random"></i>'.html_safe, switch_user_path(user),  method: :get %> </td>
-       <td><%= link_to '<i class="glyphicon glyphicon-remove-sign"></i>'.html_safe, user, method: :delete, data: { confirm: "Delete user #{user.name}, #{user.email}?" } %></td>
-     <% else %>
+     <% if current_user?(user) %>
        <td colspan=2></td>
+     <% else %>
+       <td class="text-center"><%= link_to '<i class="glyphicon glyphicon-edit"></i>'.html_safe, edit_user_path(user),  method: :get, remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %> </td>
+       <td class="text-center"><%= link_to '<i class="glyphicon glyphicon-random"></i>'.html_safe, switch_user_path(user),  method: :get %> </td>
+       <td class="text-center"><%= link_to '<i class="glyphicon glyphicon-remove-sign"></i>'.html_safe, user, method: :delete, data: { confirm: "Delete user #{user.name}, #{user.email}?" } %></td>
      <% end %>
-
-  <% end %>
  </tr>

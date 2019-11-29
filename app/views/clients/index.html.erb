@@ -36,7 +36,7 @@
 
 <div class="row" style="clear: both;">
 <div class="bottom_buttons">
-<%= button_to "Add Client", new_client_path, class: "btn btn-primary col-md-2 col-sm-2", method: :get %>
+<%= button_to "Add Client", new_client_path, class: "btn btn-primary col-md-2 col-sm-2", method: :get, remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window'  %>
 </div>
 
 <div class="bottom_nav">

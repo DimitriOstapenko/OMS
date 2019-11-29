@@ -7,5 +7,5 @@
         <td class="text-center"><%= order.updated_at %></td>
         <td class="text-center"><%= order.status_str %></td>
         <td class="text-center"><%= order.po_number %></td>
-        <td class="text-center"><%= order.total %></td>
+        <td class="text-center"><%= to_currency order.total, locale: order.client.locale %></td>
 </tr>

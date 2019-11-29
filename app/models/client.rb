@@ -27,7 +27,7 @@ class Client < ApplicationRecord
   end
 
   def price_type_str
-    PRICE_TYPES.invert[self.price_type] rescue nil
+    PRICE_TYPES.invert[self.price_type].to_s rescue nil
   end
   
 # Client price depends on location, defined by price_type  
@@ -66,8 +66,8 @@ class Client < ApplicationRecord
   end
 
 # Grand total of all orders
-  def self.orders_total(orders=[], locale=:fr)
-    ActionController::Base.helpers.number_to_currency(orders.sum{|s| s[:total]}, locale: locale)
+  def self.orders_total(orders=[])
+    orders.sum{|s| s[:total]}
   end  
 
 # Generate unique client code

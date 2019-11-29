@@ -1,4 +1,5 @@
 <%= render "shared/modal" %>
+<% locale = current_client.locale rescue :fr %>
 
 <% selected =  params[:order][:client_id] rescue nil %>
 <%=  simple_form_for :order, url: orders_path, method: :get, html: { class: "form-inline" } do |f| %>
@@ -28,15 +29,14 @@
 
 <tfoot>
   <tr>
-    <% unless current_user.client? %>
-    <th></th>
-    <% end %>
+    <% if current_user.client? %>
     <th colspan=5></th>
-    <th class="text-center"><%= Client.orders_total(@orders) %></th>
+    <th class="text-center"><%= to_currency Client.orders_total(@orders), locale: locale %></th>
+    <% end %>
   </tr>
 </tfoot>
 </table>
-<b>Grand Total: <%= to_currency(@grand_total) %></b>
+<b>Grand Total: <%= to_currency @grand_total, locale: locale %></b>
 
 <% if current_user.client? %>
 <div class="row">
