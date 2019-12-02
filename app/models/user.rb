@@ -17,10 +17,6 @@ class User < ApplicationRecord
     self.role ||= :user
   end
 
-  def timeout_in 
-    15.minutes
-  end
-
   def client_name
     Client.find(self.client_id).name if self.client_id 
   end

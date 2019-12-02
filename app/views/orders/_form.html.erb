@@ -1,11 +1,12 @@
+<div style="float: right; font-size: 15px;"> Cart: <%= link_to "#{get_cart.count} items", cart_path %></div>
 <div class="col-md-6 col-md-offset-3">
 <h3 class='display-1'><%= yield :title %></h3>
 <div class="well">
 
-<%= simple_form_for @order do |f| %>
-  <%= render 'shared/error_messages', object: f.object %>
+<%= simple_form_for :placement, url: add_product_path, method: :post do |f| %>
+  <%# render 'shared/error_messages', object: f.object %>
 
-  <%= f.input :products, collection: Product.all, label_method: "ref_code_and_descr", value_method: :id, include_blank: 'Please select product' %> <%#, input_html: { multiple: true, size: 20 }  %>
+  <%= f.input :id, collection: Product.all, label: 'Product', label_method: "ref_code_and_descr", value_method: :id, include_blank: true %> <%#, input_html: { multiple: true, size: 20 }  %>
   <%= f.input :quantity %> 
 
   <% unless action_name == 'show' %>

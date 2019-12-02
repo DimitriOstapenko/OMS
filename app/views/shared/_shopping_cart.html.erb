@@ -1,0 +1,3 @@
+<% if get_cart.any? %>
+  <div id="shopping_cart"><%= link_to "<i class='glyphicon glyphicon-shopping-cart'></i>&nbsp;#{get_cart.count}".html_safe, cart_path %></div>
+<% end %>

@@ -1,23 +1,29 @@
   <tr>
-	<td><%= link_to product.ref_code, product, remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %></td> 
+	<td class="text-center"><%= link_to product.ref_code, product, remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %></td> 
 	<td class="text-center"><%= product.scale_str %></td> 
 	<td class="text-center"><%= product.colour_str %></td> 
         <td><%= product.description %></td>
-	<td><%= product.category_str %></td> 
-	<td><%= product.brand_str %></td> 
+	<td class="text-center"><%= product.category_str %></td> 
+	<td class="text-center"><%= product.brand_str %></td> 
 	<td class="text-center"><%= product.ctns %></td> 
 	<td class="text-center"><%= product.added_date_str %></td> 
         <td class="text-center"><%= product.release_date_str %></td>
         <% if current_user.client? %>
           <td class="text-center"><%= to_currency(current_client.price(product), locale: current_client.locale) %></td>
+          <td class="text-center" style="width:20px;">
+             <%= simple_form_for :placement, url: add_product_path(product.id), method: :post, html: { class: "form-inline" } do |f| %>
+               <%= f.input :id, as: :hidden, input_html: {value: product.id} %>
+               <%= f.input :quantity, label: false, input_html: {onchange: 'this.form.submit();', size: 4} %>
+             <% end %>
+          </td>
         <% elsif current_user.admin? || current_user.staff? %>
           <td class="text-center"><%= to_currency(product.price_eu) %></td>
           <td class="text-center"><%= to_currency(product.price_eu2) %></td>
           <td class="text-center"><%= to_currency(product.price_usd, locale: :us) %></td>
           <td class="text-center"><%= product.supplier_str %></td>
           <td><%= product.manager_str  %></td>
+          <td class="text-center"><%= product.quantity %></td>
         <% end %>
-        <td class="text-center"><%= product.quantity %></td>
 
         <% if product_editable? %>
           <td><%= link_to '<i class="glyphicon glyphicon-edit"></i>'.html_safe, edit_product_path(product), remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %> </td>

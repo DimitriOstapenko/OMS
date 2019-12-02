@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
 #  get 'placements/index'
 #  get 'placements/show'
-  devise_for :users, :controllers => { :registrations => "my_registrations" } # mailer added to default action
+  devise_for :users, controllers: { registrations: "my_registrations" } 
   get '/users/', to: 'users#index'
 
   get '/switch_to/:id', to: 'users#switch_to', as: :switch_user
@@ -24,6 +24,9 @@ Rails.application.routes.draw do
   get '/terms', to: 'static_pages#terms'
   get '/privacy', to: 'static_pages#privacy'
   get '/export', to: 'orders#export', as: :export
+
+  post '/add_product(/:id)', to: 'placements#add_product', as: :add_product
+  get '/cart', to: 'placements#cart', as: :cart
 
   resources :products, :clients, :suppliers, :managers, :users, :prices
   resources :orders, only: [:new, :index, :show, :create] do

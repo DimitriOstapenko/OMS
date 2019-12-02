@@ -8,6 +8,7 @@ class ApplicationController < ActionController::Base
   skip_before_action :verify_authenticity_token 
 
   include UsersHelper
+  helper_method :add_to_cart, :get_cart, :clear_cart, :current_client
 
   before_action :configure_permitted_parameters, if: :devise_controller?
 
@@ -21,12 +22,12 @@ class ApplicationController < ActionController::Base
 
 # Confirms an admin user.
   def admin_user
-    redirect_back fallback_location: root_path, alert: "You have no rights for this operation" unless current_user && current_user.admin?
+    redirect_back fallback_location: root_path, alert: "This operation is reserved to admin users only" unless current_user && current_user.admin?
   end
 
 # Confirms staff user  
   def staff_user
-     redirect_back fallback_location: root_path, alert: "You have no rights for this operation" unless current_user && current_user.staff?
+     redirect_back fallback_location: root_path, alert: "This operation is reserved for staff users only" unless current_user && current_user.staff?
   end
 
 # Confirms admin or staff user  
@@ -35,7 +36,7 @@ class ApplicationController < ActionController::Base
   end
 
   def client_user
-     redirect_back fallback_location: root_path, alert: "This operation is reserved to clients" unless current_user && current_user.client?
+     redirect_back fallback_location: root_path, alert: "This operation is reserved to client users only" unless current_user && current_user.client?
   end
 
   def no_user_user
@@ -44,6 +45,33 @@ class ApplicationController < ActionController::Base
 
   def current_client
     Client.find(current_user.client_id) rescue nil
+  end
+
+# Retrieve active order from session  
+#  def current_order
+#    if session[:order_id]
+#      Order.find(session[:order_id])
+#    else
+#      Order.new
+#    end
+#  end
+
+  def add_to_cart(product_id,qty)
+    return unless product_id && qty
+    temp = session[:cart] || []
+    temp.push([product_id, qty])
+
+#   clean up possible duplicates: join keys, add values (qty)
+    session[:cart] = temp.group_by(&:first).map { |k, v| [ k, v.sum{|e| e[1].to_i} ] }
+  end
+
+  def get_cart
+    session[:cart] ||= []
+    return session[:cart] 
+  end
+  
+  def clear_cart
+    session[:cart] = []
   end
 
 protected

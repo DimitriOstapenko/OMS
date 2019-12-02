@@ -1,13 +1,17 @@
 <%= render "shared/modal" %>
 <% locale = @client.locale rescue :fr %>
 
-<% unless current_user.client? %>
-<% selected = @client.id rescue nil %>
-<%= simple_form_for :order, url: orders_path, method: :get, html: { class: "form-inline" } do |f| %>
-  <b>Filter By Client:</b> <%= f.input :client_id, collection: get_clients_with_orders, label: false, 
-                               selected: selected,
-                               include_blank: 'All', input_html: {onchange: 'this.form.submit();', size: 1} %>
+<% if current_user.client? %>
+  <%= render "shared/shopping_cart" %>
 <% end %>
+
+<% unless current_user.client? %>
+  <% selected = @client.id rescue nil %>
+  <%= simple_form_for :order, url: orders_path, method: :get, html: { class: "form-inline" } do |f| %>
+    <b>Filter By Client:</b> <%= f.input :client_id, collection: get_clients_with_orders, label: false, 
+                               selected: selected,
+                               include_blank: 'All', input_html: {onchange: 'this.form.submit();'} %>
+  <% end %>
 <% end %>
 
 <p></p>
@@ -40,7 +44,6 @@
 </table>
 <!-- always in base currency: -->
 <b>Grand Total: <%= to_currency @grand_total %></b> 
-<p><small>USD/EUR fx: <%= USD_EUR_FX %></small>
 
 <% if current_user.client? %>
 <div class="row">

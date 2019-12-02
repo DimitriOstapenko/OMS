@@ -1,0 +1,50 @@
+<%= render "shared/modal" %>
+<div style="clear: both" class="modal-title">
+Your Shopping Cart - Details
+</div>
+
+<table class="tbl2 table-hover table-striped table-bordered" >
+  <thead>
+      <tr>
+        <th class="text-center"> Item# </th>
+        <th class="text-center"> RefCode </th>
+        <th class="text-center"> Scale </th>
+        <th class="text-center"> Colour </th>
+        <th> Name </th>
+        <th class="text-center"> Quantity </th>
+        <th class="text-center"> Price </th>
+        <th class="text-center"> Subtotal </th>
+      </tr>
+  </thead>
+  <tbody>
+
+<% grand_total = pos = 0 %>
+<% @products.each do |prod_and_qty| %>
+  <% id, quantity = prod_and_qty %>
+  <% product = Product.find(id) %>
+  <% product_total = @client.price(product)*quantity %>
+  <% grand_total += product_total; pos += 1 %>
+  <tr>
+  <td class="text-center"><%= pos %></td>
+  <td class="text-center"><%= link_to product.ref_code, product, remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %></td> 
+  <td class="text-center">1:<%= product.scale %></td>
+  <td class="text-center"><%= product.colour_str %></td>
+  <td><%= product.description %></td>
+  <td class="text-center"><%= quantity %></td>
+  <td class="text-center"><%= to_currency @client.price(product), locale: @client.locale %></td>
+  <td class="text-center"><%= to_currency product_total, locale: @client.locale %></td>
+  </tr>
+<% end %>
+
+  </tbody>
+  <tfoot>
+    <tr>
+      <th colspan=7></th>
+      <th class="text-center"><%= to_currency grand_total, locale: @client.locale %></th>
+    </tr>
+  </tfoot>
+</table>
+
+<%= simple_form_for :order, url: orders_path  do |f| %>
+  <%= f.submit 'Submit order', class: "btn btn-primary" %>
+<% end %>

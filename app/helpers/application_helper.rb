@@ -62,12 +62,7 @@ end
 
 # Build array of clients with orders
     def get_clients_with_orders
-#      Order.joins(:clients).group(:client_id).pluck(:client_id, :name)
-      Order.joins(:client).group(:client_id,:name).pluck('name,client_id')
+      Order.joins(:client).group(:client_id,:name).reorder('').pluck('name,client_id')
     end
     
-# same as in app controller - for views  
-   def current_client
-     Client.find(current_user.client_id) rescue nil
-   end
 end

@@ -29,16 +29,20 @@ class OrdersController < ApplicationController
     @order = Order.new
   end
 
+  def add
+#    @product_ids_and_quantities.push([3,3])
+  end
+
   def create
     @client = current_client
     @order = @client.orders.build
-    @placement = @order.placements.first
-    @product_ids_and_quantities = [[params[:order][:products], params[:order][:quantity]]]
+    @product_ids_and_quantities = get_cart #[[params[:order][:products], params[:order][:quantity]]]
     if @order.build_placements_with_product_ids_and_quantities?(@product_ids_and_quantities) &&
        @order.save
         po_number = 'PO'+Time.now.strftime("%Y%m%d")+'-'+@order.id.to_s
         @order.update_attribute(:po_number, po_number)
         @order.reload
+        clear_cart
         flash[:info] = 'Order saved, confirmation sent'
         OrderMailer.send_confirmation(@order).deliver_later
         OrderMailer.notify_staff(@order).deliver_now

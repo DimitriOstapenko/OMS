@@ -4,6 +4,8 @@ class Order < ApplicationRecord
 
   belongs_to :client
 
+  default_scope -> { order(created_at: :desc) }
+
   validates :client_id, presence: true
   validates_with EnoughProductsValidator
 
@@ -22,9 +24,11 @@ class Order < ApplicationRecord
   end
 
   def build_placements_with_product_ids_and_quantities?(product_ids_and_quantities)
+    return false unless product_ids_and_quantities.any?
     product_ids_and_quantities.each do |product_id_and_quantity|
       id, quantity = product_id_and_quantity # [1,5]
-      product = Product.find(id)
+      product = Product.find(id) rescue nil
+      next unless product.present? 
       self.placements.build(product_id: id, quantity: quantity, price: self.client.price(product))
     end
   end

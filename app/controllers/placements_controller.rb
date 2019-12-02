@@ -15,4 +15,18 @@ class PlacementsController < ApplicationController
     @placement = Placement.find(params[:id])
   end
 
+  def add_product
+# app_controller    
+    add_to_cart(params[:placement][:id], params[:placement][:quantity])
+
+    redirect_back(fallback_location: products_path)
+    flash[:info] = 'Product added to shopping cart'
+  end
+
+  def cart
+    @products = get_cart
+    @client = current_client
+  end
+
+
 end

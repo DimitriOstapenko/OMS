@@ -42,10 +42,11 @@ group :test do
 #  gem 'chromedriver-helper'
 end
 
+gem 'activerecord-session_store'
 gem 'simple_form', '~> 5.0.0'
 #gem 'simple_form-bootstrap', '~> 1.4'
 gem 'whenever', require: false
 gem 'country_select'  #, '~> 3.1.1'
 gem 'countries', require: 'countries/global'
-#gem 'delayed_job_active_record'
 gem 'bootstrap-email'
+#gem 'auto-session-timeout', '~> 0.9.6'
