@@ -21,7 +21,8 @@ Your Shopping Cart - Details
 <% grand_total = pos = 0 %>
 <% @products.each do |prod_and_qty| %>
   <% id, quantity = prod_and_qty %>
-  <% product = Product.find(id) %>
+  <% product = Product.find(id) rescue nil%>
+  <% next unless product %>
   <% product_total = @client.price(product)*quantity %>
   <% grand_total += product_total; pos += 1 %>
   <tr>
