@@ -1,5 +1,7 @@
 <tr>
     <td class="text-center"><%= placement.product.ref_code %></td>
+    <td class="text-center">1:<%= placement.product.scale %></td>
+    <td class="text-center"><%= placement.product.colour_str %></td>
     <td class="text-center"><%= placement.product.description %></td>
     <td class="text-center"><%= to_currency placement.price, locale: @client.locale %></td>
     <td class="text-center"><%= placement.updated_at %></td>

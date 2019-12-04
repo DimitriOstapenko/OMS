@@ -30,7 +30,7 @@
       </tr>
   </thead>
   <tbody>
-<%= render @orders, remote: device_is_desktop? %>
+<%= render @orders, remote: device_is_desktop?  %>
   </tbody>
 
 <tfoot>
@@ -48,7 +48,7 @@
 <% if current_user.client? %>
 <div class="row">
 <div class="bottom_buttons ">
-<%= button_to "Add Order", new_order_path, class: "btn btn-primary col-md-2", method: :get %>
+<%= button_to "Add Product To Cart", new_order_path, class: "btn btn-primary col-md-2", method: :get, remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window'  %>
 </div>
 </div>
 <% end %>

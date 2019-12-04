@@ -56,8 +56,10 @@ class ApplicationController < ActionController::Base
 #    end
 #  end
 
-  def add_to_cart(product_id,qty)
+  def add_to_cart?(product_id,qty)
+    qty = qty.to_i rescue nil
     return unless product_id && qty
+    return unless qty > 0 
     temp = session[:cart] || []
     temp.push([product_id, qty])
 
