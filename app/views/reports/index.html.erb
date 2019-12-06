@@ -1,1 +1,31 @@
-reports#index
+<% provide(:title, 'Reports') %>
+  
+<table class="tbl table-hover">
+   <thead>
+      <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Client</th>
+          <th>Time Frame</th>
+          <th>From</th>
+          <th>To</th>
+          <th>Created on</th> 
+          <th>File</th>
+          <% if current_user.admin? %>
+            <th class="tbl_sm" colspan=2></th>
+          <% end %>
+      </tr>
+  </thead>
+  <tbody>
+
+  <%= render @reports %>
+
+  </tbody>
+</table>
+
+<% if current_user.admin? %>
+<div class="bottom_buttons ">
+<%= will_paginate @client_mails, class: "btn" %>
+<%= button_to "Create New Report", new_report_path, class: "btn btn-primary col-md-2 ", method: 'get'  %>
+</div>
+<% end %>

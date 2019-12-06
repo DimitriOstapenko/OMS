@@ -7,12 +7,16 @@
 
 <% unless current_user.client? %>
   <% selected = @client.id rescue nil %>
+  <div style="clear:both">
   <%= simple_form_for :order, url: orders_path, method: :get, html: { class: "form-inline" } do |f| %>
-    <b>Filter By Client:</b> <%= f.input :client_id, collection: get_clients_with_orders, label: false, 
+    <b> Filter By Client: </b>
+    <%= f.input :client_id, collection: get_clients_with_orders, label: false, 
                                selected: selected,
                                include_blank: 'All', input_html: {onchange: 'this.form.submit();'} %>
   <% end %>
+  </div>
 <% end %>
+
 
 <p></p>
 <table class="tbl2 table-hover table-striped table-bordered" >
@@ -22,6 +26,7 @@
           <th class="tbl_md, text-center">Client</th>
           <% end %>
           <th class="tbl_sm, text-center">Order #</th>
+          <th class="tbl_sm, text-center">Products</th> 
           <th class="tbl_sm, text-center">Web Order Id</th>
           <th class="tbl_md, text-center">Date</th>
           <th class="tbl_md, text-center">Status</th>
@@ -36,7 +41,7 @@
 <tfoot>
   <tr>
     <% if @client.present? %>
-    <th colspan=5></th>
+    <th colspan=6></th>
     <th class="text-center"><%= to_currency Client.orders_total(@orders), locale: locale %></th>
     <% end %>
   </tr>

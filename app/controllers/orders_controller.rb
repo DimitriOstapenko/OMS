@@ -27,6 +27,7 @@ class OrdersController < ApplicationController
   def new
     @client = current_client
     @order = Order.new
+    @placement = @order.placements.new
   end
 
   def add

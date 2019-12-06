@@ -1,0 +1,32 @@
+  
+<%= simple_form_for @client_mail do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <div class="row" %>
+  <div class="col-md-12">
+  <%= f.input :title, hint: "Email message title" %>
+  </div>
+  </div>
+
+  <div class="row" %>
+  <div class="col-md-6">
+  <%= f.input :category %> 
+  </div>
+  <div class="col-md-6">
+  <%= f.input :client_type, collection: CLIENT_TYPES, include_blank: false %>
+  </div>
+  </div>
+
+  <div class="row">
+  <div class="col-md-12">
+  <%= f.input :body, as: :text %>
+  </div>
+  </div>
+
+  <% unless action_name == 'show' %>
+  <%= f.submit yield(:button_text), class: "btn btn-primary" %>
+  <% end %>
+
+<% end %>
+
+

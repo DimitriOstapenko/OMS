@@ -48,5 +48,4 @@ gem 'simple_form', '~> 5.0.0'
 gem 'whenever', require: false
 gem 'country_select'  #, '~> 3.1.1'
 gem 'countries', require: 'countries/global'
-gem 'bootstrap-email'
-#gem 'auto-session-timeout', '~> 0.9.6'
+gem 'bootstrap-email', '~> 0.3.0'

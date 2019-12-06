@@ -450,11 +450,12 @@ input, select{
 .tbl2 th {
   background: $brand-info; //#5bc0de;
   color: white;
-  height: 26px;
+  height: 28px;
   padding: 2px;
 }
 .tbl2 th,td {
   font-size: 1em;
+  padding: 2px 5px;
 }
 
 .tbl td,
@@ -659,6 +660,12 @@ table.pretty {
     height: 32px !important;
 }
 
+// width is calculated wrong in modals! force 100%
+.select2 {
+  width: 100% !important;
+//  padding-left: 20px !important;
+//  padding-right: 20px;
+}
 
 // Safari modals - doesnt really work, but maybe one day..
 .clickable {
@@ -779,7 +786,6 @@ card > hr {
   vertical-align: 1px;
 }
 
-
 // Bootstrap form controls focus border
 .form-control:focus {
   border-color: #FF0000;
@@ -805,5 +811,10 @@ card > hr {
   font-size: 1.4em;
   font-weight: 800;
   padding-right: 20px;
+}
+
+.email-btn {
+//font-size: 1.1em;
+background: $brand-info;
 }
 

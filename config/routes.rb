@@ -3,8 +3,6 @@ Rails.application.routes.draw do
 #  root 'static_pages#home'
   root 'products#index'
 
-#  get 'placements/index'
-#  get 'placements/show'
   devise_for :users, controllers: { registrations: "my_registrations" } 
   get '/users/', to: 'users#index'
 
@@ -28,7 +26,7 @@ Rails.application.routes.draw do
   post '/add_product(/:id)', to: 'placements#add_product', as: :add_product
   get '/cart', to: 'placements#cart', as: :cart
 
-  resources :products, :clients, :suppliers, :managers, :users, :prices
+  resources :products, :clients, :suppliers, :managers, :users, :prices, :client_mails, :reports
   resources :orders, only: [:new, :index, :show, :create] do
     resources :placements, only: [:index, :show, :create]
   end

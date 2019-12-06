@@ -1,0 +1,38 @@
+  
+<%= simple_form_for @report do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <div class="row" %>
+    <div class="col-md-12">
+      <%= f.input :name, label: "Report name" %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+       <%= f.input :timeframe %>
+    </div>
+  </div>
+
+  <div class="row" %>
+    <div class="col-md-2">
+      <%= f.input :rtype, label: "Report Type" %> 
+    </div>
+    <div class="col-md-4">
+       <%= f.input :client_id %> 
+    </div>
+    <div class="col-md-3">
+      <%= f.input :sdate, as: :date, label: 'Start Date', html5: true  %>
+    </div>
+    <div class="col-md-3">
+      <%= f.input :edate, as: :date, label: 'End Date', html5: true  %>
+    </div>
+  </div>
+
+  <% unless action_name == 'show' %>
+    <%= f.submit yield(:button_text), class: "btn btn-primary" %>
+  <% end %>
+
+<% end %>
+
+

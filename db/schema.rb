@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_30_042038) do
+ActiveRecord::Schema.define(version: 2019_12_05_001304) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "client_mails", force: :cascade do |t|
+    t.datetime "ts_sent"
+    t.integer "client_type"
+    t.integer "category"
+    t.text "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "title"
+  end
 
   create_table "clients", force: :cascade do |t|
     t.string "name"
@@ -97,6 +107,18 @@ ActiveRecord::Schema.define(version: 2019_11_30_042038) do
     t.integer "quantity", default: 0
     t.decimal "price_eu2", default: "0.0"
     t.index ["ref_code"], name: "index_products_on_ref_code"
+  end
+
+  create_table "reports", force: :cascade do |t|
+    t.string "name"
+    t.integer "client_id"
+    t.integer "rtype"
+    t.integer "timeframe"
+    t.date "sdate"
+    t.date "edate"
+    t.string "filename"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "sessions", force: :cascade do |t|

@@ -1,0 +1,13 @@
+<tr>
+  <td><%= client_mail.title %></td>
+  <td><%= client_mail.ts_sent %></td>
+  <td><%= client_mail.category %></td>
+  <td><%= client_mail.client_type %></td>
+  <td><%= client_mail.created_at %></td>
+  <td><%= client_mail.body %></td>
+
+  <% if current_user.admin? %>
+       <td><%= link_to '<i class="glyphicon glyphicon-edit"></i>'.html_safe, edit_client_mail_path(client_mail) %> </td>
+       <td><%= link_to '<i class="glyphicon glyphicon-remove-sign"></i>'.html_safe, client_mail, method: :delete, data: { confirm: "Are you sure you want to delete #{client_mail.title}?" } %> </td>
+  <% end %>
+ </tr>

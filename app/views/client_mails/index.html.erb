@@ -1,0 +1,29 @@
+<% provide(:title, 'Client Mailer') %>
+  
+<table class="tbl table-hover">
+   <thead>
+      <tr>
+          <th>Title</th>
+          <th>Sent on</th>
+          <th>Category</th>
+          <th>Client Category</th>
+          <th>Created</th> 
+          <th>Content</th>
+          <% if current_user.admin? %>
+            <th class="tbl_sm" colspan=2></th>
+          <% end %>
+      </tr>
+  </thead>
+  <tbody>
+
+  <%= render @client_mails %>
+
+  </tbody>
+</table>
+
+<% if current_user.admin? %>
+<div class="bottom_buttons ">
+<%= will_paginate @client_mails, class: "btn" %>
+<%= button_to "Create New Email", new_client_mail_path, class: "btn btn-primary col-md-2 ", method: 'get'  %>
+</div>
+<% end %>

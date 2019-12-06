@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  client_id: 1
+  rtype: 1
+  timeframe: 1
+  sdate: 2019-12-04
+  edate: 2019-12-04
+  filename: MyString
+
+two:
+  name: MyString
+  client_id: 1
+  rtype: 1
+  timeframe: 1
+  sdate: 2019-12-04
+  edate: 2019-12-04
+  filename: MyString

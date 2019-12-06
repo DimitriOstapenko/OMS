@@ -27,7 +27,7 @@ Your Shopping Cart - Details
   <% grand_total += product_total; pos += 1 %>
   <tr>
   <td class="text-center"><%= pos %></td>
-  <td class="text-center"><%= link_to product.ref_code, product, remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %></td> 
+  <td class="text-center"><%= product.ref_code %></td>
   <td class="text-center">1:<%= product.scale %></td>
   <td class="text-center"><%= product.colour_str %></td>
   <td><%= product.description %></td>
