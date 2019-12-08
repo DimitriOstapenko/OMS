@@ -1,0 +1,14 @@
+<% provide(:title, "Client Mail # #{@mail.id} - Target Preview") %>
+
+<div class="row">
+<div class="col-md-8 col-md-offset-2">
+  <h3 class='display-1'>Email # <%= @mail.id %> - Email Target Preview</h3>
+<div class="well">
+  <b>Target address list:</b>
+  <div class="visit-notes-panel-body">
+   <%= render html: @mail.target_emails %>
+  </div>
+</div>
+        
+</div>
+</div>

@@ -1,0 +1,14 @@
+<div class='email-header'>
+<%= @email.title %>
+</div>
+
+<%= @email.body.html_safe %>
+
+<div style="clear:both">
+
+<p> &nbsp;</p>
+<p>
+<%= button_to 'Login to your personal space', new_user_session_url, class: "email-btn" %>
+</p>
+
+</div>

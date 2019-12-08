@@ -25,10 +25,19 @@ Rails.application.routes.draw do
 
   post '/add_product(/:id)', to: 'placements#add_product', as: :add_product
   get '/cart', to: 'placements#cart', as: :cart
+#  get '/send_client_mail(/:id)', to: 'client_mails#send_client_mail', as: :send_client_mail
+#  get '/preview_mail(/:id)', to: 'client_mails#preview_mail', as: :preview_mail
+#  get '/client_mail_target(/:id)', to: 'client_mails#show_target', as: :client_mail_target
 
-  resources :products, :clients, :suppliers, :managers, :users, :prices, :client_mails, :reports
+  resources :products, :clients, :suppliers, :managers, :users, :prices, :reports
   resources :orders, only: [:new, :index, :show, :create] do
     resources :placements, only: [:index, :show, :create]
   end
+
+  resources :client_mails do
+    get 'show_target', on: :member
+    get 'send_all', on: :member
+  end
+
 
 end

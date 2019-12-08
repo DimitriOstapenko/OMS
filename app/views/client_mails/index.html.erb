@@ -3,12 +3,13 @@
 <table class="tbl table-hover">
    <thead>
       <tr>
+          <th class='text-center tbl_sm'>Id</th>
           <th>Title</th>
-          <th>Sent on</th>
-          <th>Category</th>
-          <th>Client Category</th>
-          <th>Created</th> 
-          <th>Content</th>
+          <th class='text-center tbl_md'>Sent on</th>
+          <th class='text-center tbl_md'>Category</th>
+          <th class='text-center tbl_md'>Client Category</th>
+          <th class='text-center tbl_md'>Created</th> 
+          <th class='text-center tbl_md'>Target Emails</th>
           <% if current_user.admin? %>
             <th class="tbl_sm" colspan=2></th>
           <% end %>

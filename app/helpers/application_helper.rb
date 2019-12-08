@@ -64,5 +64,14 @@ end
     def get_clients_with_orders
       Order.joins(:client).group(:client_id,:name).reorder('').pluck('name,client_id')
     end
+
+# Return symbol for client category
+    def client_category_str(category)
+      CLIENT_TYPES.invert[category] rescue '' 
+    end    
     
+# Return symbol for client_mail category
+    def client_mail_category_str(category)
+      CLIENT_MAIL_CATEGORIES.invert[category] rescue '' 
+    end    
 end

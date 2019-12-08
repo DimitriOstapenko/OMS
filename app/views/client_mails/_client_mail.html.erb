@@ -1,10 +1,15 @@
 <tr>
+  <td class='text-center'><%= link_to client_mail.id, client_mail  %></td>
   <td><%= client_mail.title %></td>
-  <td><%= client_mail.ts_sent %></td>
-  <td><%= client_mail.category %></td>
-  <td><%= client_mail.client_type %></td>
+  <td class='text-center'><%= client_mail.ts_sent %></td>
+  <td class='text-center'><%= client_mail_category_str(client_mail.category) %></td>
+  <td class='text-center'><%= client_category_str(client_mail.client_type) %></td>
   <td><%= client_mail.created_at %></td>
-  <td><%= client_mail.body %></td>
+  <% if client_mail.target_email_count > 0 %>
+    <td class='text-center'><%= link_to client_mail.target_email_count, show_target_client_mail_path(client_mail) %></td>
+  <% else %>
+    <td></td>
+  <% end %>
 
   <% if current_user.admin? %>
        <td><%= link_to '<i class="glyphicon glyphicon-edit"></i>'.html_safe, edit_client_mail_path(client_mail) %> </td>

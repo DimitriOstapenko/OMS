@@ -1,0 +1,23 @@
+<% provide(:title, "Client Mail # #{@client_mail.id} - Preview") %>
+
+<div class="row">
+<div class="col-md-8 col-md-offset-2">
+<h3 class='display-1'>Client Email Preview</h3>
+<div class="well">
+
+  <b>Subject:</b> <%= render html: @client_mail.title %>
+  <p>
+  <pre>
+   <%= render html: @client_mail.body.html_safe %>
+  </pre>
+</div>
+        
+<% if current_user.admin? || current_user.staff? %>
+<div class="row">
+  <div class="col-md-2">
+    <%= button_to "Send This Email", send_all_client_mail_path, class: "btn btn-primary", method: 'get'  %>
+  </div>
+</div>
+<% end %>
+</div>
+</div>

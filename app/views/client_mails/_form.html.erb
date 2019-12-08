@@ -10,21 +10,25 @@
 
   <div class="row" %>
   <div class="col-md-6">
-  <%= f.input :category %> 
+  <%= f.input :category, collection: CLIENT_MAIL_CATEGORIES, label: "Message Category", include_blank: false %> 
   </div>
   <div class="col-md-6">
-  <%= f.input :client_type, collection: CLIENT_TYPES, include_blank: false %>
+  <%= f.input :client_type, collection: CLIENT_TYPES, hint: "All clients of the selected type will receive this message", include_blank: false %>
   </div>
   </div>
 
   <div class="row">
   <div class="col-md-12">
-  <%= f.input :body, as: :text %>
+  <%= f.input :body, as: :text, hint: "You can enter your message in plain text or HTML here", input_html: {rows:15}  %>
   </div>
   </div>
 
   <% unless action_name == 'show' %>
+  <div class="row">
+  <div class="col-md-12">
   <%= f.submit yield(:button_text), class: "btn btn-primary" %>
+  </div>
+  </div>
   <% end %>
 
 <% end %>

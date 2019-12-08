@@ -72,6 +72,7 @@ table {
    padding-right:5px;
 //   min-height: 92%; //92%;
    padding-bottom:30px;  
+   clear: both;
 //   height: 100%;
 //  margin: 0 auto -30px;  /* footer height */
 //   height: auto !important; /* Stick footer to bottom in IE6 */
@@ -575,8 +576,9 @@ table.pretty {
 }
 
 .visit-notes-panel-body {
+  word-wrap: break-word;
     background: #FAFAD2;
-    max-height: 200px;
+    max-height: 500px;
     overflow-x: scroll;
     overflow-y: scroll;
 }
