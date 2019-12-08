@@ -1,5 +1,5 @@
 <div class="email-container">
-  <div class='email-header'>New Order (#<%= @order.id %>) received from <%= @client.name %></div>
+  <div class='email-header'>New Order #<%= @order.id %> just received from <%= @client.name %></div>
 
   <p>Ordered <%= @order.products.count %> <%= 'product'.pluralize(@order.products.count) %></p>
   
@@ -8,6 +8,8 @@
   <tr>
     <th> Ref.Code </th>
     <th> Description </th>
+    <th> Scale </th>
+    <th> Colour </th>
     <th> Price/Unit </th>
     <th> Qty </th>
   </tr>
@@ -17,19 +19,28 @@
   <tr>
   <td><%= placement.product.ref_code %></td>
   <td><%= placement.product.description %> </td>
+  <td>1:<%= placement.product.scale %> </td>
+  <td><%= placement.product.colour_str %> </td>
   <td><%= number_to_currency(placement.price, locale: @client.locale) %></td>
   <td><%= placement.quantity %></td>
   </tr>
 <% end %>
 </tbody>
+
+<tfoot>
+  <tr>
+    <td colspan=4><b>Total:</b></td>
+    <td><%= number_to_currency(@order.total,locale: @client.locale) %></td>
+    <td> <%= @order.placements.sum(:quantity) %> </td>
+  </tr>
+</tfoot>
 </table>
 
 <div style="clear:both">
-<p style="float:right;"> Order Total: <%= number_to_currency(@order.total,locale: @client.locale) %></p>
 
 <p>&nbsp;</p>
 <p>
-<%= button_to 'See this order online', orders_url(@client), class: "email-btn" %>
+<%= button_to 'See this order online', order_placements_url(@order), class: "email-btn", method: :get %>
 </p>
 
 </div>

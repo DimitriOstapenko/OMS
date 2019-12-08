@@ -7,10 +7,11 @@
 
 .email-header {
   font-size: $font-size-h4;
-  line-height: 40px;
+  color: white;
+  line-height: 30px;
   background: $brand-info;
-  margin-bottom: 40px;
-  height: 40px;
+  margin-bottom: 30px;
+  height: 30px;
   padding-left: 20px;
 }
 
@@ -33,7 +34,7 @@
 .email-btn {
   height: 40px;
   background: $btn-primary-bg;
-  font-size: 18px;
+  font-size: 16px;
   color: white;
-  font-weight: bold;
+//  font-weight: bold;
 }  
