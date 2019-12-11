@@ -37,7 +37,7 @@ p {
     font-size: 1.0em;
 }
 
-.container, .help-container {
+.container { //, .help-container {
    width:100%;
    min-height: 99%; //92%;
    height: auto !important; /* Stick footer to bottom in IE6 */
@@ -49,7 +49,8 @@ p {
 
 .help-container {
    width: 98%;
-   padding-bottom: 50px;
+   padding-left: 20px;
+   margin: 0 auto 40px;  
 }
 
 table {

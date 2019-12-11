@@ -1,0 +1,127 @@
+<h3>Staff Help Section</h3>
+
+<a id="table_of_contents"></a>
+
+<h4>Table of contents</h4>
+<li> <%= link_to "Introduction", "#introduction" %> </li>
+<li> <%= link_to "User Categories", "#user_categories" %> </li>
+<li> <%= link_to "Workflow", "#workflow" %> </li>
+<li> <%= link_to "Ordering", "#ordering" %> </li>
+<li> <%= link_to "Navigation and Search", "#navigation" %> </li>
+<li> <%= link_to "Menu Descriptions", "#menu_descriptions" %> </li> 
+<ul> 
+  <li><%= link_to "Products", "#products" %> </li>
+  <li><%= link_to "Clients", "#clients" %> </li>
+  <li><%= link_to "Orders", "#orders" %> </li>
+</ul>
+
+<p>&nbsp;</p>
+<a id="introduction"></a>
+<h4>Introduction</h4>
+
+Ordering Management System, OMS in the future, was developed to handle ordering of car models by different categories of clients including retailers and distributors. While ordering is done exclusively by clients, that is users that have 'client' role assigned to them, system itself is managed by 2 privileged roles: "stff" and "administrator".
+This section of the help file describes functionality available to staff members (see <%= link_to "User Categories", "#user_categories" %> below) 
+
+<p>&nbsp;</p>
+<a id="user_categories"></a>
+<h4>User Categories</h4>
+There are 5 categories of users in OMS:
+<ul>
+  <li>
+  -user : anybody who registers online with ability to only look at the products available.
+  </li>
+  <li>
+  -client : Anybody who is registered as a client, and there are 5 different client categoies, will be able to see products and order them
+  <li>
+  - production: manufacturing facility will be able to see current order situation and deal with shipments and inventories
+  </li>
+  <li>
+  - staff : can do everything, but change other user's profiles and privileges as well as modify orders
+  </li>
+  <li>
+  - admin: full control if the system
+  </li>
+</ul>
+
+<p>&nbsp;</p>
+<a id="workflow"></a>
+<h4>Workflow</h4>
+
+As a staff member, you have privileges to create and modify client profiles (see Clients section in Menu Description pages below) as well as product information.
+Clients can be set up using 2 different scenarios:
+
+<p>&nbsp;</p>
+<b>Scenario 1</b>
+<ul>
+<li> - If client is not in database yet, create new client record in 'Clients' index page by clicking on "Add Client" button and filling out all required information. It's important to have all basic contact information filled out as it will be later used to generate documents such as Puchase Orders and Invoices. Make sure to add email address of the client.</li>
+<li> - Send an invitation to client to register by clicking on the icon in "invite" column in client list for this client. </li>
+<li> - Client receives an invitation and goes to SignUp page to register. </li>
+<li> - Client activates his account by clicking activation link sent to him in email and because this email address is already registered in the system as client, no further action on your part is required </li>
+</ul>
+
+<p>&nbsp;</p>
+<b>Scenario 2</b>
+<ul>
+  <li> - Client visits the website and registers as unprivileged user. This user becomes active after client activates new registration by following the link sent to them in registration email </li>
+  <li> - You, as a staff member receive email notification about new user registration. </li>
+  <li> - You recognize the new user as a client and from user menu modify their profile, where you assign 'client' role to the new user and select client name from the list of known clients </li>
+</ul>
+After 'client' role is assigned to the user, they can log into the system and order products.  
+
+<p>&nbsp;</p>
+<a id="ordering"></a>
+<h4>Ordering</h4>
+
+Ordering is done by registered clients. So, if you want to make an order on client's behalf you will need to switch to this client's user profile in Users menu by clicking on <i class="glyphicon glyphicon-random"> </i> &nbsp; icon in user row. After you switch, you will see client's name in the header and client's email will show up as logged in user in the footer.
+<p>
+There are two ways to order products: directly from product list, by entering number for each selected product, or by goling to Orders page and clicking on <Add Product To Cart> button at the bottom. In both cases, entered number of selected product will be added to shopping cart, which whill show as a shopping cart symbol and number in upper right corner of the page. Once selection is finished and all products are added to shopping cart, you can finalize the order by first clicking on shopping cart symbol which will open shopping cart modal, where you can either submit order or empty shopping cart and start from the beginning. 
+<p>
+Once order is submitted several things will happen: 
+
+<ul>
+<li> - Inventory is updated: number of available products is automatically reduced by the ordered number </li>
+<li> - Emails are sent: Order confirmation email to the user, Order notification to staff members and  Low quantity notification to staff if number of available products is nevative </li>
+<li> - PO and Invoice for the new order are generated and order is assigned 'Pending' status </li>
+</ul>
+
+
+<p>&nbsp;</p>
+<a id="navigation"></a>
+<h4>Navigation & Search</h4>
+
+Navigating trhough pages in OMS is pretty straightforward. Al pages have pagination footer at teh bottom of the page where you can either go back and forth by one page, or select certain page and go directly to it. As a productivity shortcut, you can also use <back> and <forward> keys on your keyboard to go through pages.
+<p>
+Search box is located in the header an is context-sensitive. That is in Products page you can use it to search for products, in Clients page for client and so forth. Currently products can be searched using complete or partial reference codes, complete or partial name. Client search supports searches by name and country code. 
+
+<p>&nbsp;</p>
+<a id="menu_descriptions"></a>
+<h4>Menu Descriptions</h4>
+
+<p>&nbsp;</p>
+<!-- Products index page -->
+<a id="products"></a>
+<dt class="col-sm-1">Products</dt>
+
+<dd class="col-sm-11">This page shows list of all active products present currently in database. Reference Code column is linked to product profile. Edit icon, <i class="glyphicon glyphicon-edit"></i> will take you directly to <Edit Product> form, where you can change all product attributes, except reference code. Optional "notes' field is only visible to you and can be used to store product-specific info. 
+</dd>
+
+<p>&nbsp;</p>
+<!-- Clients index page -->
+<a id="clients"></a>
+<dt class="col-sm-1">Clients</dt>
+
+<dd class="col-sm-11">List of clients in database. Client name column (first) is linked to client profile. Edit icon, <i class="glyphicon glyphicon-edit"></i> will take you directly to <Edit Client> form, where you can change client attributes. Required attributes of Client form are: Name, Type, Price Type, Country and Email
+</dd>
+
+<p>&nbsp;</p>
+<!-- Orders index page -->
+<a id="orders"></a>
+<dt class="col-sm-1">Orders</dt>
+
+<dd class="col-sm-11">This page shows list of orders, most recent first. Client name column (first) is linked to client profile. Last column contains status drop-down which allows you to change order status. 
+Drop-down box at the top of the page allows you to filter orders by client. Grand total at the bottom shows total value of all orders in Euros using current USD/EUR FX conversion rate.
+</dd>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+

@@ -6,14 +6,15 @@
       <tr>
           <th><%= sortable 'name', 'User' %></th>
           <th><%= sortable 'email', 'Email' %></th>
-          <th><%= sortable 'role','Role' %></th>
-          <th>Active?</th>
+          <th class='text-center'><%= sortable 'role','Role' %></th>
+          <th class='text-center'>Active?</th>
           <th>Client</th>
-          <th><%= sortable 'created_at', 'Created' %></th>
-          <th><%= sortable 'last_sign_in_at', 'Last Login' %></th>
-          <th class='tbl_sm'>Edit</th>
-          <th class='tbl_sm'>Sw.To</th>
-          <th class='tbl_sm'>Del</th>
+          <th class='text-center'><%= sortable 'created_at', 'Created' %></th>
+          <th class='text-center'><%= sortable 'sign_in_count', 'Sign In Count' %></th>
+          <th class="text-center"><%= sortable 'last_sign_in_at', 'Last Login' %></th>
+          <th class='text-center tbl_sm'>Edit</th>
+          <th class='text-center tbl_sm'>Sw.To</th>
+          <th class='text-center tbl_sm'>Del</th>
       </tr>
   </thead>
   <tbody>

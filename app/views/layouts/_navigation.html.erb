@@ -7,7 +7,7 @@
       <% if current_user %>
         <%= render "layouts/#{current_user.role}_navigation_links" %>
       <% else %>
-  	<li><%= link_to "Log in", new_user_session_path %></li>
+  	<li><%= link_to "<i class='glyphicon glyphicon-log-in'></i> Login".html_safe, new_user_session_path %></li>
       <% end %>
       </ul>
     </div>

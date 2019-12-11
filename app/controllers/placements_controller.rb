@@ -30,5 +30,10 @@ class PlacementsController < ApplicationController
     @client = current_client
   end
 
+  def empty_cart
+    clear_cart
+    redirect_back(fallback_location: products_path)
+  end
+
 
 end

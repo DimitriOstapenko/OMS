@@ -30,18 +30,14 @@ class OrdersController < ApplicationController
     @placement = @order.placements.new
   end
 
-  def add
-#    @product_ids_and_quantities.push([3,3])
-  end
-
   def create
     @client = current_client
     @order = @client.orders.build
     @product_ids_and_quantities = get_cart #[[params[:order][:products], params[:order][:quantity]]]
     if @order.build_placements_with_product_ids_and_quantities?(@product_ids_and_quantities) &&
        @order.save
-        po_number = 'PO'+Time.now.strftime("%Y%m%d")+'-'+@order.id.to_s
-        @order.update_attribute(:po_number, po_number)
+#        po_number = 'PO'+Time.now.strftime("%Y%m%d")+'-'+@order.id.to_s
+#        @order.update_attribute(:po_number, po_number)
         @order.reload
         clear_cart
         flash[:info] = 'Order saved, confirmation sent'
@@ -54,6 +50,20 @@ class OrdersController < ApplicationController
     redirect_to orders_path
   end
 
+  def edit
+    @order = Order.find(params[:id])
+  end
+
+  def update
+    @order = Order.find(params[:id])
+    if @order.update_attributes(order_params)
+      flash[:success] = "Order #{@order.id} updated"
+      redirect_back(fallback_location: orders_path)
+    else
+      render 'edit'
+    end
+  end
+
   def export
     @orders = Order.all
     send_data @orders.to_csv, filename: "orders-#{Date.today}.csv"
@@ -62,7 +72,7 @@ class OrdersController < ApplicationController
 
 private
 
-#  def order_params
-#    params.require(:order).permit(:total, :user_id, :product_ids => [])
-#  end
+  def order_params
+    params.require(:order).permit(:web_id, :status, :inv_number)
+  end
 end

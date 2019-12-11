@@ -17,6 +17,10 @@ class User < ApplicationRecord
     self.role ||= :user
   end
 
+  def active?
+    self.confirmed_at.present?
+  end 
+    
   def client_name
     Client.find(self.client_id).name if self.client_id 
   end

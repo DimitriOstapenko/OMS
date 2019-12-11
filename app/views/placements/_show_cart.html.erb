@@ -46,6 +46,11 @@ Your Shopping Cart - Details
   </tfoot>
 </table>
 
-<%= simple_form_for :order, url: orders_path  do |f| %>
-  <%= f.submit 'Submit order', class: "btn btn-primary" %>
-<% end %>
+  <div class="row">
+  <div class="col-md-6">
+  <%= button_to 'Submit order', orders_path, class: "btn btn-primary" %>
+  </div>
+  <div class="col-md-6">
+  <%= button_to "Crear Cart", empty_cart_path, class: "btn btn-primary", method: :get %>
+  </div>
+  </div>

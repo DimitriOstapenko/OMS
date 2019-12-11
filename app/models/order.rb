@@ -14,15 +14,18 @@ class Order < ApplicationRecord
 
   attr_accessor :quantity # to get quantity from form
 
-  before_validation :set_total!
+  before_validation :set_attributes!
 
-  def set_total!
+  def set_attributes!
     self.total = 0
     placements.each do |placement|
       self.total += placement.price * placement.quantity
     end
+    suff = Time.now.strftime("%Y%m%d") + '-' +Order.maximum(:id).next.to_s
+    self.po_number = 'PO' + suff 
+    self.inv_number = 'INV' + suff
   end
-
+  
   def build_placements_with_product_ids_and_quantities?(product_ids_and_quantities)
     return false unless product_ids_and_quantities.any?
     product_ids_and_quantities.each do |product_id_and_quantity|

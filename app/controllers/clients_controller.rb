@@ -51,7 +51,7 @@ class ClientsController < ApplicationController
     @client = Client.find(params[:id])
     if @client.update_attributes(client_params)
       flash[:success] = "Client updated"
-      redirect_back(fallback_location: clients_path)
+      redirect_to clients_path
     else
       render 'edit'
     end

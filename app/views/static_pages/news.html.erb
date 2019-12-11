@@ -1,10 +1,24 @@
-<%# if logged_in? %>
+<% if logged_in? %>
 
   <h1> Recent changes to APD OMS </h1>
 
+  <b> Dec 2019 </b>
+  <ul>
+    <li> Help pages are now divided into sections based on user type. Staff and admin help pages fist version </li>
+    <li> Admin functions moved to "hamburger" drop-down: Prices, Client Mailer, Export orders. These 3 are only visible to staff and admins </li> 
+    <li> Invoice column added to active order list. Invoice number is generated same way as PO number. </li>
+    <li> Order status can now be changed by staff and admins directly from orders menu (last column) </li>
+    <li> Order email formatting changes; new columns added. Button takes to current order instead of order list. </li>
+    <li> Client mailer is now fully functional. Mails can be sent to 5 groups of clients based on client type </li>
+    <li> Client mailer prototype; reports prototype; jquery select2 for order drop-down prefill to speed up product search in <Add To Cart> </li>
+    <li> shopping cart contents made into a modal; columns added to placements list in orders </li>
+    <li> _staff_navigation partial bug fixed; cart indicator updated; </li> 
+    <li> Session store added; Shopping cart ordering added; Orders can be created from products page or from orders (add to cart button) </li>
+  </ul>
+
   <b> Nov 2019 </b>
   <ul>
-    <li> For logged in clients product profile page now excludes manager, supplier and prices irrelevant to the client. </li> 
+    <li> For logged in clients product profile page now excludes following columns: manager, supplier and prices irrelevant to the client. </li> 
     <li> EUR/USD exchange is now handled; Totals are converted as per client's currency. Amounts are shown using client's locale </li>
     <li> CSV export of all orders is implemented in admin section </li>
     <li> Order filter by client added to order index page </li>
@@ -24,4 +38,4 @@
     </li>
   </ul>
 
-<%# end %>
+<% end %>

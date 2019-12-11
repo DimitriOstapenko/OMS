@@ -4,7 +4,7 @@ class Client < ApplicationRecord
   has_many :orders #, dependent: :destroy   # remove when seeding clients
   has_one :user
 
-  validates :name, :country, :cltype, :price_type, presence: true
+  validates :name, :country, :cltype, :price_type, :contact_email, presence: true
 
   before_validation { name.strip!.gsub!(/\s+/,' ') rescue '' }
   before_validation { contact_fname.strip!.gsub!(/\s+/,' ') rescue '' }
@@ -18,8 +18,7 @@ class Client < ApplicationRecord
   default_scope -> { order(name: :asc, country: :asc) }
   
   scope :filter_by_name_or_country, lambda { |keyword|
-    where("lower(name) LIKE ?", "%#{keyword.downcase}%" ) ||
-    where("lower(country) like ?", "%#{keyword.downcase}%")
+    where("lower(name) LIKE '%#{keyword.downcase}%' OR lower(country) LIKE '%#{keyword.downcase}%'")
   }
 
   def client_type
