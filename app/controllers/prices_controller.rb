@@ -1,7 +1,7 @@
 class PricesController < ApplicationController
   
   before_action :logged_in_user
-  before_action :admin_user
+  before_action :admin_or_staff_user
  
   def new
     @price = Price.new
