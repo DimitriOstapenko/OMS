@@ -35,6 +35,8 @@
 /yarn-error.log
 
 /public/assets
+/reports/*.pdf
+/public/uploads
 .byebug_history
 
 # Ignore vendor bundle
