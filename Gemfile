@@ -39,13 +39,14 @@ end
 group :test do
   gem 'capybara', '>= 2.15'
   gem 'selenium-webdriver'
-#  gem 'chromedriver-helper'
 end
 
 gem 'activerecord-session_store'
 gem 'simple_form', '~> 5.0.0'
-#gem 'simple_form-bootstrap', '~> 1.4'
 gem 'whenever', require: false
 gem 'country_select'  #, '~> 3.1.1'
 gem 'countries', require: 'countries/global'
 gem 'bootstrap-email', '~> 0.3.0'
+
+gem 'prawn',                   '2.2.2'
+gem 'prawn-table',             '0.2.2'

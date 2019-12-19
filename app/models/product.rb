@@ -35,15 +35,15 @@ class Product < ApplicationRecord
   end
 
   def brand_str
-    BRANDS.invert[self.brand] rescue nil
+    BRANDS.invert[self.brand].to_s rescue nil
   end
   
   def category_str
-    CATEGORIES.invert[self.category] rescue nil
+    CATEGORIES.invert[self.category].to_s rescue nil
   end
 
   def colour_str
-    COLOURS.invert[self.colour] rescue nil
+    COLOURS.invert[self.colour].to_s rescue nil
   end
 
   def supplier_str

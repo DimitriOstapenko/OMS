@@ -1,0 +1,50 @@
+module My
+
+#-------------------------------------------      
+# All Pdf forms/documents are generated here  
+#-------------------------------------------
+  module Forms
+
+    require 'prawn'
+    require 'prawn/table'
+    require 'prawn/measurement_extensions'
+
+# Generate Totals Only report  
+  def build_totals_report( report, orders )
+    sdate = report.sdate.strftime("%d %b %Y")
+    edate = report.edate.strftime("%d %b %Y")
+    date_range = report.daterange
+
+    pdf = Prawn::Document.new( :page_size => "LETTER", margin: [10.mm,10.mm,20.mm,10.mm])
+    pdf.font "Courier"
+    pdf.text "#{report.detail_str} #{report.rtype_str} Report", align: :center, size: 12, style: :bold
+    pdf.text "#{report.daterange}. #{orders.count} orders; Client: #{report.client_code}", align: :center, size: 10, style: :bold
+
+    pdf.move_down 5.mm
+    pdf.font_size 8
+    rows =  [[ "Client", "Order", "Products", "Date", "Total", "Status"]]
+    
+    orders.all.each do |o|
+      rows += [[o.client_code, o.id, o.products.count, o.created_at.to_date, o.total, o.status_str]]
+    end
+
+    pdf.table rows do |t|
+        t.cells.border_width = 0
+        t.column_widths = [30.mm, 30.mm, 20.mm, 30.mm, 30.mm, 30.mm ]
+        t.header = true
+        t.row(0).font_style = :bold
+        t.position = 5.mm
+        t.cells.padding = 3
+        t.cells.style do |c|
+           c.background_color = c.row.odd? ? 'EEEEEE' : 'FFFFFF'
+        end
+    end
+
+    return pdf
+  end
+
+  end # Forms module
+end # My
+
+
+

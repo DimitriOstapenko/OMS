@@ -21,15 +21,23 @@ Rails.application.routes.draw do
   get '/news', to: 'static_pages#news'
   get '/terms', to: 'static_pages#terms'
   get '/privacy', to: 'static_pages#privacy'
+  
   get '/export', to: 'orders#export', as: :export
 
   post '/add_product(/:id)', to: 'placements#add_product', as: :add_product
   get '/cart', to: 'placements#cart', as: :cart
   get '/empty_cart', to: 'placements#empty_cart', as: :empty_cart
 
-  resources :products, :clients, :suppliers, :managers, :users, :prices, :reports
+  resources :products, :clients, :suppliers, :managers, :users, :prices
   resources :orders do
-    resources :placements, only: [:index, :show, :create]
+    get 'show_po', on: :member
+    get 'show_invoice', on: :member
+    resources :placements, only: [:index, :show, :create] 
+  end
+
+  resources :reports  do
+     get 'download', on: :member
+     get 'export', on: :member
   end
 
   resources :client_mails do

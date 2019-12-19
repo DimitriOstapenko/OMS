@@ -5,8 +5,15 @@
         <td class="text-center"><%= link_to order.id, order_placements_path(order.id), remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %></td>
         <td class="text-center"><%= order.products.count %></td>
         <td class="text-center"><%= order.updated_at %></td>
-        <td class="text-center"><%= order.po_number %></td>
-        <td class="text-center"><%= order.inv_number %></td>
+        <td class="text-center">
+        <% if order.po_file_present? %>
+           <%= link_to order.po_number, show_po_order_path(order),  remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %>
+        <% else %>
+           <%# order.po_number %>
+           <%= link_to order.po_number, show_po_order_path(order) %>
+        <% end %>
+        </td>
+        <td class="text-center"><%= link_to order.inv_number, show_invoice_order_path(order) %></td>
         <td class="text-center"><%= to_currency order.total, locale: order.client.locale %></td>
         <td class="text-center">
         <% if current_user.admin? || current_user.staff? %>

@@ -1,5 +1,7 @@
 class OrdersController < ApplicationController
 
+  include My::Forms
+
   before_action :logged_in_user
   before_action :admin_or_staff_user, only: [:edit, :update]
   before_action :client_user, only: [:create]
@@ -36,15 +38,13 @@ class OrdersController < ApplicationController
     @product_ids_and_quantities = get_cart #[[params[:order][:products], params[:order][:quantity]]]
     if @order.build_placements_with_product_ids_and_quantities?(@product_ids_and_quantities) &&
        @order.save
-#        po_number = 'PO'+Time.now.strftime("%Y%m%d")+'-'+@order.id.to_s
-#        @order.update_attribute(:po_number, po_number)
-        @order.reload
-        clear_cart
-        flash[:info] = 'Order saved, confirmation sent'
-        OrderMailer.send_confirmation(@order).deliver_later
-        OrderMailer.notify_staff(@order).deliver_now
-      else
-        flash[:danger] = "Errors saving order: #{@order.errors.full_messages.join}"
+       @order.reload
+       clear_cart
+       flash[:info] = 'Order saved, confirmation sent'
+       OrderMailer.send_confirmation(@order).deliver_later
+       OrderMailer.notify_staff(@order).deliver_now
+     else
+       flash[:danger] = "Errors saving order: #{@order.errors.full_messages.join}"
     end
 
     redirect_to orders_path
@@ -68,6 +68,34 @@ class OrdersController < ApplicationController
     @orders = Order.all
     send_data @orders.to_csv, filename: "orders-#{Date.today}.csv"
     flash.now[:info] = 'Orders exported to CSV file'
+  end
+
+  def show_po
+    @order = Order.find(params[:id])
+    @pdf  = build_po(@order)
+    respond_to do |format|
+        format.html do
+          send_data @pdf.render,
+          filename: @order.po_number,
+          type: 'application/pdf',
+          disposition: 'inline'
+        end
+        format.js { @pdf.render_file File.join(UPLOADS_PATH, "po.pdf") }
+    end
+  end
+
+  def show_invoice
+    @order = Order.find(params[:id])
+    @pdf  = build_invoice(@order)
+    respond_to do |format|
+        format.html do
+          send_data @pdf.render,
+          filename: @order.inv_number,
+          type: 'application/pdf',
+          disposition: 'inline'
+        end
+        format.js { @pdf.render_file File.join(UPLOADS_PATH, "invoice.pdf") }
+    end
   end
 
 private

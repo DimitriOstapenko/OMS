@@ -22,9 +22,9 @@
   </tbody>
 </table>
 
-<% if current_user.admin? %>
 <div class="bottom_buttons ">
 <%= will_paginate @client_mails, class: "btn" %>
+<% if current_user.admin? || current_user.staff? %>
 <%= button_to "Create New Email", new_client_mail_path, class: "btn btn-primary col-md-2 ", method: 'get'  %>
-</div>
 <% end %>
+</div>

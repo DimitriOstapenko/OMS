@@ -40,8 +40,12 @@ class Order < ApplicationRecord
     ORDER_STATUSES.invert[self.status] rescue nil
   end
 
+  def po_filespec
+    POS_PATH.join(self.po_number) rescue nil
+  end
+
   def self.to_csv
-    attributes = %w{id client_code cre_date total po_number status_str}
+    attributes = %w{id client_code cre_date product_count currency total po_number status_str}
     CSV.generate(headers: attributes, write_headers: true) do |csv|
       all.each do |order|
         csv << attributes.map{ |attr| order.send(attr) }
@@ -57,4 +61,20 @@ class Order < ApplicationRecord
     created_at.to_date
   end
 
+  def currency
+    if self.client.price_type == USD_PRICE
+      return 'USD'
+    else
+      return 'EURO'
+    end
+  end
+
+  def product_count
+    self.products.count rescue 0
+  end
+
+  def po_file_present?
+    File.exists?(self.po_filespec)
+  end
+  
 end
