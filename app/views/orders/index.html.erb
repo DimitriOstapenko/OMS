@@ -22,15 +22,15 @@
   <thead>
       <tr>
           <% unless @client.present? %>
-          <th class="tbl_md, text-center">Client</th>
+          <th class="tbl_lg text-center">Client</th>
           <% end %>
-          <th class="tbl_sm, text-center">Order #</th>
-          <th class="tbl_sm, text-center">#Products</th> 
-          <th class="tbl_md, text-center">Date Created</th>
-          <th class="tbl_md, text-center">Purchase Order</th>
-          <th class="tbl_md, text-center">Invoice</th>
-          <th class="tbl_md, text-center">Total</th>
-          <th class="tbl_md, text-center">Status</th>
+          <th class="tbl_sm text-center">Order #</th>
+          <th class="tbl_sm text-center">#Prod.</th> 
+          <th class="tbl_md text-center">Date Created</th>
+          <th class="tbl_lmd text-center">Purchase Order</th>
+          <th class="tbl_md text-center">Invoice</th>
+          <th class="text-center">Total</th>
+          <th class="text-center">Status</th>
       </tr>
   </thead>
   <tbody>
@@ -39,15 +39,18 @@
 
 <tfoot>
   <tr>
+    <th colspan=5></th>
     <% if @client.present? %>
-    <th colspan=6></th>
-    <th class="text-center"><%= to_currency Client.orders_total(@orders), locale: locale %></th>
+    <th class="text-center"><%= to_currency @orders.sum(:total), locale: locale %></th>
+    <% else %>
+    <th></th>
+<!-- always in base currency: -->
+    <th class="text-center"><%= to_currency @grand_total %></th>
     <% end %>
+    <th></th>
   </tr>
 </tfoot>
 </table>
-<!-- always in base currency: -->
-<b>Grand Total: <%= to_currency @grand_total %></b> 
 
 <% if current_user.client? %>
 <div class="row">

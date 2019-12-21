@@ -4,7 +4,7 @@
         <% end %>
         <td class="text-center"><%= link_to order.id, order_placements_path(order.id), remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %></td>
         <td class="text-center"><%= order.products.count %></td>
-        <td class="text-center"><%= order.updated_at %></td>
+        <td class="text-center"><%= order.cre_date %></td>
         <td class="text-center">
         <% if order.po_file_present? %>
            <%= link_to order.po_number, show_po_order_path(order),  remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %>

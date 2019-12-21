@@ -74,7 +74,7 @@ class Order < ApplicationRecord
   end
 
   def po_file_present?
-    File.exists?(self.po_filespec)
+    self.po_filespec.present? && File.exists?(self.po_filespec)
   end
   
 end
