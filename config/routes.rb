@@ -30,10 +30,11 @@ Rails.application.routes.draw do
 
   resources :products, :clients, :suppliers, :managers, :users, :prices
   resources :orders do
-    get 'show_po', on: :member
-    get 'show_invoice', on: :member
+    get 'download_po', on: :member
+    get 'download_invoice', on: :member
     resources :placements, only: [:index, :show, :create] 
   end
+#  get '/download_po', to: 'orders#download_po', as: :download_po
 
   resources :reports  do
      get 'download', on: :member

@@ -1,6 +1,7 @@
 class Order < ApplicationRecord
 
   require 'csv'
+  include My::Forms
 
   belongs_to :client
 
@@ -15,15 +16,31 @@ class Order < ApplicationRecord
   attr_accessor :quantity # to get quantity from form
 
   before_validation :set_attributes!
+  after_create :send_emails
+  after_save :create_po_and_invoice
 
   def set_attributes!
     self.total = 0
     placements.each do |placement|
       self.total += placement.price * placement.quantity
     end
-    suff = Time.now.strftime("%Y%m%d") + '-' +Order.maximum(:id).next.to_s
+    suff = Time.now.strftime("%Y%m%d") + '-' + Order.maximum(:id).next.to_s
     self.po_number = 'PO' + suff 
     self.inv_number = 'INV' + suff
+    self.terms = self.client.default_terms
+    self.delivery_by = self.client.pref_delivery_by
+  end
+
+  def send_emails
+    OrderMailer.send_confirmation(self).deliver_now
+    OrderMailer.notify_staff(self).deliver_now
+  end
+
+  def create_po_and_invoice 
+      pdf = build_po(self)
+      pdf.render_file self.po_filespec
+      pdf = build_invoice(self)
+      pdf.render_file self.inv_filespec
   end
   
   def build_placements_with_product_ids_and_quantities?(product_ids_and_quantities)
@@ -37,11 +54,23 @@ class Order < ApplicationRecord
   end
 
   def status_str
-    ORDER_STATUSES.invert[self.status] rescue nil
+    ORDER_STATUSES.invert[self.status].to_s rescue nil
+  end
+
+  def delivery_by_str
+    DELIVERY_BY.invert[self.delivery_by].to_s rescue nil
+  end
+
+  def terms_str
+    PAYMENT_TERMS.invert[self.terms].to_s rescue nil
   end
 
   def po_filespec
-    POS_PATH.join(self.po_number) rescue nil
+    POS_PATH.join(self.po_number+'.pdf') rescue nil
+  end
+  
+  def inv_filespec
+    INVOICES_PATH.join(self.inv_number+'.pdf') rescue nil
   end
 
   def self.to_csv
@@ -74,7 +103,11 @@ class Order < ApplicationRecord
   end
 
   def po_file_present?
-    File.exists?(self.po_filespec)
+    self.po_filespec.present? && File.exists?(self.po_filespec)
+  end
+  
+  def invoice_file_present?
+    self.inv_filespec.present? && File.exists?(self.inv_filespec)
   end
   
 end

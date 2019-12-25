@@ -68,7 +68,7 @@ class ReportsController < ApplicationController
   def download
    @report = Report.find( params[:id] )
 
-   if @report.present? && File.exists?(@report.filespec)
+   if @report.exists?
           send_file @report.filespec,
              filename: @report.filename,
              type: "application/pdf",

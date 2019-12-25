@@ -23,7 +23,7 @@ class OrdersController < ApplicationController
   end 
 
   def show
-    @order = current_client.orders.find(params[:id])
+    @order = current_client.orders.find(params[:id]) rescue nil
   end
 
   def new
@@ -41,8 +41,8 @@ class OrdersController < ApplicationController
        @order.reload
        clear_cart
        flash[:info] = 'Order saved, confirmation sent'
-       OrderMailer.send_confirmation(@order).deliver_later
-       OrderMailer.notify_staff(@order).deliver_now
+#       OrderMailer.send_confirmation(@order).deliver_later
+#       OrderMailer.notify_staff(@order).deliver_now
      else
        flash[:danger] = "Errors saving order: #{@order.errors.full_messages.join}"
     end
@@ -70,37 +70,42 @@ class OrdersController < ApplicationController
     flash.now[:info] = 'Orders exported to CSV file'
   end
 
-  def show_po
-    @order = Order.find(params[:id])
-    @pdf  = build_po(@order)
-    respond_to do |format|
-        format.html do
-          send_data @pdf.render,
-          filename: @order.po_number,
-          type: 'application/pdf',
-          disposition: 'inline'
-        end
-        format.js { @pdf.render_file File.join(UPLOADS_PATH, "po.pdf") }
-    end
+  def download_po
+   @order = Order.find( params[:id] ) rescue nil
+   redirect_to orders_path unless @order
+   
+   if @order.po_file_present?
+      send_file @order.po_filespec,
+                filename: @order.po_number,
+                type: "application/pdf",
+                disposition: :attachment
+    else
+      pdf = build_po(@order)
+      pdf.render_file @order.po_filespec
+      redirect_to download_po_order_path(@order), alert: "File regenerated"
+    end 
   end
 
-  def show_invoice
-    @order = Order.find(params[:id])
-    @pdf  = build_invoice(@order)
-    respond_to do |format|
-        format.html do
-          send_data @pdf.render,
-          filename: @order.inv_number,
-          type: 'application/pdf',
-          disposition: 'inline'
-        end
-        format.js { @pdf.render_file File.join(UPLOADS_PATH, "invoice.pdf") }
-    end
+  def download_invoice
+   @order = Order.find( params[:id] ) rescue nil
+   redirect_to orders_path unless @order
+   
+   if @order.invoice_file_present?
+      send_file @order.inv_filespec,
+                filename: @order.inv_number,
+                type: "application/pdf",
+                disposition: :attachment
+    else
+      pdf = build_invoice(@order)
+      pdf.render_file @order.inv_filespec
+      redirect_to download_invoice_order_path(@order), alert: "File regenerated"
+    end 
   end
+  
 
 private
 
   def order_params
-    params.require(:order).permit(:web_id, :status, :inv_number)
+    params.require(:order).permit(:web_id, :status, :inv_number, :delivery_by, :terms, :notes)
   end
 end

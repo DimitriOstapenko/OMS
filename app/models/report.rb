@@ -13,7 +13,7 @@ class Report < ApplicationRecord
   def set_attributes!
     self.rtype = 'ALL' unless self.rtype?
     sdate = self.sdate.to_date rescue Date.today
-    nextid = Report.maximum(:id).next
+    nextid = Report.maximum(:id).next rescue 0
     self.name = "#{self.rtype}-#{sdate}-#{nextid}"
     self.filename = self.name+'.pdf'
     old_report = Report.find_by(filename: self.filename)

@@ -4,26 +4,12 @@
         <% end %>
         <td class="text-center"><%= link_to order.id, order_placements_path(order.id), remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %></td>
         <td class="text-center"><%= order.products.count %></td>
-        <td class="text-center"><%= order.updated_at %></td>
-        <td class="text-center">
-        <% if order.po_file_present? %>
-           <%= link_to order.po_number, show_po_order_path(order),  remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %>
-        <% else %>
-           <%# order.po_number %>
-           <%= link_to order.po_number, show_po_order_path(order) %>
-        <% end %>
-        </td>
-        <td class="text-center"><%= link_to order.inv_number, show_invoice_order_path(order) %></td>
+        <td class="text-center"><%= order.cre_date %></td>
+        <td class="text-center"> <%= link_to order.po_number, download_po_order_path(order) %> </td>
+        <td class="text-center"><%= link_to order.inv_number, download_invoice_order_path(order) %></td>
         <td class="text-center"><%= to_currency order.total, locale: order.client.locale %></td>
-        <td class="text-center">
+        <td class="text-center"> <%= order.status_str %> </td>
         <% if current_user.admin? || current_user.staff? %>
-          <%= simple_form_for order, method: :put, html: { class: "form-inline" } do |f| %>
-          <div class="form-group" style="padding-top: 10px;">
-             <%= f.input :status, collection: ORDER_STATUSES, label: false, include_blank: false, input_html: { onchange: 'this.form.submit();'}  %>
-          </div>
-          <% end %>
-         <% else %>
-           <%= order.status_str %> 
-         <% end %>
-        </td>
+        <td> <%= link_to '<i class="glyphicon glyphicon-edit"></i>'.html_safe, edit_order_path(order), remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %> </td>
+        <% end %>
 </tr>

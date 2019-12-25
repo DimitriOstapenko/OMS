@@ -1,0 +1,26 @@
+<%= simple_form_for @order do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+  <% delivery_by = @order.delivery_by || @order.client.pref_delivery_by %>
+  <% terms = @order.terms  ||  @order.client.default_terms %>
+
+  <div class="row" %>
+  <div class="col-md-4">
+  <%= f.input :status, collection: ORDER_STATUSES, label: "Order status", include_blank: false %>
+  </div>
+  <div class="col-md-4">
+  <%= f.input :terms, collection: PAYMENT_TERMS, label: "Payment Terms", include_blank: false, selected: terms %>
+  </div>
+  <div class="col-md-4">
+  <%= f.input :delivery_by, collection: DELIVERY_BY, include_blank: false, selected: delivery_by %>
+  </div>
+  </div>
+
+  <div class="row" %>
+  <div class="col-md-12">
+  <%= f.input :notes, as: :text, hint: "text entered here will appear on the invoice", input_html: {rows:4} %>
+  </div>
+  </div>
+  
+  <%= f.submit 'Submit Changes', class: "btn btn-primary" %>
+
+<% end %>  

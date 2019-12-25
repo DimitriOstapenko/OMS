@@ -3,58 +3,65 @@
 
   <div class="row">
   <div class="col-md-12">
-  <%= f.input :name %>
+  <%= f.input :name, label: 'Client Name' %>
   </div>
   </div>
 
   <div class="row">
   <div class="col-md-3">
-    <%= f.input :cltype, collection: CLIENT_TYPES, label: "Type", include_blank: false %>
+    <%= f.input :cltype, collection: CLIENT_TYPES, label: "Client Type", include_blank: false %>
   </div>
   <div class="col-md-3">
-    <%= f.input :price_type, collection: PRICE_TYPES,  include_blank: false %> 
+    <%= f.input :price_type, collection: PRICE_TYPES, label: 'Price Model', include_blank: false %> 
   </div>
   <div class="col-md-3">
   <%= f.input :country, as: :country, include_blank: 'Please Select'  %>
   </div>
   <div class="col-md-3">
-  <%= f.input :state_prov  %>
+  <%= f.input :state_prov, label: 'State/Province'  %>
   </div>
   </div>
   
   <div class="row">
   <div class="col-md-10">
-  <%= f.input :address %>
+  <%= f.input :address, label: 'Street Address' %>
   </div>
   <div class="col-md-2">
-  <%= f.input :zip_postal %>
+  <%= f.input :zip_postal, label: 'ZIP/Postal' %>
   </div>
   </div>
 
   <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-4">
+  <%= f.input :contact_lname, label: 'Contact Last Name' %>
+  </div>
+  <div class="col-md-4">
+  <%= f.input :contact_fname, label: 'Contact First Name' %>
+  </div>
+
+  <div class="col-md-4">
   <%= f.input :contact_email %>
   </div>
-  <div class="col-md-6">
-  <%= f.input :contact_phone %>
-  </div>
   </div>
 
   <div class="row">
-  <div class="col-md-6">
-  <%= f.input :contact_lname %>
+  <div class="col-md-4">
+  <%= f.input :contact_phone %>
   </div>
-  <div class="col-md-6">
-  <%= f.input :contact_fname %>
+  <div class="col-md-4">
+  <%= f.input :vat %>
+  </div>
+  <div class="col-md-4">
+  <%= f.input :web, label: 'Website' %>
   </div>
   </div>
   
   <div class="row">
   <div class="col-md-6">
-  <%= f.input :vat %>
+  <%= f.input :default_terms, collection: PAYMENT_TERMS, label: 'Default Payment Terms', include_blank: false  %>
   </div>
   <div class="col-md-6">
-  <%= f.input :web, label: 'Website' %>
+  <%= f.input :pref_delivery_by, collection: DELIVERY_BY, label: 'Preferred Delivery by', include_blank: false %>
   </div>
   </div>
 

@@ -58,10 +58,10 @@ module My
 
   def build_po(order)
     pdf = Prawn::Document.new( :page_size => "LETTER", margin: [10.mm,10.mm,20.mm,20.mm])
-    pdf.font "Courier"
-    pdf.font_size 8
+    pdf.font "Helvetica"
+    pdf.font_size 9
 
-    pdf.text_box APD_CONTACT, :at => [5.mm,240.mm],
+    pdf.text_box APD_CONTACT, :at => [0.mm,240.mm],
          :width => 90.mm,
          :height => 45.mm,
          :overflow => :shrink_to_fit,
@@ -98,7 +98,7 @@ module My
         t.column_widths = [15.mm, 30.mm, 20.mm, 20.mm, 40.mm, 20.mm, 15.mm, 20.mm ]
         t.header = true
         t.row(0).font_style = t.row(-1).font_style = :bold
-        t.position = 5.mm
+#        t.position = 5.mm
         t.cells.padding = 3
         t.cells.style do |c|
            c.background_color = c.row.odd? ? 'FFFFFF' : 'EEEEEE'
@@ -106,27 +106,27 @@ module My
     end
 
     return pdf
-  end
+  end # build_po
 
   def build_invoice(order)
     pdf = Prawn::Document.new( :page_size => "LETTER", margin: [10.mm,10.mm,20.mm,20.mm])
-    pdf.font "Courier"
-    pdf.font_size 8
+    pdf.font "Helvetica"
+    pdf.font_size 9
 
     cl = order.client
     inv_to = "<b>Invoice to: <br><br>#{cl.name}</b> <br><br>#{cl.address} #{cl.state_prov} #{cl.country_str} #{cl.zip_postal} <br>VAT: #{cl.vat}"
     
     deliver_to = "<b>Deliver to:<br><br>#{cl.name}</b> <br><br>#{cl.address} #{cl.state_prov} #{cl.country_str} #{cl.zip_postal} <br>Phone: #{cl.contact_phone}<br>Email: #{cl.contact_email}"  
 
-    pdf.text_box APD_CONTACT, :at => [0.mm,240.mm],
-         :width => 200.mm,
-         :height => 20.mm,
+    pdf.text_box APD_CONTACT, :at => [0.mm,245.mm],
+         :width => 180.mm,
+         :height => 25.mm,
          :overflow => :shrink_to_fit,
-         :min_font_size => 8,
+         :min_font_size => 12,
          :inline_format => true,
          :align => :center
 
-    pdf.text_box inv_to, :at => [5.mm,215.mm],
+    pdf.text_box inv_to, :at => [0.mm,215.mm],
          :width => 90.mm,
          :height => 45.mm,
          :overflow => :shrink_to_fit,
@@ -140,12 +140,12 @@ module My
          :min_font_size => 9,
          :inline_format => true
 
-    pdf.move_down 60.mm
-    pdf.text "Invoice # #{order.inv_number} Date: #{Date.today}  #{order.placements.count} products", align: :center, size: 10, style: :bold
+    pdf.move_down 80.mm
+    pdf.text "Invoice # #{order.inv_number} Date: #{Date.today}  #{order.placements.count} products", align: :center, size: 12, style: :bold
 
     pdf.move_down 8.mm
-    pdf.text "Transport: ...."
-    pdf.text "Payment Terms: ...."
+    pdf.text "<b>Transport:</b> #{order.delivery_by_str}", inline_format: true
+    pdf.text "<b>Payment Terms:</b> #{order.terms_str}", inline_format: true
     pdf.move_down 5.mm
 
     rows =  [[ "#", "Product", "Scale", "Color", "Description", "Price", "Qty", "Total"]]
@@ -172,16 +172,22 @@ module My
     end
     
     pdf.move_down 20.mm
-    pdf.text "Please check the integrity of the product."
-    pdf.text "We only accept complaints about defects within 72 hours after the receipt of goods"
+    pdf.text "Please check the integrity of the product.", style: :italic
+    pdf.text "We only accept complaints about defects within 72 hours after the receipt of goods", style: :italic
 
     pdf.move_down 20.mm
-    pdf.text "Beneficiary Name : ASIA PREMIER DEVELOPMENT LIMITED"
-    pdf.text "Beneficiary Address: Room 1616, 16/F., Lippo Centre, Tower 2, 89 Queensway, Admiralty, Hong Kong"
-    pdf.text "Bank Name: Standard Chartered Bank (Hong Kong) Limited"
-    pdf.text "Bank Address: 13/F., Standard Chartered Bank Building, 4-4A Des Voeux Road Central, Hong Kong"
-    pdf.text "Account:  447-0-817019-9"
-    pdf.text "SWIFT: SCBLHKHHXXX"
+    pdf.text "<b>Beneficiary Name</b> : ASIA PREMIER DEVELOPMENT LIMITED", inline_format: true
+    pdf.text "<b>Beneficiary Address:</b> Room 1616, 16/F., Lippo Centre, Tower 2, 89 Queensway, Admiralty, Hong Kong", inline_format: true
+    pdf.text "<b>Bank Name:</b> Standard Chartered Bank (Hong Kong) Limited", inline_format: true
+    pdf.text "<b>Bank Address:</b> 13/F., Standard Chartered Bank Building, 4-4A Des Voeux Road Central, Hong Kong", inline_format: true
+    pdf.text "<b>Account:</b>  447-0-817019-9", inline_format: true
+    pdf.text "<b>SWIFT:</b> SCBLHKHHXXX", inline_format: true
+
+    if order.notes.present?
+      pdf.move_down 20.mm
+      pdf.text "Notes:", style: :bold
+      pdf.text order.notes
+    end
 
     return pdf
   end

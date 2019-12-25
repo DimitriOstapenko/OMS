@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_15_212305) do
+ActiveRecord::Schema.define(version: 2019_12_24_223910) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,8 @@ ActiveRecord::Schema.define(version: 2019_12_15_212305) do
     t.string "contact_phone"
     t.string "contact_email"
     t.integer "price_type", default: 0
+    t.integer "default_terms", default: 0
+    t.integer "pref_delivery_by", default: 0
   end
 
   create_table "managers", force: :cascade do |t|
@@ -64,6 +66,9 @@ ActiveRecord::Schema.define(version: 2019_12_15_212305) do
     t.string "web_id"
     t.integer "status", default: 0
     t.string "inv_number"
+    t.integer "terms"
+    t.integer "delivery_by"
+    t.text "notes"
     t.index ["client_id"], name: "index_orders_on_client_id"
   end
 

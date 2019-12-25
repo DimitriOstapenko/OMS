@@ -60,7 +60,8 @@ class ClientsController < ApplicationController
 private
   def client_params
     params.require(:client).permit( :name, :cltype, :code, :country, :state_prov, :address, :zip_postal, :web, :notes, 
-                                    :contact_fname, :contact_lname, :vat, :contact_phone, :contact_email, :price_type)
+                                    :contact_fname, :contact_lname, :vat, :contact_phone, :contact_email, :price_type, 
+                                    :pref_delivery_by, :default_terms  )
   end
 
   def sort_column
