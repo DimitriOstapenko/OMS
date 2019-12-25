@@ -20,6 +20,10 @@
 /db/*.sqlite3
 /db/*.sqlite3-journal
 
+# Ignore POs and Invoices directories
+/pos
+/invoices
+
 # Ignore all logfiles and tempfiles.
 /log/*
 /tmp/*
