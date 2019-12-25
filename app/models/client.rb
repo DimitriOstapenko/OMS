@@ -69,11 +69,6 @@ class Client < ApplicationRecord
     clients
   end
 
-# Grand total of all orders in client's currency
-  def self.orders_total(orders=[])
-    orders.sum{|o| o[:total]}
-  end  
-
 # Generate unique client code
   def set_client_code
     c = self.name.upcase.strip.gsub(/\W/,'')[0..3] rescue ''
