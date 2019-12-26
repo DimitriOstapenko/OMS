@@ -41,8 +41,6 @@ class OrdersController < ApplicationController
        @order.reload
        clear_cart
        flash[:info] = 'Order saved, confirmation sent'
-#       OrderMailer.send_confirmation(@order).deliver_later
-#       OrderMailer.notify_staff(@order).deliver_now
      else
        flash[:danger] = "Errors saving order: #{@order.errors.full_messages.join}"
     end
@@ -58,7 +56,8 @@ class OrdersController < ApplicationController
     @order = Order.find(params[:id])
     if @order.update_attributes(order_params)
       flash[:success] = "Order #{@order.id} updated"
-      redirect_back(fallback_location: orders_path)
+#      redirect_back(fallback_location: orders_path)
+      redirect_to orders_path
     else
       render 'edit'
     end
@@ -106,6 +105,6 @@ class OrdersController < ApplicationController
 private
 
   def order_params
-    params.require(:order).permit(:web_id, :status, :inv_number, :delivery_by, :terms, :notes)
+    params.require(:order).permit(:web_id, :status, :po_number, :inv_number, :delivery_by, :terms, :notes)
   end
 end

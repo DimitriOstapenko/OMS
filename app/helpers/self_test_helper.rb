@@ -1,0 +1,2 @@
+module SelfTestHelper
+end

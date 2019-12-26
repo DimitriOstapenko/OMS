@@ -1,0 +1,13 @@
+<b><%= collection.count == 0 ? 'None' : collection.count %></b> 
+<% if collection.count > 0 %>
+  <% if collection.count > 1 %>
+     , including: 
+  <% end %>
+  <% collection[0..4].each do |cl| %>
+    <%= link_to cl.code, edit_client_path(cl) %>
+  <% end %>
+  <% if collection.count > 5 %>
+  and <%= collection.count-5 %> more
+  <% end %>
+<% end %>
+

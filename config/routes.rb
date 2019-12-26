@@ -28,6 +28,8 @@ Rails.application.routes.draw do
   get '/cart', to: 'placements#cart', as: :cart
   get '/empty_cart', to: 'placements#empty_cart', as: :empty_cart
 
+  get '/self_test', to: 'self_test#index', as: :self_test
+
   resources :products, :clients, :suppliers, :managers, :users, :prices
   resources :orders do
     get 'download_po', on: :member

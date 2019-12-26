@@ -27,13 +27,13 @@ class Order < ApplicationRecord
     suff = Time.now.strftime("%Y%m%d") + '-' + Order.maximum(:id).next.to_s
     self.po_number = 'PO' + suff 
     self.inv_number = 'INV' + suff
-    self.terms = self.client.default_terms
-    self.delivery_by = self.client.pref_delivery_by
   end
 
   def send_emails
     OrderMailer.send_confirmation(self).deliver_now
     OrderMailer.notify_staff(self).deliver_now
+    self.terms = self.client.default_terms
+    self.delivery_by = self.client.pref_delivery_by
   end
 
   def create_po_and_invoice 
