@@ -75,6 +75,19 @@ class ClientMailsController < ApplicationController
     redirect_to client_mails_path
   end
 
+# Send email to staff only (testing) 
+  def send_staff
+    @mail = ClientMail.find(params[:id]) rescue nil
+    
+    if @mail.present? 
+      @mail.staff_emails_array.each do | destination |
+        ClientMailsMailer.send_client_mail(destination,@mail).deliver_now
+      end
+      flash[:success] = "Email with id of #{@mail.id} was sent to #{@mail.staff_emails_array.count} staff members as a test" 
+    end
+    redirect_to client_mails_path
+  end
+
   def show_target
     @mail = ClientMail.find(params[:id]) rescue nil
     redirect_to client_mails_path unless @mail

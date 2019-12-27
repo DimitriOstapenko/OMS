@@ -66,6 +66,10 @@ class Product < ApplicationRecord
    "#{ref_code} : #{description}"
   end
 
+  def image_file_present?
+    File.exists?(IMAGE_BASE.join(self.ref_code+'.jpg'))
+  end
+
 # Global method; search by keyword, price below, price above and recently added
   def self.search(params = {})
     products =  Product.all

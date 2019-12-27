@@ -16,7 +16,7 @@ class Order < ApplicationRecord
   attr_accessor :quantity # to get quantity from form
 
   before_validation :set_attributes!
-  after_create :send_emails
+  after_create :send_emails!
   after_save :create_po_and_invoice
 
   def set_attributes!
@@ -24,16 +24,17 @@ class Order < ApplicationRecord
     placements.each do |placement|
       self.total += placement.price * placement.quantity
     end
-    suff = Time.now.strftime("%Y%m%d") + '-' + Order.maximum(:id).next.to_s
-    self.po_number = 'PO' + suff 
-    self.inv_number = 'INV' + suff
+    unless self.po_number.present?
+      suff = Time.now.strftime("%Y%m%d") + '-' + Order.maximum(:id).next.to_s
+      self.po_number = 'PO-' + suff 
+      self.inv_number = 'INV-' + suff
+    end
   end
 
-  def send_emails
+  def send_emails!
     OrderMailer.send_confirmation(self).deliver_now
     OrderMailer.notify_staff(self).deliver_now
-    self.terms = self.client.default_terms
-    self.delivery_by = self.client.pref_delivery_by
+    self.update_attributes(delivery_by: self.client.pref_delivery_by, terms: self.client.default_terms )
   end
 
   def create_po_and_invoice 

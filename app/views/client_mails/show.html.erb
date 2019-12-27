@@ -14,8 +14,11 @@
         
 <% if current_user.admin? || current_user.staff? %>
 <div class="row">
-  <div class="col-md-2">
-    <%= button_to "Send This Email", send_all_client_mail_path, class: "btn btn-primary", method: 'get'  %>
+  <div class="col-md-4">
+    <%= button_to "Send This Email To Staff Only", send_staff_client_mail_path, class: "btn btn-primary", method: 'get'  %>
+  </div>
+  <div class="col-md-4">
+    <%= button_to "Send This Email To Target Clients", send_all_client_mail_path, class: "btn btn-danger", method: 'get'  %>
   </div>
 </div>
 <% end %>

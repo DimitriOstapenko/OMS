@@ -1,9 +1,9 @@
 <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <b class="modal-title" id="myModalLabel"><%= @client.contact_fullname %> </b>
+        <b class="modal-title" id="myModalLabel"><%= @client.name %> : Details </b>
 </div>
 <div class="modal-body">
-       <%= render 'show_client' %>
+       <%= render 'form' %>
 </div>
 
 <div class="modal-footer">

@@ -4,7 +4,7 @@
      , including: 
   <% end %>
   <% collection[0..4].each do |cl| %>
-    <%= link_to cl.code, edit_client_path(cl) %>
+    <%= link_to cl.code, edit_client_path(cl), remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %>
   <% end %>
   <% if collection.count > 5 %>
   and <%= collection.count-5 %> more

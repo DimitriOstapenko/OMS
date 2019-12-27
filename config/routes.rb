@@ -46,6 +46,7 @@ Rails.application.routes.draw do
   resources :client_mails do
     get 'show_target', on: :member
     get 'send_all', on: :member
+    get 'send_staff', on: :member
   end
 
 

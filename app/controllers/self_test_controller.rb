@@ -1,6 +1,6 @@
 class SelfTestController < ApplicationController
 
-  before_action :logged_in_user, except: [:index]
+  before_action :logged_in_user
   before_action :admin_or_staff_user, only: [:new, :create, :edit, :update]
   before_action :admin_user, only: [:destroy]
 
@@ -20,6 +20,12 @@ class SelfTestController < ApplicationController
     @empty_price_eu = Product.where(price_eu: nil)
     @empty_price_eu2 = Product.where(price_eu2: nil)
     @empty_price_usd = Product.where(price_usd: nil)
+
+    @missing_images = []
+    Product.all.each do |p|
+      next if p.image_file_present?
+      @missing_images.push(p) 
+    end
 
   end
 

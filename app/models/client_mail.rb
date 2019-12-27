@@ -24,4 +24,9 @@ class ClientMail < ApplicationRecord
     end
   end
 
+# return array of all staff emails  
+  def staff_emails_array
+    email_array = User.where(role: STAFF_ROLE).pluck(:email) rescue []
+  end
+
 end
