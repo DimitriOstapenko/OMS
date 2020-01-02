@@ -30,18 +30,18 @@ This section of the help file describes functionality available to staff members
 There are 5 categories of users in OMS:
 <ul>
   <li>
-  -user : anybody who registers online with ability to only look at the products available.
+    - <b>user</b> : anybody who registers online with ability to only look at the products available.
   </li>
   <li>
-  -client : Anybody who is registered as a client, and there are 5 different client categoies, will be able to see products and order them
+    - <b>client</b> : Anybody who is registered as a client, and there are 5 different client categoies, will be able to see products and order them
   <li>
-  - production: manufacturing facility will be able to see current order situation and deal with shipments and inventories
+    - <b>production</b> : manufacturing facility will be able to see current order situation and deal with shipments and inventories
   </li>
   <li>
-  - staff : can do everything, but change other user's profiles and privileges as well as modify orders
+    - <b> staff </b>: can do everything, but change other user's profiles and privileges as well as modify orders
   </li>
   <li>
-  - admin: full control if the system
+    - <b> admin </b>: full control of the system, including assigning roles to users, adding managers and suppliers, deleting products and clients.
   </li>
 </ul>
 
@@ -49,13 +49,13 @@ There are 5 categories of users in OMS:
 <a id="workflow"></a>
 <h4>Workflow</h4>
 
-As a staff member, you have privileges to create and modify client profiles (see Clients section in Menu Description pages below) as well as product information.
+As a staff member, you have privileges to create and modify client profiles (see Clients section in Menu Description pages below) as well change product information.
 Clients can be set up using 2 different scenarios:
 
 <p>&nbsp;</p>
 <b>Scenario 1</b>
 <ul>
-<li> - If client is not in database yet, create new client record in 'Clients' index page by clicking on "Add Client" button and filling out all required information. It's important to have all basic contact information filled out as it will be later used to generate documents such as Puchase Orders and Invoices. Make sure to add email address of the client.</li>
+<li> - If client is not in database yet, create new client record in 'Clients' index page by clicking on "Add Client" button at the bottom of the client list and filling out all required information. It's important to have all basic contact information filled out as it will be later used to generate documents such as Purchase Orders and Invoices. Make sure to add email address of the client.</li>
 <li> - Send an invitation to client to register by clicking on the icon in "invite" column in client list for this client. </li>
 <li> - Client receives an invitation and goes to SignUp page to register. </li>
 <li> - Client activates his account by clicking activation link sent to him in email and because this email address is already registered in the system as client, no further action on your part is required </li>
@@ -143,7 +143,7 @@ Reports are generated in PDF format and stored in "reports" directory on the ser
 
 <dd class="col-sm-11"> 
 
-<p><b><%= "<i class='glyphicon glyphicon-user'></i> My Profile".html_safe %> </b>: Edit logged in user profile </p>
+<p><b><%= "<i class='glyphicon glyphicon-user'></i> My Profile".html_safe %> </b>: Edit logged in user profile. You can change your name, password and email on this page.   </p>
 <p><b><%= "<i class='glyphicon glyphicon-euro'></i> Price Models".html_safe %></b>: Update current price models; Apply prices to all products in database </p>
 <p><b><%= "<i class='glyphicon glyphicon-envelope'></i> Client Mailer".html_safe %></b>: Set up and send bulk email to group of clients </p>
 <p><b><%= "<i class='glyphicon glyphicon-export'></i> Export Orders".html_safe %></b>: Create CSV file of all orders in the system </p>

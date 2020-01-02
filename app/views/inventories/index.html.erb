@@ -7,12 +7,12 @@
 <table class="tbl2 table-hover table-striped table-bordered" >
   <thead>
       <tr>
-          <th class="tbl_sm, text-center">Ref.Code</th>
+          <th class="tbl_sm, text-center"><%= sortable 'ref_code', 'Ref.Code' %></th>
 	  <th class="tbl_md, text-center">Scale</th>
           <th class="tbl_lg">Description</th>
 	  <th class="tbl_md, text-center">Category</th>
 	  <th class="tbl_md, text-center">Brand</th>
-          <th class="tbl_lsm text-center">Quantity</th>
+          <th class="tbl_lsm text-center"><%= sortable 'quantity', 'Quantity' %></th>
       </tr>
   </thead>
   <tbody>

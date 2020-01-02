@@ -39,9 +39,9 @@ class Order < ApplicationRecord
 
   def create_po_and_invoice 
       pdf = build_po(self)
-      pdf.render_file self.po_filespec
+      pdf.render_file self.po_filespec rescue nil
       pdf = build_invoice(self)
-      pdf.render_file self.inv_filespec
+      pdf.render_file self.inv_filespec rescue nil
   end
   
   def build_placements_with_product_ids_and_quantities?(product_ids_and_quantities)

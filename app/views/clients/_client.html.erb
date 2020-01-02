@@ -8,7 +8,12 @@
         <td><%= client.contact_lname %></td>
         <td><%= client.contact_email %></td>
         <td><%= client.contact_phone %></td>
-        <td><%= client.web %></td>
+        <td> <% if client.user.present? %>
+              Yes 
+        <% else %>
+            <%= link_to 'invite', send_invite_to_register_client_path(client) %>
+            <% end %>
+        </td>
         <td><%= client.vat %></td>
 
         <% if current_user.staff? || current_user.admin? %>

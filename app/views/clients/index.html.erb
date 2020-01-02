@@ -7,12 +7,12 @@
         <th><%= sortable 'code', 'Code' %></th>
         <th><%= sortable 'cltype', 'Type' %></th>
         <th><%= sortable 'price_type', 'Price Type' %></th>
-        <th><%= sortable 'country', 'Country' %></th>
+        <th class="text-center"><%= sortable 'country', 'Country' %></th>
         <th><%= sortable 'contact_fname', 'First Name' %></th>
         <th><%= sortable 'contact_lname', 'Last Name' %></th>
         <th><%= sortable 'contact_email', 'Email' %></th>
         <th><%= sortable 'contact_phone', 'Phone' %></th>
-        <th><%= sortable 'web', 'Website' %></th>
+        <th><%= sortable 'registered', 'Registered?' %></th>
         <th><%= sortable 'vat', 'VAT' %></th>
 
         <% if current_user.staff? || current_user.admin? %>

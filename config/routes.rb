@@ -30,13 +30,15 @@ Rails.application.routes.draw do
 
   get '/self_test', to: 'self_test#index', as: :self_test
 
-  resources :products, :clients, :suppliers, :managers, :users, :prices
+  resources :products,  :suppliers, :managers, :users, :prices
   resources :orders do
     get 'download_po', on: :member
     get 'download_invoice', on: :member
     resources :placements, only: [:index, :show, :create] 
   end
-#  get '/download_po', to: 'orders#download_po', as: :download_po
+  resources :clients do
+    get 'send_invite_to_register', on: :member
+  end 
 
   resources :reports  do
      get 'download', on: :member
@@ -44,10 +46,9 @@ Rails.application.routes.draw do
   end
 
   resources :client_mails do
-    get 'show_target', on: :member
+    get 'show_target', on: :member  # show target clients in client mailer
     get 'send_all', on: :member
     get 'send_staff', on: :member
   end
-
 
 end

@@ -56,12 +56,19 @@ class ClientsController < ApplicationController
       render 'edit'
     end
   end
+  
+  def send_invite_to_register
+    @client = Client.find(params[:id])
+    ClientMailer.send_invite_to_register(@client).deliver_now
+    flash[:success] = "Client #{@client.name} was just invited to register"
+     redirect_back(fallback_location: clients_path)
+  end
 
 private
   def client_params
     params.require(:client).permit( :name, :cltype, :code, :country, :state_prov, :address, :zip_postal, :web, :notes, 
                                     :contact_fname, :contact_lname, :vat, :contact_phone, :contact_email, :price_type, 
-                                    :pref_delivery_by, :default_terms  )
+                                    :pref_delivery_by, :default_terms )
   end
 
   def sort_column

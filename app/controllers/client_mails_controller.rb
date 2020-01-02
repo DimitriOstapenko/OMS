@@ -93,6 +93,7 @@ class ClientMailsController < ApplicationController
     redirect_to client_mails_path unless @mail
   end
 
+
 private
   def client_mail_params
     params.require(:client_mail).permit(:title, :ts_sent, :category, :client_type, :body, :target_emails)
