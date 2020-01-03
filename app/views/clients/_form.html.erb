@@ -9,7 +9,7 @@
   <%= f.input :name, label: 'Client Name' %>
   </div>
   <div class="col-md-2">
-  <%= f.input :registered, label: 'Registered?', collection: [['Yes', 'true'], ['No', 'false']], value: 'false', include_blank: false, readonly: true %>
+    <b><%= f.input :registered_str, label: 'Registered?', readonly: true %></b>
   </div>
   </div>
 
