@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_24_223910) do
+ActiveRecord::Schema.define(version: 2020_01_20_162951) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,6 +69,9 @@ ActiveRecord::Schema.define(version: 2019_12_24_223910) do
     t.integer "terms"
     t.integer "delivery_by"
     t.text "notes"
+    t.integer "pmt_method", default: 1
+    t.decimal "shipping", default: "0.0"
+    t.decimal "discount", default: "0.0"
     t.index ["client_id"], name: "index_orders_on_client_id"
   end
 

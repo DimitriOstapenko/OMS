@@ -91,19 +91,26 @@ module My
       ttl_amount += p.ptotal
       rows += [[num, p.product.ref_code, p.product.scale_str, p.product.colour_str, p.product.description, number_to_currency(p.price, locale: order.client.locale), p.quantity, number_to_currency(p.ptotal, locale: order.client.locale)]]
     end
-    rows += [['','','','','','', ttl_items,  number_to_currency(ttl_amount, locale: order.client.locale)]]
+#    rows += [['','','','','','', ttl_items,  number_to_currency(ttl_amount, locale: order.client.locale)]]
 
     pdf.table rows do |t|
         t.cells.border_width = 0
         t.column_widths = [15.mm, 30.mm, 20.mm, 20.mm, 40.mm, 20.mm, 15.mm, 20.mm ]
         t.header = true
-        t.row(0).font_style = t.row(-1).font_style = :bold
+#        t.row(0).font_style = t.row(-1).font_style = :bold
+        t.row(0).font_style = :bold
 #        t.position = 5.mm
         t.cells.padding = 3
         t.cells.style do |c|
            c.background_color = c.row.odd? ? 'FFFFFF' : 'EEEEEE'
         end
     end
+   
+    pdf.move_down 10.mm
+    pdf.text "Pyment Method: #{order.pmt_method_str}", size: 10
+    pdf.text "Shipping & Handling: #{number_to_currency(order.shipping)}", size: 10
+    pdf.text "Discount: #{number_to_currency(order.discount)}", size: 10
+    pdf.text "Grand Total: #{number_to_currency(order.total)}", size: 10, style: :bold
 
     return pdf
   end # build_po
@@ -157,13 +164,13 @@ module My
       ttl_amount += p.ptotal
       rows += [[num, p.product.ref_code, p.product.scale_str, p.product.colour_str, p.product.description, number_to_currency(p.price, locale: order.client.locale), p.quantity, number_to_currency(p.ptotal, locale: order.client.locale)]]
     end
-    rows += [['','','','','','', ttl_items,  number_to_currency(ttl_amount, locale: order.client.locale)]]
+#    rows += [['','','','','','', ttl_items,  number_to_currency(ttl_amount, locale: order.client.locale)]]
 
     pdf.table rows do |t|
         t.cells.border_width = 0
         t.column_widths = [15.mm, 30.mm, 20.mm, 20.mm, 40.mm, 20.mm, 15.mm, 20.mm ]
         t.header = true
-        t.row(0).font_style = t.row(-1).font_style = :bold
+        t.row(0).font_style = :bold
 #        t.position = 0.mm
         t.cells.padding = 3
         t.cells.style do |c|
@@ -171,6 +178,12 @@ module My
         end
     end
     
+    pdf.move_down 10.mm
+    pdf.text "Pyment Method: #{order.pmt_method_str}", size: 10
+    pdf.text "Shipping & Handling: #{number_to_currency(order.shipping)}", size: 10
+    pdf.text "Discount: #{number_to_currency(order.discount)}", size: 10
+    pdf.text "Grand Total: #{number_to_currency(order.total)}", size: 10, style: :bold
+
     pdf.move_down 20.mm
     pdf.text "Please check the integrity of the product.", style: :italic
     pdf.text "We only accept complaints about defects within 72 hours after the receipt of goods", style: :italic

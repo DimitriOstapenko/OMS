@@ -18,7 +18,6 @@
           <th class="tbl_sm, text-center">Price <%= @client.price_type_str %></th>
           <th class="tbl_md, text-center">Quantity</th>
           <th class="tbl_md, text-center">Delivery By</th>
-          <th class="tbl_md, text-center">Terms</th>
           <th class="tbl_md, text-center">Total</th>
       </tr>
   </thead>
@@ -26,6 +25,12 @@
 <%= render @placements, remote: device_is_desktop? %>
   </tbody>
 </table>
+
+<p>
+<div> Shipping & Handling : <%= to_currency @order.shipping %> </div>
+<div> Discount : <%= to_currency @order.discount %> </div>
+<div><b> Grand Total : <%= to_currency @order.total %> </b></div>
+</p>
 
 <div class="bottom_nav">
 <%= will_paginate @placements, class: "btn" %>

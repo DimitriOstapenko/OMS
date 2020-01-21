@@ -16,6 +16,18 @@
   </div>
 
   <div class="row" %>
+  <div class="col-md-4">
+  <%= f.input :pmt_method, collection: PAYMENT_METHODS, label: "Payment Method", include_blank: false %>
+  </div>
+  <div class="col-md-4">
+  <%= f.input :shipping %> 
+  </div>
+  <div class="col-md-4">
+  <%= f.input :discount  %>
+  </div>
+  </div>
+
+  <div class="row" %>
   <div class="col-md-12">
   <%= f.input :notes, as: :text, hint: "text entered here will appear on the invoice", input_html: {rows:4} %>
   </div>

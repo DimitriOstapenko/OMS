@@ -29,6 +29,7 @@ class Order < ApplicationRecord
       self.po_number = 'PO-' + suff 
       self.inv_number = 'INV-' + suff
     end
+    self.total += (self.shipping - self.discount)
   end
 
   def send_emails!
@@ -64,6 +65,10 @@ class Order < ApplicationRecord
 
   def terms_str
     PAYMENT_TERMS.invert[self.terms].to_s rescue nil
+  end
+  
+  def pmt_method_str
+    PAYMENT_METHODS.invert[self.pmt_method].to_s rescue nil
   end
 
   def po_filespec

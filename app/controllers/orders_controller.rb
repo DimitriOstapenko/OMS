@@ -70,41 +70,50 @@ class OrdersController < ApplicationController
   end
 
   def download_po
-   @order = Order.find( params[:id] ) rescue nil
-   redirect_to orders_path unless @order
+    @order = Order.find( params[:id] ) rescue nil
    
-   if @order.po_file_present?
-      send_file @order.po_filespec,
-                filename: @order.po_number,
-                type: "application/pdf",
-                disposition: :attachment
-    else
-      pdf = build_po(@order)
-      pdf.render_file @order.po_filespec
-      redirect_to download_po_order_path(@order), alert: "File regenerated"
-    end 
+    if @order
+       if @order.po_file_present?
+          send_file @order.po_filespec,
+                    filename: @order.po_number,
+                    type: "application/pdf",
+                    disposition: :inline
+          else
+            pdf = build_po(@order)
+            pdf.render_file @order.po_filespec
+            flash[:info] = 'File regenerated'
+            redirect_to download_po_order_path(@order)
+       end 
+       else
+        flash[:warning] = 'Order does not exist'
+        redirect_to orders_path
+    end
   end
 
   def download_invoice
    @order = Order.find( params[:id] ) rescue nil
-   redirect_to orders_path unless @order
-   
-   if @order.invoice_file_present?
-      send_file @order.inv_filespec,
-                filename: @order.inv_number,
-                type: "application/pdf",
-                disposition: :attachment
+   if @order 
+     if @order.invoice_file_present?
+        send_file @order.inv_filespec,
+                  filename: @order.inv_number,
+                  type: "application/pdf",
+                  disposition: :inline
+      else
+        pdf = build_invoice(@order)
+        pdf.render_file @order.inv_filespec
+        flash[:info] = 'File regenerated'
+        redirect_to download_invoice_order_path(@order)
+      end 
     else
-      pdf = build_invoice(@order)
-      pdf.render_file @order.inv_filespec
-      redirect_to download_invoice_order_path(@order), alert: "File regenerated"
-    end 
+      flash[:warning] = 'Order does not exist'
+      redirect_to orders_path
+    end
   end
   
 
 private
 
   def order_params
-    params.require(:order).permit(:web_id, :status, :po_number, :inv_number, :delivery_by, :terms, :notes)
+    params.require(:order).permit(:web_id, :status, :po_number, :inv_number, :delivery_by, :terms, :notes, :pmt_method, :shipping, :discount)
   end
 end

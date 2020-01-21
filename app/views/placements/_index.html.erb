@@ -31,6 +31,12 @@
     <%= render @placements, remote: device_is_desktop? %>
   </tbody>
 </table>
+
+<p>
+<div> Shipping & Handling : <%= to_currency @order.shipping %> </div>
+<div> Discount : <%= to_currency @order.discount %> </div>
+<div><b> Grand Total : <%= to_currency @order.total %> </b></div>
+</p>
 </div>
 </div>
 
