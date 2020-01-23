@@ -108,6 +108,10 @@ class Order < ApplicationRecord
     self.products.count rescue 0
   end
 
+  def items_count
+    self.placements.sum(:quantity)
+  end
+
   def po_file_present?
     self.po_filespec.present? && File.exists?(self.po_filespec)
   end

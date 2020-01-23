@@ -38,7 +38,7 @@ class ReportsController < ApplicationController
                  @report.edate = @report.sdate + 1.year - 1.minute
         when 6   # Date Range
         when nil # All Time
-                 @report.sdate = Date.new(1950,01,01)
+                 @report.sdate = nil #Date.new(1950,01,01)
                  @report.edate = Time.now 
         else     # invalid
                  flash.now[:danger] = "Invalid report timeframe: #{@report.timeframe}"
@@ -84,9 +84,9 @@ class ReportsController < ApplicationController
     @report = Report.find(params[:id])
     @orders = get_orders( @report )
     if @orders.any?
-       @pdf = build_totals_report( @report, @orders )
+       @pdf = build_report( @report, @orders )
        @pdf.render_file @report.filespec
-       redirect_to reports_path, alert: "New report created. #{@orders.count} orders "
+       redirect_to reports_path, alert: "New report created. Contains #{@orders.count} orders "
     else
       @report.destroy
       redirect_to reports_path, alert: "No report created. No orders were found matching given criteria"
@@ -123,7 +123,8 @@ private
 
 # get orders in given timeframe matching given status: Pending and Shipped for Purchases, Paid for Sales
   def get_orders(report)
-    orders = Order.where(created_at: (report.sdate..report.edate))
+    sdate = report.sdate || '1900-01-01'.to_date
+    orders = Order.where(created_at: (sdate..report.edate))
     orders = orders.where(client_id: report.client_id) if report.client_id
     orders = orders.where(status: (PENDING_ORDER..SHIPPED_ORDER)) if report.rtype == PURCHASES_REPORT
     orders = orders.where(status: PAID_ORDER) if report.rtype == SALES_REPORT

@@ -10,11 +10,8 @@ module My
     require 'prawn/measurement_extensions'
     include ActionView::Helpers::NumberHelper
 
-# Generate Totals Only report  
-  def build_totals_report( report, orders )
-    sdate = report.sdate.strftime("%d %b %Y")
-    edate = report.edate.strftime("%d %b %Y")
-    date_range = report.daterange
+# Generate Report  
+  def build_report( report, orders )
     client_name = report.client.name rescue 'All'
     if report.rtype == SALES_REPORT 
       ref_doc_name = 'Invoice'
@@ -23,33 +20,46 @@ module My
     end
 
     pdf = Prawn::Document.new( :page_size => "LETTER", margin: [10.mm,10.mm,20.mm,20.mm])
-    pdf.font "Courier"
-    pdf.text "#{report.detail_str} #{report.rtype_str} #{report.timeframe_str} Report", align: :center, size: 12, style: :bold
-    pdf.text "#{report.daterange}. #{orders.count} orders; Client: #{client_name}; USD/CAD: #{get_usd_euro_fx}", align: :center, size: 10, style: :bold
+    pdf.font "Helvetica"
+    pdf.text "#{report.detail_str} :  #{report.rtype_str} - #{report.timeframe_str} Report", align: :center, size: 15, style: :bold
+    pdf.text "#{report.daterange} #{orders.count} orders; Client: #{client_name}; USD/CAD: #{get_usd_euro_fx}", align: :center, size: 10, style: :bold
   
     pdf.move_down 5.mm
-    pdf.font_size 8
-    rows =  [[ "Client", "Order", "Products", "Date", "Status", ref_doc_name, "Total"]]
+    pdf.font_size 9
+    rows =  [[ "Client", "Order#", "Prods", "Items", "Date", "Status", ref_doc_name, "Total"]]
     
-    ttl_products = ttl_amount = 0
+    ttl_products = ttl_amount = ttl_items = 0
     orders.all.each do |o|
       ref_doc = o.inv_number if report.rtype == SALES_REPORT
       ref_doc ||= o.po_number
-      rows += [[o.client_code, o.id, o.products.count, o.created_at.to_date, o.status_str.to_s, ref_doc, number_to_currency(o.total,locale: o.client.locale)]]
+      rows += [["<b>#{o.client_code}</b>", o.id, o.products.count, o.items_count, o.created_at.to_date, o.status_str.to_s, ref_doc, number_to_currency(o.total,locale: o.client.locale)]]
+      if report.detail == ITEMIZED_REPORT
+         o.placements.each do |pl|
+           price  = number_to_currency(pl.price, locale: o.client.locale)
+           total  = number_to_currency(pl.price * pl.quantity, locale: o.client.locale)
+           rows += [['','','', {content: "<b>#{pl.product.ref_code}</b> Scale: #{pl.product.scale_str}  #{pl.product.colour_str} x #{pl.quantity} pcs @ #{price}; Total: #{total}",  colspan: 5, align: :left} ]] 
+         end
+         rows += [[ {size: 25}]]
+      end
       ttl_products += o.products.count
+      ttl_items += o.items_count
       ttl_amount += o.total * o.client.fx_rate   # we convert all to euros
     end
-    rows += [['','',ttl_products,'','','',  number_to_currency(ttl_amount, locale: :fr)]]
+    rows += [['Totals: ','',ttl_products,ttl_items,'','','',  number_to_currency(ttl_amount, locale: :fr)]]
 
-    pdf.table rows do |t|
+    pdf.table rows, cell_style: {inline_format: true} do |t|
         t.cells.border_width = 0
-        t.column_widths = [30.mm, 20.mm, 20.mm, 30.mm, 20.mm, 30.mm, 30.mm ]
+        t.column_widths = [20.mm, 15.mm, 15.mm, 20.mm, 30.mm, 20.mm, 30.mm, 30.mm ]
         t.header = true
         t.row(0).font_style = t.row(-1).font_style = :bold
+        t.row(0).min_font_size = t.row(-1).min_font_size = 10
         t.position = 5.mm
         t.cells.padding = 3
-        t.cells.style do |c|
-           c.background_color = c.row.odd? ? 'EEEEEE' : 'FFFFFF'
+
+        if report.detail == TOTALS_ONLY_REPORT
+          t.cells.style do |c|
+            c.background_color = c.row.odd? ? 'EEEEEE' : 'FFFFFF'
+          end
         end
     end
 
@@ -97,9 +107,7 @@ module My
         t.cells.border_width = 0
         t.column_widths = [15.mm, 30.mm, 20.mm, 20.mm, 40.mm, 20.mm, 15.mm, 20.mm ]
         t.header = true
-#        t.row(0).font_style = t.row(-1).font_style = :bold
         t.row(0).font_style = :bold
-#        t.position = 5.mm
         t.cells.padding = 3
         t.cells.style do |c|
            c.background_color = c.row.odd? ? 'FFFFFF' : 'EEEEEE'
