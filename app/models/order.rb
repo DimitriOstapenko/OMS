@@ -6,6 +6,14 @@ class Order < ApplicationRecord
   belongs_to :client
 
   default_scope -> { order(created_at: :desc) }
+  
+  scope :filter_by_client_name, lambda { |keyword|
+    where("upper(clients.name) LIKE '%#{keyword.upcase}%'")
+  }
+
+  scope :filter_by_order_id, lambda { |keyword| 
+    where("orders.id::varchar like ?", "%#{keyword}%")
+  }
 
   validates :client_id, presence: true
   validates_with EnoughProductsValidator
@@ -118,6 +126,21 @@ class Order < ApplicationRecord
   
   def invoice_file_present?
     self.inv_filespec.present? && File.exists?(self.inv_filespec)
+  end
+
+# Global search method
+  def self.search(keyword = '')
+    orders = Order.joins(:client)
+    case keyword
+     when /^\d+/
+       orders = orders.filter_by_order_id(keyword) 
+     when /^\w+/
+       orders = orders.filter_by_client_name(keyword) 
+     else
+       orders = []
+     end
+
+    return orders
   end
   
 end

@@ -9,17 +9,19 @@ class OrdersController < ApplicationController
   before_action :no_user_user, only: [:index]
 
   def index
-    client_id = params[:order][:client_id] rescue nil
-    @client = Client.find(client_id) if client_id.present?
+    keyword = params[:findstr]; search_results = []
     @client = current_client if current_user.client?  
     if @client.present?
       @orders = @client.orders
-      @orders = @orders.paginate(page: params[:page])
     else
       @orders = Order.all
-      @orders = @orders.paginate(page: params[:page])
     end
+    search_results = @orders.search(keyword) if keyword
+    @orders = search_results if search_results.any?
+    @orders = @orders.paginate(page: params[:page]) 
     @grand_total = @orders.sum{|o| o[:total]*o.client.fx_rate}
+
+    flash[:info] = "#{search_results.count} orders found" if keyword
   end 
 
   def show
