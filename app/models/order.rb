@@ -14,6 +14,14 @@ class Order < ApplicationRecord
   scope :filter_by_order_id, lambda { |keyword| 
     where("orders.id::varchar like ?", "%#{keyword}%")
   }
+  
+  scope :filter_by_po_number, lambda { |keyword| 
+    where("upper(po_number) LIKE ?", "%#{keyword.upcase}%")
+  }
+  
+  scope :filter_by_invoice_number, lambda { |keyword| 
+    where("upper(inv_number) LIKE ?", "%#{keyword.upcase}%")
+  }
 
   validates :client_id, presence: true
   validates_with EnoughProductsValidator
@@ -134,6 +142,10 @@ class Order < ApplicationRecord
     case keyword
      when /^\d+/
        orders = orders.filter_by_order_id(keyword) 
+     when /^PO-?\d+/i
+       orders = orders.filter_by_po_number(keyword) 
+     when /^INV-?\d+/i
+       orders = orders.filter_by_invoice_number(keyword) 
      when /^\w+/
        orders = orders.filter_by_client_name(keyword) 
      else

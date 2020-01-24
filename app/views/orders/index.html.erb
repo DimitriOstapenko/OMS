@@ -4,25 +4,28 @@
 <% if current_user.client? %>
   <%= render "shared/shopping_cart" %>
 <% end %>
+<% colspan = 8 %>
 
 <p></p>
 <table class="tbl2 table-hover table-striped table-bordered" >
   <thead>
       <tr>
           <% unless @client.present? %>
-          <th class="tbl_lg text-center">Client</th>
+          <th class="tbl_lmd">Client</th>
           <% end %>
           <th class="tbl_sm, text-center">Order #</th>
           <th class="tbl_sm, text-center">#Products</th> 
-          <th class="tbl_md, text-center">Date Created</th>
+          <th class="tbl_sm, text-center">#Items</th> 
+          <th class="tbl_md, text-center">Order Date</th>
           <th class="tbl_md, text-center">Purchase Order</th>
           <th class="tbl_md, text-center">Invoice</th>
           <th class="tbl_md, text-center">Terms</th>
-          <th class="tbl_md, text-center">Transport</th>
+          <th class="tbl_xmd, text-center">Transport</th>
           <th class="tbl_md, text-center">Total</th>
           <th class="tbl_md, text-center">Status</th>
           <% if current_user.admin? || current_user.staff? %>
-          <th></th>
+          <th class="tbl_sm"></th>
+          <% colspan = 6 %>
           <% end %>
       </tr>
   </thead>
@@ -32,7 +35,7 @@
 
 <tfoot>
   <tr>
-    <th colspan=5></th>
+    <th colspan=<%= colspan %>></th>
     <% if @client.present? %>
     <th class="text-center"><%= to_currency @orders.sum(:total), locale: locale %></th>
     <% else %>

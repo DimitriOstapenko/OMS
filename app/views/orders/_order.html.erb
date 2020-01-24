@@ -4,6 +4,7 @@
         <% end %>
         <td class="text-center"><%= link_to order.id, order_placements_path(order.id), remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %></td>
         <td class="text-center"><%= order.products.count %></td>
+        <td class="text-center"><%= order.items_count %></td>
         <td class="text-center"><%= order.cre_date %></td>
         <td class="text-center"> <%= link_to order.po_number, download_po_order_path(order) %> </td>
         <td class="text-center"><%= link_to order.inv_number, download_invoice_order_path(order) %></td>
@@ -12,6 +13,6 @@
         <td class="text-center"><%= to_currency order.total, locale: order.client.locale %></td>
         <td class="text-center"> <%= order.status_str %> </td>
         <% if current_user.admin? || current_user.staff? %>
-        <td> <%= link_to '<i class="glyphicon glyphicon-edit"></i>'.html_safe, edit_order_path(order), remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %> </td>
+        <td class="text-center"> <%= link_to '<i class="glyphicon glyphicon-edit"></i>'.html_safe, edit_order_path(order), remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %> </td>
         <% end %>
 </tr>

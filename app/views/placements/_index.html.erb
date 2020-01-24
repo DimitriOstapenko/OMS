@@ -7,7 +7,7 @@
   <% if current_user.client? %>
     <b class="modal-title" id="myModalLabel">Order <%= @order.id %> received on <%= @order.cre_date %></b>
   <% else %>
-    <b class="modal-title" id="myModalLabel">Client <%= @client.name %>: Order # <%= @order.id %> received on <%= @order.cre_date %></b>
+    <b class="modal-title" id="myModalLabel">Client <font color="#777">"<%= @client.name %>"</font> Order # <%= @order.id %> received on <%= @order.cre_date %></b>
   <% end %>
 </div>
 
