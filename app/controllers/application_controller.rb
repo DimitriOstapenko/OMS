@@ -47,15 +47,6 @@ class ApplicationController < ActionController::Base
     Client.find(current_user.client_id) rescue nil
   end
 
-# Retrieve active order from session  
-#  def current_order
-#    if session[:order_id]
-#      Order.find(session[:order_id])
-#    else
-#      Order.new
-#    end
-#  end
-
   def add_to_cart?(product_id,qty)
     qty = qty.to_i rescue nil
     return unless product_id && qty
@@ -75,7 +66,7 @@ class ApplicationController < ActionController::Base
   def clear_cart
     session[:cart] = []
   end
-
+  
 protected
 
   def configure_permitted_parameters

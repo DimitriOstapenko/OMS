@@ -1,6 +1,6 @@
 class ProductsController < ApplicationController
   
-  before_action :logged_in_user
+#  before_action :logged_in_user   # if this is enabled, message about activation email is not shown because of redirect
   before_action :admin_or_staff_user, only: [:new, :create, :edit, :update]
   before_action :admin_user, only: [:destroy]
 
