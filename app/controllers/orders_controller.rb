@@ -1,6 +1,7 @@
 class OrdersController < ApplicationController
 
   include My::Forms
+  helper_method :sort_column, :sort_direction
 
   before_action :logged_in_user
   before_action :admin_or_staff_user, only: [:edit, :update]
@@ -18,7 +19,7 @@ class OrdersController < ApplicationController
     end
     search_results = @orders.search(keyword) if keyword
     @orders = search_results if search_results.any?
-    @orders = @orders.paginate(page: params[:page]) 
+    @orders = @orders.reorder(sort_column + ' ' + sort_direction, "created_at desc").paginate(page: params[:page]) 
     @grand_total = @orders.sum{|o| o[:total]*o.client.fx_rate}
 
     flash[:info] = "#{search_results.count} orders found" if keyword
@@ -118,4 +119,13 @@ private
   def order_params
     params.require(:order).permit(:web_id, :status, :po_number, :inv_number, :delivery_by, :terms, :notes, :pmt_method, :shipping, :discount)
   end
+
+  def sort_column
+          Order.column_names.include?(params[:sort]) ? params[:sort] : "created_at"
+  end
+
+  def sort_direction
+          %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
+  end
+
 end

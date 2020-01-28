@@ -96,7 +96,7 @@ class Order < ApplicationRecord
   end
 
   def self.to_csv
-    attributes = %w{id client_code cre_date product_count currency total po_number status_str}
+    attributes = %w{id client_code cre_date product_count items_count currency total po_number inv_number pmt_method_str shipping discount delivery_by_str status_str notes}
     CSV.generate(headers: attributes, write_headers: true) do |csv|
       all.each do |order|
         csv << attributes.map{ |attr| order.send(attr) }

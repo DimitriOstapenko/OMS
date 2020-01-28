@@ -1,25 +1,24 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.6.4'
+ruby '2.7.0'
 gem 'devise'
 
 gem 'rails', '~> 5.2.3'
 gem 'pg'
 gem 'puma', '~> 3.11'
-gem 'sass-rails', '~> 5.0'
-gem 'sassc',                   '~> 2.0'
-gem 'uglifier', '>= 1.3.0'
 
+gem 'bootstrap-sass',       '~> 3.4.1'
+gem 'sassc', 		       '~> 2.0'
+gem 'sassc-rails',	       '~> 2.1'
+gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.2'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'jquery-rails',            '4.3.1'
 gem 'bootstrap-will_paginate', '1.0.0'
-gem 'bootstrap-sass',       '~> 3.4.1'
 gem 'select2-rails',           '4.0.3'
 gem 'popper_js', '~> 1.14.3'
-
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
