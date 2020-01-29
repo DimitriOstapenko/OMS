@@ -80,7 +80,7 @@ class OrdersController < ApplicationController
           send_file @order.po_filespec,
                     filename: @order.po_number,
                     type: "application/pdf",
-                    disposition: :inline
+                    disposition: :attachment
           else
             pdf = build_po(@order)
             pdf.render_file @order.po_filespec
@@ -100,7 +100,7 @@ class OrdersController < ApplicationController
         send_file @order.inv_filespec,
                   filename: @order.inv_number,
                   type: "application/pdf",
-                  disposition: :inline
+                  disposition: :attachment
       else
         pdf = build_invoice(@order)
         pdf.render_file @order.inv_filespec

@@ -52,12 +52,14 @@ end
 
 # Build suppliers hash     
     def get_suppliers
-      Supplier.all.pluck("CONCAT_WS(' ', fname, lname)",:id).to_h
+#      Supplier.all.pluck("CONCAT_WS(' ', fname, lname)",:id).to_h
+      Supplier.all.pluck(Arel.sql("CONCAT_WS(' ', fname, lname)"),:id).to_h
     end
 
 # Build managers hash     
     def get_managers
-      Manager.all.pluck("CONCAT_WS(' ', fname, lname)",:id).to_h
+#      Manager.all.pluck("CONCAT_WS(' ', fname, lname)",:id).to_h
+      Manager.all.pluck(Arel.sql("CONCAT_WS(' ', fname, lname)"),:id).to_h
     end
 
 # Build array of clients with orders

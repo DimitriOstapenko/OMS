@@ -1,21 +1,86 @@
-<div class='header'>Client Help</div>
+<h3>Client Help Section</h3>
 
-<div style="width: 100%; overflow: hidden;">
-<div style="width: 300px; float: left;">
 <a id="table_of_contents"></a>
-<h3>Table of contents</h3>
+
+<h4>Table of contents</h4>
 <li> <%= link_to "Introduction", "#introduction" %> </li>
-<li> <%= link_to "Ordering", "#user_categories" %> </li>
+<li> <%= link_to "Ordering", "#ordering" %> </li>
 <li> <%= link_to "Navigation and Search", "#navigation" %> </li>
-<li> <%= link_to "Menu Descriptions", "#menu_descriptions" %> </li>
+<li> <%= link_to "Menu Descriptions", "#menu_descriptions" %> </li> 
+<ul> 
+  <li><%= link_to "Products", "#products" %> </li>
+  <li><%= link_to "Orders", "#orders" %> </li>
+  <li><%= link_to "<i class='glyphicon glyphicon-menu-hamburger text-muted'></i> Hamburger Menu".html_safe, "#hamburger" %></li>
+</ul>
+
+<p>&nbsp;</p>
+<a id="introduction"></a>
+<h4>Introduction</h4>
+
+Ordering Management System, OMS in the future, was developed to handle ordering of car models by different categories of clients including retailers and distributors. While ordering is done exclusively by clients, that is users that have 'client' role assigned to them, system itself is managed by 2 privileged roles: "stff" and "administrator".
+This section of the help file describes functionality available to staff members (see <%= link_to "User Categories", "#user_categories" %> below) 
+
+<p>&nbsp;</p>
+<a id="ordering"></a>
+<h4>Ordering</h4>
+
+Ordering is done by registered clients. 
+There are two ways to order products: directly from product list, by entering number for each selected product, or by goling to Orders page and clicking on <Add Product To Cart> button at the bottom. In both cases, entered number of selected product will be added to shopping cart, which whill show as a shopping cart symbol and number in upper right corner of the page. Once selection is finished and all products are added to shopping cart, you can finalize the order by first clicking on shopping cart symbol which will open shopping cart modal, where you can either submit order or empty shopping cart and start from the beginning. 
+
+<p>
+Once order is submitted several things will happen: 
+
+<ul>
+<li> - Inventory is updated: number of available products is automatically reduced by the ordered number </li>
+<li> - Emails are sent: Order confirmation email to the user, Order notification to staff members and  Low quantity notification to staff if number of available products is nevative </li>
+<li> - PO and Invoice for the new order are generated and order is assigned 'Pending' status </li>
+</ul>
 
 
-<dl class="row">
-         <a id="Introduction"></a>
-         <dt class="col-sm-1">Introduction:</dt>
-</dl>
+<p>&nbsp;</p>
+<a id="navigation"></a>
+<h4>Navigation & Search</h4>
+
+Navigating through pages in OMS is pretty straightforward. All pages have pagination footer at the bottom of the page where you can either go back and forth by one page, or select page number and go directly to it. As a productivity shortcut, you can also use <back> and <forward> keys on your keyboard to flip through pages.
+<p>
+Search box is located in the header an is context-sensitive. That is, in Products page you can use it to search for products, in Clients page for client and so forth. Currently products can be searched using complete or partial reference codes, complete or partial name. Client search supports searches by name and country code. Orders can be filtered by order number, date, client PO and Invoice number. 
+<p>&nbsp;</p>
+<a id="menu_descriptions"></a>
+<h4>Menu Descriptions</h4>
+
+<p>&nbsp;</p>
+<!-- Products index page -->
+<a id="products"></a>
+<dt class="col-sm-1">Products</dt>
+
+<dd class="col-sm-11">This page shows list of all active products present currently in database. Reference Code column is linked to product profile. Edit icon, <i class="glyphicon glyphicon-edit"></i> will take you directly to <Edit Product> form, where you can change all product attributes, except reference code. Optional "notes' field is only visible to you and can be used to store product-specific info. 
+</dd>
+
+<p>&nbsp;</p>
+<!-- Orders index page -->
+<a id="orders"></a>
+<dt class="col-sm-1">Orders</dt>
+
+<dd class="col-sm-11">This page shows list of client orders, most recent first. #Products column shows number of different products bought, while #Items column signifies total number of items.  
+Drop-down box at the top of the page allows you to filter orders by order number, total amount, date etc. Invoice and PO colums have links to download PO/Invoice in PDF format. Grand total at the bottom shows total value of all orders in Euros using current USD/EUR FX conversion rate shown in the footer.
+</dd>
+
+<p>&nbsp;</p>
+</dd>
+
+<p>&nbsp;</p>
+<!-- Hamburger menu -->
+<a id="hamburger"></a>
+<dt class="col-sm-1">Hamburger Menu</dt>
+
+<dd class="col-sm-11"> 
+
+<p><b><%= "<i class='glyphicon glyphicon-user'></i> My Profile".html_safe %> </b>: Edit logged in user profile. You can change your name, password and email on this page. To change you password you need to enter your current one. If not, please log out (see next item)  and then use "Forgot password" link at the login screen. </p>
+<p><b><%= "<i class='glyphicon glyphicon-log-out'></i> Logout".html_safe %></b>: End current session</p>
+
+</dd>
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
 
 
-
-</div>
-</div>
