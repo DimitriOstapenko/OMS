@@ -51,11 +51,14 @@
   </div>
 
   <div class="row">
-  <div class="col-md-4">
+  <div class="col-md-3">
   <%= f.input :contact_phone %>
   </div>
-  <div class="col-md-4">
-  <%= f.input :vat %>
+  <div class="col-md-3">
+  <%= f.input :vat, label: 'VAT #' %>
+  </div>
+  <div class="col-md-2">
+  <%= f.input :tax_pc, label: 'Tax Payable (%)' %>
   </div>
   <div class="col-md-4">
   <%= f.input :web, label: 'Website' %>
@@ -63,11 +66,14 @@
   </div>
   
   <div class="row">
-  <div class="col-md-6">
+  <div class="col-md-4">
   <%= f.input :default_terms, collection: PAYMENT_TERMS, label: 'Default Payment Terms', include_blank: false  %>
   </div>
-  <div class="col-md-6">
+  <div class="col-md-4">
   <%= f.input :pref_delivery_by, collection: DELIVERY_BY, label: 'Preferred Delivery by', include_blank: false %>
+  </div>
+  <div class="col-md-4">
+  <%= f.input :shipping_cost, label: 'Shipping Cost/Kg' %>
   </div>
   </div>
 

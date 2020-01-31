@@ -5,10 +5,10 @@
   <% readonly = (action_name == 'new')? false: true %>
 
   <div class="row" %>
-  <div class="col-md-3">
-  <%= f.input :ref_code, hint: "Unique product code, alphanumeric", readonly: readonly %>
+  <div class="col-md-2">
+  <%= f.input :ref_code, hint: "Unique product code", readonly: readonly %>
   </div>
-  <div class="col-md-3">
+  <div class="col-md-2">
   <%= f.input :brand, collection: BRANDS, include_blank: false %> 
   </div>
   <div class="col-md-2">
@@ -19,6 +19,9 @@
   </div>
   <div class="col-md-2">
   <%= f.input :ctns, label: 'Pcs x Cartons' %>
+  </div>
+  <div class="col-md-2">
+  <%= f.input :weight, label: 'Weight (G)' %>
   </div>
   </div>
 

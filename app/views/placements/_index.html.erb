@@ -5,9 +5,9 @@
 <div class="modal-header">
   <button type="button" class="close" data-dismiss="modal">&times;</button>
   <% if current_user.client? %>
-    <b class="modal-title" id="myModalLabel">Order  #<%= @order.id %> received on <%= @order.cre_date %> : <%= @order.items_count %> items</b>
+    <b class="modal-title" id="myModalLabel">Order  #<%= @order.id %> received on <%= @order.cre_date %> : <%= @order.items_count %> pcs</b>
   <% else %>
-    <b class="modal-title" id="myModalLabel">Client <font color="#777">"<%= @client.name %>"</font> Order # <%= @order.id %> received on <%= @order.cre_date %></b>
+    <b class="modal-title" id="myModalLabel">Client <font color="#777">"<%= @client.name %>"</font> Order # <%= @order.id %> received on <%= @order.cre_date %> : <%= @order.items_count %> pcs</b>
   <% end %>
 </div>
 
@@ -30,11 +30,28 @@
   <tbody>
     <%= render @placements, remote: device_is_desktop? %>
   </tbody>
+  <tfoot>
+    <tr>
+      <th colspan=6></th>
+      <th class="text-center"><%= @order.items_count %></th>
+      <th class="text-center"><%= to_currency @order.total_price, locale: @client.locale %></th>
+    </tr>
+  </tfoot>
 </table>
 
 <p>
-<div> Shipping & Handling : <%= to_currency @order.shipping, locale: @order.client.locale %> </div>
-<div> Discount : <%= to_currency @order.discount, locale: @order.client.locale %> </div>
+<% if @order.shipping.positive? %>
+  <div> Shipping & Handling : <%= to_currency @order.shipping, locale: @order.client.locale %> </div>
+<% end %>
+
+<% if @order.discount.positive? %>
+  <div> Discount : <%= to_currency @order.discount, locale: @order.client.locale %> </div>
+<% end %>
+
+<% if @order.tax.positive? %>
+  <div> Sales Tax (<%= @client.tax_pc %>%): <%= to_currency @order.tax, locale: @client.locale %></div>
+<% end %>
+
 <div><b> Grand Total : <%= to_currency @order.total, locale: @order.client.locale %> </b></div>
 </p>
 </div>

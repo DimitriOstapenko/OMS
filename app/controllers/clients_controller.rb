@@ -68,7 +68,7 @@ private
   def client_params
     params.require(:client).permit( :name, :cltype, :code, :country, :state_prov, :address, :zip_postal, :web, :notes, 
                                     :contact_fname, :contact_lname, :vat, :contact_phone, :contact_email, :price_type, 
-                                    :pref_delivery_by, :default_terms )
+                                    :pref_delivery_by, :default_terms, :tax_pc, :shipping_cost )
   end
 
   def sort_column

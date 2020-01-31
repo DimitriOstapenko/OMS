@@ -4,11 +4,12 @@
   <% readonly = (action_name == 'edit')? true : false %>  
 
   <div class="row">
-  <div class="col-md-3">
+  <div class="col-md-1"> </div>
+  <div class="col-md-2">
   <%= f.input :scale, readonly: readonly %>
   </div>
 
-  <div class="col-md-3">
+  <div class="col-md-2">
   <%= f.input :category, collection: CATEGORIES, include_blank: false, readonly: readonly %>
   </div>
 
@@ -21,7 +22,30 @@
   </div>
 
   <div class="col-md-2">
+  <%= f.input :price_eu3 %>
+  </div>
+  </div>
+
+  <div class="row">
+  <div class="col-md-1"> </div>
+  <div class="col-md-2">
+  <%= f.input :price_eu4 %>
+  </div>
+
+  <div class="col-md-2">
+  <%= f.input :price_eu5 %>
+  </div>
+  
+  <div class="col-md-2">
+  <%= f.input :price_eu6 %>
+  </div>
+
+  <div class="col-md-2">
   <%= f.input :price_usd %>
+  </div>
+
+  <div class="col-md-2">
+  <%= f.input :price_usd2 %>
   </div>
   </div>
 

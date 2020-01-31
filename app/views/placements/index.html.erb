@@ -2,7 +2,7 @@
 
 <div class="col-md-8 col-md-offset-2">
   <% if current_user.client? %>
-         <h3 class='display-1'> Order #<%= @order.id %> <%= @order.cre_date %> %> </h3>
+         <h3 class='display-1'> Order #<%= @order.id %> received <%= @order.cre_date %></h3>
   <% else %>
     <h3 class='display-1'>Client <%= @client.name %>: Order # <%= @order.id %>- details</h3>
   <% end %>
@@ -12,24 +12,40 @@
   <thead>
       <tr>
           <th class="tbl_sm, text-center">Product</th>
+          <th class="tbl_sm, text-center">Code</th>
           <th class="tbl_sm, text-center">Scale</th>
-          <th class="tbl_sm, text-center">Colour</th>
+          <th class="tbl_sm, text-center">Color</th>
           <th class="tbl_sm, text-center">Description</th>
           <th class="tbl_sm, text-center">Price <%= @client.price_type_str %></th>
           <th class="tbl_md, text-center">Quantity</th>
-          <th class="tbl_md, text-center">Delivery By</th>
           <th class="tbl_md, text-center">Total</th>
       </tr>
   </thead>
   <tbody>
 <%= render @placements, remote: device_is_desktop? %>
   </tbody>
+  <tfoot>
+    <tr>
+      <th colspan=6></th>
+      <th class="text-center"><%= @order.items_count %></th>
+      <th class="text-center"><%= to_currency @order.total_price, locale: @client.locale %></th>
+    </tr>
+  </tfoot>
 </table>
 
 <p>
-<div> Shipping & Handling : <%= to_currency @order.shipping %> </div>
-<div> Discount : <%= to_currency @order.discount %> </div>
-<div><b> Grand Total : <%= to_currency @order.total %> </b></div>
+<% if @order.shipping.positive? %>
+  <div> Shipping & Handling : <%= to_currency @order.shipping %> </div>
+<% end %>
+
+<% if @order.discount.positive? %>
+  <div> Discount : <%= to_currency @order.discount %> </div>
+<% end %>
+
+<% if @order.tax.positive? %>
+  <div> Sales Tax (<%= @client.tax_pc %>%): <%= to_currency @order.tax, locale: @client.locale %></div>
+<% end %>
+<div><b> Grand Total : <%= to_currency @order.total, locale: @client.locale %> </b></div>
 </p>
 
 <div class="bottom_nav">

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_20_162951) do
+ActiveRecord::Schema.define(version: 2020_01_31_010702) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,6 +46,8 @@ ActiveRecord::Schema.define(version: 2020_01_20_162951) do
     t.integer "price_type", default: 0
     t.integer "default_terms", default: 0
     t.integer "pref_delivery_by", default: 0
+    t.float "tax_pc", default: 0.0
+    t.float "shipping_cost", default: 0.0
   end
 
   create_table "managers", force: :cascade do |t|
@@ -72,6 +74,7 @@ ActiveRecord::Schema.define(version: 2020_01_20_162951) do
     t.integer "pmt_method", default: 1
     t.decimal "shipping", default: "0.0"
     t.decimal "discount", default: "0.0"
+    t.float "tax", default: 0.0
     t.index ["client_id"], name: "index_orders_on_client_id"
   end
 
@@ -94,6 +97,11 @@ ActiveRecord::Schema.define(version: 2020_01_20_162951) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "category"
+    t.decimal "price_usd2"
+    t.decimal "price_eu3"
+    t.decimal "price_eu4"
+    t.decimal "price_eu5"
+    t.decimal "price_eu6"
   end
 
   create_table "products", force: :cascade do |t|
@@ -116,6 +124,12 @@ ActiveRecord::Schema.define(version: 2020_01_20_162951) do
     t.integer "progress"
     t.integer "quantity", default: 0
     t.decimal "price_eu2", default: "0.0"
+    t.decimal "price_usd2", default: "0.0"
+    t.decimal "price_eu3", default: "0.0"
+    t.decimal "price_eu4", default: "0.0"
+    t.decimal "price_eu5", default: "0.0"
+    t.decimal "price_eu6", default: "0.0"
+    t.float "weight"
     t.index ["ref_code"], name: "index_products_on_ref_code"
   end
 

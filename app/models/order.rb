@@ -31,27 +31,37 @@ class Order < ApplicationRecord
 
   attr_accessor :quantity # to get quantity from form
 
-  before_validation :set_attributes!
+  before_create :set_attributes!
   after_create :send_emails!
   after_save :create_po_and_invoice
 
+# Calculate Order Total including Tax, Discount and Shipping  
   def set_attributes!
-    self.total = 0
+    self.total = total_weight = 0
     placements.each do |placement|
       self.total += placement.price * placement.quantity
+      total_weight += placement.product.weight/1000
     end
     unless self.po_number.present?
       suff = Time.now.strftime("%Y%m%d") + '-' + Order.maximum(:id).next.to_s
       self.po_number = 'PO-' + suff 
       self.inv_number = 'INV-' + suff
     end
-    self.total += (self.shipping - self.discount)
+    self.tax = self.total * self.client.tax_pc / 100 if self.client.tax_pc > 0
+    self.shipping = self.client.shipping_cost * total_weight 
+    self.total += (self.shipping - self.discount + self.tax)
+
   end
 
   def send_emails!
     OrderMailer.send_confirmation(self).deliver_now
     OrderMailer.notify_staff(self).deliver_now
     self.update_attributes(delivery_by: self.client.pref_delivery_by, terms: self.client.default_terms )
+  end
+
+# Total Order price before Taxes, Shipping, Discount etc.  
+  def total_price
+    self.placements.sum('price*quantity') rescue 0
   end
 
   def create_po_and_invoice 

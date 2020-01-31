@@ -76,6 +76,7 @@ class Client < ApplicationRecord
     self.code = c + id.to_s
   end
 
+# Is client registered in OMS?  
   def registered_str
     self.user.present? ? 'Yes' : 'No'
   end

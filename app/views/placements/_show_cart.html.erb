@@ -17,13 +17,14 @@
   </thead>
   <tbody>
 
-<% grand_total = pos = 0 %>
+<% grand_total = pos = total_quantity = 0 %>
 <% @products.each do |prod_and_qty| %>
   <% id, quantity = prod_and_qty %>
   <% product = Product.find(id) rescue nil%>
   <% next unless product %>
   <% product_total = @client.price(product)*quantity %>
   <% grand_total += product_total; pos += 1 %>
+  <% total_quantity += quantity %>
   <tr>
   <td class="text-center"><%= pos %></td>
   <td class="text-center"><%= product.ref_code %></td>
@@ -39,7 +40,8 @@
   </tbody>
   <tfoot>
     <tr>
-      <th colspan=7></th>
+      <th colspan=5></th>
+      <th class="text-center"><%= total_quantity %></th><th></th>
       <th class="text-center"><%= to_currency grand_total, locale: @client.locale %></th>
     </tr>
   </tfoot>
@@ -50,6 +52,6 @@
   <%= button_to 'Submit order', orders_path, class: "btn btn-primary" %>
   </div>
   <div class="col-md-6">
-  <%= button_to "Crear Cart", empty_cart_path, class: "btn btn-primary", method: :get %>
+  <%= button_to "Clear Cart", empty_cart_path, class: "btn btn-primary", method: :get %>
   </div>
   </div>
