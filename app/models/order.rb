@@ -37,10 +37,10 @@ class Order < ApplicationRecord
 
 # Calculate Order Total including Tax, Discount and Shipping  
   def set_attributes!
-    self.total = total_weight = 0
+    self.total = self.weight = 0
     placements.each do |placement|
       self.total += placement.price * placement.quantity
-      total_weight += placement.product.weight/1000
+      self.weight += placement.product.weight/1000
     end
     unless self.po_number.present?
       suff = Time.now.strftime("%Y%m%d") + '-' + Order.maximum(:id).next.to_s
@@ -48,7 +48,7 @@ class Order < ApplicationRecord
       self.inv_number = 'INV-' + suff
     end
     self.tax = self.total * self.client.tax_pc / 100 if self.client.tax_pc > 0
-    self.shipping = self.client.shipping_cost * total_weight 
+    self.shipping = self.client.shipping_cost * self.weight 
     self.total += (self.shipping - self.discount + self.tax)
 
   end
