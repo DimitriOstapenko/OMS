@@ -22,9 +22,23 @@
   </tbody>
 </table>
 
+<p>&nbsp;</p>
+<% notes = TableNote.find_by(table_name: 'prices').notes rescue '' %>
+<div class="row">
+<div class="col-md-10 col-md-offset-1">
+<div class="panel panel-info text-justify">
+  <div class="panel-heading">Current Pricing Allocation<span style="float: right">link here</span></div>
+  <div class="panel-body">
+  <%= notes %>
+</div>
+</div>
+</div>
+</div>
+
+
 <div class="bottom_buttons">
   <div class="row">
-    <div class="col-md-2">
+    <div class="col-md-3">
     <%= button_to "Add Price Rule", new_price_path, class: "btn btn-primary", remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window', method: :get %>
     </div>
     <div class="col-md-3">
@@ -33,5 +47,3 @@
     <div class="col-md-7"></div>
   </div>
 </div>
-
-

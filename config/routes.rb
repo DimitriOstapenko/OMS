@@ -30,7 +30,7 @@ Rails.application.routes.draw do
 
   get '/self_test', to: 'self_test#index', as: :self_test
 
-  resources :products,  :suppliers, :managers, :users, :prices
+  resources :products,  :suppliers, :managers, :users, :prices, :table_notes
   resources :orders do
     get 'download_po', on: :member
     get 'download_invoice', on: :member

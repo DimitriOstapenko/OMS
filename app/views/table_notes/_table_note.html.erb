@@ -1,0 +1,9 @@
+<tr>
+  <td><%= table_note.table_name %></td>
+  <td><%= table_note.notes %></td>
+
+  <% if current_user.admin? %>
+       <td><%= link_to '<i class="glyphicon glyphicon-edit"></i>'.html_safe, edit_table_note_path(table_note) %> </td>
+       <td><%= link_to '<i class="glyphicon glyphicon-remove-sign"></i>'.html_safe, table_note, method: :delete, data: { confirm: "Are you sure you want to delete notes for table #{table_note.table_name} ?" } %> </td>
+  <% end %>
+ </tr>

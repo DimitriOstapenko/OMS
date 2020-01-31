@@ -1,0 +1,36 @@
+<%= render "shared/modal" %>
+
+<% if current_user.client? %>
+  <%= render "shared/shopping_cart" %>
+<% end %>
+
+<table class="tbl2 table-hover table-striped table-bordered" >
+  <thead>
+      <tr>
+          <th class="tbl_sm, text-center">Table</th>
+          <th class="tbl_md, text-center">Notes</th>
+          <% if current_user.admin? %>
+            <th colspan=2></th>
+          <% end %>
+      </tr>
+  </thead>
+  <tbody>
+
+  <%= render @table_notes, cached: true %>
+
+  </tbody>
+</table>
+
+<div class="row">
+<% if current_user.admin? %>
+<div class="bottom_buttons ">
+  <%= button_to "Add Table Note", new_table_note_path, class: "btn btn-primary col-md-2", method: :get %> <%#, remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window'  %>
+</div>
+<% end %>
+
+<div class="bottom_nav">
+<%= will_paginate @table_notes, class: "btn" %>
+</div>
+</div>
+
+
