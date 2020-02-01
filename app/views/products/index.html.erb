@@ -10,27 +10,24 @@
           <th class="tbl_sm, text-center"><%= sortable 'ref_code', 'Ref.Code' %></th>
           <th class="tbl_md, text-center"><%= sortable 'scale', 'Scale' %></th>
           <th class="tbl_md, text-center"><%= sortable 'colour', 'Colour' %></th>
+          <th class="tbl_md, text-center"><%= sortable 'weight', 'Weight' %></th>
           <th class="tbl_lg"><%= sortable 'description', 'Description' %></th>
           <th class="tbl_md, text-center"><%= sortable 'category', 'Category' %></th>
           <th class="tbl_md, text-center"><%= sortable 'brand', 'Brand' %></th>
 	  <th class="tbl_md, text-center">Pcs x Ctns</th>
-          <th class="tbl_md, text-center"><%= sortable 'added_date', 'Added' %></th>
           <th class="tbl_md, text-center"><%= sortable 'release_date', 'Rel. Date' %></th>
           <% if current_user.client? %>
             <th class="tbl_sm, text-center"><%= sortable 'price_eu', 'Price' %></th>
             <th class="tbl_sm, text-center">Add</th>
           <% elsif current_user.admin? || current_user.staff? %>
             <th class="tbl_sm, text-center"><%= sortable 'price_eu', 'Price EU' %></th>
-            <th class="tbl_sm, text-center"><%= sortable 'price_eu2', 'Price EU2 (IT)' %></th>
-            <th class="tbl_sm, text-center"><%= sortable 'price_usd', 'Price USD' %></th>
             <th class="tbl_md, text-center">Supplier</th>
-            <th class="tbl_md, text-center">Manager</th>
             <th class="tbl_md, text-center"><%= sortable 'quantity', 'Quantity' %></th>
           <% end %>
           <% if product_editable? %>
           <th></th>
           <% end %>
-          <% if current_user.admin? %>
+          <% if current_user.admin? || current_user.staff? || current_user.production? %>
           <th></th>
           <% end %>
       </tr>

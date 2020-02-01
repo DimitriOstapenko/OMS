@@ -163,6 +163,7 @@ module My
     pdf.move_down 8.mm
     pdf.text "<b>Transport:</b> #{order.delivery_by_str}", inline_format: true
     pdf.text "<b>Payment Terms:</b> #{order.terms_str}", inline_format: true
+    pdf.text "<b>Pyment Method:</b> #{order.pmt_method_str}", inline_format: true
     pdf.move_down 5.mm
 
     rows =  [[ "#", "Product", "Scale", "Color", "Description", "Price", "Qty", "Total"]]
@@ -187,8 +188,6 @@ module My
     end
     
     pdf.move_down 10.mm
-    pdf.text "Payment Terms: #{order.terms_str}"
-    pdf.text "Pyment Method: #{order.pmt_method_str}"
     pdf.text "Shipping & Handling: #{number_to_currency(order.shipping)}" if order.shipping.positive?
     pdf.text "Discount: #{number_to_currency(order.discount)}" if order.discount.positive?
     pdf.text "Sales Tax (#{order.client.tax_pc}%): #{number_to_currency(order.tax)}" if order.tax.positive?

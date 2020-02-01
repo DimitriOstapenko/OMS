@@ -1,0 +1,9 @@
+<%= simple_form_for @table_note do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <%= f.input :notes, as: :text, label: false, input_html: {rows:10}  %>
+  <%= f.submit yield(:button_text), class: "btn btn-primary" %>
+
+<% end %>
+
+

@@ -27,7 +27,7 @@
 <div class="row">
 <div class="col-md-10 col-md-offset-1">
 <div class="panel panel-info text-justify">
-  <div class="panel-heading">Current Pricing Allocation<span style="float: right">link here</span></div>
+  <div class="panel-heading">Current Pricing Allocation<span style="float: right"><%= link_to "<i class='glyphicon glyphicon-edit active'></i>".html_safe, edit_table_note_path(@table_note), remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window', method: :get %></span></div>
   <div class="panel-body">
   <%= notes %>
 </div>

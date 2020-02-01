@@ -30,7 +30,19 @@ class TableNotesController < ApplicationController
     end
   end
 
+   def edit
+    @table_note = TableNote.find(params[:id])
+  end
 
+  def update
+    @table_note = TableNote.find(params[:id])
+    if @table_note.update_attributes(table_note_params)
+      flash[:success] = "Note updated"
+      redirect_back(fallback_location: prices_path)
+    else
+      render 'edit'
+    end
+  end   
 
 private
   def table_note_params

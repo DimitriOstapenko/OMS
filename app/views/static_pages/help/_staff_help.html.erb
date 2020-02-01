@@ -74,17 +74,24 @@ After 'client' role is assigned to the user, they can log into the system and or
 <a id="ordering"></a>
 <h4>Ordering</h4>
 
-Ordering is done by registered clients. So, if you want to make an order on client's behalf you will need to switch to this client's user profile in Users menu by clicking on <i class="glyphicon glyphicon-random"> </i> &nbsp; icon in user row. After you switch, you will see client's name in the header and client's email will show up as logged in user in the footer.
+Ordering is done by registered clients. So, if you want to make an order on client's behalf, you will have to switch to the client's account in "Admin>Users" menu by clicking on <i class="glyphicon glyphicon-random"> </i> &nbsp; icon in client row. After you switch, you will see client's name in the header and client's email will show up as logged in user in the footer.
 <p>
-There are two ways to order products: directly from product list, by entering number for each selected product, or by goling to Orders page and clicking on <Add Product To Cart> button at the bottom. In both cases, entered number of selected product will be added to shopping cart, which whill show as a shopping cart symbol and number in upper right corner of the page. Once selection is finished and all products are added to shopping cart, you can finalize the order by first clicking on shopping cart symbol which will open shopping cart modal, where you can either submit order or empty shopping cart and start from the beginning. 
+There are two ways to order products: directly from product list, by entering number for each selected product, or from Orders page using <Add Product To Cart> button at the bottom. In both cases, entered quantoity of selected product will be added to the shopping cart, which will show as a cart symbol and number in upper right corner of the page. Once selection is finished and all products are added to the shopping cart, you can finalize the order by opening shopping cart, and submititng the order. At this point you can also abandon yor purchase by clicking on "Clear Cart" button.
+
 <p>
 Once order is submitted several things will happen: 
 
 <ul>
+  <li> - Total order amount is calculated by adding shipping and tax, if any, and subtracting discount, if present, from total cart amount.
+         Shipping is calculated based on sum of all product weights and client's shipping cost per Kg. If no shipping is to be charged, set shipping_cost in client profile to 0. Tax (%) is associated with client and defaults to 0, which means Tax is included into the final amount by default.
+         Only non-zero values will appear on P.O and invoice.
 <li> - Inventory is updated: number of available products is automatically reduced by the ordered number </li>
-<li> - Emails are sent: Order confirmation email to the user, Order notification to staff members and  Low quantity notification to staff if number of available products is nevative </li>
+<li> - Emails are sent: Order confirmation email to the user, Order notification to all taff members and Low quantity notification to staff if number of available product is negative </li>
 <li> - PO and Invoice for the new order are generated and order is assigned 'Pending' status </li>
+<li> - Delivery method is set to Preferred Delivery value from CLient's profile. </li>
+<li> - Payment Terms field is set to default terms value from CLient's profile. </li>
 </ul>
+No changes are allowed on submitted orders except for three fileds: 'Status', 'Delivery Method' and 'Payment Terms'. To change any of these, you can use  <i class='glyphicon glyphicon-edit'></i> link on orders page.
 
 
 <p>&nbsp;</p>

@@ -5,7 +5,7 @@
       <td class="text-center"><%= product.category_str %></td> 
       <td class="text-center"><%= product.brand_str %></td> 
 
-      <% if product_editable? %>
+      <% if current_user.admin? || current_user.staff? || current_user.production? %>
         <td> 
           <%= simple_form_for product, url: update_quantity_path(product), method: :post, html: { class: "form" } do |f| %>
           <div class="form-group" style="padding-top: 10px;">

@@ -9,6 +9,7 @@ class PricesController < ApplicationController
 
   def index
     @prices = Price.all.paginate(page: params[:page])
+    @table_note = TableNote.find_by(table_name: 'prices')
   end
 
   def create

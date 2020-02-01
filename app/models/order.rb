@@ -42,11 +42,10 @@ class Order < ApplicationRecord
       self.total += placement.price * placement.quantity
       self.weight += placement.product.weight/1000
     end
-    unless self.po_number.present?
-      suff = Time.now.strftime("%Y%m%d") + '-' + Order.maximum(:id).next.to_s
-      self.po_number = 'PO-' + suff 
-      self.inv_number = 'INV-' + suff
-    end
+    suff = Time.now.strftime("%Y%m%d") + '-' + Order.maximum(:id).next.to_s
+    self.po_number = 'PO-' + suff 
+    self.inv_number = 'INV-' + suff
+    self.delivery_by = self.client.pref_delivery_by
     self.tax = self.total * self.client.tax_pc / 100 if self.client.tax_pc > 0
     self.shipping = self.client.shipping_cost * self.weight 
     self.total += (self.shipping - self.discount + self.tax)
@@ -106,7 +105,7 @@ class Order < ApplicationRecord
   end
 
   def self.to_csv
-    attributes = %w{id client_code cre_date product_count items_count currency total po_number inv_number pmt_method_str shipping discount delivery_by_str status_str notes}
+    attributes = %w{id client_code cre_date product_count items_count currency total po_number inv_number pmt_method_str shipping discount tax delivery_by_str status_str notes}
     CSV.generate(headers: attributes, write_headers: true) do |csv|
       all.each do |order|
         csv << attributes.map{ |attr| order.send(attr) }

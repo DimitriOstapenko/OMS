@@ -1,0 +1,15 @@
+<pre>
+              Description:   <%= @product.description %>
+              Scale:         <%= @product.scale_str %>
+              Colour         <%= @product.colour_str %>
+              Weight         <%= @product.weight.to_i %>g
+              Category:      <%= @product.category_str %>
+              Brand:         <%= @product.brand_str %>
+              Cartons:       <%= @product.ctns %>
+              Date Added :   <%= @product.added_date_str %>
+              Release Date : <%= @product.release_date || 'Not set' %>
+              Supplier :     <%= @product.supplier_str %>
+
+              <img src="/images/<%= @product.ref_code %>.jpg">
+</pre>
+

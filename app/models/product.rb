@@ -59,7 +59,7 @@ class Product < ApplicationRecord
   end
   
   def added_date_str
-    self.added_date.strftime("%m/%Y") rescue nil
+    self.added_date.strftime("%m/%Y") rescue self.created_at.strftime("%m/%Y")
   end
 
   def ref_code_and_descr
