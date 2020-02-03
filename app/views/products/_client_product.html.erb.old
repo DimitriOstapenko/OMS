@@ -1,0 +1,8 @@
+<td class="text-center"><%= to_currency(current_client.price(product), locale: current_client.locale) %></td>
+<td class="text-center" style="width:20px;">
+<%= simple_form_for :placement, url: add_product_path(product.id), method: :post, html: { class: "form-inline" } do |f| %>
+<%= f.input :id, as: :hidden, input_html: {value: product.id} %>
+<%= f.input :quantity, label: false, input_html: {onchange: 'this.form.submit();', size: 4} %>
+<% end %>
+</td>
+

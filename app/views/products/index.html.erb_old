@@ -16,18 +16,32 @@
           <th class="tbl_md, text-center"><%= sortable 'brand', 'Brand' %></th>
 	  <th class="tbl_md, text-center">Pcs x Ctns</th>
           <th class="tbl_md, text-center"><%= sortable 'release_date', 'Rel. Date' %></th>
-          <%= render "#{current_user.role}_index" if current_user %> 
+          <% if current_user.client? %>
+            <th class="tbl_sm, text-center"><%= sortable 'price_eu', 'Price' %></th>
+            <th class="tbl_sm, text-center">Add</th>
+          <% elsif current_user.admin? || current_user.staff? %>
+            <th class="tbl_sm, text-center"><%= sortable 'price_eu', 'Price EU' %></th>
+            <th class="tbl_md, text-center">Supplier</th>
+            <th class="tbl_md, text-center"><%= sortable 'quantity', 'Quantity' %></th>
+          <% end %>
+          <% if product_editable? %>
+          <th></th>
+          <% end %>
+          <!-- Show Inventory ->
+          <% if current_user.admin? || current_user.staff? || current_user.production? %>
+          <th></th>
+          <% end %>
       </tr>
   </thead>
   <tbody>
 
-  <%= render @products, cached: true %>
+  <%= render @products, remote: device_is_desktop?, cached: true %>
 
   </tbody>
 </table>
 
 <div class="row">
-<% if current_user.admin? || current_user.staff? %>
+<% if current_user.admin? %>
 <div class="bottom_buttons ">
 <%= button_to "Add Product", new_product_path, class: "btn btn-primary col-md-2", method: :get, remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window'  %>
 </div>

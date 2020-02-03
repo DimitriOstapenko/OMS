@@ -1,0 +1,5 @@
+<td class="text-center"><%= to_currency(current_client.price(product), locale: current_client.locale) %></td>
+<td class="text-center">
+  <%= button_to "Add", add_product_path(product), class: "btn btn-info btn-lg", params: {id: product.id, quantity: 1},  method: :post %>
+
+</td>

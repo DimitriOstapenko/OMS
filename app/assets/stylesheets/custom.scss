@@ -2,7 +2,6 @@
 @import "bootstrap";
 @import "bootstrap/modals";
 
-
 /* mixins, variables, etc. */
 
 $gray-medium-light: #eaeaea;
@@ -769,13 +768,23 @@ card > hr {
 }
 
 .btn {
-	padding: 10px;
-	margin-top: 10px;
+	padding: 6px;  // control button size
+	margin-top: 5px;
 	border: 0 none;
 	font-weight: 800;
-	font-size: 1.1em;
+	font-size: 1em;
 //	text-transform: uppercase;
-//	border-radius: 20px;
+//	border-radius: 10px;
+}
+
+.btn-sm {
+  line-height: 15px;
+}
+
+// do not show border on press
+.btn:focus{
+  box-shadow: none !important;
+  outline: none !important;
 }
 
 // product profile page

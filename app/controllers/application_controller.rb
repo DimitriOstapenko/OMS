@@ -59,7 +59,7 @@ class ApplicationController < ActionController::Base
     temp = session[:cart] || []
     temp.push([product_id, qty])
 
-#   clean up possible duplicates: join keys, add values (qty)
+#   clean up possible duplicates: join keys, add values (qty) : count unique products only
     session[:cart] = temp.group_by(&:first).map { |k, v| [ k, v.sum{|e| e[1].to_i} ] }
   end
 

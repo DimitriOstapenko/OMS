@@ -1,3 +1,4 @@
 <% if get_cart.any? %>
-  <div id="shopping_cart"><%= link_to "<i class='glyphicon glyphicon-shopping-cart'></i>&nbsp;#{get_cart.count}".html_safe, cart_path, remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window'  %></div>
+  <% quantity = get_cart.to_h.values.sum rescue '' %>
+  <div id="shopping_cart"><%= link_to "<i class='glyphicon glyphicon-shopping-cart'></i>&nbsp;#{quantity}".html_safe, cart_path, remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window'  %></div>
 <% end %>

@@ -12,6 +12,7 @@ class ProductsController < ApplicationController
 
   def index
     if current_user
+      redirect_to inventories_path if current_user.production?
       if params[:findstr] 
         @products = Product.search(params).paginate(page: params[:page])
         if @products.any?

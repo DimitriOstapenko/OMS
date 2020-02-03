@@ -7,7 +7,11 @@
         <b class="modal-title" id="myModalLabel">Product <%= @product.ref_code %> - Details</b>
 </div>
 <div class="modal-body">
-   <%= render "show_prod" %>
+<% if current_user %>
+  <%= render "#{current_user.role}_show_prod" %>
+<% else %>
+  You have to be registered user to see product details 
+<% end %>
 </div>
 
 <div class="modal-footer">

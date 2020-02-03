@@ -17,12 +17,14 @@ class PlacementsController < ApplicationController
 
   def add_product
 # app_controller    
-    if add_to_cart?(params[:placement][:id], params[:placement][:quantity])
-      flash[:info] = 'Product added to shopping cart'
+    quantity = params[:quantity] || params[:placement][:quantity]
+    id = params[:id] || params[:placement][:id]
+    if add_to_cart?(id, quantity)
+      flash[:notice] = 'Product added to shopping cart'
     else
-      flash[:info] = 'Error adding product to cart. Quantity must be positive'
+      flash[:danger] = "Error adding product to cart.#{params.inspect}"
     end
-    redirect_back(fallback_location: products_path)
+    redirect_back(fallback_location: products_path) 
   end
 
   def cart
