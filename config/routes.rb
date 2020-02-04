@@ -27,6 +27,8 @@ Rails.application.routes.draw do
   post '/add_product(/:id)', to: 'placements#add_product', as: :add_product
   get '/cart', to: 'placements#cart', as: :cart
   get '/empty_cart', to: 'placements#empty_cart', as: :empty_cart
+  get '/delete_product(/:id)', to: 'placements#delete_product', as: :delete_product
+  post '/update_product_qty(/:id)', to: 'placements#update_product_qty', as: :update_product_qty
 
   get '/self_test', to: 'self_test#index', as: :self_test
 

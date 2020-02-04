@@ -7,7 +7,7 @@
 <table class="tbl2 table-striped" >
   <tbody>
 <% grand_total = pos = total_quantity = 0 %>
-<% @products.each do |prod_and_qty| %>
+<% @products.sort.each do |prod_and_qty| %>
   <% id, quantity = prod_and_qty %>
   <% product = Product.find(id) rescue nil%>
   <% next unless product %>
@@ -21,11 +21,15 @@
     <td valign='top'>
       <div style="position:relative">
       <div class='cart_product_header'><%= product.description %></div><br>
-      <%= product.ref_code %> 
-      Scale: 1:<%= product.scale %> Color: <%= product.colour_str %><br>
-      <div style='position:absolute; top:40%; height:10em; margin-top: 7em'> 
-        Qty: <%= quantity %>
-        Price: <%= to_currency @client.price(product), locale: @client.locale %>
+      Ref# <%= product.ref_code %>, 
+      Scale: 1:<%= product.scale %> Color: <%= product.colour_str %>, Weight: <%= product.weight.to_i %>g<br>
+      Release Date: <%= product.release_date %> <br>
+      <div style='position:absolute; top:40%; height:10em; margin-top: 6em'> 
+        <%= simple_form_for :placement, url: update_product_qty_path(product.id), method: :post, html: { class: "form-inline" } do |f| %>
+            Qty:<%= f.input :quantity, label: false, input_html: {value: quantity, onchange: 'this.form.submit();', size: 3} %>
+        Price: <%= to_currency @client.price(product), locale: @client.locale %> |
+      <%= link_to 'Delete', delete_product_path(product) %>
+        <% end %>
       </div>
       </div>
   </td>
@@ -44,11 +48,10 @@
     <div class="panel-heading">
       <span style="font-size: 1.2em;">Subtotal (<%= total_quantity %> items): <%= to_currency grand_total, locale: @client.locale %></b>
     </div>
-    <div class="panel-body" style="padding-left:8px;">
-     <%= button_to 'Submit order', orders_path, class: "btn btn-success" %>
+     <%= button_to 'Submit order', orders_path, class: "btn btn-success btn-block" %>
      <%= button_to "Clear Cart", empty_cart_path, class: "btn btn-primary", method: :get %>
-    </div>
   </div>
+    To be delivered by : <%= @client.pref_delivery_by_str %>
 </div>
 </div> <!-- row ->
 

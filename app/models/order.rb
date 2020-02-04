@@ -46,6 +46,7 @@ class Order < ApplicationRecord
     self.po_number = 'PO-' + suff 
     self.inv_number = 'INV-' + suff
     self.delivery_by = self.client.pref_delivery_by
+    self.terms = self.client.default_terms
     self.tax = self.total * self.client.tax_pc / 100 if self.client.tax_pc > 0
     self.shipping = self.client.shipping_cost * self.weight 
     self.total += (self.shipping - self.discount + self.tax)
@@ -55,7 +56,7 @@ class Order < ApplicationRecord
   def send_emails!
     OrderMailer.send_confirmation(self).deliver_now
     OrderMailer.notify_staff(self).deliver_now
-    self.update_attributes(delivery_by: self.client.pref_delivery_by, terms: self.client.default_terms )
+#    self.update_attributes(delivery_by: self.client.pref_delivery_by, terms: self.client.default_terms )
   end
 
 # Total Order price before Taxes, Shipping, Discount etc.  

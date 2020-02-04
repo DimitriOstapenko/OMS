@@ -63,6 +63,11 @@ class ApplicationController < ActionController::Base
     session[:cart] = temp.group_by(&:first).map { |k, v| [ k, v.sum{|e| e[1].to_i} ] }
   end
 
+  def del_from_cart?(product_id)
+    temp_hash = session[:cart].to_h.except(product_id)
+    session[:cart] = temp_hash.to_a 
+  end
+
   def get_cart
     session[:cart] ||= []
     return session[:cart] 

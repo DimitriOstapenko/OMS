@@ -62,6 +62,10 @@ class Client < ApplicationRecord
     Country[self.country].name rescue ''
   end
 
+  def pref_delivery_by_str 
+    DELIVERY_BY.invert[self.pref_delivery_by].to_s rescue nil
+  end
+
 # Global method; search by keyword, price below, price above and recently added
   def self.search(params = {})
     clients = Client.all
