@@ -1,22 +1,11 @@
 <%= render "shared/modal" %>
-<div style="clear: both" class="modal-title">
-</div>
 
-<table class="tbl2 table-hover table-striped table-bordered" >
-  <thead>
-      <tr>
-        <th class="text-center"> Item# </th>
-        <th class="text-center"> RefCode </th>
-        <th class="text-center"> Scale </th>
-        <th class="text-center"> Colour </th>
-        <th> Name </th>
-        <th class="text-center"> Quantity </th>
-        <th class="text-center"> Price </th>
-        <th class="text-center"> Subtotal </th>
-      </tr>
-  </thead>
+<div class="help-container">
+<h3 class='display-1'>Shopping Cart </h3>
+<div class="row">
+  <div class="col-md-8">
+<table class="tbl2 table-striped" >
   <tbody>
-
 <% grand_total = pos = total_quantity = 0 %>
 <% @products.each do |prod_and_qty| %>
   <% id, quantity = prod_and_qty %>
@@ -26,32 +15,41 @@
   <% grand_total += product_total; pos += 1 %>
   <% total_quantity += quantity %>
   <tr>
-  <td class="text-center"><%= pos %></td>
-  <td class="text-center"><%= product.ref_code %></td>
-  <td class="text-center">1:<%= product.scale %></td>
-  <td class="text-center"><%= product.colour_str %></td>
-  <td><%= product.description %></td>
-  <td class="text-center"><%= quantity %></td>
-  <td class="text-center"><%= to_currency @client.price(product), locale: @client.locale %></td>
-  <td class="text-center"><%= to_currency product_total, locale: @client.locale %></td>
+    <td width='100px'>
+       <img src="/images/<%= product.ref_code %>.jpg">
+    </td>
+    <td valign='top'>
+      <div style="position:relative">
+      <div class='cart_product_header'><%= product.description %></div><br>
+      <%= product.ref_code %> 
+      Scale: 1:<%= product.scale %> Color: <%= product.colour_str %><br>
+      <div style='position:absolute; top:40%; height:10em; margin-top: 7em'> 
+        Qty: <%= quantity %>
+        Price: <%= to_currency @client.price(product), locale: @client.locale %>
+      </div>
+      </div>
+  </td>
+  <td valign="top">
+    <div class="cart_product_subtotal">
+    <%= to_currency product_total, locale: @client.locale %></td>
+    </div>
   </tr>
 <% end %>
 
   </tbody>
-  <tfoot>
-    <tr>
-      <th colspan=5></th>
-      <th class="text-center"><%= total_quantity %></th><th></th>
-      <th class="text-center"><%= to_currency grand_total, locale: @client.locale %></th>
-    </tr>
-  </tfoot>
 </table>
+</div>
+<div class="col-md-3">
+  <div class="panel panel-info">
+    <div class="panel-heading">
+      <span style="font-size: 1.2em;">Subtotal (<%= total_quantity %> items): <%= to_currency grand_total, locale: @client.locale %></b>
+    </div>
+    <div class="panel-body" style="padding-left:8px;">
+     <%= button_to 'Submit order', orders_path, class: "btn btn-success" %>
+     <%= button_to "Clear Cart", empty_cart_path, class: "btn btn-primary", method: :get %>
+    </div>
+  </div>
+</div>
+</div> <!-- row ->
 
-  <div class="row">
-  <div class="col-md-6">
-  <%= button_to 'Submit order', orders_path, class: "btn btn-primary" %>
-  </div>
-  <div class="col-md-6">
-  <%= button_to "Clear Cart", empty_cart_path, class: "btn btn-primary", method: :get %>
-  </div>
-  </div>
+</div> 

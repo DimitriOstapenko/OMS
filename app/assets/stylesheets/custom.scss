@@ -259,6 +259,21 @@ footer {
   }
 }
 
+.cart_product_header {
+  font-weight: bold;
+  font-size: 20px;
+  color: gray;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.cart_product_subtotal {
+  font-weight: bold;
+  font-size: 20px;
+  color: green;
+  margin-top: 10px;
+}
+
 /* miscellaneous */
 
 .debug_dump {
@@ -563,34 +578,20 @@ table.pretty {
   background-image: url(/images/down_arrow.gif);
 }
 
-.patient-notes-panel-body {
-    background: lightblue;
-    max-height: 190px;
-    overflow-y: scroll;
+.panel-heading {
+	font-weight: 800;
 }
 
-.patient-dropdown-panel-body {
-    background: $brand-info;
+.panel-body {
+    word-wrap: break-word;
     max-height: 200px;
     overflow-y: scroll;
-}
-
-.visit-notes-panel-body {
-  word-wrap: break-word;
-    background: #FAFAD2;
-    max-height: 500px;
-    overflow-x: scroll;
-    overflow-y: scroll;
-}
-
-.news-panel-body {
-    background: #E6E6FA;
-    max-height: 500px;
-    overflow-y: scroll;
+    padding: 0;
 }
 
 // Notes scrollable PRE panels
 .pre-scrollable {
+    background: lightyellow;
     max-height: 160px;
     overflow-y: scroll;
     overflow-x: scroll;
@@ -600,6 +601,7 @@ table.pretty {
     max-height: 180px;
     overflow-y: scroll;
     overflow-x: scroll;
+    border: none;
 }
 
 .pre-scrollable-lg {

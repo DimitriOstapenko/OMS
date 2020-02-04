@@ -1,9 +1,5 @@
 <%= render "shared/modal" %>
 <% locale = @client.locale rescue :fr %>
-
-<% if current_user.client? %>
-  <%= render "shared/shopping_cart" %>
-<% end %>
 <% colspan = 8 %>
 
 <p></p>
