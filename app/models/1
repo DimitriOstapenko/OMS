@@ -21,6 +21,10 @@ class Client < ApplicationRecord
     where("lower(name) LIKE '%#{keyword.downcase}%' OR lower(country) LIKE '%#{keyword.downcase}%'")
   }
 
+  scope :filter_by_price_type, lambda { |keyword|
+    where("price_type =?", PRICE_TYPES[keyword]) 
+  } 
+
   def client_type
     CLIENT_TYPES.invert[self.cltype] rescue nil
   end
@@ -69,10 +73,11 @@ class Client < ApplicationRecord
 # Global method; search by name, price_type, country 
   def self.search(keyword = '')
     case keyword
-       when /^(usd|eu)([[:digit:]]?)$/i       # Search by price type
-         keyword = $1 if $2 == '1'
-         ptype = PRICE_TYPES[keyword.upcase.to_sym] rescue nil
-         clients = Client.where("price_type =?", ptype) 
+       when /^(us)|(eu)[[:digit:]]{,1}$/i       # Search by price type
+#         clients = Client.filter_by_price_type(keyword)
+         ptype = PRICE_TYPES[keyword.to_sym] rescue nil
+         logger.debug ("************** #{keyword}")
+         clients = Client.where("price_type =?", PRICE_TYPES[keyword]) 
        when /^[[:graph:]]+/        # Searh by country or name   
          clients = Client.filter_by_name_or_country(keyword)
        else

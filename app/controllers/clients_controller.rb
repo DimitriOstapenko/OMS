@@ -11,16 +11,15 @@ class ClientsController < ApplicationController
   end
 
   def index
-    if params[:findstr]
-      @clients = Client.search(params).paginate(page: params[:page])
-      if @clients.any?
-        flash.now[:info] = "Found #{@clients.count} #{'client'.pluralize(@clients.count)} matching string #{params[:findstr].inspect}"
-      else
-        flash.now[:info] = "No clients found matching string #{params[:findstr].inspect}"
-      end
-    else
-      @clients = Client.reorder(sort_column + ' ' + sort_direction, "name asc").paginate(page: params[:page]) 
+    @clients = Client.all; found = []
+    found = @clients.search(params[:findstr]) if params[:findstr]
+    if found.any?
+      @clients = found
+      flash.now[:info] = "Found #{@clients.count} #{'client'.pluralize(@clients.count)} matching string #{params[:findstr].inspect}"
+    else 
+      flash.now[:warning] = 'Nothing found'
     end
+    @clients = @clients.reorder(sort_column + ' ' + sort_direction, "name asc").paginate(page: params[:page])  
   end
 
   def show
