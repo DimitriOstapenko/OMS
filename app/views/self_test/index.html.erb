@@ -27,6 +27,7 @@
   <ul> <%= @empty_price_eu.any? ? error_icon:ok_icon %> Products with missing price EU: <%= render 'show_5_products', collection: @empty_price_eu %> </ul>
   <ul> <%= @empty_price_eu2.any? ? error_icon:ok_icon %> Products with missing price EU2: <%= render 'show_5_products', collection: @empty_price_eu2 %> </ul>
   <ul> <%= @empty_price_usd.any? ? error_icon:ok_icon %> Products with missing price USD: <%= render 'show_5_products', collection: @empty_price_usd %> </ul>
+  <ul> <%= @empty_price_usd.any? ? error_icon:ok_icon %> Products with missing price USD2: <%= render 'show_5_products', collection: @empty_price_usd2 %> </ul>
   <ul> <%= @missing_images.any? ? error_icon:ok_icon %> Products with missing pictures: <%= render 'show_5_products', collection: @missing_images %> </ul>
 </ul>
 
