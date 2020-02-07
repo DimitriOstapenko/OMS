@@ -21,8 +21,7 @@
 <a id="introduction"></a>
 <h4>Introduction</h4>
 
-Ordering Management System, OMS in the future, was developed to handle ordering of car models by different categories of clients including retailers and distributors. While ordering is done exclusively by clients, that is users that have 'client' role assigned to them, system itself is managed by 2 privileged roles: "stff" and "administrator".
-This section of the help file describes functionality available to staff members (see <%= link_to "User Categories", "#user_categories" %> below) 
+Ordering Management System, OMS in the future, was developed to handle ordering of car models by different categories of clients including retailers and distributors. While ordering is done exclusively by clients, that is users that have 'client' role assigned to them, all datais managed by 2 privileged roles: "staff" and "administrator". Staff user role has all required privileges to perform dsay to day operations and can be used by several staff members.  This section of the help file describes functionality available to staff members only (see <%= link_to "User Categories", "#user_categories" %> below) 
 
 <p>&nbsp;</p>
 <a id="user_categories"></a>
@@ -30,15 +29,15 @@ This section of the help file describes functionality available to staff members
 There are 5 categories of users in OMS:
 <ul>
   <li>
-    - <b>user</b> : anybody who registers online with ability to only look at the products available.
+    - <b>user</b> : anybody who registers online with ability to only look at the products available, without prices and ability to order them. 
   </li>
   <li>
-    - <b>client</b> : Anybody who is registered as a client, and there are 5 different client categoies, will be able to see products and order them
+    - <b>client</b> : Anybody who is registered as a client, will be able to see products and order them. Currently there are 4 client categories in the system: "Distributar", "Retailer", "Press", and "Club".
   <li>
     - <b>production</b> : manufacturing facility will be able to see current order situation and deal with shipments and inventories
   </li>
   <li>
-    - <b> staff </b>: can do everything, but change other user's profiles and privileges as well as modify orders
+    - <b> staff </b>: can do everything, but change other user's profiles and privileges, delete clients  and manage managers and suppliers.
   </li>
   <li>
     - <b> admin </b>: full control of the system, including assigning roles to users, adding managers and suppliers, deleting products and clients.
@@ -49,13 +48,12 @@ There are 5 categories of users in OMS:
 <a id="workflow"></a>
 <h4>Workflow</h4>
 
-As a staff member, you have privileges to create and modify client profiles (see Clients section in Menu Description pages below) as well change product information.
-Clients can be set up using 2 different scenarios:
+As a staff member, you have privileges to create and modify client profiles (see Clients section in Menu Description pages below) as well as change product information. To enable ordering by the clients, they have to be first registered into the system. This can be done in 2 ways::
 
 <p>&nbsp;</p>
 <b>Scenario 1</b>
 <ul>
-<li> - If client is not in database yet, create new client record in 'Clients' index page by clicking on "Add Client" button at the bottom of the client list and filling out all required information. It's important to have all basic contact information filled out as it will be later used to generate documents such as Purchase Orders and Invoices. Make sure to add email address of the client.</li>
+<li> - If client is not in database yet, create new client record in 'Clients' index page by clicking on "Add Client" button at the bottom of the client list and filling out all required information. It's important to have all basic contact information filled out as it will be later used to generate documents such as Purchase Orders and Invoices. Make sure to add email address of the client, this is one most important field that's used to communicate with the client.</li>
 <li> - Send an invitation to client to register by clicking on the icon in "invite" column in client list for this client. </li>
 <li> - Client receives an invitation and goes to SignUp page to register. </li>
 <li> - Client activates his account by clicking activation link sent to him in email and because this email address is already registered in the system as client, no further action on your part is required </li>

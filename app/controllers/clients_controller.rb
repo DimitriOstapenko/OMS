@@ -17,7 +17,7 @@ class ClientsController < ApplicationController
       @clients = found
       flash.now[:info] = "Found #{@clients.count} #{'client'.pluralize(@clients.count)} matching string #{params[:findstr].inspect}"
     else 
-      flash.now[:warning] = 'Nothing found'
+      flash.now[:warning] = 'Nothing found' if params[:findstr]
     end
     @clients = @clients.reorder(sort_column + ' ' + sort_direction, "name asc").paginate(page: params[:page])  
   end
