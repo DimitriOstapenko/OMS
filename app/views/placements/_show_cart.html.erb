@@ -10,7 +10,7 @@
 <% @products.sort.each do |prod_and_qty| %>
   <% id, quantity = prod_and_qty %>
   <% product = Product.find(id) rescue nil%>
-  <% next unless product %>
+  <% next unless product && quantity %>
   <% product_total = @client.price(product)*quantity %>
   <% grand_total += product_total; pos += 1 %>
   <% total_quantity += quantity %>

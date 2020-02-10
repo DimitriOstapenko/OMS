@@ -36,11 +36,21 @@ class Client < ApplicationRecord
           product.price_eu
         when EU2_PRICE
           product.price_eu2
+        when EU3_PRICE
+          product.price_eu3
+        when EU4_PRICE
+          product.price_eu4
+        when EU5_PRICE
+          product.price_eu5
+        when EU6_PRICE
+          product.price_eu6
         when USD_PRICE
           product.price_usd
+        when USD2_PRICE
+          product.price_usd2
         else
-          errors.add('*',"Client price_type is invalid")
-          return false
+          errors.add('Price Type Error',"Client price_type is invalid")
+          return 0
       end 
   end
 
