@@ -15,7 +15,8 @@ Please click button below to go to our secure registration form. Enter your new 
 <%# @user.reset_password_token = hashed %>
 <%# @user.save %>
 
-<%= button_to 'Complete my OMS Online Registration', edit_password_url(@user, reset_password_token: @raw), class: "email-btn", method: :get %>
+<%# button_to 'Complete my OMS Online Registration', edit_password_url(@user, reset_password_token: @raw), class: "email-btn", method: :get %>
+<%= link_to 'Complete my OMS Online Registration', edit_password_url(@user, reset_password_token: @raw),  method: :get %>
 <p>&nbsp;</p>
 
 
