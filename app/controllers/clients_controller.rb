@@ -19,7 +19,7 @@ class ClientsController < ApplicationController
     else 
       flash.now[:warning] = 'Nothing found' if params[:findstr]
     end
-    @clients = @clients.reorder(sort_column + ' ' + sort_direction, "name asc").paginate(page: params[:page])  
+    @clients = @clients.reorder(sort_column + ' ' + sort_direction ).paginate(page: params[:page])  
   end
 
   def show
@@ -56,11 +56,24 @@ class ClientsController < ApplicationController
     end
   end
   
+# This is invite to change password only. Registration is automatic
   def send_invite_to_register
     @client = Client.find(params[:id])
-    ClientMailer.send_invite_to_register(@client).deliver_now
-    flash[:success] = "Client #{@client.name} was just invited to register"
-     redirect_back(fallback_location: clients_path)
+    if @client.present?
+      @user = User.new(name: @client.name, email: @client.contact_email, role: :client, invited_by: current_user.name, password: Time.now)
+      if @user.save
+        ClientMailer.send_invite_to_register(@client,@user).deliver_now
+        msg =  "New user created. Client '#{@client.name}' was just invited to complete registration"
+      else   
+        msg = "Client was not invited. Errors saving user: #{@user.errors.full_messages.join}"
+      end
+    else 
+      msg = "Client was not found"
+    end
+
+    flash[:info] = msg
+    redirect_to clients_path
+#    redirect_back(fallback_location: clients_path)
   end
 
 private
@@ -71,7 +84,7 @@ private
   end
 
   def sort_column
-    Client.column_names.include?(params[:sort]) ? params[:sort] : "name"
+    Client.column_names.include?(params[:sort]) ? params[:sort] : "upper(name)"
   end
 
   def sort_direction

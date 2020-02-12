@@ -51,7 +51,7 @@
      <%= button_to 'Submit order', orders_path, class: "btn btn-success btn-block" %>
      <%= button_to "Clear Cart", empty_cart_path, class: "btn btn-primary", method: :get %>
   </div>
-    To be delivered by : <%= @client.pref_delivery_by_str %>
+  <b>To be delivered by :</b> <%= @client.pref_delivery_by_str %>
 </div>
 </div> <!-- row ->
 

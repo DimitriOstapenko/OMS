@@ -2,6 +2,7 @@
 <% locale = @client.locale rescue :fr %>
 <% colspan = 8 %>
 
+<% if @orders.any? %>
 <p></p>
 <table class="tbl2 table-hover table-striped table-bordered" >
   <thead>
@@ -45,14 +46,10 @@
 </tfoot>
 </table>
 
-<% if current_user.client? %>
-<div class="row">
-<div class="bottom_buttons ">
+<p>&nbsp;</p>
+<% if false  %>
 <%= button_to "Add Product To Cart", new_order_path, class: "btn btn-primary col-md-2", method: :get, remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window'  %>
-</div>
-</div>
 <% end %>
-
 
 <div class="row">
 <div class="bottom_nav">
@@ -60,5 +57,6 @@
 </div>
 </div>
 
+<% end %>
 
 

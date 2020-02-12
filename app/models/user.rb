@@ -5,16 +5,37 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable, :trackable, :timeoutable
 
   enum role: ROLES
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
-  validates :name, :email,  presence: true, length: { maximum: 50 }
+  validates :name, presence: true, length: { maximum: 50 }
+#  validates :email, length: { maximum: 80 }, uniqueness: true
   validates :password, length: {minimum: 6}, allow_blank: true
-  validates :client_id, presence: true, if: Proc.new { |u| u.client? } 
+#  validates :client_id, presence: true, if: Proc.new { |u| u.client? } 
+
+  default_scope -> { order(Arel.sql("upper(name)"), email: :asc) }  # see also sort in controller
   
   after_initialize :set_default_role, :if => :new_record?
-  before_save :set_client, :if => :new_record?
+  before_create :set_client
+  after_save :send_emails, :if => :new_record?
 
   def set_default_role
     self.role ||= :user
+    self.client_id ||= nil
+  end
+
+# try to find client with this email; set role to client if found  
+  def set_client
+    client = Client.find_by(contact_email: self.email)
+    if client.present?
+      self.client_id = client.id 
+      self.role = :client
+    end
+  end
+
+# For cases where email is known and no confirmation link is required  
+  def mark_as_confirmed
+    self.confirmation_token = nil
+    self.confirmed_at = Time.now
   end
 
   def active?
@@ -25,12 +46,19 @@ class User < ApplicationRecord
     Client.find(self.client_id).name if self.client_id 
   end
 
-  def set_client
-    client = Client.find_by(contact_email: self.email)
-    if client.present?
-      self.client_id = client.id 
-      self.role = :client
-    end
+# Was user invited to register by staff?  
+  def invited?
+    self.invited_by.present?
+  end
+
+# Notify staff
+  def send_emails
+    UserMailer.new_registration(self).deliver unless self.invited?
+  end
+
+# Do not send confirmation email if created through invite
+  def send_confirmation_notification?
+    !self.invited?
   end
 
 end

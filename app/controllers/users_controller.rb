@@ -6,7 +6,7 @@ class UsersController < ApplicationController
   helper_method :sort_column, :sort_direction
 
   def index
-    @users = User.reorder(sort_column + ' ' + sort_direction, "name asc").paginate(page: params[:page])
+    @users = User.reorder(sort_column + ' ' + sort_direction ).paginate(page: params[:page])
   end
 
   def show
@@ -19,13 +19,12 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    if params[:user][:password].blank? && params[:user][:password_confirmation].blank?
+    if params[:user][:password].blank? && params[:user][:password_confirmation].blank?  # Leave password blank for no change
       params[:user].delete(:password)
       params[:user].delete(:password_confirmation)
     end
   
     if @user.update_attributes(user_params)
-      @user.update_attribute(:client_id, nil) unless @user.role == 'client'
       msg = "New email will be active once confirmed by the user" if @user.unconfirmed_email.present?
       flash[:success] = "Profile updated. #{msg}"
       redirect_to users_path
@@ -55,11 +54,11 @@ class UsersController < ApplicationController
 private
 
     def user_params
-      params.require(:user).permit(:name, :email, :password, :password_confirmation, :role, :active, :client_id)
+      params.require(:user).permit(:name, :email, :password, :password_confirmation, :role, :active, :client_id, :invited_by)
     end
 
     def sort_column
-      User.column_names.include?(params[:sort]) ? params[:sort] : "name"
+      User.column_names.include?(params[:sort]) ? params[:sort] : "upper(name)"
     end
 
     def sort_direction

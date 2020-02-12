@@ -3,11 +3,11 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 #ruby '2.7.0'
 #ruby '2.6.4'
-gem 'devise'
-
+gem 'bundler', '~> 2.1', '>= 2.1.4'
 gem 'rails', '~> 5.2.3'
 gem 'pg'
 gem 'puma', '~> 3.11'
+gem 'devise', '~> 4.7', '>= 4.7.1'
 
 #gem 'bootstrap', '~> 4.4', '>= 4.4.1'
 gem 'bootstrap-sass',       '~> 3.4.1'
@@ -29,6 +29,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'logmsg', '~> 1.0', '>= 1.0.7'
+  gem 'brakeman', require: false
 end
 
 group :development do

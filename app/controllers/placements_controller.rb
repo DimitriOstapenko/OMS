@@ -30,11 +30,7 @@ class PlacementsController < ApplicationController
  # Remove product from cart
   def delete_product
     id = params[:id] || params[:placement][:id]
-    if del_from_cart?(id)
-      flash[:notice] = "Product removed from shopping cart"
-    else
-      flash[:danger] = "Error deleting product from cart.#{params.inspect}"
-    end
+    flash[:danger] = "Error deleting product from cart.#{params.inspect}" unless del_from_cart?(id)
     redirect_back(fallback_location: products_path) 
   end
 
@@ -43,11 +39,7 @@ class PlacementsController < ApplicationController
     id = params[:id] || params[:placement][:id]
     quantity = params[:quantity] || params[:placement][:quantity]
     if quantity.to_i.positive? && del_from_cart?(id) 
-      if add_to_cart?(id, quantity)
-        flash[:notice] = 'Number of product updated'
-      else
-        flash[:danger] = "Error updating number of product in cart. Only positive numbers are allowed."
-      end
+       flash[:danger] = "Error updating number of product in cart. Only positive numbers are allowed." unless add_to_cart?(id, quantity)
     end
     redirect_back(fallback_location: products_path) 
   end
@@ -59,7 +51,8 @@ class PlacementsController < ApplicationController
 
   def empty_cart
     clear_cart
-    redirect_back(fallback_location: products_path)
+#    redirect_back(fallback_location: products_path)
+    redirect_to products_path
   end
 
 

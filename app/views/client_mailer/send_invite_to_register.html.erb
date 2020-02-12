@@ -3,13 +3,19 @@
 <h3>Dear <b><%= @client.name %>,</h3> 
 
 <p>&nbsp;</p>
-we are excited to invite you to register to our new ordering system. Once registered, you will be able to browse our complete product catalogue, select products for preorder, see order status and follow your ordering history.
+We are excited to invite you to complete registration to our new ordering system. Once registered, you will be able to browse our complete product catalogue, select products for preorder, see order status and follow your ordering history. 
 
 <p>
-Please click button below to go to our secure registration form.
+Please click button below to go to our secure registration form. Enter your new password, twice, and your account will be ready to go. 
 
 <p>&nbsp;</p>
-<%= button_to 'OMS Online Registration', new_user_registration_url, class: "email-btn", method: :get %>
+
+<%# raw, hashed = Devise.token_generator.generate(User, :reset_password_token) %>
+<%# @user.reset_password_sent_at = @user.confirmed_at = Time.now.utc %>
+<%# @user.reset_password_token = hashed %>
+<%# @user.save %>
+
+<%= button_to 'Complete my OMS Online Registration', edit_password_url(@user, reset_password_token: @raw), class: "email-btn", method: :get %>
 <p>&nbsp;</p>
 
 
@@ -21,9 +27,7 @@ We are looking forward to working with you,
 
 Room 1616, 16/F., Lippo Centre, Tower 2, 89 Queensway,<p>
 Admiralty, Hong Kong<p>
-Max   - email: max@saminco.com.hk<p>
-Peter -  email: pbr69@icloud.com
-
+Contact: Susanna - email: <a href="mailto:susanna@ecdbv.com">susanna@ecdbv.com</a> <p>
 
 </div>
 </div>
