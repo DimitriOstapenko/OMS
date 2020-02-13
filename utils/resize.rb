@@ -14,6 +14,6 @@ puts "** Target dir: #{target} Scale: #{scale}%"
 
 Pathname.glob("#{curdir}/*.jpg").sort.each do |entry|
   basename = entry.basename
-  system "/usr/local/bin/convert '#{entry}' -resize 12.5% '#{target}/#{basename}'" 
+  system "/usr/local/bin/convert '#{entry}' -resize #{scale}% '#{target}/#{basename}'" 
   puts "'#{basename}' -> './#{scale}/#{basename}'"
 end

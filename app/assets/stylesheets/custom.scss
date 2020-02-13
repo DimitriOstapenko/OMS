@@ -789,6 +789,29 @@ card > hr {
   outline: none !important;
 }
 
+.email-button-p {
+  font-size: 16px; 
+  font-family: Helvetica, Arial, sans-serif; 
+  font-weight: normal;
+  color: #ffffff;
+  text-decoration: none; 
+  display: inline-block;
+}
+
+.email-button-b {
+  font-size: 16px; 
+  font-family: Helvetica, Arial, sans-serif; 
+  color: #ffffff; 
+  text-decoration: none; 
+  border-radius: 3px; 
+  background-color: #EB7035; 
+  border-top: 12px solid #EB7035; 
+  border-bottom: 12px solid #EB7035; 
+  border-right: 18px solid #EB7035;
+  border-left: 18px solid #EB7035; 
+  display: inline-block;
+}
+
 // product profile page
 .drop-down-link {
   font-size: 1.1em;
