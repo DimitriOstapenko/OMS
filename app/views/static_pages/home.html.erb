@@ -1,23 +1,29 @@
-<div align="center">
+<% if !logged_in? %>
+<style>
+body {
+  background-image: url('/images/reduced.jpg');
+}
+</style>
+<% end %>
 
-<%# if !logged_in? %>
+<div align="center"> 
   <table cellpadding=0 height=100%>
     <tr>
-    <td> <img src="/images/homeimage2.jpg" width="740" >  </td>
-    <td> <img src="/images/homeimage2.jpg" width="740" >  </td>
+      <!--    <td> <img src="/images/homeimage1.jpg" width="1100" >  </td> -->
     </tr>
-    <tr>
+ <!--   <tr>
+    <td> <img src="/images/homeimage1.jpg" width="740" >  </td>
     <td> <img src="/images/homeimage2.jpg" width="740" >  </td>
-    <td> <img src="/images/homeimage2.jpg" width="740" >  </td>
-    </tr>
+ </tr> -->
   </table>
 <%# end %>
 
+<!-- 
 <div class="row">
   <div class="col-md-3">
      <a href="https://oms.drlena.com" target="_blank" class="email-button-b">Complete My Registration &rarr;</a>
   </div>
 </div>
-
+-->
 
 </div>
