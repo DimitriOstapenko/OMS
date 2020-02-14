@@ -100,7 +100,8 @@ class Client < ApplicationRecord
 # Generate unique client code
   def set_client_code
     c = self.name.upcase.strip.gsub(/\W/,'')[0..3] rescue ''
-    id = self.id || Client.maximum(:id).next
+    nextid = Client.maximum(:id).next rescue 1
+    id = self.id || nextid
     self.code = c + id.to_s
   end
 
