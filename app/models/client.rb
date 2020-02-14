@@ -57,11 +57,16 @@ class Client < ApplicationRecord
 # locale to be used in currency conversions and total calculations  
   def locale
     country = Country[self.country]
-    locale = (country.continent == 'Europe')?:fr:'us'.to_sym
+    (country.continent == 'Europe') ? :fr : :us rescue :fr
+  end
+
+# Client's currency  
+  def currency
+    (self.locale == :us)? :usd : :eur
   end
 
   def fx_rate
-    (self.locale == :us)? USD_EUR_FX : 1
+    (self.currency == :usd)? USD_EUR_FX : 1
   end
 
   def contact_fullname

@@ -116,19 +116,21 @@ module My
     pdf.move_down 10.mm
     pdf.text "Payment Terms: #{order.terms_str}"
     pdf.text "Pyment Method: #{order.pmt_method_str}"
-    pdf.text "Shipping & Handling: #{number_to_currency(order.shipping)}" if order.shipping.positive?
-    pdf.text "Discount: #{number_to_currency(order.discount)}" if order.discount.positive?
-    pdf.text "Sales Tax (#{order.client.tax_pc}%): #{number_to_currency(order.tax)}" if order.tax.positive?
-    pdf.text "Grand Total (Including Tax): #{number_to_currency(order.total)}", style: :bold
+
+    pdf.text "Shipping & Handling: #{number_to_currency(order.shipping, locale: order.client.locale )}" if order.shipping.positive?
+    pdf.text "Discount: #{number_to_currency(order.discount, locale: order.client.locale )}" if order.discount.positive?
+    pdf.text "Sales Tax (#{order.client.tax_pc}%): #{number_to_currency(order.tax, locale: order.client.locale)}" if order.tax.positive?
+    pdf.text "Grand Total (Including Tax): #{number_to_currency(order.total, locale: order.client.locale)}", style: :bold
 
     return pdf
   end # build_po
 
 # Generate Invoice  
   def build_invoice(order)
+    account = (order.currency == :usd)? USD_ACCOUNT : EU_ACCOUNT 
     pdf = Prawn::Document.new( :page_size => "LETTER", margin: [10.mm,10.mm,20.mm,20.mm])
     pdf.font "Helvetica"
-    pdf.font_size 10
+    pdf.font_size 9
 
     cl = order.client
     inv_to = "<b>Invoice to: <br><br>#{cl.name}</b> <br><br>#{cl.address} #{cl.state_prov} #{cl.country_str} #{cl.zip_postal} <br>VAT: #{cl.vat}"
@@ -180,7 +182,6 @@ module My
         t.column_widths = [15.mm, 30.mm, 20.mm, 20.mm, 40.mm, 20.mm, 15.mm, 20.mm ]
         t.header = true
         t.row(0).font_style = t.row(-1).font_style = :bold
-#        t.position = 0.mm
         t.cells.padding = 3
         t.cells.style do |c|
            c.background_color = c.row.odd? ? 'FFFFFF' : 'EEEEEE'
@@ -188,10 +189,11 @@ module My
     end
     
     pdf.move_down 10.mm
-    pdf.text "Shipping & Handling: #{number_to_currency(order.shipping)}" if order.shipping.positive?
-    pdf.text "Discount: #{number_to_currency(order.discount)}" if order.discount.positive?
-    pdf.text "Sales Tax (#{order.client.tax_pc}%): #{number_to_currency(order.tax)}" if order.tax.positive?
-    pdf.text "Grand Total (Including Tax): #{number_to_currency(order.total)}", style: :bold
+    pdf.text "Order net weight: #{order.weight} Kg" if order.shipping.positive?
+    pdf.text "Shipping & Handling: #{number_to_currency(order.shipping, locale: order.client.locale )}" if order.shipping.positive?
+    pdf.text "Discount: #{number_to_currency(order.discount, locale: order.client.locale )}" if order.discount.positive?
+    pdf.text "Sales Tax (#{order.client.tax_pc}%): #{number_to_currency(order.tax, locale: order.client.locale)}" if order.tax.positive?
+    pdf.text "Grand Total (Including Tax): #{number_to_currency(order.total, locale: order.client.locale)}", style: :bold
 
     pdf.move_down 10.mm
     pdf.text "Please check the integrity of the product.", style: :italic
@@ -202,7 +204,8 @@ module My
     pdf.text "<b>Beneficiary Address:</b> Room 1616, 16/F., Lippo Centre, Tower 2, 89 Queensway, Admiralty, Hong Kong", inline_format: true
     pdf.text "<b>Bank Name:</b> Standard Chartered Bank (Hong Kong) Limited", inline_format: true
     pdf.text "<b>Bank Address:</b> 13/F., Standard Chartered Bank Building, 4-4A Des Voeux Road Central, Hong Kong", inline_format: true
-    pdf.text "<b>Account:</b>  447-0-817019-9", inline_format: true
+
+    pdf.text "<b>Account:</b>  #{account}", inline_format: true
     pdf.text "<b>SWIFT:</b> SCBLHKHHXXX", inline_format: true
 
     if order.notes.present?

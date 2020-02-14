@@ -40,7 +40,7 @@ class Order < ApplicationRecord
     self.total = self.weight = 0
     placements.each do |placement|
       self.total += placement.price * placement.quantity
-      self.weight += placement.product.weight/1000
+      self.weight += placement.product.weight/1000 * placement.quantity
     end
     suff = Time.now.strftime("%Y%m%d") + '-' + Order.maximum(:id).next.to_s
     self.po_number = 'PO-' + suff 
@@ -62,6 +62,19 @@ class Order < ApplicationRecord
 # Total Order price before Taxes, Shipping, Discount etc.  
   def total_price
     self.placements.sum('price*quantity') rescue 0
+  end
+
+ # def currency
+ #   if self.client.price_type == USD_PRICE
+ #     return 'USD'
+ #   else
+ #     return 'EURO'
+ #   end
+ # end
+
+# Order currency
+  def currency
+    self.client.currency
   end
 
   def create_po_and_invoice 
@@ -120,14 +133,6 @@ class Order < ApplicationRecord
 
   def cre_date
     created_at.to_date
-  end
-
-  def currency
-    if self.client.price_type == USD_PRICE
-      return 'USD'
-    else
-      return 'EURO'
-    end
   end
 
   def product_count

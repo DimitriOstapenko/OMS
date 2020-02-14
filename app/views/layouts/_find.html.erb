@@ -2,7 +2,7 @@
 <%  when 'products', 'inventories' %>
   <%= render 'layouts/find_form', tool_tip_title: 'Search by Ref.Code, Description or Scale' %>
 <% when 'clients' %>
-  <%= render 'layouts/find_form', tool_tip_title: 'Search by name/country' %>
+  <%= render 'layouts/find_form', tool_tip_title: 'Search by name, country, price type' %>
 <% when 'suppliers','managers' %>
   <%= render 'layouts/find_form', tool_tip_title: 'Search by name' %>
 <% when 'orders' %>
