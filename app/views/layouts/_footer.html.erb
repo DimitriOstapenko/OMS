@@ -7,11 +7,8 @@
     <ul>
       <small>
       <% if current_user %>
-        <li><small> USD/EUR fx: <%= USD_EUR_FX %></small></li>
-        <li style="width:10px">&nbsp;</li>
-	<li>Logged in <%= current_user.role %>: <%= link_to "#{current_user.email}", edit_user_registration_path(current_user.id) %></li>
+        <li>USD/EUR fx: <%= USD_EUR_FX %></li>
       <% end %>
-      <li style="width:10px">&nbsp;</li>
       <li><%= link_to "About", about_path, target: '_new' %></li>
       <li><%= link_to "Help", help_path, target: '_new' %></li>
       <li><%= link_to "Contact", contact_path, target: '_new' %></li>

@@ -13,18 +13,21 @@ class ProductsController < ApplicationController
   def index
     if current_user
       redirect_to inventories_path if current_user.production?
+      found = []
+      @products = Product.all
+      @products = Product.where(active: true) if (current_user.client? || current_user.user?)   # Do not show disabled products to clients and world
       if params[:findstr] 
-        @products = Product.search(params).paginate(page: params[:page])
-        if @products.any?
+        found = @products.search(params)
+        if found.any?
+          @products = found
           flash.now[:info] = "Found #{@products.count} #{'product'.pluralize(@products.count)} matching string #{params[:findstr].inspect}"
         else
           flash.now[:info] = "No products found"
         end
-      else
-        @products = Product.reorder(sort_column + ' ' + sort_direction, "ref_code asc").paginate(page: params[:page])
       end
+      @products = @products.reorder(sort_column + ' ' + sort_direction).paginate(page: params[:page])
     else 
-      render inline: '', layout: true
+      redirect_to home_path
     end  
   end
 
@@ -86,7 +89,7 @@ class ProductsController < ApplicationController
 
 private
   def product_params
-    params.require(:product).permit( :ref_code, :description, :brand, :category, :scale, :colour, :ctns, :release_date, :added_date, :weight, :quantity,
+    params.require(:product).permit( :ref_code, :description, :brand, :category, :scale, :colour, :ctns, :release_date, :added_date, :weight, :quantity, :active, 
                                      :price_eu, :price_eu2, :price_eu3, :price_eu4, :price_eu5, :price_eu6, :price_usd, :price_usd2, :supplier, :manager, :progress, :notes ) 
   end
 

@@ -2,6 +2,6 @@
   <%= render 'layouts/find' %>
 
   <li class="<%= 'active' if controller_name == 'products' %>"><%= link_to "Products", products_path %></li>
-  <li><%= link_to "Orders", orders_path %></li>
+  <li class="<%= 'active' if controller_name == 'orders' %>"><%= link_to "Orders", orders_path %></li>
   
   <li>&nbsp; <%= render "shared/shopping_cart" %> </li>

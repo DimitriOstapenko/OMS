@@ -1,5 +1,6 @@
 <%= render "shared/modal" %>
 
+<% if @products.any? %>
 <table class="tbl2 table-hover table-striped table-bordered" >
   <thead>
       <tr>
@@ -21,6 +22,7 @@
 
   </tbody>
 </table>
+<% end %>
 
 <div class="row">
 <% if current_user.admin? || current_user.staff? %>

@@ -12,10 +12,10 @@ class ApplicationController < ActionController::Base
 
   before_action :configure_permitted_parameters, if: :devise_controller?
 
-# devise redirect after login  
-  def after_sign_in_path_for(resource)
-    stored_location_for(resource) || products_path
-  end
+# devise redirect after login - if home page is different from products_path
+#  def after_sign_in_path_for(resource)
+#    products_path
+#  end
 
 # Confirms a logged-in user.
   def logged_in_user
