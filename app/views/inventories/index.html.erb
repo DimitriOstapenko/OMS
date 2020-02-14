@@ -1,8 +1,6 @@
 <%= render "shared/modal" %>
 
-<div id="status">
-
-</div>
+<div id="status"> </div>
 
 <table class="tbl2 table-hover table-striped table-bordered" >
   <thead>
@@ -12,6 +10,8 @@
           <th class="tbl_lg">Description</th>
 	  <th class="tbl_md, text-center">Category</th>
 	  <th class="tbl_md, text-center">Brand</th>
+          <th class="tbl_md, text-center">Pending <br> Orders</th>
+          <th class="tbl_md, text-center">Paid <br> Orders</th>
           <th class="tbl_lsm text-center"><%= sortable 'quantity', 'Quantity' %></th>
       </tr>
   </thead>

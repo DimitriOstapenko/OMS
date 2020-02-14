@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_11_210959) do
+ActiveRecord::Schema.define(version: 2020_02_13_234109) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -131,6 +131,7 @@ ActiveRecord::Schema.define(version: 2020_02_11_210959) do
     t.decimal "price_eu5", default: "0.0"
     t.decimal "price_eu6", default: "0.0"
     t.float "weight"
+    t.boolean "active", default: true
     t.index ["ref_code"], name: "index_products_on_ref_code"
   end
 

@@ -76,5 +76,15 @@ class Product < ApplicationRecord
     products = products.filter_by_title_or_refcode(params[:findstr]) if params[:findstr]
     products
   end
+
+# Return number of pending orders for product  
+  def pending_orders
+    Order.joins(:placements).where('placements.product_id': self.id).where(status: PENDING_ORDER).sum(:quantity) rescue 0
+  end
+
+# Return number of paid orders for product  
+  def paid_orders
+    Order.joins(:placements).where('placements.product_id': self.id).where(status: PAID_ORDER).sum(:quantity) rescue 0
+  end
   
 end

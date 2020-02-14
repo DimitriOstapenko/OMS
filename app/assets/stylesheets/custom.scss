@@ -231,12 +231,16 @@ caption {
   padding-left: 10px;
 }
 
+.product-disabled {
+  color: $gray-light;
+}
+
 /* footer */
 
 footer {
   margin-right: 15px;
-  margin-top: 5px;
-  padding-top: 5px;
+  margin-top: 7px;
+  padding-top: 7px;
   border-top: 1px solid $gray-medium-light;
   color: $gray-light;
   a {

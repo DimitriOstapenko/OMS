@@ -1,4 +1,3 @@
-  
 <%= simple_form_for @product do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
 
@@ -35,14 +34,17 @@
   </div>
 
   <div class="row" %>
-  <div class="col-md-4">
+  <div class="col-md-3">
   <%= f.input :scale  %>
   </div>
-  <div class="col-md-4">
+  <div class="col-md-3">
   <%= f.input :added_date, as: :date, html5: true  %>
   </div>
-  <div class="col-md-4">
+  <div class="col-md-3">
   <%= f.input :release_date, as: :date,  html5: true  %>
+  </div>
+  <div class="col-md-3">
+  <%= f.input :active, collection: [['Yes', 'true'], ['No', 'false']], value: 'true', include_blank: false %>
   </div>
   </div>
 
