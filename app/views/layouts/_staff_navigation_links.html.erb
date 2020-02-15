@@ -4,4 +4,4 @@
   <li class="<%= 'active' if controller_name == 'clients' %>"><%= link_to "Clients", clients_path %></li>
   <li class="<%= 'active' if controller_name == 'orders' %>"><%= link_to "Orders", orders_path %></li>
   <li class="<%= 'active' if controller_name == 'inventories' %>"><%= link_to "Inventory", inventories_path %></li>
-  <li class="<%= 'active' if controller_name == 'reports' %>"><%= link_to "Reports", reports_path %></li>
+  <%= render 'layouts/reports' %>

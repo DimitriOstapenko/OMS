@@ -46,6 +46,10 @@ class Report < ApplicationRecord
   def rtype_str
     REPORT_TYPES.invert[self.rtype] || 'Sales And Purchases'
   end
+
+  def category_str
+    REPORT_CATEGORIES.invert[self.category] || 1
+  end
   
   def timeframe_str
     REPORT_TIMEFRAMES.invert[self.timeframe] || 'All Time'

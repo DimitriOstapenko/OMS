@@ -43,7 +43,7 @@ class Order < ApplicationRecord
       self.weight += placement.product.weight/1000 * placement.quantity
     end
     nextid = Order.maximum(:id).next rescue 1
-    suff = Time.now.strftime("%Y%m%d") + '-' + Order.maximum(:id).nextid.to_s
+    suff = Time.now.strftime("%Y%m%d") + '-' + nextid.to_s
     self.po_number = 'PO-' + suff 
     self.inv_number = 'INV-' + suff
     self.delivery_by = self.client.pref_delivery_by

@@ -1,0 +1,8 @@
+<% active = 'active' if controller_name == 'reports' %>
+<li class="<%= active %> dropdown nav-item">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reports<b class="caret"></b> </a>
+  <ul class="dropdown-menu">
+  <li><%= link_to "Client Reports", reports_path(category: CLIENT_REPORT) %></li>
+  <li><%= link_to "Product Reports", reports_path(category: PRODUCT_REPORT) %></li>
+  </ul>
+</li>

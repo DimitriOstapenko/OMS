@@ -10,11 +10,13 @@ class ReportsController < ApplicationController
   helper_method :sort_column, :sort_direction
 
   def index
-    @reports = Report.reorder(sort_column + ' ' + sort_direction, "created_at desc").paginate(page: params[:page])
+    @category = params[:category]
+    @reports = Report.where(category: @category)
+    @reports = @reports.reorder(sort_column + ' ' + sort_direction, "created_at desc").paginate(page: params[:page])
   end
 
   def new
-    @report = Report.new
+    @report = Report.new(category: params[:category])
   end
 
   def create
@@ -110,7 +112,7 @@ class ReportsController < ApplicationController
 
 private
   def report_params
-    params.require(:report).permit(:name, :filename, :rtype, :client_id, :sdate, :edate, :timeframe, :detail)
+    params.require(:report).permit(:name, :filename, :rtype, :category, :client_id, :sdate, :edate, :timeframe, :detail)
   end
 
   def sort_column

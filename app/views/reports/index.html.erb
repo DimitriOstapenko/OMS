@@ -27,7 +27,7 @@
 
 <% if current_user.admin? || current_user.staff? %>
 <div class="bottom_buttons">
-<%= button_to "Create New Report", new_report_path, class: "btn btn-primary col-md-2 ", method: 'get'  %>
+<%= link_to "Create New Report", new_report_path(category: @category), class: "btn btn-primary col-md-2 ", method: 'get'  %>
 </div>
 <% end %>
 
