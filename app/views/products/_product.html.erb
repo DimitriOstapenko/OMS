@@ -1,4 +1,10 @@
-<% cl = !product.active? ? 'table-warning' : nil %>
+<% cl = nil %>
+<% if current_user.client? %>
+   <% cl = 'table-success' if in_cart?(product.id)  %>
+<% elsif current_user.staff? %>
+   <% cl = 'table-warning' unless product.active? %>
+<% end %>
+
   <tr class="<%= cl %>">
   <td class="text-center"><%= link_to product.ref_code, product, remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window', class: cl %></td> 
     <td class="text-center"><%= product.scale_str %></td> 

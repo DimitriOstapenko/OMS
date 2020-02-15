@@ -19,11 +19,7 @@ class PlacementsController < ApplicationController
 # app_controller    
     quantity = params[:quantity] || params[:placement][:quantity]
     id = params[:id] || params[:placement][:id]
-    if add_to_cart?(id, quantity)
-      flash[:notice] = 'Product added to shopping cart'
-    else
-      flash[:danger] = "Error adding product to cart.#{params.inspect}"
-    end
+    flash[:danger] = "Error adding product to cart. #{params.inspect}" unless add_to_cart?(id, quantity)
     redirect_back(fallback_location: products_path) 
   end
 

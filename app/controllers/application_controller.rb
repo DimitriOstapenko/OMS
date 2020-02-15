@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   skip_before_action :verify_authenticity_token 
 
   include UsersHelper
-  helper_method :add_to_cart, :get_cart, :clear_cart, :current_client
+  helper_method :add_to_cart, :get_cart, :clear_cart, :in_cart?, :current_client
 
   before_action :configure_permitted_parameters, if: :devise_controller?
 
@@ -74,8 +74,11 @@ class ApplicationController < ActionController::Base
   end
 
   def get_cart
-    session[:cart] ||= []
-    return session[:cart] 
+    session[:cart] || []
+  end
+
+  def in_cart?(id)
+    session[:cart].to_h[id.to_s].present?
   end
   
   def clear_cart
