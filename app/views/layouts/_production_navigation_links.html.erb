@@ -1,3 +1,4 @@
   <%= render 'layouts/find' %>
+  <li class="<%= 'active' if controller_name == 'orders' %>"><%= link_to "Orders", orders_path %></li>
   <li class="<%= 'active' if controller_name == 'inventories' %>"><%= link_to "Inventory", inventories_path %></li>
 

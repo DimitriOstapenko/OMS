@@ -1,0 +1,27 @@
+<% provide(:title, 'Shippers') %>
+  
+<% if @shippers.any? %>
+<table class="tbl table-hover">
+   <thead>
+      <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Website</th>
+          <th class="tbl_sm" colspan=2></th>
+      </tr>
+  </thead>
+  <tbody>
+
+  <%= render @shippers %>
+
+  </tbody>
+</table>
+<% end %>
+
+<% if current_user.admin? %>
+<div class="bottom_buttons ">
+<%= will_paginate @managers, class: "btn" %>
+<%= button_to "Add Shipper", new_shipper_path, class: "btn btn-primary col-md-2 ", method: 'get'  %>
+</div>
+<% end %>

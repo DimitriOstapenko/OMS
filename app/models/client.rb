@@ -77,8 +77,8 @@ class Client < ApplicationRecord
     Country[self.country].name rescue ''
   end
 
-  def pref_delivery_by_str 
-    DELIVERY_BY.invert[self.pref_delivery_by].to_s rescue nil
+  def pref_delivery_by_str
+    Shipper.find(self.pref_delivery_by).name rescue nil
   end
 
 # Global method; search by name, price_type, country 

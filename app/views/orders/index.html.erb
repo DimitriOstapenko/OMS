@@ -18,9 +18,11 @@
           <th class="tbl_md, text-center"><%= sortable 'inv_number', 'Invoice #' %></th>
           <th class="tbl_md, text-center">Terms</th>
           <th class="tbl_xmd, text-center">Transport</th>
+          <% unless current_user.production? %>
           <th class="tbl_md, text-center"><%= sortable 'total', 'Total' %></th>
+          <% end %>
           <th class="tbl_md, text-center"><%= sortable 'status', 'Status' %></th>
-          <% if current_user.admin? || current_user.staff? %>
+          <% if current_user.staff? || current_user.production? %>
           <th class="tbl_sm"></th>
           <% colspan = 6 %>
           <% end %>
@@ -30,6 +32,7 @@
 <%= render @orders, remote: device_is_desktop?  %>
   </tbody>
 
+<% unless current_user.production? %>
 <tfoot>
   <tr>
     <th colspan=<%= colspan %>></th>
@@ -44,6 +47,7 @@
     <th colspan=2></th>
   </tr>
 </tfoot>
+<% end %>
 </table>
 
 <p>&nbsp;</p>

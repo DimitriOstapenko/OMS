@@ -46,7 +46,7 @@ class Order < ApplicationRecord
     suff = Time.now.strftime("%Y%m%d") + '-' + nextid.to_s
     self.po_number = 'PO-' + suff 
     self.inv_number = 'INV-' + suff
-    self.delivery_by = self.client.pref_delivery_by
+    self.delivery_by = self.client.pref_delivery_by_str
     self.terms = self.client.default_terms
     self.tax = self.total * self.client.tax_pc / 100 if self.client.tax_pc > 0
     self.shipping = self.client.shipping_cost * self.weight 
@@ -57,21 +57,12 @@ class Order < ApplicationRecord
   def send_emails!
     OrderMailer.send_confirmation(self).deliver_now
     OrderMailer.notify_staff(self).deliver_now
-#    self.update_attributes(delivery_by: self.client.pref_delivery_by, terms: self.client.default_terms )
   end
 
 # Total Order price before Taxes, Shipping, Discount etc.  
   def total_price
     self.placements.sum('price*quantity') rescue 0
   end
-
- # def currency
- #   if self.client.price_type == USD_PRICE
- #     return 'USD'
- #   else
- #     return 'EURO'
- #   end
- # end
 
 # Order currency
   def currency
@@ -99,10 +90,6 @@ class Order < ApplicationRecord
     ORDER_STATUSES.invert[self.status].to_s rescue nil
   end
 
-  def delivery_by_str
-    DELIVERY_BY.invert[self.delivery_by].to_s rescue nil
-  end
-
   def terms_str
     PAYMENT_TERMS.invert[self.terms].to_s rescue nil
   end
@@ -120,7 +107,7 @@ class Order < ApplicationRecord
   end
 
   def self.to_csv
-    attributes = %w{id client_code cre_date product_count items_count currency total po_number inv_number pmt_method_str shipping discount tax delivery_by_str status_str notes}
+    attributes = %w{id client_code cre_date product_count items_count currency total po_number inv_number pmt_method_str shipping discount tax delivery_by status_str notes}
     CSV.generate(headers: attributes, write_headers: true) do |csv|
       all.each do |order|
         csv << attributes.map{ |attr| order.send(attr) }

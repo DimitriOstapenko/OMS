@@ -70,7 +70,7 @@
   <%= f.input :default_terms, collection: PAYMENT_TERMS, label: 'Default Payment Terms', include_blank: false, readonly: readonly   %>
   </div>
   <div class="col-md-4">
-  <%= f.input :pref_delivery_by, collection: DELIVERY_BY, label: 'Preferred Delivery by', include_blank: false, readonly: readonly  %>
+  <%= f.input :pref_delivery_by, collection: Shipper.all, label: 'Preferred Delivery by', include_blank: false, readonly: readonly  %>
   </div>
   <div class="col-md-4">
   <%= f.input :shipping_cost, label: 'Shipping Cost/Kg', readonly: readonly  %>

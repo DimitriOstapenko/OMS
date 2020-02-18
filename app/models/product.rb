@@ -86,5 +86,11 @@ class Product < ApplicationRecord
   def paid_orders
     Order.joins(:placements).where('placements.product_id': self.id).where(status: PAID_ORDER).sum(:quantity) rescue 0
   end
+
+# Return number of shipped orders for product  
+  def shipped_orders
+    Order.joins(:placements).where('placements.product_id': self.id).where(status: SHIPPED_ORDER).sum(:quantity) rescue 0
+  end
+  
   
 end

@@ -1,0 +1,11 @@
+<tr>
+  <td><%= shipper.name %></td>
+  <td><%= shipper.phone %></td>
+  <td><%= shipper.email %></td>
+  <td><%= shipper.website %></td>
+
+  <% if current_user.admin? %>
+       <td><%= link_to '<i class="glyphicon glyphicon-edit"></i>'.html_safe, edit_shipper_path(shipper) %> </td>
+       <td><%= link_to '<i class="glyphicon glyphicon-remove-sign"></i>'.html_safe, shipper, method: :delete, data: { confirm: "Are you sure you want to delete #{shipper.name} from the list of shippers?" } %> </td>
+  <% end %>
+ </tr>

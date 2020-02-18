@@ -1,0 +1,18 @@
+<%= simple_form_for @shipper do |f| %>
+  
+  <%= render 'shared/error_messages', object: f.object %>
+
+<div class="col-md-4 col-sm-5 col-md-offset-4 col-sm-offset-4">
+  <h3 class='display-1'><%= yield :title %></h3>
+<div class="well">
+
+    <%= f.input :name, autofocus: true, autocomplete: "name" %>
+    <%= f.input :phone, autofocus: true, autocomplete: "phone" %>
+    <%= f.input :email, autofocus: true, autocomplete: "email" %>
+    <%= f.input :website, autofocus: true, autocomplete: "website" %>
+
+    <%= f.button :submit, yield(:button_text), class: "btn btn-primary" %>
+
+</div>
+</div>
+<% end %>

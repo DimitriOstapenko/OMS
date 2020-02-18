@@ -169,7 +169,7 @@ module My
     pdf.text "Invoice # #{order.inv_number} Date: #{Date.today}  #{order.placements.count} products", align: :center, size: 12, style: :bold
 
     pdf.move_down 8.mm
-    pdf.text "<b>Transport:</b> #{order.delivery_by_str}", inline_format: true
+    pdf.text "<b>Transport:</b> #{order.delivery_by}", inline_format: true
     pdf.text "<b>Payment Terms:</b> #{order.terms_str}", inline_format: true
     pdf.text "<b>Pyment Method:</b> #{order.pmt_method_str}", inline_format: true
     pdf.move_down 5.mm

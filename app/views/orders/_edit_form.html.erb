@@ -11,7 +11,7 @@
   <%= f.input :pmt_method, collection: PAYMENT_METHODS, label: "Payment Method", include_blank: false %>
   </div>
   <div class="col-md-4">
-  <%= f.input :delivery_by, collection: DELIVERY_BY, include_blank: false, selected: delivery_by %>
+  <%= f.input :delivery_by, collection: Shipper.all, value_method: :name, include_blank: false %>
   </div>
   </div>
 
