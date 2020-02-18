@@ -22,7 +22,7 @@
           <th class="tbl_md, text-center"><%= sortable 'total', 'Total' %></th>
           <% end %>
           <th class="tbl_md, text-center"><%= sortable 'status', 'Status' %></th>
-          <% if current_user.staff? || current_user.production? %>
+          <% if current_user.admin? || current_user.staff? || current_user.production? %>
           <th class="tbl_sm"></th>
           <% colspan = 6 %>
           <% end %>

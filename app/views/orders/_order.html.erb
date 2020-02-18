@@ -14,7 +14,7 @@
         <td class="text-center"><%= to_currency order.total, locale: order.client.locale %></td>
         <% end %>
         <td class="text-center"> <%= order.status_str %> </td>
-        <% if current_user.staff? || current_user.production? %>
+        <% if current_user.admin? || current_user.staff? || current_user.production? %>
         <td class="text-center"> <%= link_to '<i class="glyphicon glyphicon-edit"></i>'.html_safe, edit_order_path(order), remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %> </td>
         <% end %>
 </tr>
