@@ -34,7 +34,7 @@
   </div>
 
   <div class="row" %>
-  <div class="col-md-3">
+  <div class="col-md-2">
   <%= f.input :scale  %>
   </div>
   <div class="col-md-3">
@@ -43,7 +43,10 @@
   <div class="col-md-3">
   <%= f.input :release_date, as: :date,  html5: true  %>
   </div>
-  <div class="col-md-3">
+  <div class="col-md-2">
+  <%= f.input :manual_price, collection: [['Yes', 'true'], ['No', 'false']], value: 'true', include_blank: false %>
+  </div>
+  <div class="col-md-2">
   <%= f.input :active, collection: [['Yes', 'true'], ['No', 'false']], value: 'true', include_blank: false %>
   </div>
   </div>
@@ -94,4 +97,31 @@
 
 <% end %>
 
+
+<script>
+$(document).ready(function() {
+  var manual_price = $("#edit_product_<%=@product.id%> select[name='product[manual_price]']");
+  var eu = document.getElementById("product_price_eu");
+  var eu2 = document.getElementById("product_price_eu2");
+  var eu3 = document.getElementById("product_price_eu3");
+  var eu4 = document.getElementById("product_price_eu4");
+  var eu5 = document.getElementById("product_price_eu5");
+  var eu6 = document.getElementById("product_price_eu6");
+  var usd = document.getElementById("product_price_usd");
+  var usd2 = document.getElementById("product_price_usd2");
+
+  if (manual_price.val() == 'true') { 
+    eu.style.backgroundColor = 'yellow';
+    eu2.style.backgroundColor = 'yellow';
+    eu3.style.backgroundColor = 'yellow';
+    eu4.style.backgroundColor = 'yellow';
+    eu5.style.backgroundColor = 'yellow';
+    eu6.style.backgroundColor = 'yellow';
+    usd.style.backgroundColor = 'yellow';
+    usd2.style.backgroundColor = 'yellow';
+  }
+}
+);
+
+</script>
 

@@ -79,9 +79,9 @@ class ProductsController < ApplicationController
 
   def apply_price_rules
     Price.all.each do |pr|
-      Product.where(scale: pr.scale).where(category: pr.category).update_all(price_eu: pr.price_eu, price_eu2: pr.price_eu2, price_eu3: pr.price_eu3,
-                                                                             price_eu4: pr.price_eu4, price_eu5: pr.price_eu5, price_eu6: pr.price_eu6,
-                                                                             price_usd: pr.price_usd, price_usd2: pr.price_usd2)
+      Product.where(scale: pr.scale).where(category: pr.category).where(manual_price: :false).
+        update_all(price_eu: pr.price_eu, price_eu2: pr.price_eu2, price_eu3: pr.price_eu3, price_eu4: pr.price_eu4, 
+                   price_eu5: pr.price_eu5, price_eu6: pr.price_eu6, price_usd: pr.price_usd, price_usd2: pr.price_usd2)
     end
     flash[:success] = "Price rules applied to all products"
     redirect_back(fallback_location: prices_path)
@@ -89,8 +89,9 @@ class ProductsController < ApplicationController
 
 private
   def product_params
-    params.require(:product).permit( :ref_code, :description, :brand, :category, :scale, :colour, :ctns, :release_date, :added_date, :weight, :quantity, :active, 
-                                     :price_eu, :price_eu2, :price_eu3, :price_eu4, :price_eu5, :price_eu6, :price_usd, :price_usd2, :supplier, :manager, :progress, :notes ) 
+    params.require(:product).permit( :ref_code, :description, :brand, :category, :scale, :colour, :ctns, :release_date, :added_date, 
+                                     :weight, :quantity, :active, :price_eu, :price_eu2, :price_eu3, :price_eu4, :price_eu5, :price_eu6, 
+                                     :price_usd, :price_usd2, :supplier, :manager, :progress, :manual_price,  :notes ) 
   end
 
   def sort_column
