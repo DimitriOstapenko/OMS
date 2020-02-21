@@ -1,0 +1,15 @@
+<tr>
+<td><%= link_to order.client.name, client_path(order.client_id), remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %></td>
+<td class="text-center"><%= link_to order.id, order_placements_path(order.id), remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %></td>
+<td class="text-center"><%= order.products.count %></td>
+<td class="text-center"><%= order.items_count %></td>
+<td class="text-center"><%= order.cre_date %></td>
+<td class="text-center"><%= order.terms_str %></td>
+<td class="text-center"> <%= link_to order.po_number, download_po_order_path(order) %> </td>
+<td class="text-center"><%= link_to order.inv_number, download_invoice_order_path(order) %></td>
+<td class="text-center"><%= order.delivery_by %></td>
+<td class="text-center"> <%= order.status_str %> </td>
+<td class="text-center"><%= to_currency order.total, locale: order.client.locale %></td>
+<td class="text-center"> <%= link_to '<i class="glyphicon glyphicon-edit"></i>'.html_safe, edit_order_path(order), remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %> </td>
+<td class="text-center"><%= link_to '<i class="glyphicon glyphicon-remove-sign"></i>'.html_safe, order, method: :delete, data: { confirm: "Are you sure you want to delete order # #{order.id}?" } %> </td>
+</tr>

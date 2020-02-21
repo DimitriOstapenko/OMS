@@ -66,6 +66,12 @@ class OrdersController < ApplicationController
     end
   end
 
+  def destroy
+    Order.find(params[:id]).destroy
+    flash[:success] = "Order deleted"
+    redirect_to orders_path
+  end
+
   def export
     @orders = Order.all
     send_data @orders.to_csv, filename: "orders-#{Date.today}.csv"

@@ -1,0 +1,6 @@
+<tfoot>
+  <tr>
+    <th colspan=8></th>
+    <th class="text-center"><%= to_currency @orders.sum(:total), locale: locale %></th>
+  </tr>
+</tfoot>

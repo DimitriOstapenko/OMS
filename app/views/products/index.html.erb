@@ -1,6 +1,10 @@
 <%= render "shared/modal" %>
 
 <% if @products.any? %>
+<% if current_user.staff? || current_user.admin? %>
+  <div style="float:right"><small>Inactive products are highlighted</small></div>
+<% end %>
+
 <table class="tbl2 table-hover table-striped table-bordered" >
   <thead>
       <tr>

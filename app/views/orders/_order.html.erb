@@ -1,20 +1,3 @@
 <tr>
-        <% unless @client.present? %>
-          <td><%= link_to order.client.name, client_path(order.client_id), remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %></td>
-        <% end %>
-        <td class="text-center"><%= link_to order.id, order_placements_path(order.id), remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %></td>
-        <td class="text-center"><%= order.products.count %></td>
-        <td class="text-center"><%= order.items_count %></td>
-        <td class="text-center"><%= order.cre_date %></td>
-        <td class="text-center"> <%= link_to order.po_number, download_po_order_path(order) %> </td>
-        <td class="text-center"><%= link_to order.inv_number, download_invoice_order_path(order) %></td>
-        <td class="text-center"><%= order.terms_str %></td>
-        <td class="text-center"><%= order.delivery_by %></td>
-        <% unless current_user.production? %>
-        <td class="text-center"><%= to_currency order.total, locale: order.client.locale %></td>
-        <% end %>
-        <td class="text-center"> <%= order.status_str %> </td>
-        <% if current_user.admin? || current_user.staff? || current_user.production? %>
-        <td class="text-center"> <%= link_to '<i class="glyphicon glyphicon-edit"></i>'.html_safe, edit_order_path(order), remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %> </td>
-        <% end %>
+  <%= render "#{current_user.role}_order", order: order %>
 </tr>

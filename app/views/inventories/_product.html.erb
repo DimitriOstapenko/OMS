@@ -7,8 +7,6 @@
 
       <% if current_user.staff? || current_user.production? %>
         <td class="text-center"><%= product.pending_orders %> </td>
-        <td class="text-center"><%= product.paid_orders %> </td>
-        <td class="text-center"><%= product.shipped_orders %> </td>
         <td class="text-center"> 
           <%= simple_form_for product, url: update_quantity_path(product), method: :post, html: { class: "form" } do |f| %>
           <div class="form-group" style="padding-top: 10px;">
@@ -18,8 +16,6 @@
         </td>
       <% elsif current_user.admin? %>
          <td class="text-center"><%= product.pending_orders %> </td>
-         <td class="text-center"><%= product.paid_orders %> </td>
-         <td class="text-center"><%= product.shipped_orders %> </td>
          <td class="text-center"><%= product.quantity %></td>
       <% end %>
    

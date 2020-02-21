@@ -1,59 +1,17 @@
 <%= render "shared/modal" %>
-<% locale = @client.locale rescue :fr %>
-<% colspan = 8 %>
 
 <% if @orders.any? %>
 <p></p>
 <table class="tbl2 table-hover table-striped table-bordered" >
-  <thead>
-      <tr>
-          <% unless @client.present? %>
-          <th class="tbl_lmd">Client</th>
-          <% end %>
-          <th class="tbl_sm, text-center"><%= sortable 'id', 'Order #' %></th>
-          <th class="tbl_sm, text-center">#Items</th> 
-          <th class="tbl_sm, text-center">#Pcs</th> 
-          <th class="tbl_md, text-center"><%= sortable 'created_at', 'Date' %></th>
-          <th class="tbl_md, text-center"><%= sortable 'po_number', 'P.O #' %></th>
-          <th class="tbl_md, text-center"><%= sortable 'inv_number', 'Invoice #' %></th>
-          <th class="tbl_md, text-center">Terms</th>
-          <th class="tbl_xmd, text-center">Transport</th>
-          <% unless current_user.production? %>
-          <th class="tbl_md, text-center"><%= sortable 'total', 'Total' %></th>
-          <% end %>
-          <th class="tbl_md, text-center"><%= sortable 'status', 'Status' %></th>
-          <% if current_user.admin? || current_user.staff? || current_user.production? %>
-          <th class="tbl_sm"></th>
-          <% colspan = 6 %>
-          <% end %>
-      </tr>
-  </thead>
-  <tbody>
+<%= render "#{current_user.role}_header" %>
+  
+<tbody>
 <%= render @orders, remote: device_is_desktop?  %>
-  </tbody>
+</tbody>
 
-<% unless current_user.production? %>
-<tfoot>
-  <tr>
-    <th colspan=<%= colspan %>></th>
-    <% if @client.present? %>
-    <th class="text-center"><%= to_currency @orders.sum(:total), locale: locale %></th>
-    <% else %>
-    <th></th>
-<!-- always in base currency: -->
-    <th colspan=2></th>
-    <th class="text-center"><%= to_currency @grand_total %></th>
-    <% end %>
-    <th colspan=2></th>
-  </tr>
-</tfoot>
-<% end %>
+<%= render "#{current_user.role}_footer" %>  
+
 </table>
-
-<p>&nbsp;</p>
-<% if false  %>
-<%= button_to "Add Product To Cart", new_order_path, class: "btn btn-primary col-md-2", method: :get, remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window'  %>
-<% end %>
 
 <div class="row">
 <div class="bottom_nav">

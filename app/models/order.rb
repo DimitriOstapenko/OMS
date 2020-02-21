@@ -26,7 +26,7 @@ class Order < ApplicationRecord
   validates :client_id, presence: true
   validates_with EnoughProductsValidator
 
-  has_many :placements
+  has_many :placements, :dependent => :destroy
   has_many :products, through: :placements
 
   attr_accessor :quantity # to get quantity from form

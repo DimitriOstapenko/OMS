@@ -1,7 +1,7 @@
 <% cl = nil %>
 <% if current_user.client? %>
    <% cl = 'table-success' if in_cart?(product.id)  %>
-<% elsif current_user.staff? %>
+<% elsif current_user.staff? || current_user.admin? %>
    <% cl = 'table-warning' unless product.active? %>
 <% end %>
 
