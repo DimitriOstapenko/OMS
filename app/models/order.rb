@@ -131,6 +131,7 @@ class Order < ApplicationRecord
     self.products.count rescue 0
   end
 
+# Total items, all products  
   def items_count
     self.placements.sum(:quantity)
   end

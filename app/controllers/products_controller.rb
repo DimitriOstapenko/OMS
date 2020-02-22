@@ -87,6 +87,12 @@ class ProductsController < ApplicationController
     redirect_back(fallback_location: prices_path)
   end
 
+  def show_pending_orders
+    @product = Product.find(params[:id])
+    @orders = Order.joins(:placements).where('placements.product_id': @product.id).where(status: PENDING_ORDER).paginate(page: params[:page])
+    render 'inventories/show_orders'
+  end
+
 private
   def product_params
     params.require(:product).permit( :ref_code, :description, :brand, :category, :scale, :colour, :ctns, :release_date, :added_date, 

@@ -32,7 +32,10 @@ Rails.application.routes.draw do
 
   get '/self_test', to: 'self_test#index', as: :self_test
 
-  resources :products, :suppliers, :managers, :shippers, :users, :prices, :table_notes
+  resources :suppliers, :managers, :shippers, :users, :prices, :table_notes
+  resources :products do
+    get 'show_pending_orders', on: :member 
+  end
   resources :orders do
     get 'download_po', on: :member
     get 'download_invoice', on: :member

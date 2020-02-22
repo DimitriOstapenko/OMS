@@ -1,21 +1,23 @@
+<%= render "shared/modal" %>
 <tr>
       <td class="text-center"><%= link_to product.ref_code, product, remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %></td> 
       <td class="text-center"><%= product.scale_str %></td> 
       <td><%= product.description %></td>
       <td class="text-center"><%= product.category_str %></td> 
       <td class="text-center"><%= product.brand_str %></td> 
+      <td class="text-center"><%= link_to product.pending_orders, show_pending_orders_product_path(product) ,
+                 remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %></td>
 
       <% if current_user.staff? || current_user.production? %>
-        <td class="text-center"><%= product.pending_orders %> </td>
         <td class="text-center"> 
+          <% id = "product_#{product.id}" %>
           <%= simple_form_for product, url: update_quantity_path(product), method: :post, html: { class: "form" } do |f| %>
           <div class="form-group" style="padding-top: 10px;">
-                 <%= f.input :quantity, as: :string, label: false, input_html: { onchange: 'this.form.submit();'}  %>
+                 <%= f.input :quantity, as: :string, label: false, input_html: { onchange: 'this.form.submit();', id: id }  %>
           </div>
           <% end %>
         </td>
       <% elsif current_user.admin? %>
-         <td class="text-center"><%= product.pending_orders %> </td>
          <td class="text-center"><%= product.quantity %></td>
       <% end %>
    

@@ -77,20 +77,20 @@ class Product < ApplicationRecord
     products
   end
 
-# Return number of pending orders for product  
+# Return number of pending orders for the product  
   def pending_orders
+    Order.joins(:placements).where('placements.product_id': self.id).where(status: PENDING_ORDER).reorder('').group(:order_id).pluck(:order_id).count rescue 0
+  end
+
+# How many pcs of the product were ordered across all orders  
+  def total_pcs
     Order.joins(:placements).where('placements.product_id': self.id).where(status: PENDING_ORDER).sum(:quantity) rescue 0
   end
 
-# Return number of paid orders for product  
-  def paid_orders
-    Order.joins(:placements).where('placements.product_id': self.id).where(status: PAID_ORDER).sum(:quantity) rescue 0
+# Number of pcs of current product in given order  
+  def order_pcs(order_id)
+    Order.joins(:placements).where('placements.product_id': self.id).where(status: PENDING_ORDER).where('orders.id': order_id).pluck(:quantity)[0] rescue 0
   end
 
-# Return number of shipped orders for product  
-  def shipped_orders
-    Order.joins(:placements).where('placements.product_id': self.id).where(status: SHIPPED_ORDER).sum(:quantity) rescue 0
-  end
-  
-  
+
 end
