@@ -89,8 +89,44 @@ class ProductsController < ApplicationController
 
   def show_pending_orders
     @product = Product.find(params[:id])
-    @orders = Order.joins(:placements).where('placements.product_id': @product.id).where(status: PENDING_ORDER).paginate(page: params[:page])
-    render 'inventories/show_orders'
+    @placements = @product.pending_order_placements.paginate(page: params[:page])
+    render 'inventories/show_pending_orders'
+  end
+  
+  def show_back_orders
+    @product = Product.find(params[:id])
+    @placements = @product.back_order_placements.paginate(page: params[:page])
+    render 'inventories/show_back_orders'
+  end
+
+# Set Placements across all orders for this product to Back Order  
+  def back_order
+    @product = Product.find(params[:id])
+    @product.pending_order_placements.each do |pl|
+       pl.update_attribute(:status, BACKORDER_PLACEMENT)
+    end 
+    flash[:info] = "Back order created for '#{@product.ref_code}'"
+    redirect_to inventories_path
+  end
+
+# Reset back order status for all placements with the product to pending
+  def clear_back_order
+    @product = Product.find(params[:id])
+    @product.back_order_placements.each do |pl|
+       pl.update_attribute(:status, PENDING_PLACEMENT)
+    end
+    flash[:info] = "All back orders reset for '#{@product.ref_code}'"
+    redirect_to inventories_path
+  end
+
+# Set status of all placements on back order to shipped
+  def set_back_order_to_shipped
+    @product = Product.find(params[:id])
+    @product.back_order_placements.each do |pl|
+       pl.update_attribute(:status, SHIPPED_PLACEMENT)
+    end
+    flash[:info] = "All back orders for '#{@product.ref_code}' set to 'Shipped'"
+    redirect_to inventories_path
   end
 
 private

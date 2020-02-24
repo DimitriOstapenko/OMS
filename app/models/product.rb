@@ -76,21 +76,30 @@ class Product < ApplicationRecord
     products = products.filter_by_title_or_refcode(params[:findstr]) if params[:findstr]
     products
   end
-
-# Return number of pending orders for the product  
-  def pending_orders
-    Order.joins(:placements).where('placements.product_id': self.id).where(status: PENDING_ORDER).reorder('').group(:order_id).pluck(:order_id).count rescue 0
+  
+# Return pending orders for the product  
+  def pending_order_placements
+    self.placements.where(status: PENDING_PLACEMENT)
   end
 
-# How many pcs of the product were ordered across all orders  
-  def total_pcs
-    Order.joins(:placements).where('placements.product_id': self.id).where(status: PENDING_ORDER).sum(:quantity) rescue 0
+# Return placements marked as back ordered  
+  def back_order_placements
+    self.placements.where(status: BACKORDER_PLACEMENT)
   end
 
-# Number of pcs of current product in given order  
-  def order_pcs(order_id)
-    Order.joins(:placements).where('placements.product_id': self.id).where(status: PENDING_ORDER).where('orders.id': order_id).pluck(:quantity)[0] rescue 0
+# Return shipped orders for this product  
+  def shipped_orders
+    self.orders.where(status: SHIPPED_ORDER)
   end
 
+# Return total number of this product in placements with given status
+  def total_pcs(status = PENDING_PLACEMENT)  
+    self.placements.where(status: status).sum(:quantity) rescue 0
+  end
+
+# Return total number of back ordered pieces
+  def back_ordered_pcs
+    self.total_pcs(BACKORDER_PLACEMENT)
+  end  
 
 end

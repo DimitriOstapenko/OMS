@@ -5,8 +5,19 @@
       <td><%= product.description %></td>
       <td class="text-center"><%= product.category_str %></td> 
       <td class="text-center"><%= product.brand_str %></td> 
-      <td class="text-center"><%= link_to product.pending_orders, show_pending_orders_product_path(product) ,
-                 remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %></td>
+      <td class="text-center">
+      <% if product.pending_order_placements.count > 0 %>
+        <%= link_to "#{product.pending_order_placements.count}/#{product.total_pcs}", show_pending_orders_product_path(product),
+            remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %>
+      <% end %>
+      </td>
+
+      <td class="text-center">
+      <% if product.back_ordered_pcs > 0 %>
+        <%= link_to "#{product.back_order_placements.count}/#{product.back_ordered_pcs}", show_back_orders_product_path(product),
+            remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %>
+      <% end %>
+      </td>
 
       <% if current_user.staff? || current_user.production? %>
         <td class="text-center"> 

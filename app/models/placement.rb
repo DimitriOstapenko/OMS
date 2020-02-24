@@ -5,7 +5,7 @@ class Placement < ApplicationRecord
 
   validates :quantity, numericality: { only_integer: true, greater_than: 0 }
 
-  after_save :decrement_product_quantity!
+  after_create :decrement_product_quantity!
 
   def decrement_product_quantity!
     self.product.decrement!(:quantity, quantity)
@@ -13,6 +13,10 @@ class Placement < ApplicationRecord
 
   def ptotal
     self.quantity * self.price
+  end
+
+  def status_str
+    PLACEMENT_STATUSES.invert[self.status] 
   end
 
 end

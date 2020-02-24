@@ -25,6 +25,7 @@
           <th class="tbl_sm, text-center">Price</th>
           <th class="tbl_md, text-center">Quantity</th>
           <th class="tbl_md, text-center">Total</th>
+          <th class="tbl_md, text-center">Status</th>
       </tr>
   </thead>
   <tbody>
@@ -35,6 +36,7 @@
       <th colspan=6></th>
       <th class="text-center"><%= @order.items_count %></th>
       <th class="text-center"><%= to_currency @order.total_price, locale: @client.locale %></th>
+      <th></th>
     </tr>
   </tfoot>
 </table>
