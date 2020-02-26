@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_23_202141) do
+ActiveRecord::Schema.define(version: 2020_02_25_110102) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -91,6 +91,16 @@ ActiveRecord::Schema.define(version: 2020_02_23_202141) do
     t.index ["product_id"], name: "index_placements_on_product_id"
   end
 
+  create_table "ppos", force: :cascade do |t|
+    t.string "name"
+    t.date "date"
+    t.integer "status"
+    t.bigint "product_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_ppos_on_product_id", unique: true
+  end
+
   create_table "prices", force: :cascade do |t|
     t.integer "scale", default: 18
     t.decimal "price_eu"
@@ -140,7 +150,6 @@ ActiveRecord::Schema.define(version: 2020_02_23_202141) do
   create_table "reports", force: :cascade do |t|
     t.string "name"
     t.integer "client_id"
-    t.string "rtype"
     t.integer "timeframe"
     t.datetime "sdate"
     t.datetime "edate"
@@ -149,6 +158,7 @@ ActiveRecord::Schema.define(version: 2020_02_23_202141) do
     t.datetime "updated_at", null: false
     t.integer "detail"
     t.integer "category"
+    t.integer "status", default: 0
   end
 
   create_table "sessions", force: :cascade do |t|
@@ -215,5 +225,6 @@ ActiveRecord::Schema.define(version: 2020_02_23_202141) do
   add_foreign_key "orders", "clients"
   add_foreign_key "placements", "orders"
   add_foreign_key "placements", "products"
+  add_foreign_key "ppos", "products"
   add_foreign_key "users", "clients"
 end

@@ -6,7 +6,7 @@
 <% error_icon = '<font color=red><i class="glyphicon glyphicon-exclamation-sign"></i></font>'.html_safe %>
 
 <ul>
-<h4> Following problems were found in clients table: </h4>
+<h4> Following issues were found in clients table: </h4>
   <ul> <%= @empty_names.any? ? error_icon:ok_icon %> Clients with missing names: <%= render 'show_5_clients', collection: @empty_names %> </ul>
   <ul> <%= @empty_addresses.any? ? error_icon:ok_icon %> Clients with empty address field: <%= render 'show_5_clients', collection:  @empty_addresses %> </ul>
   <ul> <%= @empty_countries.any? ? error_icon:ok_icon %> Clients with missing country field: <%= render 'show_5_clients', collection: @empty_countries %> </ul>
@@ -16,7 +16,7 @@
 <p>&nbsp;</p>
 
 <ul>
-  <h4> Following problems were found in products table: </h4>
+  <h4> Following issues were found in products table: </h4>
   <ul> <%= @empty_refcodes.any? ? error_icon:ok_icon %> Products with missing reference code: <%= render 'show_5_products', collection:  @empty_refcodes %>  </ul>
   <ul> <%= @empty_descr.any? ? error_icon:ok_icon %> Products with missing description: <%= render 'show_5_products', collection:  @empty_descr %>  </ul>
   <ul> <%= @empty_scales.any? ? error_icon:ok_icon %> Products with missing scale: <%= render 'show_5_products', collection: @empty_scales %> </ul>

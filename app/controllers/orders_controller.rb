@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
 
-  include My::Forms
+  include My::Docs
   helper_method :sort_column, :sort_direction
 
   before_action :logged_in_user

@@ -1,6 +1,6 @@
 class ReportsController < ApplicationController
   
-  include My::Forms
+  include My::Docs
   require 'fileutils'
 
   before_action :logged_in_user
@@ -112,7 +112,7 @@ class ReportsController < ApplicationController
 
 private
   def report_params
-    params.require(:report).permit(:name, :filename, :rtype, :category, :client_id, :sdate, :edate, :timeframe, :detail)
+    params.require(:report).permit(:name, :filename, :status, :category, :client_id, :sdate, :edate, :timeframe, :detail)
   end
 
   def sort_column
@@ -128,8 +128,7 @@ private
     sdate = report.sdate || '1900-01-01'.to_date
     orders = Order.where(created_at: (sdate..report.edate))
     orders = orders.where(client_id: report.client_id) if report.client_id
-    orders = orders.where(status: (PENDING_ORDER..SHIPPED_ORDER)) if report.rtype == PURCHASES_REPORT
-    orders = orders.where(status: PAID_ORDER) if report.rtype == SALES_REPORT
+    orders = orders.where(status: report.status) 
     return orders
   end
 

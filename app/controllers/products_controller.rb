@@ -1,5 +1,7 @@
 class ProductsController < ApplicationController
   
+  include My::Docs
+
 #  before_action :logged_in_user   # if this is enabled, message about activation email is not shown because of redirect
   before_action :admin_or_staff_user, only: [:new, :create, :edit, :update]
   before_action :admin_user, only: [:destroy]
@@ -99,12 +101,14 @@ class ProductsController < ApplicationController
     render 'inventories/show_back_orders'
   end
 
-# Set Placements across all orders for this product to Back Order  
-  def back_order
+# Set Placements across all orders for this product to Back Order, Generate PPO
+  def set_back_order
     @product = Product.find(params[:id])
     @product.pending_order_placements.each do |pl|
        pl.update_attribute(:status, BACKORDER_PLACEMENT)
     end 
+    pdf = build_ppo_pdf(@product) # in My::Docs
+    pdf.render_file @product.ppo.filespec
     flash[:info] = "Back order created for '#{@product.ref_code}'"
     redirect_to inventories_path
   end
@@ -128,6 +132,25 @@ class ProductsController < ApplicationController
     flash[:info] = "All back orders for '#{@product.ref_code}' set to 'Shipped'"
     redirect_to inventories_path
   end
+
+# Build PPO; placements are always present here
+def download_ppo 
+  @product = Product.find(params[:id])
+  
+  if @product.ppo_present?
+    send_file @product.ppo.filespec,
+      filename: @product.ppo.filename,
+      type: "application/pdf",
+      disposition: :attachment
+
+    flash[:info] =  "PPO downloaded"
+  else 
+    pdf = build_ppo_pdf(@product)   # in My::Docs
+    pdf.render_file @product.ppo.filespec
+    flash[:info] = 'PPO Regenerated'
+    redirect_to inventories_path
+  end
+end
 
 private
   def product_params

@@ -16,7 +16,7 @@ class Placement < ApplicationRecord
   end
 
   def status_str
-    PLACEMENT_STATUSES.invert[self.status] 
+    PLACEMENT_STATUSES.invert[self.status].to_s
   end
 
 end

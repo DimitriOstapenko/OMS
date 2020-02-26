@@ -2,14 +2,15 @@
 <%= simple_form_for @report do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
 
+  <%= f.input :category, as: :hidden %>
   <div class="row" %>
-    <div class="col-md-6">
-      <%= f.input :rtype, collection: REPORT_TYPES, label: "Include ", include_blank: 'Sales And Purchases'  %>
+   <div class="col-md-6">
+       <%= f.input :client_id, collection: get_clients_with_orders, include_blank: 'All' %> 
+   </div>
+   <div class="col-md-6">
+      <%= f.input :status, collection: ORDER_STATUSES, label: "Order Status ", include_blank: false  %>
     </div>
 
-    <div class="col-md-6">
-      <%= f.input :detail, collection: REPORT_DETAILS, label: "Report Detail",  include_blank: false %> 
-    </div>
   </div>
 
   <div class="row" >
@@ -17,7 +18,7 @@
        <%= f.input :timeframe, collection: REPORT_TIMEFRAMES, include_blank: 'All Time' %>
     </div>
     <div class="col-md-6">
-       <%= f.input :client_id, collection: get_clients_with_orders, include_blank: 'All' %> 
+      <%= f.input :detail, collection: REPORT_DETAILS, label: "Report Detail",  include_blank: false %> 
     </div>
   </div>
 

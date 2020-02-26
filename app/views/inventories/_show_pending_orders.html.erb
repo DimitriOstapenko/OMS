@@ -32,7 +32,7 @@
 <% disabled = generate_button_disabled = @product.back_ordered_pcs > 1 %>
 <div class="row">
   <div class="col-md-4">
-<%= button_to "Create Back Order", back_order_product_path, class: "btn btn-primary",  title: '* All products on this page will be put on back order', disabled: disabled %>
+<%= button_to "Create Back Order", set_back_order_product_path, class: "btn btn-primary",  title: '* All products on this page will be put on back order', disabled: disabled %>
   </div>
   <div class="col-md-4">
     <%= button_to "Clear Back Order", clear_back_order_product_path, class: "btn btn-info", disabled: !disabled %>
@@ -44,7 +44,7 @@
 
 <div class="modal-footer">
   <% if @product.back_ordered_pcs > 0 %>
-    <small>* There's active back order for this product. New back order can be generated when all products in this backorder are shipped and order is cleared</small>
+    <small>* There's active back order for this product. New back order can be created when all products in active order are shipped and order is cleared</small>
   <% end %>
 </div>
 

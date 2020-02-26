@@ -7,14 +7,13 @@ class Report < ApplicationRecord
 
         validates :name, :filename, presence: true, length: { maximum: 30 }
         validates :timeframe, :client_id, :detail,  numericality: { only_integer: true }, allow_blank: true
-        validates :sdate, presence: true, if: Proc.new { |a| a.rtype == DAY_REPORT || a.rtype == DRANGE_REPORT}
-        validates :edate, presence: true, if: Proc.new { |a| a.rtype == DRANGE_REPORT}
+        validates :sdate, presence: true, if: Proc.new { |a| a.timeframe == DAY_REPORT || a.timeframe == DRANGE_REPORT}
+        validates :edate, presence: true, if: Proc.new { |a| a.timeframe == DRANGE_REPORT}
 
   def set_attributes!
-    self.rtype = 'ALL' unless self.rtype?
     sdate = self.sdate.to_date rescue nil
     nextid = Report.maximum(:id).next rescue 1
-    self.name = "#{self.rtype}-#{Date.today}-#{nextid}"
+    self.name = "#{Date.today}-#{nextid}"
     self.filename = self.name+'.pdf'
     old_report = Report.find_by(filename: self.filename)
     if old_report.present?
@@ -43,8 +42,8 @@ class Report < ApplicationRecord
     sprintf("%.2f", File.size(self.filespec).to_f/2**20) rescue 0
   end
 
-  def rtype_str
-    REPORT_TYPES.invert[self.rtype] || 'Sales And Purchases'
+  def status_str
+    ORDER_STATUSES.invert[self.status] || 'All'
   end
 
   def category_str

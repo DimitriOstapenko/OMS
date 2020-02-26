@@ -3,7 +3,7 @@ module My
 #-------------------------------------------      
 # All Pdf forms/documents are generated here  
 #-------------------------------------------
-  module Forms
+  module Docs
 
     require 'prawn'
     require 'prawn/table'
@@ -16,28 +16,22 @@ module My
      return pdf
   end
 
-# Generate Reports by Client 
+# Generate Client Report
   def build_client_report( report, orders )
     client_name = report.client.name rescue 'All'
-    if report.rtype == SALES_REPORT 
-      ref_doc_name = 'Invoice'
-    else
-      ref_doc_name = 'P.O.'
-    end
 
     pdf = Prawn::Document.new( :page_size => "LETTER", margin: [10.mm,10.mm,20.mm,20.mm])
     pdf.font "Helvetica"
-    pdf.text "#{report.detail_str} :  #{report.rtype_str} - #{report.timeframe_str} Report", align: :center, size: 15, style: :bold
+    pdf.text "#{report.detail_str} :  #{report.status_str} Orders - #{report.timeframe_str}", align: :center, size: 15, style: :bold
     pdf.text "#{report.daterange} #{orders.count} orders; Client: #{client_name}; Fx USD/EUR: #{get_usd_euro_fx}", align: :center, size: 10, style: :bold
   
     pdf.move_down 5.mm
     pdf.font_size 9
-    rows =  [[ "Client", "Order#", "Items", "Pcs", "Date", "Status", ref_doc_name, "Total"]]
+    rows =  [[ "Client", "Order#", "Items", "Pcs", "Date", "Status", "Invoice", "Total"]]
     
     ttl_products = ttl_amount = ttl_items = 0
     orders.all.each do |o|
-      ref_doc = o.inv_number if report.rtype == SALES_REPORT
-      ref_doc ||= o.po_number
+      ref_doc = o.inv_number 
       rows += [["<b>#{o.client.name}</b>", o.id, o.products.count, o.items_count, o.created_at.to_date, o.status_str.to_s, ref_doc, number_to_currency(o.total,locale: o.client.locale)]]
       if report.detail == ITEMIZED_REPORT
          o.placements.each do |pl|
@@ -69,6 +63,44 @@ module My
         end
     end
 
+    return pdf
+  end
+
+  def build_ppo_pdf( product )
+    product.create_ppo unless product.ppo.present?
+    pdf = Prawn::Document.new( :page_size => "LETTER", margin: [10.mm,10.mm,20.mm,20.mm])
+    pdf.font "Helvetica"
+    pdf.font_size 9
+ 
+    pdf.text_box APD_CONTACT, :at => [0.mm,240.mm],
+         :width => 90.mm,
+         :height => 45.mm,
+         :overflow => :shrink_to_fit,
+         :min_font_size => 9,
+         :inline_format => true
+    pdf.move_down 50.mm
+    pdf.text "#{product.ref_code}: #{product.description} : #{product.ppo.name} Created #{product.ppo.date}", align: :left, size: 10, style: :bold
+
+    rows =  [[ '#', 'Order#', 'Client', 'Ordered', 'Quantity', 'Status' ]]
+
+    num = 0
+    product.back_order_placements.each do |pl|
+      num +=1
+      rows += [[num, pl.order.id, pl.order.client_name, pl.order.cre_date, pl.quantity, pl.status_str ]] 
+    end
+    rows += [['','','','', product.back_ordered_pcs, '' ]]
+
+    pdf.table rows do |t|
+        t.cells.border_width = 0
+        t.column_widths = [20.mm, 20.mm, 70.mm, 25.mm, 20.mm, 30.mm ]
+        t.header = true
+        t.row(0).font_style = t.row(-1).font_style = :bold
+        t.cells.padding = 3
+        t.cells.style do |c|
+           c.background_color = c.row.odd? ? 'FFFFFF' : 'EEEEEE'
+        end
+    end
+    
     return pdf
   end
 

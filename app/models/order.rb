@@ -1,7 +1,7 @@
 class Order < ApplicationRecord
 
   require 'csv'
-  include My::Forms
+  include My::Docs
 
   belongs_to :client
 

@@ -4,6 +4,7 @@ class Product < ApplicationRecord
 
   has_many :placements
   has_many :orders, through: :placements
+  has_one  :ppo
 
   default_scope -> { order(ref_code: :asc, release_date: :asc) }
 
@@ -102,4 +103,8 @@ class Product < ApplicationRecord
     self.total_pcs(BACKORDER_PLACEMENT)
   end  
 
+# Is ppo object in DB and pdf file in dierctory?  
+  def ppo_present?
+    self.ppo.exists?
+  end
 end
