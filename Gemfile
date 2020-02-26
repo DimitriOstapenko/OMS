@@ -8,6 +8,7 @@ gem 'rails', '~> 5.2.3'
 gem 'pg'
 gem 'puma', '~> 3.11'
 gem 'devise', '~> 4.7', '>= 4.7.1'
+gem 'nokogiri', '~> 1.10', '>= 1.10.8'
 
 #gem 'bootstrap', '~> 4.4', '>= 4.4.1'
 gem 'bootstrap-sass',       '~> 3.4.1'
