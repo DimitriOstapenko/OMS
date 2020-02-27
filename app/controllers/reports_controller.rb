@@ -10,7 +10,7 @@ class ReportsController < ApplicationController
   helper_method :sort_column, :sort_direction
 
   def index
-    @category = params[:category]
+    @category = params[:category] || 1
     @reports = Report.where(category: @category)
     @reports = @reports.reorder(sort_column + ' ' + sort_direction, "created_at desc").paginate(page: params[:page])
   end
@@ -23,7 +23,7 @@ class ReportsController < ApplicationController
     @report = Report.new(report_params)
     year = params[:date][:year]
     month  = params[:date][:month]
-
+    
     case @report.timeframe
         when 1   # Day
                  @report.edate = @report.sdate + 24.hours
@@ -47,7 +47,7 @@ class ReportsController < ApplicationController
         end
 
        if flash[:danger]
-          redirect_to reports_path
+          redirect_back(fallback_location: reports_path)
        elsif @report.save
           redirect_to export_report_path(@report)
        else
@@ -88,10 +88,12 @@ class ReportsController < ApplicationController
     if @orders.any?
        @pdf = build_report( @report, @orders )
        @pdf.render_file @report.filespec
-       redirect_to reports_path, alert: "New report created. Contains #{@orders.count} orders "
+       flash[:info] = "New report created. Contains #{@orders.count} orders "
+       redirect_to reports_path(category: @report.category) 
     else
       @report.destroy
-      redirect_to reports_path, alert: "No report created. No orders were found matching given criteria"
+      flash[:danger] = "No report created. No orders were found matching given criteria"
+      redirect_to reports_path(category: @report.category)
     end
   end
 
@@ -112,7 +114,7 @@ class ReportsController < ApplicationController
 
 private
   def report_params
-    params.require(:report).permit(:name, :filename, :status, :category, :client_id, :sdate, :edate, :timeframe, :detail)
+    params.require(:report).permit(:name, :filename, :status, :category, :client_id, :product_id, :sdate, :edate, :timeframe, :detail)
   end
 
   def sort_column
@@ -127,7 +129,11 @@ private
   def get_orders(report)
     sdate = report.sdate || '1900-01-01'.to_date
     orders = Order.where(created_at: (sdate..report.edate))
-    orders = orders.where(client_id: report.client_id) if report.client_id
+    if report.category == CLIENT_REPORT 
+      orders = orders.where(client_id: report.client_id) if report.client_id
+    elsif report.category == PRODUCT_REPORT && report.product_id
+      orders = report.product.orders 
+    end
     orders = orders.where(status: report.status) 
     return orders
   end

@@ -40,6 +40,9 @@
 
 /public/assets
 /reports/*.pdf
+/pos/*.pdf
+/ppos/*.pdf
+/invoices/*.pdf
 /public/uploads
 .byebug_history
 

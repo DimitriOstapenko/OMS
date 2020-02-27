@@ -25,6 +25,10 @@ class Report < ApplicationRecord
   def client
     Client.find(self.client_id) rescue nil
   end
+
+  def product
+    Product.find(self.product_id) rescue nil
+  end
   
   def client_code
     self.client.code rescue 'All'

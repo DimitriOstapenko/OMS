@@ -6,7 +6,7 @@
   <h3 class='display-1'>New <%= @report.category_str %> Report</h3>
 <div class="well">
 
-  <%= render 'form' %>
+  <%= render "form#{@report.category}" %>
 
 </div>
 </div>

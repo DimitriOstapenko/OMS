@@ -10,29 +10,27 @@ module My
     require 'prawn/measurement_extensions'
     include ActionView::Helpers::NumberHelper
 
-# Reports wrapper
+# Generate Client/Product Report
   def build_report( report, orders )
-     pdf = build_client_report( report, orders )
-     return pdf
-  end
-
-# Generate Client Report
-  def build_client_report( report, orders )
     client_name = report.client.name rescue 'All'
 
     pdf = Prawn::Document.new( :page_size => "LETTER", margin: [10.mm,10.mm,20.mm,20.mm])
     pdf.font "Helvetica"
-    pdf.text "#{report.detail_str} :  #{report.status_str} Orders - #{report.timeframe_str}", align: :center, size: 15, style: :bold
-    pdf.text "#{report.daterange} #{orders.count} orders; Client: #{client_name}; Fx USD/EUR: #{get_usd_euro_fx}", align: :center, size: 10, style: :bold
+    pdf.text "#{report.detail_str} #{report.category_str} Report: #{report.status_str} Orders - #{report.timeframe_str}", align: :center, size: 15, style: :bold
+
+    cat = (report.category == PRODUCT_REPORT) ? "Product: #{report.product.ref_code}" : "Client: #{client_name}"
+    pdf.text "#{report.daterange} #{orders.count} orders; #{cat}; Fx USD/EUR: #{get_usd_euro_fx}", align: :center, size: 10, style: :bold
   
     pdf.move_down 5.mm
     pdf.font_size 9
-    rows =  [[ "Client", "Order#", "Items", "Pcs", "Date", "Status", "Invoice", "Total"]]
+    client_hdr = (report.category == PRODUCT_REPORT) ? 'Client' : ''
+    rows =  [[ client_hdr, "Order", "Items", "Pcs", "Date", "Status", "Invoice", "Total"]]
     
     ttl_products = ttl_amount = ttl_items = 0
     orders.all.each do |o|
       ref_doc = o.inv_number 
-      rows += [["<b>#{o.client.name}</b>", o.id, o.products.count, o.items_count, o.created_at.to_date, o.status_str.to_s, ref_doc, number_to_currency(o.total,locale: o.client.locale)]]
+      client_name = (report.category == PRODUCT_REPORT) ? o.client.name : ''
+      rows += [["<b>#{client_name}</b>", o.id, o.products.count, o.items_count, o.created_at.to_date, o.status_str.to_s, ref_doc, number_to_currency(o.total,locale: o.client.locale)]]
       if report.detail == ITEMIZED_REPORT
          o.placements.each do |pl|
            price  = number_to_currency(pl.price, locale: o.client.locale)

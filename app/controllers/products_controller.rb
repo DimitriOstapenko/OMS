@@ -119,7 +119,7 @@ class ProductsController < ApplicationController
     @product.back_order_placements.each do |pl|
        pl.update_attribute(:status, PENDING_PLACEMENT)
     end
-    flash[:info] = "All back orders reset for '#{@product.ref_code}'"
+    flash[:info] = "All items in back order for #{@product.ref_code} were reset to pending"
     redirect_to inventories_path
   end
 
@@ -129,7 +129,7 @@ class ProductsController < ApplicationController
     @product.back_order_placements.each do |pl|
        pl.update_attribute(:status, SHIPPED_PLACEMENT)
     end
-    flash[:info] = "All back orders for '#{@product.ref_code}' set to 'Shipped'"
+    flash[:info] = "All items in back order for #{@product.ref_code} set to Shipped"
     redirect_to inventories_path
   end
 
@@ -147,7 +147,7 @@ def download_ppo
   else 
     pdf = build_ppo_pdf(@product)   # in My::Docs
     pdf.render_file @product.ppo.filespec
-    flash[:info] = 'PPO Regenerated'
+    flash[:info] = 'PPO Regenerated. You can now download it.'
     redirect_to inventories_path
   end
 end

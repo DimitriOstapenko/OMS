@@ -1,0 +1,106 @@
+<%= simple_form_for @report do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <%= f.input :category, as: :hidden %>
+  <div class="row" %>
+   <div class="col-md-6">
+       <%= f.input :product_id, collection: Product.all, value_method: :id, label_method: :ref_code_and_descr, include_blank: 'Please Select' %> 
+   </div>
+   <div class="col-md-6">
+      <%= f.input :status, collection: ORDER_STATUSES, label: "Order Status ", include_blank: false  %>
+    </div>
+
+  </div>
+
+  <div class="row" >
+    <div class="col-md-6">
+       <%= f.input :timeframe, collection: REPORT_TIMEFRAMES, include_blank: 'All Time' %>
+    </div>
+    <div class="col-md-6">
+      <%= f.input :detail, collection: REPORT_DETAILS, label: "Report Detail",  include_blank: false %> 
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6" id='sdate' style="display:none;">
+      <%= f.input :sdate, as: :date, label: 'Start Date', html5: true  %>
+    </div>
+    <div class="col-md-6" id="edate" style="display:none;">
+      <%= f.input :edate, as: :date, label: 'To Date', html5: true  %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6" id="year" style="display:none;">
+       <%= f.label "Year" %>
+       <%= select_year Time.now, {start_year: Time.now.year-10, end_year: Time.now.year}, class: "form-control" %>
+    </div>
+    <div class="col-md-6" id="month" style="display:none;">
+       <%= f.label "Month" %>
+       <%= select_month Time.now, {}, class: "form-control" %>
+    </div>
+  </div>
+
+  <p>&nbsp; </p>
+  <% unless action_name == 'show' %>
+    <%= f.submit yield(:button_text), class: "btn btn-primary" %>
+  <% end %>
+
+<% end %>
+
+
+<script>
+$(document).ready(function () {
+  
+    $.fn.select2.defaults.set( "theme", "classic" );
+    $("#report_product_id").select2();
+
+    $('#new_report select[name="report[timeframe]"]').change(function () {
+        switch ( $('#new_report select[name="report[timeframe]"]').val() ) {
+                case "1":               // Daily
+                        $('#edate').hide();
+                        $('#sdate').show();
+                        $('#year').hide();
+                        $('#month').hide();
+                        break;
+                case "2":               // Week 
+                        $('#edate').hide();
+                        $('#sdate').show();
+                        $('#year').hide();
+                        $('#month').hide();
+                        break;
+                case "3":               // Month
+                        $('#sdate').hide();
+                        $('#edate').hide();
+                        $('#year').show();
+                        $('#month').show();
+                        break;
+                case "4":               // Quarter 
+                        $('#sdate').hide();
+                        $('#edate').hide();
+                        $('#year').hide();
+                        $('#month').hide();
+                        break;
+                case "5":               // Year 
+                        $('#sdate').hide();
+                        $('#edate').hide();
+                        $('#year').show();
+                        $('#month').hide();
+                        break;
+                case "6":               // Date Range 
+                        $('#sdate').show();
+                        $('#edate').show();
+                        $('#year').hide();
+                        $('#month').hide();
+                        break;
+
+                }
+
+    });
+});
+
+</script>
+
+
+
+
