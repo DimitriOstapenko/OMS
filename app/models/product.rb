@@ -4,7 +4,7 @@ class Product < ApplicationRecord
 
   has_many :placements
   has_many :orders, through: :placements
-  has_one  :ppo
+  has_many :ppos
 
   default_scope -> { order(ref_code: :asc, release_date: :asc) }
 
@@ -103,8 +103,18 @@ class Product < ApplicationRecord
     self.total_pcs(BACKORDER_PLACEMENT)
   end  
 
-# Is ppo object in DB and pdf file in dierctory?  
-  def ppo_present?
-    self.ppo.exists?
+  def active_ppo
+    self.ppos.find_by(status: ACTIVE_PPO)
   end
+
+# Is ppo object in DB and pdf file in directory?  
+  def ppo_present?
+    self.active_ppo.exists?
+  end
+
+# Last shipped PPO  
+  def last_shipped_ppo
+    Ppo.where(product_id:self.id).where(status: ARCHIVED_PPO).order('date desc').first rescue nil
+  end
+
 end

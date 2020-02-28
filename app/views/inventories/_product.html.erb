@@ -19,6 +19,13 @@
       <% end %>
       </td>
 
+      <td class="text-center">
+      <% last_ppo = product.last_shipped_ppo %>
+      <% if last_ppo %>
+        <%= link_to "#{last_ppo.name}", product_ppo_path(product,last_ppo), remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %>
+      <% end %>
+      </td>
+
       <% if current_user.staff? || current_user.production? %>
         <td class="text-center"> 
           <% id = "product_#{product.id}" %>

@@ -1,6 +1,6 @@
 <div class="modal-header">
   <button type="button" class="close" data-dismiss="modal">&times;</button>
-  <b class="modal-title" id="myModalLabel"><img src="/images/<%=@product.ref_code%>.jpg" width=50 style="vertical-align:bottom; margin-right:10px;"> Item  <%= @product.ref_code %>: Active Orders (<%= @placements.count %>) </b>
+  <b class="modal-title" id="myModalLabel"><img src="/images/<%=@product.ref_code%>.jpg" width=50 style="vertical-align:bottom; margin-right:10px;"> Item  <%= @product.ref_code %>: Pending Orders (<%= @placements.count %>) </b>
 </div>
 
 <div class="modal-body">
@@ -32,7 +32,7 @@
 <% disabled = generate_button_disabled = @product.back_ordered_pcs > 0 %>
 <div class="row">
   <div class="col-md-4">
-<%= button_to "Create Back Order", set_back_order_product_path, class: "btn btn-success",  title: '* All products on this page will be put on back order', disabled: disabled %>
+<%= button_to "Create Back Order", set_back_order_product_path(@product,@product.active_ppo), class: "btn btn-success",  title: '* All products on this page will be put on back order', disabled: disabled %>
   </div>
 </div>
 

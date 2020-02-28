@@ -89,6 +89,18 @@ class ProductsController < ApplicationController
     redirect_back(fallback_location: prices_path)
   end
 
+# Set Placements across all orders for this product to Back Order, Generate PPO
+  def set_back_order
+    @product = Product.find(params[:id])
+    @product.pending_order_placements.each do |pl|
+       pl.update_attribute(:status, BACKORDER_PLACEMENT)
+    end 
+    pdf = build_ppo_pdf(@product) # in My::Docs
+    pdf.render_file @product.active_ppo.filespec
+    flash[:info] = "Back order created for '#{@product.ref_code}'"
+    redirect_to inventories_path
+  end
+
   def show_pending_orders
     @product = Product.find(params[:id])
     @placements = @product.pending_order_placements.paginate(page: params[:page])
@@ -100,57 +112,17 @@ class ProductsController < ApplicationController
     @placements = @product.back_order_placements.paginate(page: params[:page])
     render 'inventories/show_back_orders'
   end
-
-# Set Placements across all orders for this product to Back Order, Generate PPO
-  def set_back_order
-    @product = Product.find(params[:id])
-    @product.pending_order_placements.each do |pl|
-       pl.update_attribute(:status, BACKORDER_PLACEMENT)
-    end 
-    pdf = build_ppo_pdf(@product) # in My::Docs
-    pdf.render_file @product.ppo.filespec
-    flash[:info] = "Back order created for '#{@product.ref_code}'"
-    redirect_to inventories_path
-  end
-
-# Reset back order status for all placements with the product to pending
-  def clear_back_order
-    @product = Product.find(params[:id])
-    @product.back_order_placements.each do |pl|
-       pl.update_attribute(:status, PENDING_PLACEMENT)
-    end
-    flash[:info] = "All items in back order for #{@product.ref_code} were reset to pending"
-    redirect_to inventories_path
-  end
-
+  
 # Set status of all placements on back order to shipped
   def set_back_order_to_shipped
     @product = Product.find(params[:id])
     @product.back_order_placements.each do |pl|
        pl.update_attribute(:status, SHIPPED_PLACEMENT)
     end
+    @product.active_ppo.update_attribute(:status, ARCHIVED_PPO)
     flash[:info] = "All items in back order for #{@product.ref_code} set to Shipped"
     redirect_to inventories_path
   end
-
-# Build PPO; placements are always present here
-def download_ppo 
-  @product = Product.find(params[:id])
-  
-  if @product.ppo_present?
-    send_file @product.ppo.filespec,
-      filename: @product.ppo.filename,
-      type: "application/pdf",
-      disposition: :attachment
-
-    flash[:info] =  "PPO downloaded"
-  else 
-    pdf = build_ppo_pdf(@product)   # in My::Docs
-    pdf.render_file @product.ppo.filespec
-    flash[:info] = 'PPO Regenerated. You can now download it.'
-    redirect_to inventories_path
-  end
-end
 
 private
   def product_params

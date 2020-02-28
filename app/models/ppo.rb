@@ -1,15 +1,17 @@
 class Ppo < ApplicationRecord
         default_scope -> { order(date: :desc) }
         attr_accessor :filename, :filespec
-        belongs_to :product #, inverse_of: :products
+        belongs_to :product, inverse_of: :ppos
 
         before_create :set_attributes!
 
 def set_attributes!
   nextid = Ppo.maximum(:id).next rescue 1
-  self.name = "PPO-#{Date.today.strftime("%Y%m%d")}-#{nextid}"
+  self.name = "PPO-#{nextid}"
   self.date = Date.today
   self.status = ACTIVE_PPO
+  self.orders = self.product.back_order_placements.count
+  self.pcs = self.product.back_ordered_pcs
 end
 
 def status_str

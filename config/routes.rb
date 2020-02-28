@@ -32,15 +32,20 @@ Rails.application.routes.draw do
 
   get '/self_test', to: 'self_test#index', as: :self_test
 
-  resources :suppliers, :managers, :shippers, :users, :prices, :table_notes, :ppos
+  resources :suppliers, :managers, :shippers, :users, :prices, :table_notes
   resources :products do
     get 'show_pending_orders', on: :member 
     get 'show_back_orders', on: :member 
     post 'set_back_order', on: :member
     post 'clear_back_order', on: :member
     post 'set_back_order_to_shipped', on: :member
-    post 'download_ppo', on: :member
+    resources :ppos,  only: [:index, :show, :create] do
+      post 'download_ppo', on: :member
+    end
   end
+# extra ppo paths  
+  resources :ppos
+
   resources :orders do
     get 'download_po', on: :member
     get 'download_invoice', on: :member

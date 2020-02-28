@@ -65,7 +65,7 @@ module My
   end
 
   def build_ppo_pdf( product )
-    product.create_ppo unless product.ppo.present?
+    product.ppos.create unless product.active_ppo.present?
     pdf = Prawn::Document.new( :page_size => "LETTER", margin: [10.mm,10.mm,20.mm,20.mm])
     pdf.font "Helvetica"
     pdf.font_size 9
@@ -76,8 +76,12 @@ module My
          :overflow => :shrink_to_fit,
          :min_font_size => 9,
          :inline_format => true
+    
     pdf.move_down 50.mm
-    pdf.text "#{product.ref_code}: #{product.description} : #{product.ppo.name} Created #{product.ppo.date}", align: :left, size: 10, style: :bold
+    pdf.text "Production Purchase Order # #{product.active_ppo.name} Date: #{product.active_ppo.date} ", align: :center, size: 12, style: :bold
+
+    pdf.move_down 10.mm
+    pdf.text "#{product.ref_code}: #{product.description} : #{product.active_ppo.name} Created #{product.active_ppo.date}", align: :left, size: 10, style: :bold
 
     rows =  [[ '#', 'Order#', 'Client', 'Ordered', 'Quantity', 'Status' ]]
 
@@ -125,7 +129,7 @@ module My
          :inline_format => true
 
     pdf.move_down 50.mm
-    pdf.text "Order # #{order.id} Date: #{order.cre_date}  #{order.placements.count} products", align: :center, size: 10, style: :bold
+    pdf.text "Purchase Order # #{order.po_number} Date: #{order.cre_date} ", align: :center, size: 12, style: :bold
 
     pdf.move_down 8.mm
 
@@ -196,7 +200,7 @@ module My
          :inline_format => true
 
     pdf.move_down 80.mm
-    pdf.text "Invoice # #{order.inv_number} Date: #{Date.today}  #{order.placements.count} products", align: :center, size: 12, style: :bold
+    pdf.text "Invoice # #{order.inv_number} Date: #{Date.today}", align: :center, size: 12, style: :bold
 
     pdf.move_down 8.mm
     pdf.text "<b>Transport:</b> #{order.delivery_by}", inline_format: true
