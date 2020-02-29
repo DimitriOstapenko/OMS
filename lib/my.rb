@@ -23,14 +23,15 @@ module My
   
     pdf.move_down 5.mm
     pdf.font_size 9
-    client_hdr = (report.category == PRODUCT_REPORT) ? 'Client' : ''
+    client_hdr = (report.category == PRODUCT_REPORT) ? 'Client' : '#'
     rows =  [[ client_hdr, "Order", "Items", "Pcs", "Date", "Status", "Invoice", "Total"]]
     
-    ttl_products = ttl_amount = ttl_items = 0
+    ttl_products = ttl_amount = ttl_items = num = 0
     orders.all.each do |o|
       ref_doc = o.inv_number 
-      client_name = (report.category == PRODUCT_REPORT) ? o.client.name : ''
-      rows += [["<b>#{client_name}</b>", o.id, o.products.count, o.items_count, o.created_at.to_date, o.status_str.to_s, ref_doc, number_to_currency(o.total,locale: o.client.locale)]]
+      num += 1
+      col_1 = (report.category == PRODUCT_REPORT) ? o.client.name : num
+      rows += [["<b>#{col_1}</b>", o.id, o.products.count, o.items_count, o.created_at.to_date, o.status_str.to_s, ref_doc, number_to_currency(o.total,locale: o.client.locale)]]
       if report.detail == ITEMIZED_REPORT
          o.placements.each do |pl|
            price  = number_to_currency(pl.price, locale: o.client.locale)
@@ -78,10 +79,12 @@ module My
          :inline_format => true
     
     pdf.move_down 50.mm
-    pdf.text "Production Purchase Order # #{product.active_ppo.name} Date: #{product.active_ppo.date} ", align: :center, size: 12, style: :bold
+    pdf.text "Production Purchase Order # #{product.active_ppo.name} ", align: :center, size: 12, style: :bold
 
     pdf.move_down 10.mm
-    pdf.text "#{product.ref_code}: #{product.description} : #{product.active_ppo.name} Created #{product.active_ppo.date}", align: :left, size: 10, style: :bold
+    pdf.text "Item: #{product.ref_code}: #{product.description}", align: :left, size: 10, style: :bold
+    pdf.text "PPO Date: #{product.active_ppo.date}", align: :left, size: 10, style: :bold
+    pdf.move_down 8.mm
 
     rows =  [[ '#', 'Order#', 'Client', 'Ordered', 'Quantity', 'Status' ]]
 
@@ -184,25 +187,26 @@ module My
          :min_font_size => 12,
          :inline_format => true,
          :align => :center
+    
+    pdf.move_down 30.mm
+    pdf.text "Invoice # #{order.inv_number}", align: :center, size: 16, style: :bold
 
-    pdf.text_box inv_to, :at => [0.mm,215.mm],
+    pdf.text_box inv_to, :at => [0.mm,205.mm],
          :width => 90.mm,
          :height => 45.mm,
          :overflow => :shrink_to_fit,
          :min_font_size => 9,
          :inline_format => true
     
-    pdf.text_box deliver_to, :at => [110.mm,215.mm],
+    pdf.text_box deliver_to, :at => [110.mm,205.mm],
          :width => 90.mm,
          :height => 45.mm,
          :overflow => :shrink_to_fit,
          :min_font_size => 9,
          :inline_format => true
 
-    pdf.move_down 80.mm
-    pdf.text "Invoice # #{order.inv_number} Date: #{Date.today}", align: :center, size: 12, style: :bold
-
-    pdf.move_down 8.mm
+    pdf.move_down 50.mm
+    pdf.text "<b>Order Date:</b> #{order.cre_date}", inline_format: true
     pdf.text "<b>Transport:</b> #{order.delivery_by}", inline_format: true
     pdf.text "<b>Payment Terms:</b> #{order.terms_str}", inline_format: true
     pdf.text "<b>Pyment Method:</b> #{order.pmt_method_str}", inline_format: true

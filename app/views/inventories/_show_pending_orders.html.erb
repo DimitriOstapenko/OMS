@@ -1,6 +1,6 @@
 <div class="modal-header">
   <button type="button" class="close" data-dismiss="modal">&times;</button>
-  <b class="modal-title" id="myModalLabel"><img src="/images/<%=@product.ref_code%>.jpg" width=50 style="vertical-align:bottom; margin-right:10px;"> Item  <%= @product.ref_code %>: Pending Orders (<%= @placements.count %>) </b>
+  <b class="modal-title" id="myModalLabel"><img src="/images/<%=@product.ref_code%>.jpg" width=70 style="vertical-align:bottom; margin-right:10px;"> Item  <%= @product.ref_code %>: Pending Orders (<%= @placements.count %>) </b>
 </div>
 
 <div class="modal-body">
@@ -32,7 +32,7 @@
 <% disabled = generate_button_disabled = @product.back_ordered_pcs > 0 %>
 <div class="row">
   <div class="col-md-4">
-<%= button_to "Create Back Order", set_back_order_product_path(@product,@product.active_ppo), class: "btn btn-success",  title: '* All products on this page will be put on back order', disabled: disabled %>
+<%= button_to "Create Production Purchase Order", set_back_order_product_path(@product,@product.active_ppo), class: "btn btn-success",  title: '* All products on this page will be put on back order', disabled: disabled %>
   </div>
 </div>
 
@@ -42,6 +42,8 @@
 <div class="modal-footer">
   <% if @product.back_ordered_pcs > 0 %>
     <small>* There's active back order for this product. New back order can be created when all products in active order are shipped and order is cleared</small>
+  <% else %>
+    <small> Create Production Purchase Order (PPO) once there's sufficient number of pending items in this list </small>
   <% end %>
 </div>
 

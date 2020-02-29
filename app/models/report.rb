@@ -9,6 +9,7 @@ class Report < ApplicationRecord
         validates :timeframe, :client_id, :detail,  numericality: { only_integer: true }, allow_blank: true
         validates :sdate, presence: true, if: Proc.new { |a| a.timeframe == DAY_REPORT || a.timeframe == DRANGE_REPORT}
         validates :edate, presence: true, if: Proc.new { |a| a.timeframe == DRANGE_REPORT}
+        validates :product_id, presence: true, if: Proc.new { |p| p.category == PRODUCT_REPORT}
 
   def set_attributes!
     sdate = self.sdate.to_date rescue nil
