@@ -1,28 +1,37 @@
+<div class="row">
+  <aside class="col-md-6">
+    <section>
+      <img src="/images/20/<%= @product.ref_code %>.jpg">
+    </section>
+  </aside>
+  
+  <div class="col-md-6">
 <pre>
-              Description:   <%= @product.description %>
-              Scale:         <%= @product.scale_str %>
-              Colour         <%= @product.colour_str %>
-              Weight         <%= @product.weight.to_i %>g
-              Category:      <%= @product.category_str %>
-              Brand:         <%= @product.brand_str %>
-              Cartons:       <%= @product.ctns %>
-              Date Added :   <%= @product.added_date_str %>
-              Release Date : <%= @product.release_date || 'Not set' %>
-              Supplier :     <%= @product.supplier_str %>
-              Manager :      <%= @product.manager || 'Unknown' %>
-              Progress :     <%= @product.progress || 'Unknown' %>
-              Price Europe : <%= to_currency @product.price_eu %>
-              Price EU2:     <%= to_currency @product.price_eu2 %>
-              Price EU3:     <%= to_currency @product.price_eu3 %>
-              Price EU4:     <%= to_currency @product.price_eu4 %>
-              Price EU5:     <%= to_currency @product.price_eu5 %>
-              Price EU6:     <%= to_currency @product.price_eu6 %>
-              Price USD :    <%= to_currency(@product.price_usd, locale: :us) %>
-              Price USD2 :   <%= to_currency(@product.price_usd2, locale: :us) %>
-              Quantity Available: <%= @product.quantity %>
-
-              <img src="/images/<%= @product.ref_code %>.jpg">
-</pre>
+Scale:         <%= @product.scale_str %>
+Colour         <%= @product.colour_str %>
+Weight         <%= @product.weight.to_i %>g
+Category:      <%= @product.category_str %>
+Brand:         <%= @product.brand_str %>
+Cartons:       <%= @product.ctns %>
+Date Added:    <%= @product.added_date_str %>
+Release Date:  <%= @product.release_date || 'Not set' %>
+Supplier:      <%= @product.supplier_str %>
+Manager:       <%= @product.manager_str || 'Unknown' %>
+Progress:      <%= @product.progress_str || 'Unknown' %>
+Active?        <%= @product.active_str %>
+Manual price?  <%= @product.manual_price_str %>
+Price Europe:  <%= to_currency @product.price_eu %>
+Price EU2:     <%= to_currency @product.price_eu2 %>
+Price EU3:     <%= to_currency @product.price_eu3 %>
+Price EU4:     <%= to_currency @product.price_eu4 %>
+Price EU5:     <%= to_currency @product.price_eu5 %>
+Price EU6:     <%= to_currency @product.price_eu6 %>
+Price USD :    <%= to_currency(@product.price_usd, locale: :us) %>
+Price USD2 :   <%= to_currency(@product.price_usd2, locale: :us) %>
+Quantity Available: <%= @product.quantity %>
+    </pre>
+  </div>
+</div>
 
 <div>
    <%= @product.notes %>

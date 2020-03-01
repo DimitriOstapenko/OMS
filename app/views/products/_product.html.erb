@@ -3,6 +3,7 @@
    <% cl = 'table-success' if in_cart?(product.id)  %>
 <% elsif current_user.staff? || current_user.admin? %>
    <% cl = 'table-warning' unless product.active? %>
+   <% cl = 'table-danger' if product.manual_price? %>
 <% end %>
 
   <tr class="<%= cl %>">

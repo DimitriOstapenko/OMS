@@ -2,7 +2,7 @@
 
 <% if @products.any? %>
 <% if current_user.staff? || current_user.admin? %>
-  <div style="float:right"><small>Inactive products are highlighted</small></div>
+  <div style="float:right"><small>Inactive products are highlighted with yellow; Manual price products with red</small></div>
 <% end %>
 
 <table class="tbl2 table-hover table-striped table-bordered" >

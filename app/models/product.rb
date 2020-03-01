@@ -5,6 +5,7 @@ class Product < ApplicationRecord
   has_many :placements
   has_many :orders, through: :placements
   has_many :ppos
+#  has_one  :manager
 
   default_scope -> { order(ref_code: :asc, release_date: :asc) }
 
@@ -37,6 +38,18 @@ class Product < ApplicationRecord
 
   def brand_str
     BRANDS.invert[self.brand].to_s rescue nil
+  end
+  
+  def progress_str
+    self.progress ? "#{self.progress}%":'Unknown' rescue 'Unknown'
+  end
+  
+  def active_str
+    self.active? ? 'Yes':'No' rescue 'No'
+  end
+  
+  def manual_price_str
+    self.manual_price? ? 'Yes':'No' rescue 'No'
   end
   
   def category_str

@@ -4,7 +4,7 @@
 
 <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <b class="modal-title" id="myModalLabel">Product <%= @product.ref_code %> - Details</b>
+        <b class="modal-title" id="myModalLabel">Product <%= @product.ref_code %> : <%= @product.description %></b>
 </div>
 <div class="modal-body">
 <% if current_user %>
