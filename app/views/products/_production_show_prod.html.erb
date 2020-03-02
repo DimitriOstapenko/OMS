@@ -1,28 +1,28 @@
 <div class="row">
-  <aside class="col-md-6">
-    <section>
-      <img src="/images/20/<%= @product.ref_code %>.jpg">
-    </section>
-  </aside>
-  
   <div class="col-md-6">
-<pre>
-Scale:         <%= @product.scale_str %>
-Colour         <%= @product.colour_str %>
-Weight         <%= @product.weight.to_i %>g
-Category:      <%= @product.category_str %>
-Brand:         <%= @product.brand_str %>
-Cartons:       <%= @product.ctns %>
-Date Added:    <%= @product.added_date_str %>
-Release Date:  <%= @product.release_date || 'Not set' %>
-Supplier:      <%= @product.supplier_str %>
-Manager:       <%= @product.manager_str || 'Unknown' %>
-Progress:      <%= @product.progress_str || 'Unknown' %>
-Active?        <%= @product.active_str %>
-Manual price?  <%= @product.manual_price_str %>
-Quantity Available: <%= @product.quantity %>
-    </pre>
+      <img src="/images/20/<%= @product.ref_code %>.jpg">
   </div>
+  
+<div class="col-md-3 padding-0">
+  Scale:       <%= @product.scale_str %> <br>
+  Colour:      <%= @product.colour_str %> <br>
+  Weight:      <%= @product.weight.to_i %>g <br>
+  Category:    <%= @product.category_str %><br>
+  Brand:       <%= @product.brand_str %><br>
+  Cartons:     <%= @product.ctns %><br>
+  Date Added:  <%= @product.added_date_str %><br>
+</div>
+<div class="col-md-3">
+  Release Date: <%= @product.release_date || 'Not set' %><br>
+  Supplier:    <%= @product.supplier_str %><br>
+  Manager:     <%= @product.manager_str || 'Unknown' %><br>
+  Progress:    <%= @product.progress_str || 'Unknown' %><br>
+  Active?      <%= @product.active_str %><br>
+  Manual price? <%= @product.manual_price_str %><br>
+  Quantity Available: <%= @product.quantity %>
+</div>
+
+</div>
 </div>
 
 <div>
