@@ -12,7 +12,7 @@
 use strict;
 my $dow = shift @ARGV;
 $dow ||= (localtime)[6];
-my $target = '/Users/dmitri/oms/backup/oms'.$dow.'.gz';
+my $target = '/Users/dmitri/oms/pgbackup/oms'.$dow.'.gz';
 
 print  "This is ", `uname -a`, `date`, " \n";
 print "Dropping db 'oms' \n";

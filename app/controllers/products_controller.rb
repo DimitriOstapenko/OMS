@@ -37,7 +37,7 @@ class ProductsController < ApplicationController
     @product = Product.find(params[:id]) rescue nil
     redirect_to products_path unless @product
     respond_to do |format|
-      format.html { redirect_to products_path }  # Show only js version
+      format.html #{ redirect_to products_path }  # Show only js version
       format.js
     end
   end

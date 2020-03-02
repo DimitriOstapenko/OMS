@@ -5,7 +5,7 @@ class OrderMailer < ActionMailer::Base
   def send_confirmation(order)
     @order = order
     @client = @order.client
-    mail to: @client.user.email, subject: "OMS Order Confirmation"
+    mail to: @client.user.email, subject: "OMS Order Confirmation" rescue nil
   end
 
 # Notify staff of a new order
@@ -13,7 +13,7 @@ class OrderMailer < ActionMailer::Base
     @order = order
     @client = @order.client
     emails = User.where('role=?', STAFF_ROLE).pluck(:email)
-    mail to: emails, subject: "OMS New order just received"
+    mail to: emails, subject: "OMS New order just received" rescue nil
   end  
 
 # Notify staff of a low quantity for product  

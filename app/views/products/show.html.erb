@@ -1,0 +1,12 @@
+<% provide(:title, @product.ref_code) %>
+
+<div class="row">
+<div class="col-md-8 col-md-offset-2">
+	<h3 class='display-1'>Product:  <%= @product.ref_code %> - details  </h3>
+
+        <%= render "#{current_user.role}_show_prod" %>
+
+</div>
+</div>
+
+
