@@ -95,9 +95,14 @@ class ProductsController < ApplicationController
     @product.pending_order_placements.each do |pl|
        pl.update_attribute(:status, BACKORDER_PLACEMENT)
     end 
-    pdf = build_ppo_pdf(@product) # in My::Docs
-    pdf.render_file @product.active_ppo.filespec
-    flash[:info] = "Back order created for '#{@product.ref_code}'"
+    if @product.active_ppo.blank?
+      @product.ppos.create 
+      pdf = build_ppo_pdf(@product) # in My::Docs
+      pdf.render_file @product.active_ppo.filespec
+      flash[:info] = "PPO created for '#{@product.ref_code}'"
+    else
+      flash[:danger] = "Can't create new PPO while active PPO present" 
+    end
     redirect_to inventories_path
   end
 

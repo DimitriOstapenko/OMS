@@ -127,7 +127,7 @@ class Product < ApplicationRecord
 
 # Last shipped PPO  
   def last_shipped_ppo
-    Ppo.where(product_id:self.id).where(status: ARCHIVED_PPO).order('date desc').first rescue nil
+    Ppo.where(product_id:self.id).where(status: ARCHIVED_PPO).order('created_at desc').first rescue nil
   end
 
 end

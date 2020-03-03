@@ -66,7 +66,6 @@ module My
   end
 
   def build_ppo_pdf( product )
-    product.ppos.create unless product.active_ppo.present?
     pdf = Prawn::Document.new( :page_size => "LETTER", margin: [10.mm,10.mm,20.mm,20.mm])
     pdf.font "Helvetica"
     pdf.font_size 9
