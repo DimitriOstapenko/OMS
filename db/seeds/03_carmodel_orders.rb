@@ -7,7 +7,16 @@ puts "About to seed orders table with carmodel orders (from Susanna)"
 csv_text = File.read(Rails.root.join('lib', 'seeds', 'carmodel_orders.csv'))
 csv = CSV.parse(csv_text, :headers => true, :encoding => 'ISO-8859-1', :col_sep => ',')
 
+# Destroy all orders with dependent Placements
 Order.destroy_all
+
+# Delete all PPOs with associated pdf files 
+Ppo.destroy_all # together with placements
+Dir.glob("#{PPOS_PATH}/*.pdf").each { |file| File.delete(file)}
+
+# Reset all inventory to 0:
+Product.update_all(quantity: 0)
+
 client = Client.find(405)  #! Client Table dependent
 
 num =0

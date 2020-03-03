@@ -107,7 +107,7 @@ class Order < ApplicationRecord
   end
 
   def self.to_csv
-    attributes = %w{id client_name client_code cre_date product_count items_count currency total po_number inv_number pmt_method_str shipping discount tax delivery_by weight status_str notes}
+    attributes = %w{id client_name client_code cre_date product_list product_count items_count currency total po_number inv_number pmt_method_str shipping discount tax delivery_by weight status_str notes}
     CSV.generate(headers: attributes, write_headers: true) do |csv|
       all.each do |order|
         csv << attributes.map{ |attr| order.send(attr) }
@@ -127,11 +127,15 @@ class Order < ApplicationRecord
     created_at.to_date
   end
 
+  def product_list
+    self.products.pluck(:ref_code).join(':') rescue ''
+  end
+
   def product_count
     self.products.count rescue 0
   end
 
-# Total items, all products  
+# Total items(pcs), all products  
   def items_count
     self.placements.sum(:quantity)
   end
