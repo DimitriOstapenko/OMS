@@ -32,7 +32,9 @@ class Order < ApplicationRecord
   attr_accessor :quantity # to get quantity from form
 
   before_create :set_attributes!
-  after_create :send_emails!
+
+# *** ENABLE THIS WHEN IN PRODUCTION
+#  after_create :send_emails!
   after_save :create_po_and_invoice
 
 # Calculate Order Total including Tax, Discount and Shipping  
