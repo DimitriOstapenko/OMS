@@ -28,7 +28,7 @@ class PposController < ApplicationController
   def clear_back_order
     @product = Product.find(params[:id])
     @product.back_order_placements.each do |pl|
-       pl.update_attribute(:status, PENDING_PLACEMENT)
+       pl.update_attribute(:status, PENDING_ORDER)
     end
     flash[:info] = "All items in back order for #{@product.ref_code} were reset to pending"
     redirect_to inventories_path

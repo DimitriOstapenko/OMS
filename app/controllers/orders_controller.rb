@@ -72,6 +72,15 @@ class OrdersController < ApplicationController
     redirect_to orders_path
   end
 
+  def cancel
+    @order = Order.find(params[:id])
+    @order.placements.each do |pl|
+       pl.update_attribute(:status, CANCELLED_ORDER)
+    end 
+    @order.update_attribute(:status, CANCELLED_ORDER) 
+    redirect_to orders_path
+  end
+
   def export
     @orders = Order.all
     send_data @orders.to_csv, filename: "orders-#{Date.today}.csv"

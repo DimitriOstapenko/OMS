@@ -93,12 +93,12 @@ class Product < ApplicationRecord
   
 # Return pending orders for the product  
   def pending_order_placements
-    self.placements.where(status: PENDING_PLACEMENT)
+    self.placements.where(status: PENDING_ORDER)
   end
 
 # Return placements marked as back ordered  
   def back_order_placements
-    self.placements.where(status: BACKORDER_PLACEMENT)
+    self.placements.where(status: BACK_ORDER)
   end
 
 # Return shipped orders for this product  
@@ -107,13 +107,13 @@ class Product < ApplicationRecord
   end
 
 # Return total number of this product in placements with given status
-  def total_pcs(status = PENDING_PLACEMENT)  
+  def total_pcs(status = PENDING_ORDER)  
     self.placements.where(status: status).sum(:quantity) rescue 0
   end
 
 # Return total number of back ordered pieces
   def back_ordered_pcs
-    self.total_pcs(BACKORDER_PLACEMENT)
+    self.total_pcs(BACK_ORDER)
   end  
 
   def active_ppo

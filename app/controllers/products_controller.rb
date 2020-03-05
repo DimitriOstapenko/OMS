@@ -93,7 +93,8 @@ class ProductsController < ApplicationController
   def set_back_order
     @product = Product.find(params[:id])
     @product.pending_order_placements.each do |pl|
-       pl.update_attribute(:status, BACKORDER_PLACEMENT)
+       pl.update_attribute(:status, BACK_ORDER)
+       pl.order.update_attribute(:status, BACK_ORDER) if pl.order.all_placements_on_backorder?
     end 
     if @product.active_ppo.blank?
       @product.ppos.create 
@@ -122,7 +123,8 @@ class ProductsController < ApplicationController
   def set_back_order_to_shipped
     @product = Product.find(params[:id])
     @product.back_order_placements.each do |pl|
-       pl.update_attribute(:status, SHIPPED_PLACEMENT)
+       pl.update_attribute(:status, SHIPPED_ORDER)
+       pl.order.update_attribute(:status, SHIPPED_ORDER) if pl.order.all_placements_shipped?
     end
     @product.active_ppo.update_attribute(:status, ARCHIVED_PPO)
     flash[:info] = "All items in back order for #{@product.ref_code} set to Shipped"

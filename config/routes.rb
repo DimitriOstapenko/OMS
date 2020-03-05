@@ -49,6 +49,7 @@ Rails.application.routes.draw do
   resources :orders do
     get 'download_po', on: :member
     get 'download_invoice', on: :member
+    get 'cancel', on: :member
     resources :placements, only: [:index, :show, :create] 
   end
   resources :clients do

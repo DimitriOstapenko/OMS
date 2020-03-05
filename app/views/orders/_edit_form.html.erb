@@ -4,13 +4,10 @@
   <% terms = @order.terms  ||  @order.client.default_terms %>
 
   <div class="row" %>
-  <div class="col-md-2">
-  <%= f.input :status, collection: ORDER_STATUSES, label: "Order status", include_blank: false %>
-  </div>
-  <div class="col-md-3">
+  <div class="col-md-4">
   <%= f.input :pmt_method, collection: PAYMENT_METHODS, label: "Payment Method", include_blank: false %>
   </div>
-  <div class="col-md-3">
+  <div class="col-md-4">
   <%= f.input :delivery_by, collection: Shipper.all, value_method: :name, include_blank: false %>
   </div>
   <div class="col-md-4">

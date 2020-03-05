@@ -33,8 +33,8 @@ class Order < ApplicationRecord
 
   before_create :set_attributes!
 
-# *** ENABLE THIS WHEN IN PRODUCTION
-#  after_create :send_emails!
+# *** SET SEND_EMAILS WHEN IN PRODUCTION
+  after_create :send_emails! if SEND_EMAILS
   after_save :create_po_and_invoice
 
 # Calculate Order Total including Tax, Discount and Shipping  
@@ -58,7 +58,7 @@ class Order < ApplicationRecord
 
   def send_emails!
     OrderMailer.send_confirmation(self).deliver_now
-    OrderMailer.notify_staff(self).deliver_now
+#    OrderMailer.notify_staff(self).deliver_now
   end
 
 # Total Order price before Taxes, Shipping, Discount etc.  
@@ -148,6 +148,31 @@ class Order < ApplicationRecord
   
   def invoice_file_present?
     self.inv_filespec.present? && File.exists?(self.inv_filespec)
+  end
+
+# Are all placement statuses equal to 'status'?
+  def all_statuses_are?(status = 0)
+    self.placements.all?{|p| p.status == status}
+  end
+
+# Are all placements in current order pending?  
+  def all_placements_pending?
+    self.all_statuses_are?(PENDING_ORDER)
+  end
+  
+# Are all placements in current order marked as back order 
+  def all_placements_on_backorder?
+    self.all_statuses_are?(BACK_ORDER)
+  end
+
+# Are all placements in current order marked as shipped
+  def all_placements_shipped?
+    self.all_statuses_are?(SHIPPED_ORDER)
+  end
+  
+# Are all placements in current order marked as cancelled?
+  def all_placements_cancelled?
+    self.all_statuses_are?(CANCELLED_ORDER)
   end
 
 # Global search method
