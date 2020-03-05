@@ -78,6 +78,7 @@ class OrdersController < ApplicationController
        pl.update_attribute(:status, CANCELLED_ORDER)
     end 
     @order.update_attribute(:status, CANCELLED_ORDER) 
+    flash[:warning] = 'Order was cancelled'
     redirect_to orders_path
   end
 
