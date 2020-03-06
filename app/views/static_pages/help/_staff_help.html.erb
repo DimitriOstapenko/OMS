@@ -21,7 +21,7 @@
 <a id="introduction"></a>
 <h4>Introduction</h4>
 
-Ordering Management System, OMS in the future, was developed to handle ordering of car models by different categories of clients including retailers and distributors. While ordering is done exclusively by clients, that is users that have 'client' role assigned to them, all datais managed by 2 privileged roles: "staff" and "administrator". Staff user role has all required privileges to perform dsay to day operations and can be used by several staff members.  This section of the help file describes functionality available to staff members only (see <%= link_to "User Categories", "#user_categories" %> below) 
+Ordering Management System, OMS in the future, was developed to handle ordering of car models by different categories of clients including retailers and distributors. While ordering is done exclusively by clients, that is users that have 'client' role assigned to them, all data is managed by 2 privileged roles: "staff" and "administrator". Staff user role has all required privileges to perform day to day operations and can be used by several staff members.  This section of the help file describes functionality available to staff users (see <%= link_to "User Categories", "#user_categories" %> below) 
 
 <p>&nbsp;</p>
 <a id="user_categories"></a>
@@ -29,18 +29,18 @@ Ordering Management System, OMS in the future, was developed to handle ordering 
 There are 5 categories of users in OMS:
 <ul>
   <li>
-    - <b>user</b> : anybody who registers online with ability to only look at the products available, without prices and ability to order them. 
+    - <b>User</b> : anybody who registers online with ability to only look at the products available, without prices and ability to order them. 
   </li>
   <li>
-    - <b>client</b> : Anybody who is registered as a client, will be able to see products and order them. Currently there are 4 client categories in the system: "Distributar", "Retailer", "Press", and "Club".
+    - <b>Client</b> : Anybody who is registered as a client, will be able to see products and order them. Currently there are 4 client categories in the system: "Distributar", "Retailer", "Press", and "Club".
   <li>
-    - <b>production</b> : manufacturing facility will be able to see current order situation and deal with shipments and inventories
+    - <b>Production</b> : manufacturing facility will be able to see current order situation and deal with shipments and inventories
   </li>
   <li>
-    - <b> staff </b>: can do everything, but change other user's profiles and privileges, delete clients  and manage managers and suppliers.
+    - <b>Staff </b>: can do everything, but change other user's profiles and privileges, delete clients  and manage managers and suppliers.
   </li>
   <li>
-    - <b> admin </b>: full control of the system, including assigning roles to users, adding managers and suppliers, deleting products and clients.
+    - <b>Admin </b>: full control of the system, including assigning roles to users, adding managers and suppliers, deleting products, clients and orders.
   </li>
 </ul>
 
@@ -48,12 +48,12 @@ There are 5 categories of users in OMS:
 <a id="workflow"></a>
 <h4>Workflow</h4>
 
-As a staff member, you have privileges to create and modify client profiles (see Clients section in Menu Description pages below) as well as change product information. To enable ordering by the clients, they have to be first registered into the system. This can be done in 2 ways::
+As a staff member, you have privileges to create and modify client profiles (see Clients section in Menu Description pages below) as well as change product information. To enable ordering by the clients, they have to be first registered into the system. This can be done in 2 ways:
 
 <p>&nbsp;</p>
 <b>Scenario 1</b>
 <ul>
-<li> - If client is not in database yet, create new client record in 'Clients' index page by clicking on "Add Client" button at the bottom of the client list and filling out all required information. It's important to have all basic contact information filled out as it will be later used to generate documents such as Purchase Orders and Invoices. Make sure to add email address of the client, this is one most important field that's used to communicate with the client.</li>
+<li> - If client is not in database yet, create new client record from 'Clients' index page by clicking on "Add Client" button at the bottom of the client list and filling out all required information. It's important to have all basic contact information filled out as it will be later used to generate documents such as Purchase Orders and Invoices. Make sure to add email address of the client, this is one most important field that's used to communicate with the client.</li>
 <li> - Send an invitation to client to register by clicking on the icon in "invite" column in client list for this client. </li>
 <li> - Client receives an invitation and goes to SignUp page to register. </li>
 <li> - Client activates his account by clicking activation link sent to him in email and because this email address is already registered in the system as client, no further action on your part is required </li>
@@ -66,30 +66,50 @@ As a staff member, you have privileges to create and modify client profiles (see
   <li> - You, as a staff member receive email notification about new user registration. </li>
   <li> - You recognize the new user as a client and from user menu modify their profile, where you assign 'client' role to the new user and select client name from the list of known clients </li>
 </ul>
-After 'client' role is assigned to the user, they can log into the system and order products.  
+After 'client' role is assigned to the user, they can log into the system and order products. They will be asked to change their password on sign in.
 
 <p>&nbsp;</p>
 <a id="ordering"></a>
 <h4>Ordering</h4>
 
-Ordering is done by registered clients. So, if you want to make an order on client's behalf, you will have to switch to the client's account in "Admin>Users" menu by clicking on <i class="glyphicon glyphicon-random"> </i> &nbsp; icon in client row. After you switch, you will see client's name in the header and client's email will show up as logged in user in the footer.
+Ordering is done by registered clients. So, if you want to make an order on client's behalf, you will have to switch to the client's account in "Admin>Users" menu by clicking on <i class="glyphicon glyphicon-random"> </i> &nbsp; icon in client row. After you switch, you will see client's name in the header, which shows you that you are now logged as this client.
 <p>
-There are two ways to order products: directly from product list, by entering number for each selected product, or from Orders page using <Add Product To Cart> button at the bottom. In both cases, entered quantoity of selected product will be added to the shopping cart, which will show as a cart symbol and number in upper right corner of the page. Once selection is finished and all products are added to the shopping cart, you can finalize the order by opening shopping cart, and submititng the order. At this point you can also abandon yor purchase by clicking on "Clear Cart" button.
+To order product, client goes to product list and clicks <Add> button in the last column for the product he wants to order. Item will be added to the shopping cart. Number of items can be adjusted later while viewing the cart before finalizing the order.
+
+Once selection is finished and all products are added to the shopping cart, you can finalize the order by opening shopping cart to adjust order parameters, including the number of pieces for each item, and removing certain items from the cart. Once happy with your selection, click on <Submit Order> button or <Clear Cart> if you changed your mind and wish to abandon the order.
 
 <p>
 Once order is submitted several things will happen: 
 
 <ul>
   <li> - Total order amount is calculated by adding shipping and tax, if any, and subtracting discount, if present, from total cart amount.
-         Shipping is calculated based on sum of all product weights and client's shipping cost per Kg. If no shipping is to be charged, set shipping_cost in client profile to 0. Tax (%) is associated with client and defaults to 0, which means Tax is included into the final amount by default.
-         Only non-zero values will appear on P.O and invoice.
+    Shipping is calculated based on sum of all product weights and client's shipping cost per Kg. 
+
+    If no shipping is to be charged, set shipping_cost in client profile to 0. Tax (%) is associated with client and defaults to 0, which means Tax is included into the final amount by default.
+         Only non-zero values will appear on generated P.O and invoice.
 <li> - Inventory is updated: number of available products is automatically reduced by the ordered number </li>
-<li> - Emails are sent: Order confirmation email to the user, Order notification to all taff members and Low quantity notification to staff if number of available product is negative </li>
+<li> - Emails are sent: Order confirmation email to the user, Order notification to staff members and Low quantity notification to staff if number of available product is negative and lower than system-defind threshold (LOW_QUANTITY_THRESHOLD)</li>
 <li> - PO and Invoice for the new order are generated and order is assigned 'Pending' status </li>
 <li> - Delivery method is set to Preferred Delivery value from CLient's profile. </li>
 <li> - Payment Terms field is set to default terms value from CLient's profile. </li>
 </ul>
-No changes are allowed on submitted orders except for three fileds: 'Status', 'Delivery Method' and 'Payment Terms'. To change any of these, you can use  <i class='glyphicon glyphicon-edit'></i> link on orders page.
+No changes are allowed on submitted orders except for three fileds: 'Payment Method', 'Delivery By' and 'Payment Terms'. To change any of these, you can use  <i class='glyphicon glyphicon-edit'></i> link on orders page.
+Order status is set automatically by the system with the exception of 'Cancelled' status. There are following four status values:
+
+<ul>
+  <li>Pending</li>
+  <li>Back Order</li>
+  <li>Shipped</li>
+  <li>Cancelled</li>
+</ul>
+</p>
+
+<p>
+Initially, order, as well as each individual item in it, is given "Pending" status. At certain point, when number of pending orders for the product is high (and inventory is negative), you decide to send Production Purchase Order (PPO) to the factory. This is done by clicking on link in "Pending Orders" column on the inventory page. Once you click <b>[Create Production Purchase Order]</b> button in the modal that opens, PPO pdf will be created and all positions for the product in question in every order containing the product will be marked as "Backorder". You can only create one active backorder for any given product at a time. Once product is shipped from the factory, you, as responsible staff person clear active PPO by clicking on link in "Active PPO" column of the inventory. Modal window opens and you can use <b>[Download PPO]</b> or <b>[Mark All As Shipped]</b> buttons. When you click on <b>[Mark All As Shipped]</b> button, all positions in the PPO will be marked as shipped.
+</p>
+<p>
+Order is assigned "Backorder" status once all positions in it are on Back Order. Order is assigned "Shipped" status when all positions in it are shipped. Last column on orders page is used to Cancel order. Order cancelling means it, and every position in it, will be marked as inactive. Such an order can be recovered at a later stage, if needed, and made active again. Cancelled orders are not taken into account in totals calculations and in the reports. They are also ignored in CSV export function. Cancelled orders are highlighted in red in Orders list.
+</p>
 
 
 <p>&nbsp;</p>
