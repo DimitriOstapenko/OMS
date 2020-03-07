@@ -21,35 +21,38 @@ class ReportsController < ApplicationController
 
   def create
     @report = Report.new(report_params)
-    year = params[:date][:year]
-    month  = params[:date][:month]
+    @report.sdate ||= Date.today
+    @report.edate ||= Date.today
+    year = params[:date][:year] || Date.today.year
+    month  = params[:date][:month] || Date.today.month
     
     case @report.timeframe
         when 1   # Day
-                 @report.edate = @report.sdate + 24.hours
+          @report.edate = @report.sdate + 24.hours rescue Time.now
         when 2   # Week
-                 @report.edate = @report.sdate + 1.week - 1.minute
+          @report.edate = @report.sdate + 1.week - 1.minute 
         when 3   # Month
-                 @report.sdate = Date.new(year.to_i,month.to_i)
-                 @report.edate = @report.sdate + 1.month - 1.minute
-        when 4   # Quarter
-                 @report.sdate = Date.today.beginning_of_quarter 
-                 @report.edate = Time.now 
-        when 5   # Year
-                 @report.sdate = Date.new(year.to_i,1,1)
-                 @report.edate = @report.sdate + 1.year - 1.minute
+          @report.sdate = Date.new(year.to_i,month.to_i) 
+          @report.edate = @report.sdate + 1.month - 1.minute
+        when 4   # Quarter to Date
+          @report.sdate = Date.today.beginning_of_quarter 
+          @report.edate = Time.now 
+        when 5   # Year To Date
+          @report.sdate = Date.new(year.to_i,1,1) 
+          @report.edate = @report.sdate + 1.year 
         when 6   # Date Range
         when nil # All Time
-                 @report.sdate = nil #Date.new(1950,01,01)
-                 @report.edate = Time.now 
+          @report.sdate = Date.new(1950,01,01)
+          @report.edate = Time.now 
         else     # invalid
-                 flash.now[:danger] = "Invalid report timeframe: #{@report.timeframe}"
+          flash.now[:danger] = "Invalid report timeframe: #{@report.timeframe}"
         end
 
        if flash[:danger]
           redirect_back(fallback_location: reports_path)
        elsif @report.save
-          redirect_to export_report_path(@report)
+         flash[:info] = @report.inspect
+          redirect_to export_report_path(@report, category: params[:category] )
        else
           flash.now[:danger] = @report.errors.full_messages.to_sentence
           render 'new'
@@ -64,7 +67,7 @@ class ReportsController < ApplicationController
       flash[:success] = "Report deleted"
     end
 
-    redirect_to reports_url, page: params[:page]
+    redirect_back(fallback_location: reports_path, page: params[:page])
   end
 
   def download
@@ -93,7 +96,7 @@ class ReportsController < ApplicationController
     else
       @report.destroy
       flash[:danger] = "No report created. No orders were found matching given criteria"
-      redirect_to reports_path(category: @report.category)
+      redirect_back(fallback_location: reports_path)
     end
   end
 
@@ -127,14 +130,12 @@ private
 
 # get orders in given timeframe matching given status: Pending and Shipped for Purchases, Paid for Sales
   def get_orders(report)
-    sdate = report.sdate || '1900-01-01'.to_date
-    orders = Order.where(created_at: (sdate..report.edate))
     if report.category == CLIENT_REPORT 
-      orders = orders.where(client_id: report.client_id) if report.client_id
-    elsif report.category == PRODUCT_REPORT && report.product_id
+      orders = Order.where(client_id: report.client_id) 
+    elsif report.category == PRODUCT_REPORT 
       orders = report.product.orders 
     end
-    orders = orders.where(status: report.status) 
+    orders = orders.where(created_at: (report.sdate..report.edate)).where(status: report.status) 
     return orders
   end
 

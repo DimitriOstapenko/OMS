@@ -7,15 +7,16 @@ class Report < ApplicationRecord
 
         validates :name, :filename, presence: true, length: { maximum: 30 }
         validates :timeframe, :client_id, :detail,  numericality: { only_integer: true }, allow_blank: true
-        validates :sdate, presence: true, if: Proc.new { |a| a.timeframe == DAY_REPORT || a.timeframe == DRANGE_REPORT}
-        validates :edate, presence: true, if: Proc.new { |a| a.timeframe == DRANGE_REPORT}
+#        validates :sdate, presence: true, if: Proc.new { |a| a.timeframe == DAY_REPORT || a.timeframe == DRANGE_REPORT }
+#        validates :edate, presence: true, if: Proc.new { |a| a.timeframe == DRANGE_REPORT}
         validates :product_id, presence: true, if: Proc.new { |p| p.category == PRODUCT_REPORT}
 
   def set_attributes!
-    sdate = self.sdate.to_date rescue nil
+#    sdate = self.sdate.to_date rescue nil
     nextid = Report.maximum(:id).next rescue 1
     self.name = "#{Date.today}-#{nextid}"
     self.filename = self.name+'.pdf'
+    self.detail = TOTALS_ONLY_REPORT
     old_report = Report.find_by(filename: self.filename)
     if old_report.present?
        File.delete( old_report.filespec ) rescue nil

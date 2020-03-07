@@ -1,29 +1,21 @@
 <%= simple_form_for @report do |f| %>
-  <%= render 'shared/error_messages', object: f.object %>
 
   <%= f.input :category, as: :hidden %>
   <div class="row" %>
    <div class="col-md-6">
        <%= f.input :product_id, collection: Product.all, value_method: :id, label_method: :ref_code_and_descr, include_blank: 'Please Select' %> 
    </div>
-   <div class="col-md-6">
+   <div class="col-md-3">
       <%= f.input :status, collection: ORDER_STATUSES, label: "Order Status ", include_blank: false  %>
     </div>
-
-  </div>
-
-  <div class="row" >
-    <div class="col-md-6">
+    <div class="col-md-3">
        <%= f.input :timeframe, collection: REPORT_TIMEFRAMES, include_blank: 'All Time' %>
-    </div>
-    <div class="col-md-6">
-      <%= f.input :detail, collection: REPORT_DETAILS, label: "Report Detail",  include_blank: false %> 
     </div>
   </div>
 
   <div class="row">
     <div class="col-md-6" id='sdate' style="display:none;">
-      <%= f.input :sdate, as: :date, label: 'Start Date', html5: true  %>
+      <%= f.input :sdate, as: :date, label: 'Date', html5: true  %>
     </div>
     <div class="col-md-6" id="edate" style="display:none;">
       <%= f.input :edate, as: :date, label: 'To Date', html5: true  %>
