@@ -5,9 +5,9 @@
 <div class="modal-header">
   <button type="button" class="close" data-dismiss="modal">&times;</button>
   <% if current_user.client? %>
-    <b class="modal-title" id="myModalLabel">Order  #<%= @order.id %> received on <%= @order.cre_date %> : <%= @order.items_count %> pcs</b>
+    <b class="modal-title" id="myModalLabel">Order  #<%= @order.id %> received on <%= @order.cre_date %> : <%= @order.total_pcs %> pcs</b>
   <% else %>
-    <b class="modal-title" id="myModalLabel">Client <font color="#777">"<%= @client.name %>"</font> Order # <%= @order.id %> received on <%= @order.cre_date %> : <%= @order.items_count %> pcs</b>
+    <b class="modal-title" id="myModalLabel">Client <font color="#777">"<%= @client.name %>"</font> Order # <%= @order.id %> received on <%= @order.cre_date %> : <%= @order.total_pcs %> pcs</b>
   <% end %>
 </div>
 
@@ -34,7 +34,7 @@
   <tfoot>
     <tr>
       <th colspan=6></th>
-      <th class="text-center"><%= @order.items_count %></th>
+      <th class="text-center"><%= @order.total_pcs %></th>
       <th class="text-center"><%= to_currency @order.total_price, locale: @client.locale %></th>
       <th></th>
     </tr>

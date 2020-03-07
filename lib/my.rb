@@ -31,7 +31,7 @@ module My
       ref_doc = o.inv_number 
       num += 1
       col_1 = (report.category == PRODUCT_REPORT) ? o.client.name : num
-      rows += [["<b>#{col_1}</b>", o.id, o.products.count, o.items_count, o.created_at.to_date, o.status_str.to_s, ref_doc, number_to_currency(o.total,locale: o.client.locale)]]
+      rows += [["<b>#{col_1}</b>", o.id, o.products.count, o.total_pcs, o.created_at.to_date, o.status_str.to_s, ref_doc, number_to_currency(o.total,locale: o.client.locale)]]
       if report.detail == ITEMIZED_REPORT
          o.placements.each do |pl|
            price  = number_to_currency(pl.price, locale: o.client.locale)
@@ -41,7 +41,7 @@ module My
          rows += [[ {size: 25}]]
       end
       ttl_products += o.products.count
-      ttl_items += o.items_count
+      ttl_items += o.total_pcs
       ttl_amount += o.total * o.client.fx_rate   # we convert all to euros
     end
     rows += [['Totals: ','',ttl_products,ttl_items,'','','',  number_to_currency(ttl_amount, locale: :fr)]]
@@ -142,7 +142,7 @@ module My
       num +=1
       rows += [[num, p.product.ref_code, p.product.scale_str, p.product.colour_str, p.product.description, number_to_currency(p.price, locale: order.client.locale), p.quantity, number_to_currency(p.ptotal, locale: order.client.locale)]]
     end
-    rows += [['','','','','','', order.items_count,  number_to_currency(order.total_price, locale: order.client.locale)]]
+    rows += [['','','','','','', order.total_pcs,  number_to_currency(order.total_price, locale: order.client.locale)]]
 
     pdf.table rows do |t|
         t.cells.border_width = 0
@@ -218,7 +218,7 @@ module My
       num +=1
       rows += [[num, p.product.ref_code, p.product.scale_str, p.product.colour_str, p.product.description, number_to_currency(p.price, locale: order.client.locale), p.quantity, number_to_currency(p.ptotal, locale: order.client.locale)]]
     end
-    rows += [['','','','','','', order.items_count,  number_to_currency(order.total_price, locale: order.client.locale)]]
+    rows += [['','','','','','', order.total_pcs,  number_to_currency(order.total_price, locale: order.client.locale)]]
 
     pdf.table rows do |t|
         t.cells.border_width = 0

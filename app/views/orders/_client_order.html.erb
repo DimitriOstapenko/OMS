@@ -1,7 +1,7 @@
 <tr>
 <td class="text-center"><%= link_to order.id, order_placements_path(order.id), remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %></td>
 <td class="text-center"><%= order.products.count %></td>
-<td class="text-center"><%= order.items_count %></td>
+<td class="text-center"><%= order.total_pcs %></td>
 <td class="text-center"><%= order.cre_date %></td>
 <td class="text-center"><%= order.weight %></td>
 <td class="text-center"><%= order.terms_str %></td>

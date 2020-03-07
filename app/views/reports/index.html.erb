@@ -16,7 +16,7 @@
           <th>Detail</th>
           <th>Created on</th> 
           <th class="tbl_sm"></th>
-          <% if current_user.admin? %>
+          <% if current_user.admin? || current_user.staff? %>
             <th class="tbl_sm"></th>
           <% end %>
       </tr>

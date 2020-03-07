@@ -1,8 +1,10 @@
-<tr>
+<% cl = 'table-danger' if order.status == CANCELLED_ORDER %>
+
+<tr class="<%= cl %>">
 <td><%= link_to order.client.name, client_path(order.client_id), remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %></td>
 <td class="text-center"><%= link_to order.id, order_placements_path(order.id), remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %></td>
 <td class="text-center"><%= order.products.count %></td>
-<td class="text-center"><%= order.items_count %></td>
+<td class="text-center"><%= order.total_pcs %></td>
 <td class="text-center"><%= order.cre_date %></td>
 <td class="text-center"><%= order.terms_str %></td>
 <td class="text-center"> <%= link_to order.po_number, download_po_order_path(order) %> </td>

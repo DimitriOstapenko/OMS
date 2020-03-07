@@ -5,7 +5,7 @@ class ReportsController < ApplicationController
 
   before_action :logged_in_user
   before_action :admin_or_staff_user
-  before_action :admin_user, only: [:destroy]
+  before_action :admin_or_staff_user, only: [:destroy]
 
   helper_method :sort_column, :sort_direction
 
@@ -37,12 +37,14 @@ class ReportsController < ApplicationController
         when 4   # Quarter to Date
           @report.sdate = Date.today.beginning_of_quarter 
           @report.edate = Time.now 
-        when 5   # Year To Date
+        when 5   # Year
           @report.sdate = Date.new(year.to_i,1,1) 
-          @report.edate = @report.sdate + 1.year 
+          edate = @report.sdate + 1.year
+          @report.edate =  [edate, Date.today].min
         when 6   # Date Range
+          @report.edate = [report.edate,Date.today].min
         when nil # All Time
-          @report.sdate = Date.new(1950,01,01)
+          @report.sdate = Order.minimum(:created_at)
           @report.edate = Time.now 
         else     # invalid
           flash.now[:danger] = "Invalid report timeframe: #{@report.timeframe}"
@@ -130,8 +132,10 @@ private
 
 # get orders in given timeframe matching given status: Pending and Shipped for Purchases, Paid for Sales
   def get_orders(report)
+    orders = Order.all
+#    logger.debug "*** report: #{report.inspect}"
     if report.category == CLIENT_REPORT 
-      orders = Order.where(client_id: report.client_id) 
+      orders = orders.where(client_id: report.client_id) if report.client_id
     elsif report.category == PRODUCT_REPORT 
       orders = report.product.orders 
     end

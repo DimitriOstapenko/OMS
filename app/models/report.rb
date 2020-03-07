@@ -12,7 +12,6 @@ class Report < ApplicationRecord
         validates :product_id, presence: true, if: Proc.new { |p| p.category == PRODUCT_REPORT}
 
   def set_attributes!
-#    sdate = self.sdate.to_date rescue nil
     nextid = Report.maximum(:id).next rescue 1
     self.name = "#{Date.today}-#{nextid}"
     self.filename = self.name+'.pdf'
