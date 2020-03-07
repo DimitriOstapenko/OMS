@@ -15,7 +15,7 @@ class Report < ApplicationRecord
     nextid = Report.maximum(:id).next rescue 1
     self.name = "#{Date.today}-#{nextid}"
     self.filename = self.name+'.pdf'
-    self.detail = TOTALS_ONLY_REPORT
+    self.detail ||= TOTALS_ONLY_REPORT
     old_report = Report.find_by(filename: self.filename)
     if old_report.present?
        File.delete( old_report.filespec ) rescue nil

@@ -133,7 +133,7 @@ private
 # get orders in given timeframe matching given status: Pending and Shipped for Purchases, Paid for Sales
   def get_orders(report)
     orders = Order.all
-#    logger.debug "*** report: #{report.inspect}"
+    logger.debug "*** report: #{report.inspect}"
     if report.category == CLIENT_REPORT 
       orders = orders.where(client_id: report.client_id) if report.client_id
     elsif report.category == PRODUCT_REPORT 
