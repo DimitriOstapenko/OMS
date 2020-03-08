@@ -39,6 +39,8 @@ module My
            rows += [['','','', {content: "<b>#{pl.product.ref_code}</b>: #{pl.product.scale_str}  #{pl.product.colour_str} x #{pl.quantity} pcs @ #{price}; Subtotal: #{total}",  colspan: 5, align: :left} ]] 
          end
          rows += [[ {size: 25}]]
+         rows += [[ {size: 25}]]
+         rows += [[ {size: 25}]]
       end
       ttl_products += o.products.count
       ttl_items += o.total_pcs
