@@ -67,7 +67,8 @@ module My
     return pdf
   end
 
-  def build_ppo_pdf( product )
+  def build_ppo_pdf( ppo )
+    product = ppo.product
     pdf = Prawn::Document.new( :page_size => "LETTER", margin: [10.mm,10.mm,20.mm,20.mm])
     pdf.font "Helvetica"
     pdf.font_size 9
@@ -80,21 +81,21 @@ module My
          :inline_format => true
     
     pdf.move_down 50.mm
-    pdf.text "Production Purchase Order # #{product.active_ppo.name} ", align: :center, size: 12, style: :bold
+    pdf.text "Production Purchase Order # #{ppo.name} ", align: :center, size: 12, style: :bold
 
     pdf.move_down 10.mm
     pdf.text "Item: #{product.ref_code}: #{product.description}", align: :left, size: 10, style: :bold
-    pdf.text "PPO Date: #{product.active_ppo.date}", align: :left, size: 10, style: :bold
+    pdf.text "PPO Date: #{ppo.date}", align: :left, size: 10, style: :bold
     pdf.move_down 8.mm
 
     rows =  [[ '#', 'Order#', 'Client', 'Ordered', 'Quantity', 'Status' ]]
 
     num = 0
-    product.back_order_placements.each do |pl|
+    product.active_order_placements.each do |pl|
       num +=1
       rows += [[num, pl.order.id, pl.order.client_name, pl.order.cre_date, pl.quantity, pl.status_str ]] 
     end
-    rows += [['','','','', product.back_ordered_pcs, '' ]]
+    rows += [['','','','', ppo.pcs, '' ]]
 
     pdf.table rows do |t|
         t.cells.border_width = 0

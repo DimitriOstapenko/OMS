@@ -23,10 +23,9 @@
   </tfoot>
 </table>
 
-<% disabled = generate_button_disabled = @product.back_ordered_pcs > 0 %>
 <div class="row">
   <div class="col-md-4">
-<%= button_to "Create Back Order", set_back_order_product_path(@product,@product.active_ppo), class: "btn btn-success",  title: '* All products on this page will be put on back order', disabled: disabled %>
+<%= button_to "Create Production Purchase Order", product_ppos_path(@product), class: "btn btn-success",  title: '* All placements on this page will be made active' %>
   </div>
 </div>
   

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_28_184417) do
+ActiveRecord::Schema.define(version: 2020_03_11_113901) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -87,7 +87,9 @@ ActiveRecord::Schema.define(version: 2020_02_28_184417) do
     t.integer "quantity", default: 0
     t.decimal "price"
     t.integer "status", default: 0
+    t.bigint "ppo_id"
     t.index ["order_id"], name: "index_placements_on_order_id"
+    t.index ["ppo_id"], name: "index_placements_on_ppo_id"
     t.index ["product_id"], name: "index_placements_on_product_id"
   end
 
@@ -227,6 +229,7 @@ ActiveRecord::Schema.define(version: 2020_02_28_184417) do
 
   add_foreign_key "orders", "clients"
   add_foreign_key "placements", "orders"
+  add_foreign_key "placements", "ppos"
   add_foreign_key "placements", "products"
   add_foreign_key "ppos", "products"
   add_foreign_key "users", "clients"

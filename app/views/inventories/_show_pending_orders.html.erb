@@ -29,10 +29,9 @@
   </tfoot>
 </table>
 
-<% disabled = generate_button_disabled = @product.back_ordered_pcs > 0 %>
 <div class="row">
   <div class="col-md-4">
-<%= button_to "Create Production Purchase Order", set_back_order_product_path(@product,@product.active_ppo), class: "btn btn-success",  title: '* All products on this page will be put on back order', disabled: disabled %>
+    <%= button_to "Create Production Purchase Order", product_ppos_path(@product), class: "btn btn-success",  title: '* All placements on this page will be made active' %> <!--, disabled: disabled -->
   </div>
 </div>
 
@@ -40,10 +39,6 @@
 </div>
 
 <div class="modal-footer">
-  <% if @product.back_ordered_pcs > 0 %>
-    <small>* There's active back order for this product. New back order can be created when all products in active order are shipped and order is cleared</small>
-  <% else %>
-    <small> Create Production Purchase Order (PPO) once there's sufficient number of pending items in this list </small>
-  <% end %>
+  <small> Create Production Purchase Order (PPO) when there's sufficient number of pending items in this list. All placements on this page will be marked as active </small>
 </div>
 

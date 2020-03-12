@@ -3,15 +3,14 @@
 <% if @ppos.any? %>
 
 <table class="tbl2 table-hover table-striped table-bordered" >
-  <caption>List of Production Purchase Orders</caption>
+  <caption><%= @product.ref_code %> : <%= @product.description %>:  List of active PPOs</caption>
   <thead>
       <tr>
           <th class="tbl_md, text-center">Name</th>
           <th class="tbl_sm, text-center">Date</th>
-          <th class="tbl_md, text-center">Product</th>
           <th class="tbl_md, text-center">Orders</th>
           <th class="tbl_sm, text-center">Pcs</th>
-          <th class="tbl_md, text-center">Status</th>
+          <th></th>
       </tr>
   </thead>
   <tbody>
@@ -21,6 +20,12 @@
   </tbody>
 </table>
 <% end %>
+
+<div class="row">
+  <div class="col-md-5">
+<%= button_to "Back To Inventory", inventories_path, class: "btn btn-success", method: :get %>
+  </div>
+</div>
 
 <div class="bottom_nav">
 <%= will_paginate @ppos, class: "btn" %>

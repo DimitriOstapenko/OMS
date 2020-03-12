@@ -1,15 +1,14 @@
   <tr>
     <td class="text-center">
   <% if ppo.exists? %>
-     <%= link_to ppo.name, ppo, remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %>
+         <%= link_to ppo.name, show_placements_ppo_path(ppo), remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %>
   <% else %>
      <%= ppo.id %>
   <% end %>
     <td class="text-center"><%= ppo.date %></td> 
-    <td class="text-center"><%= ppo.product.ref_code %></td> 
     <td class="text-center"><%= ppo.orders %></td> 
     <td class="text-center"><%= ppo.pcs %></td> 
-    <td class="text-center"><%= ppo.status_str %></td> 
+    <td class="text-center"><%= link_to '<i class="glyphicon glyphicon-download"></i>'.html_safe, ppo, remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %></td>
 </tr>
 
 

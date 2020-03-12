@@ -39,8 +39,7 @@ class OrdersController < ApplicationController
     @client = current_client
     @order = @client.orders.build
     @product_ids_and_quantities = get_cart #[[params[:order][:products], params[:order][:quantity]]]
-    if @order.build_placements_with_product_ids_and_quantities?(@product_ids_and_quantities) &&
-       @order.save
+    if @order.build_placements_with_product_ids_and_quantities?(@product_ids_and_quantities) && @order.save
        @order.reload
        clear_cart
        flash[:info] = 'Order saved, confirmation sent'

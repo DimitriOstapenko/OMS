@@ -1,11 +1,18 @@
 class PposController < ApplicationController
   
+  include My::Docs
+
   before_action :logged_in_user
   before_action :admin_or_staff_user, only: [:new, :create, :edit, :update]
   before_action :admin_user, only: [:destroy]
 
   def index
-    @ppos = Ppo.all
+    @product = Product.find(params[:product_id])
+    if @product
+      @ppos = @product.ppos.where(status: ACTIVE_PPO)
+    else 
+      @ppos = Ppo.where(status: ACTIVE_PPO)
+    end
     @ppos = @ppos.paginate(page: params[:page])
   end
 
@@ -24,32 +31,54 @@ class PposController < ApplicationController
     end
   end
 
-# Reset back order status for all placements with the product to pending
-  def clear_back_order
-    @product = Product.find(params[:id])
-    @product.back_order_placements.each do |pl|
+  def show_placements
+    @ppo = Ppo.find(params[:id])
+    @placements = @ppo.placements.paginate(page: params[:page])
+  end
+
+# Reset active order status back to pending for all product placements 
+  def clear_active_order
+    @ppo = Ppo.find(params[:id])
+    @product = @ppo.product
+    @product.active_order_placements.each do |pl|
        pl.update_attribute(:status, PENDING_ORDER)
     end
-    flash[:info] = "All items in back order for #{@product.ref_code} were reset to pending"
+    flash[:info] = "Active order for #{@product.ref_code} was reset to pending"
+    redirect_to inventories_path
+  end
+
+# Set Placements across all orders for this product to Back Order, Generate PPO
+  def create
+    @product = Product.find(params[:product_id])
+    @ppo = @product.ppos.create
+    pdf = build_ppo_pdf(@ppo) # in My::Docs
+    pdf.render_file @ppo.filespec
+    flash[:info] = "PPO created for '#{@product.ref_code}'"
+    redirect_to inventories_path
+  end
+
+# Set active order to shipped
+  def set_to_shipped
+    @ppo = Ppo.find(params[:id])
+    @ppo.placements.each do |pl|
+       pl.update_attribute(:status, SHIPPED_ORDER)
+       pl.order.update_attribute(:status, SHIPPED_ORDER) if pl.order.all_placements_shipped?
+    end
+    @ppo.update_attribute(:status, ARCHIVED_PPO)
+    flash[:info] = "Order is set to Shipped"
     redirect_to inventories_path
   end
 
   def download_ppo
-  @product = Product.find(params[:id])
+    @ppo = Ppo.find(params[:id])
 
-  if @product.ppo_present?
-    send_file @product.active_ppo.filespec,
-      filename: @product.active_ppo.filename,
+    send_file @ppo.filespec,
+      filename: @ppo.filename,
       type: "application/pdf",
       disposition: :attachment
 
     flash[:info] =  "PPO downloaded"
-  else
-    pdf = build_ppo_pdf(@product)   # in My::Docs
-    pdf.render_file @product.active_ppo.filespec
-    flash[:info] = 'PPO Regenerated. You can now download it.'
     redirect_to inventories_path
   end
-end
 
 end

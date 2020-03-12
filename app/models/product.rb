@@ -96,9 +96,9 @@ class Product < ApplicationRecord
     self.placements.where(status: PENDING_ORDER)
   end
 
-# Return placements marked as back ordered  
-  def back_order_placements
-    self.placements.where(status: BACK_ORDER)
+# Return placements marked as active order 
+  def active_order_placements
+    self.placements.where(status: ACTIVE_ORDER)
   end
 
 # Return shipped orders for this product  
@@ -109,20 +109,6 @@ class Product < ApplicationRecord
 # Return total number of this product in placements with given status
   def total_pcs(status = PENDING_ORDER)  
     self.placements.where(status: status).sum(:quantity) rescue 0
-  end
-
-# Return total number of back ordered pieces
-  def back_ordered_pcs
-    self.total_pcs(BACK_ORDER)
-  end  
-
-  def active_ppo
-    self.ppos.find_by(status: ACTIVE_PPO)
-  end
-
-# Is ppo object in DB and pdf file in directory?  
-  def ppo_present?
-    self.active_ppo.exists?
   end
 
 # Last shipped PPO  

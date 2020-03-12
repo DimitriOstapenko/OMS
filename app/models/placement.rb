@@ -2,6 +2,7 @@ class Placement < ApplicationRecord
 
   belongs_to :order, inverse_of: :placements
   belongs_to :product, inverse_of: :placements
+#  belongs_to :ppo
 
   validates :quantity, numericality: { only_integer: true, greater_than: 0 }
 

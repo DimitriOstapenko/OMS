@@ -35,16 +35,17 @@ Rails.application.routes.draw do
   resources :suppliers, :managers, :shippers, :users, :prices, :table_notes
   resources :products do
     get 'show_pending_orders', on: :member 
-    get 'show_back_orders', on: :member 
-    post 'set_back_order', on: :member
+#    post 'set_back_order', on: :member
     post 'clear_back_order', on: :member
-    post 'set_back_order_to_shipped', on: :member
-    resources :ppos,  only: [:index, :show, :create] do
+    resources :ppos, only: [:index, :show, :create] do
       post 'download_ppo', on: :member
     end
   end
 # extra ppo paths  
-  resources :ppos
+  resources :ppos, only: [:index, :show, :create] do
+    get 'show_placements', on: :member 
+    post 'set_to_shipped', on: :member
+  end
 
   resources :orders do
     get 'download_po', on: :member

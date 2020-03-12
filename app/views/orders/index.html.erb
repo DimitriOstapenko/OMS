@@ -12,31 +12,16 @@
 
 <div class="row">
   <div class="col-md-6">
-<table  class="table table-sm table-responsive table-condensed table-bordered">
-  <thead>
-  <tr>
-    <th class="table-condensed"> Grand Total </th>
-    <th class="table-condensed"> Pending Orders </th>
-    <th class="table-condensed"> Back Orders </th>
-    <th class="table-condensed"> Shipped Orders </th>
-    <th class="table-condensed"> Cancelled Orders </th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr>
-    <td> <%= to_currency @orders.sum(:total) %></td>
-    <td> <%= to_currency @orders.where(status: PENDING_ORDER).sum(:total) %> </td>
-    <td> <%= to_currency @orders.where(status: BACK_ORDER).sum(:total) %> </td>
-    <td> <%= to_currency @orders.where(status: SHIPPED_ORDER).sum(:total) %></td>
-    <td>  <%= to_currency @orders.where(status: CANCELLED_ORDER).sum(:total) %></td>
-  </tbody>
-</table>
-</div>
-<div class="col-md-6">
-<div class="bottom_nav">
+<% if current_user.staff? || current_user.admin? %>
+  <%= render "totals_table" %>
+<% end %>
+  </div>
+
+  <div class="col-md-6">
+  <div class="bottom_nav">
 <%= will_paginate @orders, class: "btn" %>
-</div>
-</div>
+  </div>
+  </div>
 </div>
 
 <% end %>

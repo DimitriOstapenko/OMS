@@ -2,7 +2,7 @@ class ProductsController < ApplicationController
   
   include My::Docs
 
-#  before_action :logged_in_user   # if this is enabled, message about activation email is not shown because of redirect
+  before_action :logged_in_user   # if this is enabled, message about activation email is not shown because of redirect
   before_action :admin_or_staff_user, only: [:new, :create, :edit, :update]
   before_action :admin_user, only: [:destroy]
 
@@ -90,22 +90,14 @@ class ProductsController < ApplicationController
   end
 
 # Set Placements across all orders for this product to Back Order, Generate PPO
-  def set_back_order
-    @product = Product.find(params[:id])
-    @product.pending_order_placements.each do |pl|
-       pl.update_attribute(:status, BACK_ORDER)
-       pl.order.update_attribute(:status, BACK_ORDER) if pl.order.all_placements_on_backorder?
-    end 
-    if @product.active_ppo.blank?
-      @product.ppos.create 
-      pdf = build_ppo_pdf(@product) # in My::Docs
-      pdf.render_file @product.active_ppo.filespec
-      flash[:info] = "PPO created for '#{@product.ref_code}'"
-    else
-      flash[:danger] = "Can't create new PPO while active PPO present" 
-    end
-    redirect_to inventories_path
-  end
+#  def set_back_order
+#    @product = Product.find(params[:id])
+#    @ppo = @product.ppos.create 
+#    pdf = build_ppo_pdf(@product) # in My::Docs
+#    pdf.render_file @ppo.filespec
+#    flash[:info] = "PPO created for '#{@product.ref_code}'"
+#    redirect_to inventories_path
+#  end
 
   def show_pending_orders
     @product = Product.find(params[:id])
@@ -113,24 +105,6 @@ class ProductsController < ApplicationController
     render 'inventories/show_pending_orders'
   end
   
-  def show_back_orders
-    @product = Product.find(params[:id])
-    @placements = @product.back_order_placements.paginate(page: params[:page])
-    render 'inventories/show_back_orders'
-  end
-  
-# Set status of all placements on back order to shipped
-  def set_back_order_to_shipped
-    @product = Product.find(params[:id])
-    @product.back_order_placements.each do |pl|
-       pl.update_attribute(:status, SHIPPED_ORDER)
-       pl.order.update_attribute(:status, SHIPPED_ORDER) if pl.order.all_placements_shipped?
-    end
-    @product.active_ppo.update_attribute(:status, ARCHIVED_PPO)
-    flash[:info] = "All items in back order for #{@product.ref_code} set to Shipped"
-    redirect_to inventories_path
-  end
-
 private
   def product_params
     params.require(:product).permit( :ref_code, :description, :brand, :category, :scale, :colour, :ctns, :release_date, :added_date, 

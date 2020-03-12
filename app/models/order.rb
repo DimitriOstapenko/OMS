@@ -160,9 +160,9 @@ class Order < ApplicationRecord
     self.all_statuses_are?(PENDING_ORDER)
   end
   
-# Are all placements in current order marked as back order 
+# Are all placements in current order marked as active order 
   def all_placements_on_backorder?
-    self.all_statuses_are?(BACK_ORDER)
+    self.all_statuses_are?(ACTIVE_ORDER)
   end
 
 # Are all placements in current order marked as shipped
