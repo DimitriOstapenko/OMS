@@ -2,7 +2,7 @@
 
 <div class="col-md-8 col-md-offset-2">
   <% if current_user.client? %>
-         <h3 class='display-1'> Order #<%= @order.id %> received <%= @order.cre_date %></h3>
+    <h3 class='display-1'><%= @order.status_str %> Order #<%= @order.id %> received <%= @order.cre_date %></h3>
   <% else %>
     <h3 class='display-1'>Client <%= @client.name %>: Order # <%= @order.id %>- details</h3>
   <% end %>

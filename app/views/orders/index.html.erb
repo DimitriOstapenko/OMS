@@ -12,7 +12,7 @@
 
 <div class="row">
   <div class="col-md-6">
-<% if current_user.staff? || current_user.admin? %>
+<% if (current_user.staff? || current_user.admin?) && params[:page] == '1' %>
   <%= render "totals_table" %>
 <% end %>
   </div>

@@ -7,7 +7,7 @@ class PposController < ApplicationController
   before_action :admin_user, only: [:destroy]
 
   def index
-    @product = Product.find(params[:product_id])
+    @product = Product.find(params[:product_id]) rescue nil
     if @product
       @ppos = @product.ppos.where(status: ACTIVE_PPO)
     else 

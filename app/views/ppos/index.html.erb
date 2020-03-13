@@ -1,11 +1,17 @@
 <%= render "shared/modal" %>
 
 <% if @ppos.any? %>
-
 <table class="tbl2 table-hover table-striped table-bordered" >
-  <caption><%= @product.ref_code %> : <%= @product.description %>:  List of active PPOs</caption>
+  <% if @product %>
+    <caption><%= @product.ref_code %> : <%= @product.description %>:  List of active PPOs</caption>
+  <% else %>
+    <caption>List of Production Purchase Orders</caption>
+  <% end %>
   <thead>
       <tr>
+          <% unless @product %>
+          <th class="tbl_md, text-center">Product</th>
+          <% end %>
           <th class="tbl_md, text-center">Name</th>
           <th class="tbl_sm, text-center">Date</th>
           <th class="tbl_md, text-center">Orders</th>
@@ -20,12 +26,6 @@
   </tbody>
 </table>
 <% end %>
-
-<div class="row">
-  <div class="col-md-5">
-<%= button_to "Back To Inventory", inventories_path, class: "btn btn-success", method: :get %>
-  </div>
-</div>
 
 <div class="bottom_nav">
 <%= will_paginate @ppos, class: "btn" %>

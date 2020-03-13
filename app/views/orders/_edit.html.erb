@@ -4,7 +4,7 @@
 
 <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal">&times;</button>
-      <b class="modal-title" id="myModalLabel">Edit Order #<%= @order.id  %></b>
+      <b class="modal-title" id="myModalLabel"><font color=#777><%= @order.client.name %>:</font> Edit Order #<%= @order.id  %></b>
 </div>
 <div class="modal-body">
        <%= render 'edit_form' %>
