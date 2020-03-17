@@ -91,14 +91,18 @@ class ReportsController < ApplicationController
     @report = Report.find(params[:id])
     @orders = get_orders( @report )
     if @orders.any?
-       @pdf = build_report( @report, @orders )
-       @pdf.render_file @report.filespec
+      respond_to do |format|
+        format.html { @pdf = build_report( @report, @orders )
+                      @pdf.render_file @report.filespec
+                      redirect_to reports_path(category: @report.category) 
+                    }
+        format.csv { send_data @orders.to_csv, filename: "#{@report.name}.csv" }
+      end
        flash[:info] = "New report created. Contains #{@orders.count} orders "
-       redirect_to reports_path(category: @report.category) 
     else
       @report.destroy
       flash[:danger] = "No report created. No orders were found matching given criteria"
-      redirect_back(fallback_location: reports_path)
+      redirect_to reports_path(category: @report.category) 
     end
   end
 
@@ -133,7 +137,7 @@ private
 # get orders in given timeframe matching given status: Pending and Shipped for Purchases, Paid for Sales
   def get_orders(report)
     orders = Order.all
-    logger.debug "*** report: #{report.inspect}"
+#    logger.debug "*** report: #{report.inspect}"
     if report.category == CLIENT_REPORT 
       orders = orders.where(client_id: report.client_id) if report.client_id
     elsif report.category == PRODUCT_REPORT 

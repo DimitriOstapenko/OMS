@@ -1,4 +1,4 @@
-<% cl = 'table-danger' if order.status == CANCELLED_ORDER %>
+<% cl = 'table-danger' if order.cancelled? %>
 
 <tr class="<%= cl %>">
 <td><%= link_to order.client.name, client_path(order.client_id), remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %></td>
@@ -12,11 +12,15 @@
 <td class="text-center"><%= order.delivery_by %></td>
 <td class="text-center"> <%= order.status_str %> </td>
 <td class="text-center"><%= to_currency order.total, locale: order.client.locale %></td>
-<td class="text-center"> <%= link_to '<i class="glyphicon glyphicon-edit"></i>'.html_safe, edit_order_path(order), remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %> </td>
+<td class="text-center">
+  <% unless order.cancelled? %>
+  <%= link_to '<i class="glyphicon glyphicon-edit"></i>'.html_safe, edit_order_path(order), remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %> 
+  <% end %>
+</td>
 
 <td class="text-center"> 
 <% if order.status == PENDING_ORDER %>
-    <%= link_to '<i class="glyphicon glyphicon glyphicon-ban-circle"></i>'.html_safe, cancel_order_path(order), data:{ confirm: "Are you sure you want to cancel order # #{order.id}? Order will stay in the system, but will be marked as Cancelled" } %> 
+    <%= link_to '<i class="glyphicon glyphicon glyphicon-remove-sign"></i>'.html_safe, cancel_order_path(order), data:{ confirm: "Are you sure you want to cancel order # #{order.id}? Order will stay in the system, but will be marked as Cancelled" } %> 
 <% end %>
 
 </tr>

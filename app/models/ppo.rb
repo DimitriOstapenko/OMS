@@ -1,4 +1,6 @@
 class Ppo < ApplicationRecord
+        require 'csv'
+
         default_scope -> { order(date: :desc) }
         attr_accessor :filename, :filespec
         belongs_to :product, inverse_of: :ppos
@@ -17,7 +19,7 @@ def init
 end
 
 def set_attributes!
-  logger.debug "****** pcs: #{self.pcs} orders: #{self.orders}"
+#  logger.debug "****** pcs: #{self.pcs} orders: #{self.orders}"
   self.product.pending_order_placements.each do |pl|
     pl.update_attributes(ppo_id: self.id, status: ACTIVE_ORDER)
     pl.order.update_attribute(:status, ACTIVE_ORDER) if pl.order.all_placements_on_backorder?
@@ -36,8 +38,22 @@ def filespec
   PPOS_PATH.join(self.filename) rescue nil
 end
 
+def product_code
+  self.product.ref_code
+end
+
 def exists?
   File.exists?(self.filespec) rescue false
 end
+
+def self.to_csv
+  attributes = %w{id name date status_str product_code orders pcs }
+    CSV.generate(headers: attributes, write_headers: true) do |csv|
+      all.each do |order|
+        csv << attributes.map{ |attr| order.send(attr) }
+      end
+    end
+end
+
 
 end

@@ -53,7 +53,6 @@ class Order < ApplicationRecord
     self.tax = self.total * self.client.tax_pc / 100 if self.client.tax_pc > 0
     self.shipping = self.client.shipping_cost * self.weight 
     self.total += (self.shipping - self.discount + self.tax)
-
   end
 
   def send_emails!
@@ -86,6 +85,18 @@ class Order < ApplicationRecord
       next unless product.present? 
       self.placements.build(product_id: id, quantity: quantity, price: self.client.price(product))
     end
+  end
+
+  def pending?
+    self.status == PENDING_ORDER 
+  end
+
+  def cancelled?
+    self.status == CANCELLED_ORDER 
+  end
+
+  def shipped?
+    self.status == SHIPPED_ORDER 
   end
 
   def status_str

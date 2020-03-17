@@ -22,8 +22,6 @@ Rails.application.routes.draw do
   get '/terms', to: 'static_pages#terms'
   get '/privacy', to: 'static_pages#privacy'
   
-  get '/export', to: 'orders#export', as: :export
-
   post '/add_product(/:id)', to: 'placements#add_product', as: :add_product
   get '/cart', to: 'placements#cart', as: :cart
   get '/empty_cart', to: 'placements#empty_cart', as: :empty_cart
@@ -46,6 +44,9 @@ Rails.application.routes.draw do
     get 'show_placements', on: :member 
     post 'set_to_shipped', on: :member
   end
+
+  get '/export_orders', to: 'orders#export' 
+  get '/export_ppos', to: 'ppos#export' 
 
   resources :orders do
     get 'download_po', on: :member

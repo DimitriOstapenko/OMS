@@ -7,7 +7,7 @@
       <% if current_user.admin? || current_user.staff? %>
         <li><%= link_to "<i class='glyphicon glyphicon-euro'></i> Price Matrix".html_safe, prices_path %></li>
         <li><%= link_to "<i class='glyphicon glyphicon-envelope'></i> Client Mailer".html_safe, client_mails_path %></li>
-        <li><%= link_to "<i class='glyphicon glyphicon-export'></i> Export Orders".html_safe, export_path %></li>
+        <li><%= link_to "<i class='glyphicon glyphicon-export'></i> Export Orders".html_safe, export_orders_path %></li>
         <li><%= link_to "<i class='glyphicon glyphicon-check'></i> Data Integrity Check".html_safe, self_test_path %></li>
       <% end %>
         <li class="divider"></li>

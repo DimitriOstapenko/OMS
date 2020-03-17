@@ -81,4 +81,10 @@ class PposController < ApplicationController
     redirect_to inventories_path
   end
 
+  def export
+    @ppos = Ppo.all
+    send_data @ppos.to_csv, filename: "PPOs-#{Date.today}.csv"
+#    flash.now[:info] = 'All PPOs exported to CSV file'
+  end
+
 end
