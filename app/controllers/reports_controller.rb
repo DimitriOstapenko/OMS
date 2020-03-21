@@ -98,7 +98,7 @@ class ReportsController < ApplicationController
                     }
         format.csv { send_data @orders.to_csv, filename: "#{@report.name}.csv" }
       end
-       flash[:info] = "New report created. Contains #{@orders.count} orders "
+      flash.now[:info] = "New report created. Contains #{@orders.count} orders "
     else
       @report.destroy
       flash[:danger] = "No report created. No orders were found matching given criteria"
@@ -143,7 +143,8 @@ private
     elsif report.category == PRODUCT_REPORT 
       orders = report.product.orders 
     end
-    orders = orders.where(created_at: (report.sdate..report.edate)).where(status: report.status) 
+    orders = orders.where(created_at: (report.sdate..report.edate))
+    orders = orders.where(status: report.status) if report.status.present?
     return orders
   end
 
