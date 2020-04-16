@@ -1,19 +1,21 @@
-# resize images in current directory and put them into subdirectory [scale]
-# ARG: scale (% of original)
+# resize images in current directory and put them into subdirectory [width]
+# ARG: width (px, preserve ratio)
 #
 require 'pathname'
 
-scale = ARGV[0]
-abort "Usage: ruby resize.rb %scale" unless (scale && scale.to_f > 0)  # 0 if not a number
+width = ARGV[0] || '250'
+abort "Usage: ruby resize.rb %width" unless (width && width.to_f > 0)  # 0 if not a number
 
 curdir = Pathname.new(Dir.pwd)
-target = curdir.join(scale)
+target = curdir.join(width)
 
 Dir.mkdir(target) unless File.exists?(target)
-puts "** Target dir: #{target} Scale: #{scale}%"
+puts "** Target dir: #{target} width: #{width}%"
 
 Pathname.glob("#{curdir}/*.jpg").sort.each do |entry|
   basename = entry.basename
-  system "/usr/local/bin/convert '#{entry}' -resize #{scale}% '#{target}/#{basename}'" 
-  puts "'#{basename}' -> './#{scale}/#{basename}'"
+#  system "/usr/local/bin/convert '#{entry}' -resize #{scale}% '#{target}/#{basename}'" 
+  system "/usr/local/bin/convert '#{entry}' -resize #{width} '#{target}/#{basename}'" 
+
+  puts "'#{basename}' -> './#{width}/#{basename}'"
 end

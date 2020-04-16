@@ -44,7 +44,7 @@ class OrdersController < ApplicationController
        clear_cart
        flash[:info] = 'Order saved, confirmation sent'
      else
-       flash[:danger] = "Errors saving order: #{@order.errors.full_messages.join}"
+       flash[:danger] = "Errors saving order: #{@order.errors.full_messages.join} client: #{@client.name} : #{@product_ids_and_quantities.inspect}"
     end
 
     redirect_to orders_path

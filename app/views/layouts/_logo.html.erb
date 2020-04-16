@@ -16,9 +16,7 @@
     </li>
   </ul>
     <%= link_to "APD OMS", root_path, id: "logo" %>
-    <% if current_user %>
-      <span class="navbar-brand"> <%= current_user.name %>: <%= current_user.role %> </span>
-    <% end %>
+    <span class="navbar-brand"> <%= current_user.name %>: <%= current_user.role %> </span>
 <% else %>  
     <%= link_to "APD ORDER MANAGEMENT SYSTEM", root_path, id: "logo" %>
 <% end %>

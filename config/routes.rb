@@ -5,7 +5,6 @@ Rails.application.routes.draw do
 
   devise_for :users, controllers: { registrations: "my_registrations" } 
   get '/users/', to: 'users#index'
-
   get '/switch_to/:id', to: 'users#switch_to', as: :switch_user
   get '/suppliers/index'
   get '/managers/index'
