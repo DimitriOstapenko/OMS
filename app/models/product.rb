@@ -84,6 +84,21 @@ class Product < ApplicationRecord
     File.exists?(IMAGE_BASE.join(self.ref_code+'.jpg'))
   end
 
+  def normal_image_rel_path
+    return "/images/#{self.ref_code}.jpg" if self.image_file_present?
+    return "/images/dummy.jpg" 
+  end
+
+  def large_image_rel_path
+    return "/images/400/#{self.ref_code}.jpg" if self.image_file_present?
+    return "/images/400/dummy.jpg" 
+  end
+  
+  def full_size_image_rel_path
+    return "/images/fullsize/#{self.ref_code}.jpg" if self.image_file_present?
+    return "/images/fullsize/dummy.jpg" 
+  end
+
 # Global method; search by keyword, price below, price above and recently added
   def self.search(params = {})
     products =  Product.all
