@@ -17,15 +17,14 @@ def create_order(prod_and_qty)
 end
 
 # Destroy all orders with dependent Placements
-Order.destroy_all
+$client.orders.destroy_all
 
 # Delete all PPOs with associated pdf files 
-Ppo.destroy_all # together with placements
+Ppo.destroy_all # set ppo_id in placements to null before running 
 Dir.glob("#{PPOS_PATH}/*.pdf").each { |file| File.delete(file)}
 
 # Reset all inventory to 0:
 Product.update_all(quantity: 0)
-
 
 num =0; prod_and_qty = []
 csv.each do |row|
