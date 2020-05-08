@@ -17,7 +17,7 @@ class OrdersController < ApplicationController
     else
       @orders = Order.all
     end
-    search_results = @orders.search(keyword) if keyword
+    search_results = Order.search(keyword,@client) if keyword
     @orders = search_results if search_results.any?
     @orders = @orders.reorder(sort_column + ' ' + sort_direction, "created_at desc").paginate(page: params[:page]) 
     @grand_total = @orders.sum{|o| o[:total]*o.client.fx_rate}

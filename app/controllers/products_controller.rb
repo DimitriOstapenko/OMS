@@ -19,7 +19,7 @@ class ProductsController < ApplicationController
       @products = Product.all
       @products = Product.where(active: true) if (current_user.client? || current_user.user?)   # Do not show disabled products to clients and world
       if params[:findstr] 
-        found = @products.search(params)
+        found = @products.search(params[:findstr])
         if found.any?
           @products = found
           flash.now[:info] = "Found #{@products.count} #{'product'.pluralize(@products.count)} matching string #{params[:findstr].inspect}"

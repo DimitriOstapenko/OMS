@@ -100,9 +100,8 @@ class Product < ApplicationRecord
   end
 
 # Global method; search by keyword, price below, price above and recently added
-  def self.search(params = {})
-    products =  Product.all
-    products = products.filter_by_title_or_refcode(params[:findstr]) if params[:findstr]
+  def self.search(keyword = '')
+    products = Product.filter_by_title_or_refcode(keyword) if keyword
     products
   end
   

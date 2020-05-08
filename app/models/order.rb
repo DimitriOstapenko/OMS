@@ -22,6 +22,10 @@ class Order < ApplicationRecord
   scope :filter_by_invoice_number, lambda { |keyword| 
     where("upper(inv_number) LIKE ?", "%#{keyword.upcase}%")
   }
+   
+  scope :filter_by_ref_code, lambda { |product_id|  
+    joins(:placements).where(placements: {product_id: product_id}) 
+  }
 
   validates :client_id, presence: true
   validates_with EnoughProductsValidator
@@ -194,16 +198,21 @@ class Order < ApplicationRecord
   end
 
 # Global search method
-  def self.search(keyword = '')
+  def self.search(keyword = '', client = nil)
+    client_id = client.id rescue nil
     orders = Order.joins(:client)
+    orders = orders.where(client_id: client_id) if client_id
     case keyword
-     when /^\d+/
-       orders = orders.filter_by_order_id(keyword) 
-     when /^PO-?\d+/i
+     when /^\d+/                                     # Order #
+       orders = orders.filter_by_order_id(keyword)   
+     when /^PO-?\d+/i                                # PO#
        orders = orders.filter_by_po_number(keyword) 
-     when /^INV-?\d+/i
+     when /^INV-?\d+/i                               # INVOICE#
        orders = orders.filter_by_invoice_number(keyword) 
-     when /^\w+/
+     when /^[[:alpha:]]+[[:digit:]]+[[:alpha:]]?$/   # Product Ref Code
+        product_id = Product.find_by(ref_code: keyword.upcase).id rescue 0
+        orders = orders.filter_by_ref_code(product_id) 
+     when /^[[:alpha:]]+$/                           # Client name
        orders = orders.filter_by_client_name(keyword) 
      else
        orders = []

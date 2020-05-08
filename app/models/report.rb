@@ -14,6 +14,7 @@ class Report < ApplicationRecord
   def set_attributes!
     nextid = Report.maximum(:id).next rescue 1
     self.name = "#{Date.today}-#{nextid}"
+    "#{self.product.ref_code}-" << self.name if self.product_id
     self.filename = self.name+'.pdf'
     self.detail ||= TOTALS_ONLY_REPORT
     old_report = Report.find_by(filename: self.filename)

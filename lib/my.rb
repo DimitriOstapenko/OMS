@@ -13,13 +13,14 @@ module My
 # Generate Client/Product Report
   def build_report( report, orders )
     client_name = report.client.name rescue 'All'
+    fx = "Fx USD/EUR: #{get_usd_euro_fx}"unless report.client && report.client.currency == :eur
 
     pdf = Prawn::Document.new( :page_size => "LETTER", margin: [10.mm,10.mm,20.mm,20.mm])
     pdf.font "Helvetica"
     pdf.text "#{report.detail_str} #{report.category_str} Report: #{report.status_str} Orders - #{report.timeframe_str}", align: :center, size: 15, style: :bold
 
     cat = (report.category == PRODUCT_REPORT) ? "Product: #{report.product.ref_code}" : "Client: #{client_name}"
-    pdf.text "#{report.daterange} #{orders.count} orders; #{cat}; Fx USD/EUR: #{get_usd_euro_fx}", align: :center, size: 10, style: :bold
+    pdf.text "#{report.daterange} #{orders.count} orders; #{cat}; #{fx}", align: :center, size: 10, style: :bold
   
     pdf.move_down 5.mm
     pdf.font_size 9
@@ -36,7 +37,7 @@ module My
          o.placements.each do |pl|
            price  = number_to_currency(pl.price, locale: o.client.locale)
            total  = number_to_currency(pl.price * pl.quantity, locale: o.client.locale)
-           rows += [['','','', {content: "<b>#{pl.product.ref_code}</b>: #{pl.product.scale_str}  #{pl.product.colour_str} x #{pl.quantity} pcs @ #{price}; Subtotal: #{total}",  colspan: 5, align: :left} ]] 
+           rows += [['','', {content: "<b>#{pl.product.ref_code}</b>: #{pl.product.scale_str}  #{pl.product.colour_str} x #{pl.quantity} pcs @ #{price}; Subtotal: #{total}; Status: #{pl.status_str}", colspan: 6, align: :left} ]] 
          end
          rows += [[ {size: 25}]]
          rows += [[ {size: 25}]]
