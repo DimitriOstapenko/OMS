@@ -140,10 +140,11 @@ private
     orders = Order.all
 #    logger.debug "*** report: #{report.inspect}"
     if report.category == CLIENT_REPORT 
-      orders = orders.where(client_id: report.client_id) if report.client_id
+      orders = Order.all
     elsif report.category == PRODUCT_REPORT 
       orders = report.product.orders 
     end
+    orders = orders.where(client_id: report.client_id) if report.client_id
     orders = orders.where(created_at: (report.sdate..report.edate))
     orders = orders.where(status: report.status) if report.status.present?
     return orders
