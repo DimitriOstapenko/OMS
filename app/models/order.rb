@@ -183,7 +183,7 @@ class Order < ApplicationRecord
   end
   
 # Are all placements in current order marked as active order 
-  def all_placements_on_backorder?
+  def all_placements_active?
     self.all_statuses_are?(ACTIVE_ORDER)
   end
 

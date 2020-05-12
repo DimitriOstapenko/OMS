@@ -1,5 +1,7 @@
 <%
    provide(:title, 'Order details')
+   @client ||= @order.client
+   @placements ||= @order.placements
 %>
  
 <div class="modal-header">

@@ -1,0 +1,24 @@
+<%
+   provide(:title, 'Order details')
+%>
+ 
+<table class="tbl2 table-hover table-striped table-bordered" >
+  <thead>
+      <tr>
+          <th class="tbl_sm, text-center">#</th>
+          <th class="tbl_sm, text-center">Product</th>
+          <th class="tbl_sm, text-center">Scale</th>
+          <th class="tbl_sm, text-center">Colour</th>
+          <th class="tbl_sm, text-center">Description</th>
+          <th class="tbl_sm, text-center">Price</th>
+          <th class="tbl_md, text-center">Quantity</th>
+          <th class="tbl_md, text-center">Subtotal</th>
+          <th class="tbl_md, text-center">Status</th>
+      </tr>
+  </thead>
+  <tbody>
+    <%= render @order.placements %>
+  </tbody>
+</table>
+
+<p></p>
