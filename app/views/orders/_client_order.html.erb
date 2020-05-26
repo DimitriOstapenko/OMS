@@ -6,7 +6,6 @@
 <td class="text-center"><%= order.weight %></td>
 <td class="text-center"><%= order.terms_str %></td>
 <td class="text-center"> <%= link_to order.po_number, download_po_order_path(order) %> </td>
-<td class="text-center"><%= link_to order.inv_number, download_invoice_order_path(order) %></td>
 <td class="text-center"><%= order.delivery_by %></td>
 <td class="text-center"> <%= order.status_str %> </td>
 <td class="text-center"><%= to_currency order.total, locale: order.client.locale %></td>
