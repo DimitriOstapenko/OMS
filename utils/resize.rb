@@ -26,8 +26,8 @@ puts "** Target dir: #{target} width: #{width}px"
 Pathname.glob("#{curdir}/*.*").sort.each do |entry|
   basename = entry.basename('.*')
   extname = entry.extname
-#  system "/usr/local/bin/convert '#{entry}' -resize #{width}% '#{target}/#{basename}'" 
-   system "/usr/local/bin/convert '#{entry}' -resize #{width} -background white -extent #{width}x#{height} -gravity center '#{target}/#{basename}.jpg'" 
+  next if extname == '.rb'
+  system "/usr/local/bin/convert '#{entry}' -resize #{width} -background white -extent #{width}x#{height} -gravity center '#{target}/#{basename}.jpg'" 
 
-  puts "'#{basename}' -> './#{width}/#{basename}'"
+  puts "'#{basename}#{extname}' -> './#{width}/#{basename}.jpg"
 end

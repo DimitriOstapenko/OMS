@@ -18,14 +18,22 @@ class PposController < ApplicationController
 
   def show
     @ppo = Ppo.find(params[:id])
+    @product = @ppo.product
     redirect_to inventories_path unless @ppo
 
     respond_to do |format|
       format.html {
-        send_file(@ppo.filespec,
+        begin
+        send_file @ppo.filespec,
              filename: @ppo.filename,
              type: "application/pdf",
-             disposition: :inline)
+             disposition: :inline
+        rescue Exception => e
+          flash[:warning] = "PPO file missing - regenerating" 
+          pdf = build_ppo_pdf(@ppo)
+          pdf.render_file @ppo.filespec
+          redirect_to product_ppo_path(@product,@ppo)
+        end
       }
       format.js
     end
@@ -56,6 +64,16 @@ class PposController < ApplicationController
     flash[:info] = "PPO created for '#{@product.ref_code}'"
     redirect_to inventories_path
   end
+  
+  def destroy
+    @ppo = Ppo.find(params[:id])
+    if @ppo.present?
+      File.delete( @ppo.filespec ) rescue nil
+      @ppo.destroy
+      flash[:success] = "PPO deleted"
+    end
+    redirect_to ppos_url
+  end
 
 # Set active order to shipped
   def set_to_shipped
@@ -69,16 +87,20 @@ class PposController < ApplicationController
     redirect_to inventories_path
   end
 
-  def download_ppo
+  def download
     @ppo = Ppo.find(params[:id])
-
+    @product = @ppo.product
+    begin
     send_file @ppo.filespec,
       filename: @ppo.filename,
       type: "application/pdf",
       disposition: :attachment
-
-    flash[:info] =  "PPO downloaded"
-    redirect_to inventories_path
+    rescue Exception => e
+      flash[:warning] = "PPO file missing - regenerating"
+      pdf = build_ppo_pdf(@ppo)
+      pdf.render_file @ppo.filespec
+      redirect_to inventories_path
+    end
   end
 
   def export

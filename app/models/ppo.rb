@@ -1,5 +1,6 @@
 class Ppo < ApplicationRecord
         require 'csv'
+        include My::Docs
 
         default_scope -> { order(date: :desc) }
         attr_accessor :filename, :filespec
@@ -55,5 +56,10 @@ def self.to_csv
     end
 end
 
+# Regenerate PPO after order deleted/cancelled
+def regenerate
+  pdf = build_ppo_pdf(self)
+  pdf.render_file self.filespec
+end
 
 end

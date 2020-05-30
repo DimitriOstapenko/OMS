@@ -92,7 +92,8 @@ module My
     rows =  [[ '#', 'Order#', 'Client', 'Ordered', 'Quantity', 'Status' ]]
 
     num = 0
-    product.active_order_placements.each do |pl|
+#    product.active_order_placements.each do |pl|
+    ppo.placements.each do |pl|
       num +=1
       rows += [[num, pl.order.id, pl.order.client_name, pl.order.cre_date, pl.quantity, pl.status_str ]] 
     end
@@ -264,7 +265,7 @@ module My
     return pdf
   end
 
-  end # Forms module
+  end # Docs module
 end # My
 
 

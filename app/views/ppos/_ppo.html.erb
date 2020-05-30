@@ -6,12 +6,13 @@
   <% if ppo.exists? %>
          <%= link_to ppo.name, show_placements_ppo_path(ppo), remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %>
   <% else %>
-     <%= ppo.id %>
+     <%= ppo.name %>
   <% end %>
     <td class="text-center"><%= ppo.date %></td> 
     <td class="text-center"><%= ppo.orders %></td> 
     <td class="text-center"><%= ppo.pcs %></td> 
-    <td class="text-center"><%= link_to '<i class="glyphicon glyphicon-download"></i>'.html_safe, ppo, remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %></td>
+    <td class="text-center"><%= link_to '<i class="glyphicon glyphicon-zoom-in"></i>'.html_safe, ppo, remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %></td>
+    <td class="text-center"><%= link_to '<i class="glyphicon glyphicon-download"></i>'.html_safe, download_product_ppo_path(ppo.product,ppo) %></td>
 </tr>
 
 

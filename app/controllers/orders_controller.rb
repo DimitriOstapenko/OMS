@@ -65,28 +65,39 @@ class OrdersController < ApplicationController
     end
   end
 
+# Destroy Order, update inventory  
   def destroy
-    Order.find(params[:id]).destroy
-    flash[:success] = "Order deleted"
+    @order =  Order.find(params[:id])
+    @order.placements.each do |pl|
+      pl.product.update_attribute(:quantity, pl.quantity + pl.product.quantity) if @order.status == PENDING_ORDER
+      pl.ppo.regenerate if pl.ppo.present?
+    end 
+    @order.destroy
+    flash[:success] = "Order deleted. Inventory adjusted. PPOs regenerated"
     redirect_to orders_path
   end
 
+# Cancel Order, update inventory, regenerate PPO. Keep cancelled order in the system.
   def cancel
     @order = Order.find(params[:id])
     @order.placements.each do |pl|
        pl.update_attribute(:status, CANCELLED_ORDER)
+       pl.product.update_attribute(:quantity, pl.quantity + pl.product.quantity) if @order.status == PENDING_ORDER
+       pl.ppo.regenerate if pl.ppo.present?
     end 
     @order.update_attribute(:status, CANCELLED_ORDER) 
-    flash[:warning] = 'Order was cancelled'
+    flash[:warning] = 'Order was cancelled. Inventory adjusted. PPOs regenerated'
     redirect_to orders_path
   end
 
+# Generate CSV file of all orders up till now
   def export
     @orders = Order.all
     send_data @orders.to_csv, filename: "orders-#{Date.today}.csv"
     flash.now[:info] = 'Orders exported to CSV file'
   end
 
+# Generate PDF PO  
   def download_po
     @order = Order.find( params[:id] ) rescue nil
    
@@ -108,6 +119,7 @@ class OrdersController < ApplicationController
     end
   end
 
+# Generate PDF invoice  
   def download_invoice
    @order = Order.find( params[:id] ) rescue nil
    if @order 

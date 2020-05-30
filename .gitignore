@@ -54,9 +54,6 @@
 /.idea/*
 *.swp
 
-# ignore pg restore script - platform specific
-/utils/pgrestore.rb
-
 # ignore Postgres backups
 /backup/**
 /pgbackup/*.*

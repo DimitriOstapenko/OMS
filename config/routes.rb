@@ -35,7 +35,7 @@ Rails.application.routes.draw do
 #    post 'set_back_order', on: :member
     post 'clear_back_order', on: :member
     resources :ppos, only: [:index, :show, :create] do
-      post 'download_ppo', on: :member
+      get 'download', on: :member
     end
   end
 # extra ppo paths  
