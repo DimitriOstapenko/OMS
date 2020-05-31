@@ -17,8 +17,8 @@ class PposController < ApplicationController
   end
 
   def show
-    @ppo = Ppo.find(params[:id])
-    @product = @ppo.product
+    @ppo = Ppo.find(params[:id]) rescue nil
+    @product = @ppo.product rescue nil
     redirect_to inventories_path unless @ppo
 
     respond_to do |format|
@@ -31,7 +31,7 @@ class PposController < ApplicationController
         rescue Exception => e
           flash[:warning] = "PPO file missing - regenerating" 
           pdf = build_ppo_pdf(@ppo)
-          pdf.render_file @ppo.filespec
+          pdf.render_file @ppo.filespec if @ppo
           redirect_to product_ppo_path(@product,@ppo)
         end
       }
@@ -97,7 +97,7 @@ class PposController < ApplicationController
       disposition: :attachment
     rescue Exception => e
       flash[:warning] = "PPO file missing - regenerating"
-      pdf = build_ppo_pdf(@ppo)
+      pdf = build_ppo_pdf(@ppo) if @ppo
       pdf.render_file @ppo.filespec
       redirect_to inventories_path
     end

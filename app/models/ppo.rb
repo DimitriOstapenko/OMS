@@ -59,7 +59,23 @@ end
 # Regenerate PPO after order deleted/cancelled
 def regenerate
   pdf = build_ppo_pdf(self)
+  File.delete( self.filespec ) rescue nil if pdf
   pdf.render_file self.filespec
 end
+
+# Are all placement statuses equal to 'status'?
+  def all_statuses_are?(status = 0)
+    self.placements.all?{|p| p.status == status}
+  end
+
+# Are all placements in current PPO marked as shipped?
+  def all_placements_shipped?
+    self.all_statuses_are?(SHIPPED_ORDER)
+  end
+
+# Are all placements in current PPO marked as cancelled?
+  def all_placements_cancelled?
+    self.all_statuses_are?(CANCELLED_ORDER)
+  end
 
 end

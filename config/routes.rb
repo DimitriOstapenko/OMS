@@ -51,7 +51,9 @@ Rails.application.routes.draw do
     get 'download_po', on: :member
     get 'download_invoice', on: :member
     get 'cancel', on: :member
-    resources :placements, only: [:index, :show, :create] 
+    resources :placements, only: [:index, :show, :create] do
+      patch 'set_to_shipped', on: :member
+    end
   end
   resources :clients do
     get 'send_invite_to_register', on: :member

@@ -29,11 +29,13 @@
   </tfoot>
 </table>
 
+<% unless @ppo.all_placements_shipped? || @ppo.all_placements_cancelled? %>
 <div class="row">
   <div class="col-md-5">
     <%= button_to "Mark all as Shipped", set_to_shipped_ppo_path(@ppo), class: "btn btn-success"%>
   </div>
 </div>
+<% end %>
 
   </div>  
 </div>

@@ -5,6 +5,7 @@
 /* mixins, variables, etc. */
 
 $gray-medium-light: #eaeaea;
+$spacer: 1rem !default;
 
 @mixin box_sizing {
   -moz-box-sizing:    border-box;
@@ -105,6 +106,83 @@ table {
 }
 .spacer-30 {
   height: 30px;
+}
+
+// Bootstrap margins/padding
+.mt-0 {
+  margin-top: 0 !important;
+}
+
+.ml-1 {
+  margin-left: ($spacer * .25) !important;
+}
+
+.ml-2 {
+  margin-left: ($spacer * .5) !important;
+}
+
+.ml-3 {
+  margin-left: ($spacer * 1) !important;
+}
+
+.mr-1 {
+  margin-right: ($spacer * .25) !important;
+}
+
+.mr-2 {
+  margin-right: ($spacer * .5) !important;
+}
+
+.mr-3 {
+  margin-right: ($spacer * 1) !important;
+}
+
+.mr-3 {
+  margin-right: ($spacer * 1) !important;
+}
+
+.m-1 {
+        margin-right: ($spacer * .25) !important;
+        margin-left: ($spacer * .25) !important;
+}
+
+.m-2 {
+        margin-right: ($spacer * .5) !important;
+        margin-left: ($spacer * .5) !important;
+}
+
+.m-3 {
+        margin-right: ($spacer * 1) !important;
+        margin-left: ($spacer * 1) !important;
+}
+
+.px-2 {
+  padding-left: ($spacer * .5) !important;
+  padding-right: ($spacer * .5) !important;
+}
+
+.pt-3 {
+  padding-top: $spacer !important;
+}
+
+.pt-4 {
+  padding-top: ($spacer * 1.5) !important;
+}
+
+.pt-5 {
+  padding-top: ($spacer * 3) !important;
+}
+
+.p-3 {
+  padding: $spacer !important;
+}
+
+.p-4 {
+  padding: ($spacer * 1.5) !important;
+}
+
+.p-5 {
+  padding: ($spacer * 3) !important;
 }
 
 section {

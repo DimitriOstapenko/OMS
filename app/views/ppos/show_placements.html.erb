@@ -1,5 +1,5 @@
 <% if @placements.any? %>
-<h3>Back order for item "<%= @ppo.product.ref_code %>" </h3>
+<h3>Production Purchase Order for item "<%= @ppo.product.ref_code %>" </h3>
 <table class="tbl2 table-hover table-striped table-bordered" >
   <thead>
       <tr>
@@ -23,11 +23,13 @@
   </tfoot>
 </table>
 
-<div class="row">
-  <div class="col-md-5">
-    <%= button_to "Mark all as Shipped", set_to_shipped_ppo_path(@ppo), class: "btn btn-success"%>
+<% unless @ppo.all_placements_shipped? || @ppo.all_placements_cancelled? %>
+  <div class="row">
+    <div class="col-md-5">
+      <%= button_to "Mark all as Shipped", set_to_shipped_ppo_path(@ppo), class: "btn btn-success"%>
+    </div>
   </div>
-</div>
+<% end %>  
   
 <div class="bottom_nav">
 <%= will_paginate @placements, class: "btn" %>
