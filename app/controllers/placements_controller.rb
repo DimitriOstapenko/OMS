@@ -57,10 +57,13 @@ class PlacementsController < ApplicationController
     @placement.order.update_attribute(:status, SHIPPED_ORDER) if @placement.order.all_placements_shipped?
     if @placement.ppo.present?
       @placement.ppo.regenerate
-      @placement.ppo.update_attribute(:status, ARCHIVED_PPO)
+      if @placement.ppo.all_placements_shipped?
+        @placement.ppo.update_attribute(:status, ARCHIVED_PPO) 
+        redirect_to inventories_path, notice: "All placements set to Shipped"
+      else
+        redirect_to product_ppos_path(@placement.product), notice: "Placement is set to Shipped"
+      end
     end
-    flash[:info] = "Placement is set to Shipped"
-    redirect_back(fallback_location: inventories_path)
   end
 
 end

@@ -842,11 +842,12 @@ card > hr {
 .btn {
 	padding: 6px;  // control button size
 	margin-top: 5px;
-	border: 0 none;
+//	border: 0 none;
 	font-weight: 800;
 	font-size: 1em;
 //	text-transform: uppercase;
-//	border-radius: 10px;
+	border-radius: 5px;
+        line-height: 25px;
 }
 
 .btn-sm {
