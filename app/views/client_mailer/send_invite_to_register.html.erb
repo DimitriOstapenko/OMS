@@ -10,12 +10,6 @@ Please click button below to go to our secure registration form. Enter your new 
 
 <p>&nbsp;</p>
 
-<%# raw, hashed = Devise.token_generator.generate(User, :reset_password_token) %>
-<%# @user.reset_password_sent_at = @user.confirmed_at = Time.now.utc %>
-<%# @user.reset_password_token = hashed %>
-<%# @user.save %>
-
-<%# button_to 'Complete my OMS Online Registration', edit_password_url(@user, reset_password_token: @raw), class: "email-btn", method: :get %>
 <%= link_to 'Complete my OMS Online Registration', edit_password_url(@user, reset_password_token: @raw),  method: :get %>
 <p>&nbsp;</p>
 

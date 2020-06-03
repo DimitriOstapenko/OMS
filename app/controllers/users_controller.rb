@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
   before_action :logged_in_user
-  before_action :admin_user 
+  before_action :admin_or_su_user 
 
   helper_method :sort_column, :sort_direction
 
@@ -41,7 +41,7 @@ class UsersController < ApplicationController
   end
 
   def switch_to
-    if current_user.admin?
+    if current_user.su?
       sign_in(User.find(params[:id]), scope: :user)
       flash.now[:info] = 'Switched to new user'
     else

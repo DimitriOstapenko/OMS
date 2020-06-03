@@ -1,0 +1,36 @@
+<div class="row">
+  <div class="col-md-6">
+      <img src="<%= @product.large_image_rel_path %>">
+  </div>
+  
+<div class="col-md-3 padding-0">
+  Scale:       <%= @product.scale_str %> <br>
+  Colour:      <%= @product.colour_str %> <br>
+  Weight:      <%= @product.weight.to_i %>g <br>
+  Category:    <%= @product.category_str %><br>
+  Brand:       <%= @product.brand_str %><br>
+  Cartons:     <%= @product.ctns %><br>
+  Date Added:  <%= @product.added_date_str %><br>
+</div>
+<div class="col-md-3">
+  Release Date: <%= @product.release_date || 'Not set' %><br>
+  Supplier:    <%= @product.supplier_str %><br>
+  Manager:     <%= @product.manager_str || 'Unknown' %><br>
+  Progress:    <%= @product.progress_str || 'Unknown' %><br>
+  Active?      <%= @product.active_str %><br>
+  Manual price? <%= @product.manual_price_str %><br>
+  Quantity Available: <%= @product.quantity %>
+</div>
+
+<div>&nbsp;</div>
+<div class="col-md-6" style="padding-left: 0">
+<%= render "price_matrix" %>
+</div>
+</div>
+</div>
+
+<div>
+   <%= @product.notes %>
+</div>
+
+

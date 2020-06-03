@@ -25,7 +25,7 @@
       <% end %>
       </td>
 
-      <% if current_user.staff? || current_user.production? %>
+      <% if current_user.staff? || current_user.production? || current_user.su? %>
         <td class="text-center"> 
           <% id = "product_#{product.id}" %>
           <%= simple_form_for product, url: update_quantity_path(product), method: :post, html: { class: "form" } do |f| %>
