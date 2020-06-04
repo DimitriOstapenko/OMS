@@ -31,6 +31,14 @@ class SelfTestController < ApplicationController
       @missing_images.push(p) 
     end
 
+    @images = Pathname.glob("#{IMAGE_BASE}/[TLG]*.jpg")
+    @missing_ref_codes = []
+    @images.each do |path|
+      ref_code = path.basename('.jpg').to_s
+      next if Product.exists?(ref_code: ref_code)
+      @missing_ref_codes.push(ref_code) 
+    end
+
   end
 
 end

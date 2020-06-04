@@ -87,7 +87,11 @@ class Product < ApplicationRecord
   end
 
   def image_file_present?
-    File.exists?(IMAGE_BASE.join(self.ref_code+'.jpg'))
+    File.exists?(self.image_path)
+  end
+
+  def image_path
+    IMAGE_BASE.join(self.ref_code+'.jpg') rescue nil 
   end
 
   def normal_image_rel_path

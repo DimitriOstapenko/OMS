@@ -1,34 +1,32 @@
 <%= render "shared/modal" %>
 
 <h4> Checking for missing required fields in clients and products .. </h4>
-<p>&nbsp;</p>
 <% ok_icon = '<font color=green><i class="glyphicon glyphicon-ok-sign"></i></font>'.html_safe %>
 <% error_icon = '<font color=red><i class="glyphicon glyphicon-exclamation-sign"></i></font>'.html_safe %>
 
 <ul>
-<h4> Following issues were found in clients table: </h4>
-  <ul> <%= @empty_names.any? ? error_icon:ok_icon %> Clients with missing names: <%= render 'show_5_clients', collection: @empty_names %> </ul>
-  <ul> <%= @empty_addresses.any? ? error_icon:ok_icon %> Clients with empty address field: <%= render 'show_5_clients', collection:  @empty_addresses %> </ul>
-  <ul> <%= @empty_countries.any? ? error_icon:ok_icon %> Clients with missing country field: <%= render 'show_5_clients', collection: @empty_countries %> </ul>
-  <ul> <%= @empty_emails.any? ? error_icon:ok_icon %> Clients with missing email address: <%= render 'show_5_clients', collection: @empty_emails %> </ul>
+<h5> Verifying clients table: </h5>
+  <ul> <%= @empty_names.any? ? error_icon:ok_icon %>  Missing names? <%= render 'show_5_clients', collection: @empty_names %> </ul>
+  <ul> <%= @empty_addresses.any? ? error_icon:ok_icon %> Empty address field: <%= render 'show_5_clients', collection:  @empty_addresses %> </ul>
+  <ul> <%= @empty_countries.any? ? error_icon:ok_icon %> Missing country field: <%= render 'show_5_clients', collection: @empty_countries %> </ul>
+  <ul> <%= @empty_emails.any? ? error_icon:ok_icon %> Missing email address: <%= render 'show_5_clients', collection: @empty_emails %> </ul>
 </ul>
 
-<p>&nbsp;</p>
-
 <ul>
-  <h4> Following issues were found in products table: </h4>
-  <ul> <%= @empty_refcodes.any? ? error_icon:ok_icon %> Products with missing reference code: <%= render 'show_5_products', collection:  @empty_refcodes %>  </ul>
-  <ul> <%= @empty_descr.any? ? error_icon:ok_icon %> Products with missing description: <%= render 'show_5_products', collection:  @empty_descr %>  </ul>
-  <ul> <%= @empty_scales.any? ? error_icon:ok_icon %> Products with missing scale: <%= render 'show_5_products', collection: @empty_scales %> </ul>
-  <ul> <%= @empty_colours.any? ? error_icon:ok_icon %> Products with missing colour: <%= render 'show_5_products', collection:  @empty_colours %> </ul>
-  <ul> <%= @empty_brands.any? ? error_icon:ok_icon %> Products with missing brand: <%= render 'show_5_products', collection: @empty_brands %> </ul>
-  <ul> <%= @empty_categories.any? ? error_icon:ok_icon %> Products with missing category: <%= render 'show_5_products', collection: @empty_categories %> </ul>
-  <ul> <%= @empty_ctns.any? ? error_icon:ok_icon %> Products with missing carton count: <%= render 'show_5_products', collection:  @empty_ctns %> </ul>
-  <ul> <%= @empty_price_eu.any? ? error_icon:ok_icon %> Products with missing price EU: <%= render 'show_5_products', collection: @empty_price_eu %> </ul>
-  <ul> <%= @empty_price_eu2.any? ? error_icon:ok_icon %> Products with missing price EU2: <%= render 'show_5_products', collection: @empty_price_eu2 %> </ul>
-  <ul> <%= @empty_price_usd.any? ? error_icon:ok_icon %> Products with missing price USD: <%= render 'show_5_products', collection: @empty_price_usd %> </ul>
-  <ul> <%= @empty_price_usd.any? ? error_icon:ok_icon %> Products with missing price USD2: <%= render 'show_5_products', collection: @empty_price_usd2 %> </ul>
-  <ul> <%= @missing_images.any? ? error_icon:ok_icon %> Products with missing pictures: <%= render 'show_5_products', collection: @missing_images %> </ul>
+  <h5> Verifying products table: </h5>
+  <ul> <%= @empty_refcodes.any? ? error_icon:ok_icon %> Missing reference code: <%= render 'show_5_products', collection:  @empty_refcodes %>  </ul>
+  <ul> <%= @empty_descr.any? ? error_icon:ok_icon %> Missing description: <%= render 'show_5_products', collection:  @empty_descr %>  </ul>
+  <ul> <%= @empty_scales.any? ? error_icon:ok_icon %> Missing scale: <%= render 'show_5_products', collection: @empty_scales %> </ul>
+  <ul> <%= @empty_colours.any? ? error_icon:ok_icon %> Missing colour: <%= render 'show_5_products', collection:  @empty_colours %> </ul>
+  <ul> <%= @empty_brands.any? ? error_icon:ok_icon %> Missing brand: <%= render 'show_5_products', collection: @empty_brands %> </ul>
+  <ul> <%= @empty_categories.any? ? error_icon:ok_icon %> Missing category: <%= render 'show_5_products', collection: @empty_categories %> </ul>
+  <ul> <%= @empty_ctns.any? ? error_icon:ok_icon %> Missing carton count: <%= render 'show_5_products', collection:  @empty_ctns %> </ul>
+  <ul> <%= @empty_price_eu.any? ? error_icon:ok_icon %> Missing price EU: <%= render 'show_5_products', collection: @empty_price_eu %> </ul>
+  <ul> <%= @empty_price_eu2.any? ? error_icon:ok_icon %> Missing price EU2: <%= render 'show_5_products', collection: @empty_price_eu2 %> </ul>
+  <ul> <%= @empty_price_usd.any? ? error_icon:ok_icon %> Missing price USD: <%= render 'show_5_products', collection: @empty_price_usd %> </ul>
+  <ul> <%= @empty_price_usd.any? ? error_icon:ok_icon %> Missing price USD2: <%= render 'show_5_products', collection: @empty_price_usd2 %> </ul>
+  <ul> <%= @missing_images.any? ? error_icon:ok_icon %> Missing pictures: <%= render 'show_5_products', collection: @missing_images %> </ul>
+  <ul> <%= @missing_ref_codes.any? ? error_icon:ok_icon %> Pictures without corresponding products: <%= render 'show_5_pictures', collection: @missing_ref_codes %> </ul>
 </ul>
 
 
