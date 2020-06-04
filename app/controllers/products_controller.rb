@@ -72,6 +72,14 @@ class ProductsController < ApplicationController
     end
   end
 
+  def disable
+    @product = Product.find(params[:id])
+    if @product.update_attribute( :active, false )
+      flash[:success] = "Product disabled - won't be visible by client"
+      redirect_back(fallback_location: products_path)
+    end
+  end
+
   def update_quantity
     @product = Product.find(params[:id])
     @product.update_attribute(:quantity, params[:product][:quantity])
@@ -88,16 +96,6 @@ class ProductsController < ApplicationController
     flash[:success] = "Price rules applied to all products"
     redirect_back(fallback_location: prices_path)
   end
-
-# Set Placements across all orders for this product to Back Order, Generate PPO
-#  def set_back_order
-#    @product = Product.find(params[:id])
-#    @ppo = @product.ppos.create 
-#    pdf = build_ppo_pdf(@product) # in My::Docs
-#    pdf.render_file @ppo.filespec
-#    flash[:info] = "PPO created for '#{@product.ref_code}'"
-#    redirect_to inventories_path
-#  end
 
   def show_pending_orders
     @product = Product.find(params[:id])

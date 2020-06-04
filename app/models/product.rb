@@ -31,6 +31,12 @@ class Product < ApplicationRecord
   
   before_validation { description.strip!.gsub!(/\s+/,' ') rescue '' }
   before_validation { ref_code.gsub!(/\W+/,'') rescue '' }
+  after_save :send_emails #, :if => :new_record?
+
+# Notify staff, admins
+  def send_emails
+    UserMailer.new_product(self).deliver 
+  end
 
   def scale_str
     '1:'+scale.to_s

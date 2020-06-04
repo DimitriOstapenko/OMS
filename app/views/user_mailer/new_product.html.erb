@@ -1,0 +1,17 @@
+<div class='email-header'>
+New Product Added: <%= @product.ref_code %>
+</div>
+
+<p>
+New product was just created in OMS: <%= @product.ref_code %> "<%= @product.description %>", <%= @product.category_str %>, Scale: <%= @product.scale_str %> Color: <%= @product.colour_str %> Price EU: <%= number_to_currency(@product.price_eu, locale: :fr) %>
+</p>
+
+<div style="clear:both">
+
+<p>&nbsp;</p>
+<p>
+<%= link_to "Show added product", product_url(@product), method: :get %>
+</p>
+
+</div>
+

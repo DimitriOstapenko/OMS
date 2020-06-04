@@ -7,4 +7,9 @@ class UserMailerPreview < ActionMailer::Preview
     UserMailer.new_registration(user)
   end  
 
+  def new_product
+    @product = Product.first 
+    UserMailer.new_product(@product)
+  end
+
 end

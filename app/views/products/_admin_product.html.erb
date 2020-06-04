@@ -2,4 +2,8 @@
 <td class="text-center"><%= product.supplier_str %></td>
 <td class="text-center"><%= product.quantity %></td>
 <td class="text-center"><%= link_to '<i class="glyphicon glyphicon-edit"></i>'.html_safe, edit_product_path(product), remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %> </td>
-<td class="text-center"><%= link_to '<i class="glyphicon glyphicon-remove-sign"></i>'.html_safe, product, method: :delete, data: { confirm: "Are you sure you want to delete #{product.ref_code}?" } %> </td>
+<td class="text-center">
+<% unless product.orders.any? %>
+<%= link_to '<i class="glyphicon glyphicon-remove-sign"></i>'.html_safe, product, method: :delete, data: { confirm: "Are you sure you want to delete #{product.ref_code}?" } %>
+<% end %>
+</td>

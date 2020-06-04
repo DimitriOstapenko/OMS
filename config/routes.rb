@@ -32,8 +32,8 @@ Rails.application.routes.draw do
   resources :suppliers, :managers, :shippers, :users, :prices, :table_notes
   resources :products do
     get 'show_pending_orders', on: :member 
-#    post 'set_back_order', on: :member
     post 'clear_back_order', on: :member
+    get 'disable', on: :member
     resources :ppos, only: [:index, :show, :create] do
       get 'download', on: :member
     end

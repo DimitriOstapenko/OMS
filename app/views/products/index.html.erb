@@ -29,7 +29,7 @@
 <% end %>
 
 <div class="row">
-<% if current_user.admin? || current_user.staff? %>
+<% if current_user.admin? || current_user.staff?  || current_user.su? %>
 <div class="bottom_buttons ">
 <%= button_to "Add Product", new_product_path, class: "btn btn-primary col-md-2", method: :get, remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window'  %>
 </div>

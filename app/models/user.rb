@@ -50,7 +50,7 @@ class User < ApplicationRecord
     self.invited_by.present?
   end
 
-# Notify staff
+# Notify staff, admins
   def send_emails
     UserMailer.new_registration(self).deliver unless self.invited?
   end
