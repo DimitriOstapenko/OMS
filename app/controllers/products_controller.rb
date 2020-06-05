@@ -3,7 +3,7 @@ class ProductsController < ApplicationController
   include My::Docs
 
   before_action :logged_in_user   # if this is enabled, message about activation email is not shown because of redirect
-  before_action :admin_or_staff_user, only: [:new, :create, :edit, :update]
+  before_action :admin_or_staff_user, only: [:new, :create, :edit, :update, :upload_image, :image_upload]
   before_action :admin_or_su_user, only: [:destroy]
 
   helper_method :sort_column, :sort_direction
@@ -102,12 +102,38 @@ class ProductsController < ApplicationController
     @placements = @product.pending_order_placements.paginate(page: params[:page])
     render 'inventories/show_pending_orders'
   end
+
+# post  
+  def upload_image
+    im = params[:image][:image]
+    fn = im.original_filename if im.present?
+    ref_code = Pathname(fn).basename('.jpg').to_s rescue nil
+
+    @product = Product.find_by(ref_code: ref_code) if ref_code.present?
+    if @product.present?
+      @product.image = im
+      if @product.save
+        flash[:success] = "#{ref_code}: image saved. product updated"
+      else
+        flash.now[:danger] = @product.errors.full_messages.to_sentence
+      end
+    else
+      flash[:warning] = "Product with Ref. code #{ref_code.inspect} does not exists. Please add it first"
+    end
+    redirect_to products_path
+  end
   
+# get: show form  
+  def image_upload
+    @product = Product.new
+    render "upload"
+  end
+
 private
   def product_params
     params.require(:product).permit( :ref_code, :description, :brand, :category, :scale, :colour, :ctns, :release_date, :added_date, 
                                      :weight, :quantity, :active, :price_eu, :price_eu2, :price_eu3, :price_eu4, :price_eu5, :price_eu6, 
-                                     :price_usd, :price_usd2, :supplier, :manager, :progress, :manual_price,  :notes ) 
+                                     :price_usd, :price_usd2, :supplier, :manager, :progress, :manual_price,  :notes, :image ) 
   end
 
   def sort_column

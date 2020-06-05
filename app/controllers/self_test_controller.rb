@@ -18,12 +18,12 @@ class SelfTestController < ApplicationController
     @empty_categories = Product.where(category: nil)
     @empty_ctns = Product.where(ctns: nil)
     @empty_price_eu = Product.where(price_eu: nil)
-    @empty_price_eu2 = Product.where(price_eu2: nil)
-    @empty_price_eu3 = Product.where(price_eu3: nil)
-    @empty_price_eu4 = Product.where(price_eu4: nil)
-    @empty_price_eu5 = Product.where(price_eu5: nil)
+    @empty_price_eu2 = Product.where(price_eu2: 0)
+    @empty_price_eu3 = Product.where(price_eu3: 0)
+    @empty_price_eu4 = Product.where(price_eu4: 0)
+    @empty_price_eu5 = Product.where(price_eu5: 0)
     @empty_price_usd = Product.where(price_usd: nil)
-    @empty_price_usd2 = Product.where(price_usd2: nil)
+    @empty_price_usd2 = Product.where(price_usd2: 0)
 
     @missing_images = []
     Product.all.each do |p|

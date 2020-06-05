@@ -1,0 +1,7 @@
+<b><%= collection.count == 0 ? 'Ok' : collection.count %></b> 
+<% if collection.count > 0 %>
+  :
+  <% collection.each do |img| %>
+    <%= link_to img, "/images/#{img}.jpg" %> 
+  <% end %>
+<% end %>

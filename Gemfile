@@ -10,6 +10,10 @@ gem 'puma', '~> 4.3', '>= 4.3.3'
 gem 'devise', '~> 4.7', '>= 4.7.1'
 gem 'nokogiri', '~> 1.10', '>= 1.10.8'
 
+gem 'carrierwave', '~> 2.1'
+gem 'dropzonejs-rails', '~> 0.8.4'
+gem 'mini_magick', '~> 4.10', '>= 4.10.1'
+
 #gem 'bootstrap', '~> 4.4', '>= 4.4.1'
 gem 'bootstrap-sass',       '~> 3.4.1'
 gem 'bootstrap-email', '~> 0.3.0'

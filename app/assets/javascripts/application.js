@@ -22,3 +22,4 @@
 //
 // require pagination-keys.js
 // require tooltip.js
+//= require dropzone

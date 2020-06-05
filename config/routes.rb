@@ -27,6 +27,9 @@ Rails.application.routes.draw do
   get '/delete_product(/:id)', to: 'placements#delete_product', as: :delete_product
   post '/update_product_qty(/:id)', to: 'placements#update_product_qty', as: :update_product_qty
 
+  get '/image_upload', to: 'products#image_upload'
+  post '/upload_image', to: 'products#upload_image'
+
   get '/self_test', to: 'self_test#index', as: :self_test
 
   resources :suppliers, :managers, :shippers, :users, :prices, :table_notes

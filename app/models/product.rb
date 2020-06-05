@@ -7,6 +7,8 @@ class Product < ApplicationRecord
   has_many :ppos
 #  has_one  :manager
 
+   mount_uploader :image, ImageUploader
+
   default_scope -> { order(ref_code: :asc, release_date: :asc) }
 
   scope :filter_by_title_or_refcode, lambda { |keyword|
