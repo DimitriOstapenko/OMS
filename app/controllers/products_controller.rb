@@ -105,8 +105,6 @@ class ProductsController < ApplicationController
 
 # post  
   def upload_image
-    flash[:success] = 'params:' + params.inspect 
-
     im = params[:image][:image] rescue nil
     fn = im.original_filename.upcase if im
     ref_code = Pathname(fn).basename('.JPG').to_s rescue nil
