@@ -930,10 +930,16 @@ background: $brand-info;
   background: lightyellow; //#f5f5f5;
   border: 3px dashed #dedede;
   border-radius: 5px;
-  padding: 50px 0px 50px 0px;
+  padding: 100px 0px 100px 0px;
   color: rgba(0,0,0,.54);
   font-weight: 500;
   font-size: initial;
   text-transform: uppercase;
+  text-align: center;
+  height: 200px;
+}
+
+.dz-success-mark, .dz-error-mark {
+	display: none;
 }
 

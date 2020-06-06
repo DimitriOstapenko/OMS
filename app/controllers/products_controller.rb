@@ -105,15 +105,17 @@ class ProductsController < ApplicationController
 
 # post  
   def upload_image
-    im = params[:image][:image]
-    fn = im.original_filename if im.present?
-    ref_code = Pathname(fn).basename('.jpg').to_s rescue nil
+    flash[:success] = 'params:' + params.inspect 
+
+    im = params[:image][:image] rescue nil
+    fn = im.original_filename.upcase if im
+    ref_code = Pathname(fn).basename('.JPG').to_s rescue nil
 
     @product = Product.find_by(ref_code: ref_code) if ref_code.present?
     if @product.present?
       @product.image = im
       if @product.save
-        flash[:success] = "#{ref_code}: image saved. product updated"
+        flash[:success] = "#{ref_code}: Image saved. Thumbnails created. Product updated"
       else
         flash.now[:danger] = @product.errors.full_messages.to_sentence
       end

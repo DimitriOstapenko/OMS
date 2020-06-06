@@ -1,33 +1,47 @@
 <div class="well">
 
-  <%= simple_form_for @product, url: upload_image_path, html: {multipart: true, class: " dropzone", id:"my-dropzone"}, method: :post do |f| %>
+  <%= simple_form_for @product, url: upload_image_path, html: {multipart: false, class: "dropzone", id:"my-dropzone"}, method: :post do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
-
+  
 <div id='dropzone_panel'>
-  <div class="dz-message"><center>Drop jpg file here to upload</center></div>
-  <%= f.hint 'Please use high resolution image. If image exists, it will be replaced. Current size limit is 145Mb' %>
+  <div class="dz-message">Drop jpg file here to upload</div>
+  <%= f.hint 'Please use high resolution image. If image exists on the server, it will be replaced. Current size limit is 145Mb' %>
 </div>
-
-  <% end %>
+</form>
+<%= f.button :submit, "Upload", class:"btn btn-block btn-primary", id: "submit", disabled: true %>
+<% end %>
 </div>
 
 <script>
   
 Dropzone.options.myDropzone = {
 paramName: "image[image]",
-acceptedFiles: ".jpg",
+acceptedFiles: ".jpg,.JPG ",
 maxFiles: 1,
 maxFilesize: 145, // MB
-addRemoveLinks: false,
-url: "<%= upload_image_path %>",
+addRemoveLinks: true,
+url: "<%= upload_image_url %>",
 autoDiscover: true,
 uploadMultiple: false,
-autoProcessQueue: true,
+autoProcessQueue: false,
 //autoQueue: false,
 
-  init: function() {
+init: function() {
+    this.on("addedfile", function() { if (this.files[1]!=null){ this.removeFile(this.files[0]); } });
     this.on("success", function(file) { window.location = "<%= products_path %>"; });
-  }
+    var submitButton = document.querySelector("#submit")
+        myDropzone = this; // closure
+
+    submitButton.addEventListener("click", function() {
+      myDropzone.processQueue(); // Tell Dropzone to process all queued files.
+      console.log("clicked");
+    });
+
+    this.on("addedfile", function(file) {
+      var submit = document.getElementById('submit');
+      submit.disabled = false;
+    });
+}
 };
   
 </script>
