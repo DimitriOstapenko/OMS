@@ -1,16 +1,18 @@
+<h4>Product image upload</h4>
 <div class="well">
 
+  <h4> Please provide full resolution image named [Ref. Code].jpg </h4>
   <%= simple_form_for @product, url: upload_image_path, html: {multipart: false, class: "dropzone", id:"my-dropzone"}, method: :post do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
   
 <div id='dropzone_panel'>
   <div class="dz-message">Drop jpg file here to upload</div>
-  <%= f.hint 'Please use high resolution image. If image exists on the server, it will be replaced. Current size limit is 145Mb' %>
+  <%= f.hint 'If image exists on the server, it will be replaced. Current size limit is 145Mb' %>
 </div>
 </form>
+</div>
 <%= f.button :submit, "Upload", class:"btn btn-block btn-primary", id: "submit", disabled: true %>
 <% end %>
-</div>
 
 <script>
   
