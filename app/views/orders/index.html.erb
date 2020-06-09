@@ -2,6 +2,11 @@
 
 <% if @orders.any? %>
 <p></p>
+Total orders: <%= @orders.count %>,
+Pending: <%= @orders.select{|o| o.pending?}.count rescue 0 %>,
+Active: <%= @orders.select{|o| o.active?}.count rescue 0 %>,
+Shipped: <%= @orders.select{|o| o.shipped?}.count rescue 0 %>
+
 <div style="float:right"><small>Cancelled orders are highlighted in red</small></div>
 <table class="tbl2 table-hover table-striped table-bordered" >
 <%= render "#{current_user.role}_header" %>
@@ -14,7 +19,7 @@
 <div class="row">
   <div class="col-md-6">
 <% first_page = params[:page] == '1' || params[:page].blank? %>
-<% if (current_user.staff? || current_user.admin?) && first_page %>
+<% if (current_user.staff? || current_user.admin? || current_user.su?) && first_page %>
   <%= render "totals_table" %>
 <% end %>
   </div>

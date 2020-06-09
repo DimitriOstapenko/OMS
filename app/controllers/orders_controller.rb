@@ -22,7 +22,7 @@ class OrdersController < ApplicationController
     @orders = @orders.reorder(sort_column + ' ' + sort_direction, "created_at desc").paginate(page: params[:page]) 
     @grand_total = @orders.sum{|o| o[:total]*o.client.fx_rate}
 
-    flash[:info] = "#{search_results.count} orders found" if keyword
+#    flash[:info] = "#{search_results.count} orders found" if keyword
   end 
 
   def show

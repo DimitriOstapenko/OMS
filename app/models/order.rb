@@ -94,6 +94,10 @@ class Order < ApplicationRecord
   def pending?
     self.status == PENDING_ORDER 
   end
+  
+  def active?
+    self.status == ACTIVE_ORDER 
+  end
 
   def cancelled?
     self.status == CANCELLED_ORDER 
