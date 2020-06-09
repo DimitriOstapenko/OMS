@@ -19,7 +19,7 @@ class OrdersController < ApplicationController
     end
     search_results = Order.search(keyword,@client) if keyword
     @orders = search_results if search_results.any?
-    @orders = @orders.reorder(sort_column + ' ' + sort_direction, "created_at desc").paginate(page: params[:page]) 
+    @orders = @orders.reorder(sort_column + ' ' + sort_direction, "created_at desc") #.paginate(page: params[:page])  in view
     @grand_total = @orders.sum{|o| o[:total]*o.client.fx_rate}
 
 #    flash[:info] = "#{search_results.count} orders found" if keyword
