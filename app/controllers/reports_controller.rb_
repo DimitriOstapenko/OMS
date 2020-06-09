@@ -54,6 +54,7 @@ class ReportsController < ApplicationController
        if flash[:danger]
           redirect_back(fallback_location: reports_path)
        elsif @report.save
+         flash[:info] = @report.inspect
           redirect_to export_report_path(@report, category: params[:category] )
        else
           flash.now[:danger] = @report.errors.full_messages.to_sentence
@@ -134,19 +135,26 @@ private
     %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
   end
 
-# get orders in given timeframe matching given status: Pending and Shipped for Purchases, Paid for Sales
+# get orders for client report in given timeframe matching given status and client
   def get_orders(report)
-    orders = Order.all
 #    logger.debug "*** report: #{report.inspect}"
-    if report.category == CLIENT_REPORT 
-      orders = Order.all
-    elsif report.category == PRODUCT_REPORT 
-      orders = report.product.orders 
-    end
+    
+    orders = Order.all
     orders = orders.where(client_id: report.client_id) if report.client_id
     orders = orders.where(created_at: (report.sdate..report.edate))
     orders = orders.where(status: report.status) if report.status.present?
     return orders
+  end
+
+  def get_placements(report)
+#    placements = report.product.placements
+     placements = Placement.where(product_id: report.product_id)
+#     placements = Order.joins(:placements).where(placements: {product_id: report.product_id})
+     placements = placements.where(client_id: report.client_id) if where(client_id: report.client_id)
+     placements = placements.where(created_at: (report.sdate..report.edate))
+     placements = placements.where(status: report.status) if report.status.present?
+
+     return placements
   end
 
 end

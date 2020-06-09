@@ -46,7 +46,7 @@ class Order < ApplicationRecord
     self.total = self.weight = 0
     placements.each do |placement|
       self.total += placement.price * placement.quantity
-      self.weight += placement.product.weight/1000 * placement.quantity
+      self.weight += placement.product.weight/1000 * placement.quantity rescue 0
     end
     nextid = Order.maximum(:id).next rescue 1
     suff = nextid.to_s

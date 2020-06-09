@@ -8,7 +8,7 @@ class PlacementsController < ApplicationController
   def index
     @order = Order.find(params[:order_id])
     @client = @order.client
-    @placements = @order.placements.paginate(page: params[:page])
+    @placements = @order.placements #.paginate(page: params[:page])
   end
 
   def show
