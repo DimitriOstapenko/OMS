@@ -51,18 +51,17 @@ class PlacementsController < ApplicationController
     redirect_to products_path
   end
 
+# Set placement status to "Shipped"; Regenerate PPO and mark Order as "Shipped" if all placements are shipped
   def set_to_shipped
-    @placement = Placement.find(params[:id])
-    @placement.update_attribute(:status, SHIPPED_ORDER)
-    @placement.order.update_attribute(:status, SHIPPED_ORDER) if @placement.order.all_placements_shipped?
-    if @placement.ppo.present?
-      @placement.ppo.regenerate
-      if @placement.ppo.all_placements_shipped?
-        @placement.ppo.update_attribute(:status, ARCHIVED_PPO) 
-        redirect_to inventories_path, notice: "All placements set to Shipped"
-      else
-        redirect_to product_ppos_path(@placement.product), notice: "Placement is set to Shipped"
-      end
+    @placement = Placement.find(params[:id]); msg = '';
+    @placement.set_to_shipped
+    msg = "Order #{@placement.order_id} is set to Shipped" if @placement.order.all_placements_shipped?
+    msg << "#{@placement.product.ref_code}: Placement is set to Shipped; "
+    flash[:info] = msg
+    if request.referer.match(/orders/)
+      redirect_to order_placements_path(@placement.order) 
+    else
+     redirect_to product_ppos_path(@placement.product)
     end
   end
 

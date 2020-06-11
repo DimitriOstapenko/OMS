@@ -43,18 +43,18 @@ class ApplicationController < ActionController::Base
 
 # Confirms admin or staff user  
   def admin_or_staff_user
-    return if current_user.su?
+    return if current_user && current_user.su?
     redirect_back fallback_location: root_path, alert: "This operation is reserved to staff and admins only" unless current_user && (current_user.admin? || current_user.staff?)
   end
 
 # Confirms production, admin or staff user  
   def production_admin_or_staff_user
-    return if current_user.su?
+    return if current_user && current_user.su?
     redirect_back fallback_location: root_path, alert: "This operation is reserved to staff and admins only" unless current_user && (current_user.production? || current_user.admin? || current_user.staff? )
   end
 
   def client_user
-     return if current_user.su?
+     return if current_user && current_user.su?
      redirect_back fallback_location: root_path, alert: "This operation is reserved to client users only" unless current_user && current_user.client?
   end
 

@@ -60,8 +60,8 @@ class Order < ApplicationRecord
   end
 
   def send_emails!
-    OrderMailer.send_confirmation(self).deliver_now
     OrderMailer.notify_staff(self).deliver_now
+    OrderMailer.send_confirmation(self).deliver_now
   end
 
 # Total Order price before Taxes, Shipping, Discount etc.  

@@ -4,7 +4,7 @@
      <% end %>
     <td class="text-center">
   <% if ppo.exists? %>
-         <%= link_to ppo.name, show_placements_ppo_path(ppo), remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %>
+         <%= link_to ppo.name, show_placements_ppo_path(ppo) %>
   <% else %>
      <%= ppo.name %>
   <% end %>

@@ -26,7 +26,7 @@ USD_EUR_FX = get_usd_euro_fx
 
 PROJECT_NAME = 'APD Order Management System'
 PROJECT_SHORT_NAME = 'APD OMS'
-PROJECT_URL = 'https://oms.drlena.com'
+PROJECT_URL = 'https://apdoms.com'
 PROJECT_CONTACT_EMAIL = 'dosta@me.com'
 PROJECT_CONTACT_PHONE = '0699436691'
 IMAGE_BASE = Rails.root.join('public/images') # full path; put / in front to make relative
@@ -78,7 +78,7 @@ CLIENT_TYPES = {Distributor: 0, Retailer: 1, Press: 2, Club: 3}
 CLIENT_MAIL_CATEGORIES = {General: 0, Marketing: 1, 'New Products': 2, Promotion: 3}
 
 # Mailer
-REPLY_TO = '"oms.drlena.com" <ostapenko.dmitri@gmail.com>'  # Mail admin
+REPLY_TO = '"apdoms.com" <ostapenko.dmitri@gmail.com>'  # Mail admin
 
 # Orders
 ORDER_STATUSES = {Pending: 0, Shipped: 1, Paid: 2, Cancelled: 3}

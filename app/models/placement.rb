@@ -23,4 +23,32 @@ class Placement < ApplicationRecord
     Ppo.find(ppo_id) rescue nil
   end
 
+# Set placement to shipped; Update PPO if present  
+  def set_to_shipped
+    self.update_attribute(:status, SHIPPED_ORDER)
+    self.order.update_attribute(:status, SHIPPED_ORDER) if self.order.all_placements_shipped?
+    if self.ppo.present?
+      self.ppo.regenerate 
+      self.ppo.update_attribute(:status, ARCHIVED_PPO) if self.ppo.all_placements_shipped?
+    end
+  end
+
+  def pending?
+    self.status == PENDING_ORDER
+  end
+
+  def active?
+    self.status == ACTIVE_ORDER
+  end
+
+  def cancelled?
+    self.status == CANCELLED_ORDER
+  end
+
+  def shipped?
+    self.status == SHIPPED_ORDER
+  end
+
+
+
 end

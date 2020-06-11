@@ -4,9 +4,8 @@
   <% if current_user.client? %>
     <h3 class='display-1'><%= @order.status_str %> Order #<%= @order.id %> received <%= @order.cre_date %></h3>
   <% else %>
-    <h3 class='display-1'>Client <%= @client.name %>: Order # <%= @order.id %>- details</h3>
+    <h3 class='display-1'>Client <%= @client.name %>: Order # <%= @order.id %> (<%= @order.status_str %>) </h3>
   <% end %>
-<div class="well">
 
 <table class="tbl2 table-hover table-striped table-bordered" >
   <thead>
@@ -20,6 +19,9 @@
           <th class="tbl_md, text-center">Quantity</th>
           <th class="tbl_md, text-center">Total</th>
           <th class="tbl_md, text-center">Status</th>
+          <% unless  current_user.client? || @order.shipped? || @order.cancelled? %>
+          <th></th>
+          <% end %>
       </tr>
   </thead>
   <tbody>
@@ -31,6 +33,9 @@
       <th class="text-center"><%= @order.total_pcs %></th>
       <th class="text-center"><%= to_currency @order.total_price, locale: @client.locale %></th>
       <th></th>
+      <% unless  current_user.client? || @order.shipped? || @order.cancelled? %>
+      <th></th>
+      <% end %>
     </tr>
   </tfoot>
 </table>
@@ -51,8 +56,15 @@
 </p>
 
 <div class="bottom_nav">
-<%= will_paginate @placements, class: "btn" %>
+<%# will_paginate @placements, class: "btn" %>
 </div>
 
+<% unless  current_user.client? || @order.shipped? || @order.cancelled? %>
+<div class="row">
+<div class="col-md-4">
+<%= button_to "Set Order To Shipped", set_to_shipped_order_path(@order), class: "btn btn-primary", method: :patch %>
 </div>
+</div>
+<% end %>
+
 </div>

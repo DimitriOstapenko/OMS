@@ -139,7 +139,17 @@ class OrdersController < ApplicationController
       redirect_to orders_path
     end
   end
-  
+
+# Set all placements to "Shipped"; Regenerate PPO and mark Order as "Shipped"
+  def set_to_shipped
+    @order = Order.find(params[:id]); msg = ''
+    @order.placements.each do |pl|
+      pl.set_to_shipped
+    end
+
+    flash[:info] = "Order #{@order.id} is set to Shipped"
+    redirect_to orders_path #, notice: "Order is set to Shipped #{msg}"
+  end
 
 private
 

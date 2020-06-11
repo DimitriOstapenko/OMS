@@ -75,15 +75,14 @@ class PposController < ApplicationController
     redirect_to ppos_url
   end
 
-# Set active order to shipped
+# Set PPO to shipped
   def set_to_shipped
-    @ppo = Ppo.find(params[:id])
+    @ppo = Ppo.find(params[:id]); msg = '';
     @ppo.placements.each do |pl|
-       pl.update_attribute(:status, SHIPPED_ORDER)
-       pl.order.update_attribute(:status, SHIPPED_ORDER) if pl.order.all_placements_shipped?
+      pl.set_to_shipped
+      msg << "; Order #{pl.order_id} is set to Shipped" if pl.order.all_placements_shipped?
     end
-    @ppo.update_attribute(:status, ARCHIVED_PPO)
-    flash[:info] = "Order is set to Shipped"
+    flash[:info] = "PPO #{@ppo.id} is set to Shipped #{msg}"
     redirect_to inventories_path
   end
 

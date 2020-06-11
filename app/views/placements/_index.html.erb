@@ -28,6 +28,9 @@
           <th class="tbl_md, text-center">Quantity</th>
           <th class="tbl_md, text-center">Subtotal</th>
           <th class="tbl_md, text-center">Status</th>
+          <% unless @order.shipped? || current_user.client? %>
+          <th></th>
+         <% end %>
       </tr>
   </thead>
   <tbody>
@@ -39,6 +42,9 @@
       <th class="text-center"><%= @order.total_pcs %></th>
       <th class="text-center"><%= to_currency @order.total_price, locale: @client.locale %></th>
       <th></th>
+      <% unless @order.shipped? || current_user.client? %>
+      <th></th>
+      <% end %>
     </tr>
   </tfoot>
 </table>
@@ -58,6 +64,14 @@
 
 <div><b> Grand Total : <%= to_currency @order.total, locale: @order.client.locale %> </b></div>
 </p>
+
+<% unless @order.shipped? || current_user.client? %>
+<div class="row">
+<div class="col-md-4">
+<%= button_to "Set Order To Shipped", set_to_shipped_order_path(@order), class: "btn btn-primary", method: :patch %>
+</div>
+</div>
+<% end %>
 
 </div>
 </div>

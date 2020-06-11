@@ -5,3 +5,6 @@
 
        <%= render 'edit_form' %>
 
+<% unless @order.shipped? %>
+<%= button_to "Set Order To Shipped", set_to_shipped_order_path(@order), class: "btn btn-success", method: :patch %>
+<% end %>
