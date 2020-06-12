@@ -16,6 +16,7 @@ class SelfTestController < ApplicationController
     @empty_colours = Product.where(colour: nil)
     @empty_brands = Product.where(brand: nil)
     @empty_categories = Product.where(category: nil)
+    @empty_weights = Product.where(weight: nil)
     @empty_ctns = Product.where(ctns: nil)
     @empty_price_eu = Product.where(price_eu: nil)
     @empty_price_eu2 = Product.where(price_eu2: 0)
