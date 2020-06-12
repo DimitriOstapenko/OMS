@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_05_075840) do
+ActiveRecord::Schema.define(version: 2020_06_11_190216) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -149,6 +149,8 @@ ActiveRecord::Schema.define(version: 2020_06_05_075840) do
     t.boolean "active", default: true
     t.boolean "manual_price", default: false
     t.string "image"
+    t.integer "delta", default: 0
+    t.integer "stock", default: 0
     t.index ["ref_code"], name: "index_products_on_ref_code"
   end
 

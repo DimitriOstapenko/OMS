@@ -9,7 +9,8 @@ Rails.application.routes.draw do
   get '/suppliers/index'
   get '/managers/index'
   get '/inventories', to: 'inventories#index'
-  post '/update_quantity/:id', to: 'products#update_quantity', as:  :update_quantity 
+  post '/update_stock/:id', to: 'products#update_stock', as:  :update_stock 
+  post '/update_delta/:id', to: 'products#update_delta', as:  :update_delta 
   post '/apply_price_rules(/:id)', to: 'products#apply_price_rules', as:  :apply_price_rules
   get '/reports', to: 'reports#index'
 

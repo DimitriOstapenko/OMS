@@ -80,10 +80,17 @@ class ProductsController < ApplicationController
     end
   end
 
-  def update_quantity
+  def update_stock
     @product = Product.find(params[:id])
-    @product.update_attribute(:quantity, params[:product][:quantity])
-    flash[:info] = "Product : #{@product.ref_code} - updated quantity: #{@product.quantity}"
+    @product.update_attribute(:stock, params[:product][:stock])
+    flash[:info] = "Product : #{@product.ref_code} - updated available stock"
+    redirect_back(fallback_location: inventories_path)
+  end
+
+  def update_delta
+    @product = Product.find(params[:id])
+    @product.update_attribute(:delta, params[:product][:delta])
+    flash[:info] = "Product : #{@product.ref_code} - updated delta amount"
     redirect_back(fallback_location: inventories_path)
   end
 
@@ -133,7 +140,7 @@ private
   def product_params
     params.require(:product).permit( :ref_code, :description, :brand, :category, :scale, :colour, :ctns, :release_date, :added_date, 
                                      :weight, :quantity, :active, :price_eu, :price_eu2, :price_eu3, :price_eu4, :price_eu5, :price_eu6, 
-                                     :price_usd, :price_usd2, :supplier, :manager, :progress, :manual_price,  :notes, :image ) 
+                                     :price_usd, :price_usd2, :supplier, :manager, :progress, :manual_price,  :notes, :image, :stock, :delta ) 
   end
 
   def sort_column

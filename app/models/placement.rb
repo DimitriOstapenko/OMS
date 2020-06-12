@@ -26,6 +26,7 @@ class Placement < ApplicationRecord
 # Set placement to shipped; Update PPO if present  
   def set_to_shipped
     self.update_attribute(:status, SHIPPED_ORDER)
+    self.product.update_attribute(:quantity, self.quantity + self.product.quantity)
     self.order.update_attribute(:status, SHIPPED_ORDER) if self.order.all_placements_shipped?
     if self.ppo.present?
       self.ppo.regenerate 

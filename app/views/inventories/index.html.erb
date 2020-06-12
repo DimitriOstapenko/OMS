@@ -9,11 +9,13 @@
 	  <th class="tbl_md, text-center">Scale</th>
           <th class="tbl_lg">Description</th>
 	  <th class="tbl_md, text-center">Category</th>
-	  <th class="tbl_md, text-center">Brand</th>
           <th class="tbl_md, text-center">Pending <br> Orders/Pcs </td>
           <th class="tbl_md, text-center">Active PPO <br>Orders/Pcs </td>
-          <th class="tbl_md, text-center">Last Shipped PPO<br>Orders/Pcs </td>
-          <th class="tbl_md text-center"><%= sortable 'quantity', "Available  Quantity" %></th>
+          <th class="tbl_md, text-center">Last Shipped PPO</td>
+          <th class="tbl_md text-center"><%= sortable 'quantity', "Ordered" %></th>
+          <th class="tbl_md text-center"><%= sortable 'delta', "Delta" %></th>
+          <th class="tbl_md text-center"><%= sortable 'stock', "Stock" %></th>
+          <th class="tbl_md text-center">Total</th>
       </tr>
   </thead>
   <tbody>

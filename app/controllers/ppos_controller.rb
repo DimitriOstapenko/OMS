@@ -52,7 +52,7 @@ class PposController < ApplicationController
        pl.update_attribute(:status, PENDING_ORDER)
     end
     flash[:info] = "Active order for #{@product.ref_code} was reset to pending"
-    redirect_to inventories_path
+    redirect_back(fallback_location: inventories_path)
   end
 
 # Set Placements across all orders for this product to Back Order, Generate PPO
@@ -62,7 +62,7 @@ class PposController < ApplicationController
     pdf = build_ppo_pdf(@ppo) # in My::Docs
     pdf.render_file @ppo.filespec
     flash[:info] = "PPO created for '#{@product.ref_code}'"
-    redirect_to inventories_path
+    redirect_back(fallback_location: inventories_path)
   end
   
   def destroy

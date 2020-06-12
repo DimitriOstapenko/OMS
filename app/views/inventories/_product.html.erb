@@ -4,7 +4,6 @@
       <td class="text-center"><%= product.scale_str %></td> 
       <td><%= product.description %></td>
       <td class="text-center"><%= product.category_str %></td> 
-      <td class="text-center"><%= product.brand_str %></td> 
       <td class="text-center">
       <% if product.pending_order_placements.count > 0 %>
         <%= link_to "#{product.pending_order_placements.count}/#{product.total_pcs}", show_pending_orders_product_path(product),
@@ -25,18 +24,22 @@
       <% end %>
       </td>
 
-      <% if current_user.staff? || current_user.production? || current_user.su? %>
+        <td class="text-center"> <%= product.quantity.abs %> </td>
         <td class="text-center"> 
           <% id = "product_#{product.id}" %>
-          <%= simple_form_for product, url: update_quantity_path(product), method: :post, html: { class: "form" } do |f| %>
+          <%= simple_form_for product, url: update_delta_path(product), method: :post, html: { class: "form" } do |f| %>
           <div class="form-group" style="padding-top: 10px;">
-                 <%= f.input :quantity, as: :string, label: false, input_html: { onchange: 'this.form.submit();', id: id }  %>
+                 <%= f.input :delta, as: :string, label: false, input_html: { onchange: 'this.form.submit();', id: id }  %>
           </div>
           <% end %>
         </td>
-      <% elsif current_user.admin? %>
-         <td class="text-center"><%= product.quantity %></td>
-      <% end %>
-   
+        <td class="text-center"> 
+          <%= simple_form_for product, url: update_stock_path(product), method: :post, html: { class: "form" } do |f| %>
+          <div class="form-group" style="padding-top: 10px;">
+                 <%= f.input :stock, as: :string, label: false, input_html: { onchange: 'this.form.submit();', id: id }  %>
+          </div>
+          <% end %>
+        </td>
+        <td class="text-center"> <%= product.quantity - product.delta + product.stock %> </td>
 </tr>
 

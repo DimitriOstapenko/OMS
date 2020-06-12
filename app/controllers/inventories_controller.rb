@@ -8,7 +8,7 @@ class InventoriesController < ApplicationController
 
   def index
      if params[:findstr]
-      @products = Product.search(params).paginate(page: params[:page])
+      @products = Product.search(params[:findstr]).paginate(page: params[:page])
       if @products.any?
         flash.now[:info] = "Found #{@products.count} #{'product'.pluralize(@products.count)} matching string #{params[:findstr].inspect}"
       else

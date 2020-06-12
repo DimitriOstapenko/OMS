@@ -1,5 +1,10 @@
-# Set inventory for nown modles; default to 0 for the rest
+# Set inventory for nown modeles; default to 0 for the rest
+# Obsolete. Now quantity is calculated number which signifies outstanding Pending+Active Orders
+# Inventory is now in 'stock' column
 #
+# Quantity is verified and set by verify_quantity.rb script
+# 
+
 require_relative '../config/environment'
 require 'csv'
 
