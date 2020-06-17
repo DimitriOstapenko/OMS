@@ -5,12 +5,21 @@
     <td class="text-center"><%= placement.product.colour_str %></td>
     <td class="text-center"><%= placement.product.description %></td>
     <td class="text-center"><%= to_currency placement.price, locale: @order.client.locale %></td>
-    <td class="text-center"><%= placement.quantity %></td>
     <td class="text-center"><%= to_currency placement.ptotal, locale: @order.client.locale %></td>
-    <td class="text-center"><%= placement.status_str %></td>
-    <% unless  current_user.client? || placement.shipped? || placement.cancelled? %>
+    <td class="text-center"><%= placement.quantity %></td>
+    <td class="text-center"><%= placement.pending %></td>
+
     <td class="text-center">
-    <%= link_to('Set to Shipped', set_to_shipped_order_placement_path(placement.order,placement), remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window', method: 'patch') %>
+      <% if placement.shipped? || action_name == 'show_pending_orders' %>
+        <%= placement.shipped %>
+      <% else %>
+       <%= simple_form_for [placement.order,placement], url: update_shipped_order_placement_path(placement.order,placement), html: { class: "form" } do |f| %>
+         <div class="form-group" style="padding-top: 10px;">
+           <%= f.input :shipped, as: :string, label: false, input_html: { onchange: 'this.form.submit();' }  %>
+         </div>
+       <% end %>
+     <% end %>
     </td>
-    <% end %>
+
+    <td class="text-center"><%= placement.status_str %></td>
 </tr>

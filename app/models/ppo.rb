@@ -16,7 +16,20 @@ def init
   self.date = Date.today
   self.status = ACTIVE_PPO
   self.orders = self.product.pending_order_placements.count
-  self.pcs = self.product.total_pcs
+#  self.pcs = self.placements.sum(:quantity)
+end
+
+def quantity
+  self.placements.sum(:quantity)
+end
+
+# Pending + Active
+def pending
+  self.quantity - self.shipped 
+end
+
+def shipped 
+  self.placements.sum(:shipped)
 end
 
 def set_attributes!

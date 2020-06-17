@@ -60,12 +60,18 @@ class ClientsController < ApplicationController
   def send_invite_to_register
     @client = Client.find(params[:id])
     if @client.present?
-      @user = User.new(name: @client.name, email: @client.contact_email, role: :client, invited_by: current_user.name, password: Time.now)
-      if @user.save
+      @user = User.find_by(email: @client.contact_email) 
+      if @user
+        msg =  "Client '#{@client.name}' was just invited to complete registration"
         ClientMailer.send_invite_to_register(@client,@user).deliver_now
-        msg =  "New user created. Client '#{@client.name}' was just invited to complete registration"
-      else   
-        msg = "Client was not invited. Errors saving user: #{@user.errors.full_messages.join}"
+      else
+        @user = User.new(name: @client.name, email: @client.contact_email, role: :client, invited_by: current_user.name, password: Time.now)
+        if @user.save
+          ClientMailer.send_invite_to_register(@client,@user).deliver_now
+          msg =  "New user created. Client '#{@client.name}' was just invited to complete registration"
+        else   
+          msg = "Client was not invited. Errors saving user: #{@user.errors.full_messages.join}"
+        end
       end
     else 
       msg = "Client was not found"

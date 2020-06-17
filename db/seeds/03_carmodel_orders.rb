@@ -17,7 +17,8 @@ def create_order(prod_and_qty)
 end
 
 # Destroy all orders with dependent Placements
-$client.orders.destroy_all
+#$client.orders.destroy_all
+Order.destroy_all
 
 # Delete all PPOs with associated pdf files 
 Ppo.destroy_all # set ppo_id in placements to null before running 

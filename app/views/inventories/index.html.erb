@@ -8,11 +8,11 @@
           <th class="tbl_sm, text-center"><%= sortable 'ref_code', 'Ref.Code' %></th>
 	  <th class="tbl_md, text-center">Scale</th>
           <th class="tbl_lg">Description</th>
-	  <th class="tbl_md, text-center">Category</th>
           <th class="tbl_md, text-center">Pending <br> Orders/Pcs </td>
-          <th class="tbl_md, text-center">Active PPO <br>Orders/Pcs </td>
+          <th class="tbl_md, text-center">Active PPO </td>
           <th class="tbl_md, text-center">Last Shipped PPO</td>
-          <th class="tbl_md text-center"><%= sortable 'quantity', "Ordered<br>P/A".html_safe %></th>
+          <th class="tbl_md text-center"><%= sortable 'quantity', "Active".html_safe %></th>
+	  <th class="tbl_md, text-center">Total Shipped</th>
           <th class="tbl_md text-center"><%= sortable 'delta', "Delta" %></th>
           <th class="tbl_md text-center"><%= sortable 'stock', "Stock" %></th>
           <th class="tbl_md text-center">Total</th>

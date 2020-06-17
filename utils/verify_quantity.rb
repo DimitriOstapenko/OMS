@@ -8,7 +8,7 @@ require_relative '../config/environment'
 
 count = 0
 Product.all.each do |product|
-   target_qty = -product.placements.where(status: [0..1]).sum(:quantity)
+   target_qty = -product.placements.where(status: [0..1]).sum(:quantity)   # Pending/Active
    if product.quantity != target_qty 
      puts "#{product.ref_code}: mismatch: target: #{target_qty} current: #{product.quantity} - adjusting"
      product.update_attribute(:quantity, target_qty)

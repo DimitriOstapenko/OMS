@@ -3,7 +3,6 @@
       <td class="text-center"><%= link_to product.ref_code, product, remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %></td> 
       <td class="text-center"><%= product.scale_str %></td> 
       <td><%= product.description %></td>
-      <td class="text-center"><%= product.category_str %></td> 
       <td class="text-center">
       <% if product.pending_order_placements.count > 0 %>
         <%= link_to "#{product.pending_order_placements.count}/#{product.total_pcs}", show_pending_orders_product_path(product),
@@ -24,7 +23,15 @@
       <% end %>
       </td>
 
-        <td class="text-center"> <%= product.quantity.abs %> </td>
+      <td class="text-center">
+      <% if product.active_qty > 0 %>
+      <%= link_to "#{product.active_qty}", show_active_orders_product_path(product), remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %>
+      <% else %>
+        <%= product.active_qty %>
+      <% end %>
+      </td>
+
+        <td class="text-center"><%= product.shipped_qty %></td> 
         <td class="text-center"> 
           <% id = "product_#{product.id}" %>
           <%= simple_form_for product, url: update_delta_path(product), method: :post, html: { class: "form" } do |f| %>

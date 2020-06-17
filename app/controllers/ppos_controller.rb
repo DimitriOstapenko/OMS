@@ -4,14 +4,14 @@ class PposController < ApplicationController
 
   before_action :logged_in_user
   before_action :admin_or_staff_user, only: [:new, :create, :edit, :update]
-  before_action :admin_user, only: [:destroy]
+  before_action :admin_or_su_user, only: [:destroy]
 
   def index
     @product = Product.find(params[:product_id]) rescue nil
     if @product
       @ppos = @product.ppos.where(status: ACTIVE_PPO)
     else 
-      @ppos = Ppo.where(status: ACTIVE_PPO)
+      @ppos = Ppo.all
     end
     @ppos = @ppos.paginate(page: params[:page])
   end
@@ -80,7 +80,7 @@ class PposController < ApplicationController
     @ppo = Ppo.find(params[:id]); msg = '';
     @ppo.placements.each do |pl|
       pl.set_to_shipped
-      msg << "; Order #{pl.order_id} is set to Shipped" if pl.order.all_placements_shipped?
+      msg << "; Order #{pl.order_id} is set to Shipped " if pl.order.all_placements_shipped?
     end
     flash[:info] = "PPO #{@ppo.id} is set to Shipped #{msg}"
     redirect_to inventories_path

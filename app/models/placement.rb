@@ -1,4 +1,6 @@
 class Placement < ApplicationRecord
+  
+  require 'csv'
 
   belongs_to :order, inverse_of: :placements
   belongs_to :product, inverse_of: :placements
@@ -6,6 +8,7 @@ class Placement < ApplicationRecord
   validates :quantity, numericality: { only_integer: true, greater_than: 0 }
 
   after_create :decrement_product_quantity!
+  default_scope -> {order(product_id: :asc) }
 
   def decrement_product_quantity!
     self.product.decrement!(:quantity, quantity)
@@ -23,10 +26,17 @@ class Placement < ApplicationRecord
     Ppo.find(ppo_id) rescue nil
   end
 
-# Set placement to shipped; Update PPO if present  
+  def client_name
+    self.order.client_name
+  end
+
+# Set placement to shipped; update product quantity(pcs in active/pending orders); Update PPO if present  
   def set_to_shipped
     self.update_attribute(:status, SHIPPED_ORDER)
-    self.product.update_attribute(:quantity, self.quantity + self.product.quantity)
+    if self.shipped < self.quantity
+      self.product.update_attribute(:quantity, self.product.quantity + self.quantity - self.shipped)
+      self.update_attribute(:shipped, self.quantity)
+    end 
     self.order.update_attribute(:status, SHIPPED_ORDER) if self.order.all_placements_shipped?
     if self.ppo.present?
       self.ppo.regenerate 
@@ -50,6 +60,18 @@ class Placement < ApplicationRecord
     self.status == SHIPPED_ORDER
   end
 
+  # Pending and active
+  def pending
+    self.quantity - self.shipped
+  end
 
+  def self.to_csv
+    attributes = %w{id order_id client_name product_id created_at updated_at quantity price status_str ppo_id shipped ptotal}
+    CSV.generate(headers: attributes, write_headers: true) do |csv|
+      all.each do |placement|
+        csv << attributes.map{ |attr| placement.send(attr) }
+      end
+    end
+  end
 
 end

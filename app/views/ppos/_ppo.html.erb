@@ -10,9 +10,14 @@
   <% end %>
     <td class="text-center"><%= ppo.date %></td> 
     <td class="text-center"><%= ppo.orders %></td> 
-    <td class="text-center"><%= ppo.pcs %></td> 
+    <td class="text-center"><%= ppo.quantity %></td> 
+    <td class="text-center"><%= ppo.shipped %></td> 
+    <td class="text-center"><%= ppo.status_str %></td> 
     <td class="text-center"><%= link_to '<i class="glyphicon glyphicon-zoom-in"></i>'.html_safe, ppo, remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %></td>
     <td class="text-center"><%= link_to '<i class="glyphicon glyphicon-download"></i>'.html_safe, download_product_ppo_path(ppo.product,ppo) %></td>
+    <% if current_user.su? %>
+       <td class="text-center"><%= link_to '<i class="glyphicon glyphicon-remove-sign"></i>'.html_safe, [ppo.product,ppo], method: :delete, data: { confirm: "Are you sure you want to delete #{ppo.name}?" } %> </td>
+    <% end %>
 </tr>
 
 

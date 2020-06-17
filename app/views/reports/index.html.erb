@@ -1,14 +1,16 @@
 <% provide(:title, 'Reports') %>
-<%= render 'shared/modal' %>
-  
-<% cat_str = (@category == '2') ? 'Product' : 'Client' %>
+<%= render "shared/modal" %>
+
+<% cat_str = (@category == PRODUCT_REPORT) ? 'Product' : 'Client' %>
 <% if @reports.any? %>
 <table class="tbl2 table-hover table-striped table-bordered">
   <caption>List of <%= cat_str %> Reports</caption>
    <thead>
       <tr>
           <th class="text-center tbl_sm">Id</th>
+          <% if @category == PRODUCT_REPORT %>
           <th>Product</th>
+          <% end %>
           <th>Client</th>
           <th>Type</th>
           <th>Time Frame</th>

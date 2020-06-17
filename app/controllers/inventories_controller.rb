@@ -15,7 +15,7 @@ class InventoriesController < ApplicationController
         flash.now[:info] = "No products found"
       end
     else
-      @products = Product.reorder(sort_column + ' ' + sort_direction, "ref_code asc").paginate(page: params[:page])
+      @products = Product.where(active: :true).reorder(sort_column + ' ' + sort_direction, "ref_code asc").paginate(page: params[:page])
     end
   end 
 

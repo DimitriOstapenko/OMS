@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
-#  root 'static_pages#home'
-  root 'products#index'
+  root 'static_pages#home'
+#  root 'products#index'
 
   devise_for :users, controllers: { registrations: "my_registrations" } 
   get '/users/', to: 'users#index'
@@ -36,9 +36,10 @@ Rails.application.routes.draw do
   resources :suppliers, :managers, :shippers, :users, :prices, :table_notes
   resources :products do
     get 'show_pending_orders', on: :member 
+    get 'show_active_orders', on: :member 
     post 'clear_back_order', on: :member
     get 'disable', on: :member
-    resources :ppos, only: [:index, :show, :create] do
+    resources :ppos, only: [:index, :show, :create, :destroy] do
       get 'download', on: :member
     end
   end
@@ -58,6 +59,8 @@ Rails.application.routes.draw do
     patch 'set_to_shipped', on: :member
     resources :placements, only: [:index, :show, :create] do
       patch 'set_to_shipped', on: :member
+      get 'set_to_shipped', on: :member  # for redirect_to in placements#update_shipped
+      patch 'update_shipped', on: :member
     end
   end
   resources :clients do

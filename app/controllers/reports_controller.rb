@@ -10,7 +10,7 @@ class ReportsController < ApplicationController
   helper_method :sort_column, :sort_direction
 
   def index
-    @category = params[:category] || 1
+    @category = params[:category].to_i || 1
     @reports = Report.where(category: @category)
     @reports = @reports.where(client_id: current_user.client_id) if current_user.client?
     @reports = @reports.reorder(sort_column + ' ' + sort_direction, "created_at desc").paginate(page: params[:page])
@@ -134,19 +134,23 @@ private
     %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
   end
 
-# get orders in given timeframe matching given status: Pending and Shipped for Purchases, Paid for Sales
+# Get orders/placements in given timeframe matching given client/status 
   def get_orders(report)
-    orders = Order.all
-#    logger.debug "*** report: #{report.inspect}"
     if report.category == CLIENT_REPORT 
       orders = Order.all
+      orders = orders.where(client_id: report.client_id) if report.client_id
+      orders = orders.where(created_at: (report.sdate..report.edate))
+      orders = orders.where(status: report.status) if report.status.present?
+      return orders
     elsif report.category == PRODUCT_REPORT 
-      orders = report.product.orders 
+      placements = Placement.where(product_id: report.product_id)
+      placements = placements.where(created_at: (report.sdate..report.edate))
+      placements = placements.where(status: report.status) if report.status.present?
+      placements = placements.select{|p| p.order.client_id == report.client_id} if report.client_id
+      return placements
+    else 
+      logger.error "*** Invalid Report Category: #{report.inspect}"
     end
-    orders = orders.where(client_id: report.client_id) if report.client_id
-    orders = orders.where(created_at: (report.sdate..report.edate))
-    orders = orders.where(status: report.status) if report.status.present?
-    return orders
   end
 
 end

@@ -6,11 +6,11 @@
 	<td class="text-center"><%= client.price_type_str %></td> 
         <td><%= client.contact_fullname %></td>
         <td><%= client.contact_email %></td>
-        <td> <% if client.user.present? %>
-              Yes 
-        <% else %>
-            No - <%= link_to 'Invite', send_invite_to_register_client_path(client) %>
-            <% end %>
+        <td class="text-center"> 
+          <%= client.registered_str %> 
+        </td>
+        <td class="text-center">
+           <%= link_to 'Invite', send_invite_to_register_client_path(client) %>
         </td>
         <td class="text-center"><%= client.vat %></td>
         <td class="text-center"><%= client.tax_pc.to_i %></td>

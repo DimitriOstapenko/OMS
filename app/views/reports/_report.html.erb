@@ -7,7 +7,9 @@
   <% end %>
   </td>
 
+  <% if report.category == PRODUCT_REPORT %>
   <td><%= report.product.ref_code rescue '' %></td>
+  <% end %>
   <td><%= report.client_code %></td>
   <td><%= report.status_str %></td>
   <td><%= report.timeframe_str %></td>

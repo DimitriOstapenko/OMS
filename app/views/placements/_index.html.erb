@@ -19,18 +19,17 @@
 <table class="tbl2 table-hover table-striped table-bordered" >
   <thead>
       <tr>
-          <th class="tbl_sm, text-center">#</th>
-          <th class="tbl_sm, text-center">Product</th>
-          <th class="tbl_sm, text-center">Scale</th>
-          <th class="tbl_sm, text-center">Colour</th>
-          <th class="tbl_sm, text-center">Description</th>
-          <th class="tbl_sm, text-center">Price</th>
-          <th class="tbl_md, text-center">Quantity</th>
-          <th class="tbl_md, text-center">Subtotal</th>
-          <th class="tbl_md, text-center">Status</th>
-          <% unless @order.shipped? || current_user.client? %>
-          <th></th>
-         <% end %>
+          <th class="tbl_sm text-center">Product</th>
+          <th class="tbl_sm text-center">Code</th>
+          <th class="tbl_sm text-center">Scale</th>
+          <th class="tbl_sm text-center">Color</th>
+          <th class="tbl_lg text-center">Description</th>
+          <th class="tbl_sm text-center">Price <%= @client.price_type_str %></th>
+          <th class="tbl_md text-center">Total</th>
+          <th class="tbl_md text-center">Quantity</th>
+          <th class="tbl_md text-center">Pending/ Active</th>
+          <th class="tbl_md text-center">Shipped</th>
+          <th class="tbl_md text-center">Status</th>
       </tr>
   </thead>
   <tbody>
@@ -39,12 +38,11 @@
   <tfoot>
     <tr>
       <th colspan=6></th>
-      <th class="text-center"><%= @order.total_pcs %></th>
       <th class="text-center"><%= to_currency @order.total_price, locale: @client.locale %></th>
+      <th class="text-center"><%= @order.total_pcs %></th>
+      <th class="text-center"><%= @order.pending %></th>
+      <th class="text-center"><%= @order.shipped %></th>
       <th></th>
-      <% unless @order.shipped? || current_user.client? %>
-      <th></th>
-      <% end %>
     </tr>
   </tfoot>
 </table>

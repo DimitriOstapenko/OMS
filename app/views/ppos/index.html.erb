@@ -10,14 +10,19 @@
   <thead>
       <tr>
           <% unless @product %>
-          <th class="tbl_md, text-center">Product</th>
+          <th class="text-center">Product</th>
           <% end %>
-          <th class="tbl_md, text-center">PPO</th>
-          <th class="tbl_sm, text-center">Date</th>
-          <th class="tbl_md, text-center">Orders</th>
-          <th class="tbl_sm, text-center">Pcs</th>
-          <th></th>
-          <th></th>
+          <th class="text-center">PPO</th>
+          <th class="text-center">Date</th>
+          <th class="text-center">Orders</th>
+          <th class="text-center">Pcs</th>
+          <th class="text-center">Shipped</th>
+          <th class="text-center">Status</th>
+          <th class="tbl_sm"></th>
+          <th class="tbl_sm"></th>
+          <% if current_user.su? %>
+          <th class="tbl_sm"></th>
+          <% end %>
       </tr>
   </thead>
   <tbody>

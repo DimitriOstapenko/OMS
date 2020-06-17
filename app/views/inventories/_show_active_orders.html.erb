@@ -1,6 +1,6 @@
 <div class="modal-header">
   <button type="button" class="close" data-dismiss="modal">&times;</button>
-  <b class="modal-title" id="myModalLabel"><img src="/images/<%=@product.ref_code%>.jpg" width=100 style="vertical-align:bottom; margin-right:10px;"> Item  <%= @product.ref_code %>: Pending Orders (<%= @placements.count %>) </b>
+  <b class="modal-title" id="myModalLabel"><img src="/images/<%=@product.ref_code%>.jpg" width=100 style="vertical-align:bottom; margin-right:10px;"> Item  <%= @product.ref_code %>: Active Orders (<%= @placements.count %>) </b>
 </div>
 
 <div class="modal-body">
@@ -13,7 +13,7 @@
           <th class="text-center">Client</th>
           <th class="tbl_lmd text-center">Date</th>
           <th class="text-center">Ordered</th>
-          <th class="text-center">Pending</th>
+          <th class="text-center">Active</th>
           <th class="tbl_md text-center">Shipped</th>
           <th class="text-center">Status</th>
       </tr>
@@ -33,16 +33,9 @@
   </tfoot>
 </table>
 
-<div class="row">
-  <div class="col-md-4">
-    <%= button_to "Create Production Purchase Order", product_ppos_path(@product), class: "btn btn-success",  title: '* All placements on this page will be made active' %> <!--, disabled: disabled -->
-  </div>
-</div>
-
   </div>  
 </div>
 
 <div class="modal-footer">
-  <small> Create Production Purchase Order (PPO) when there's sufficient number of pending items in this list. All placements on this page will be marked as active </small>
 </div>
 

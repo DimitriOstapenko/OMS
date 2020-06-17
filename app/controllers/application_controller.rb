@@ -13,9 +13,9 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
 
 # devise redirect after login - if home page is different from products_path
-#  def after_sign_in_path_for(resource)
-#    products_path
-#  end
+  def after_sign_in_path_for(resource)
+    products_path
+  end
 
 # Confirms a logged-in user.
   def logged_in_user
@@ -34,7 +34,6 @@ class ApplicationController < ActionController::Base
   def admin_or_su_user
     redirect_back fallback_location: root_path, alert: "This operation is reserved to admin users only" unless current_user && (current_user.admin? || current_user.su?)
   end
-
 
 # Confirms staff user  
   def staff_user

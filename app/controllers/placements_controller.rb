@@ -40,6 +40,30 @@ class PlacementsController < ApplicationController
     redirect_back(fallback_location: products_path) 
   end
 
+# Set shipped attribute;  
+  def update_shipped
+    @placement = Placement.find(params[:id])
+    shipped = params[:placement][:shipped].to_i.abs rescue 0
+    shipped = @placement.quantity if shipped > @placement.quantity 
+    prev_shipped = @placement.shipped
+    @placement.product.update_attribute(:quantity, @placement.product.quantity + shipped - prev_shipped)
+    if shipped && @placement.update_attribute(:shipped, shipped)
+       flash[:success] = "Placement updated " 
+       if shipped == @placement.quantity
+#         redirect_to set_to_shipped_order_placement_path(@placement.order,@placement) 
+          @placement.set_to_shipped
+          redirect_back(fallback_location: inventories_path)
+       else
+         @placement.update_attribute(:status, ACTIVE_ORDER)
+         @placement.order.update_attribute(:status, ACTIVE_ORDER)
+         redirect_back(fallback_location: inventories_path)
+       end
+    else 
+      flash[:warning] = 'Error updating placement'
+      redirect_back(fallback_location: inventories_path)
+    end
+  end
+
   def cart
     @products = get_cart
     @client = current_client
@@ -60,9 +84,16 @@ class PlacementsController < ApplicationController
     flash[:info] = msg
     if request.referer.match(/orders/)
       redirect_to order_placements_path(@placement.order) 
+#    elsif request.referer.match(/show_placements/)
+#      redirect_to show_placements_ppo_path(@placement.ppo)
     else
      redirect_to product_ppos_path(@placement.product)
     end
   end
+
+private
+#  def placement_params
+#    params.require(:placement).permit( :order_id, :product_id, :quantity, :price, :status, :ppo_id, :shipped)
+#  end  
 
 end

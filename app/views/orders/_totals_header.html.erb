@@ -1,0 +1,23 @@
+<% 
+   pending = @orders.select{|o| o.pending?}.count rescue 0
+   active =  @orders.select{|o| o.active?}.count rescue 0 
+   shipped = @orders.select{|o| o.shipped?}.count rescue 0
+   canceled = @orders.select{|o| o.cancelled?}.count rescue 0
+%>
+
+<% case @status.to_i %>
+<% when PENDING_ORDER %>
+  <%= link_to "Pending", orders_path(status: PENDING_ORDER) %>: <%= pending %> > <%= link_to "Show All" %>
+<% when ACTIVE_ORDER %>
+  <%= link_to "Active", orders_path(status: ACTIVE_ORDER) %>: <%= active %> > <%= link_to "Show All" %>
+<% when SHIPPED_ORDER %>
+  <%= link_to "Shipped", orders_path(status: SHIPPED_ORDER) %>: <%= shipped %> > <%= link_to "Show All" %>
+<% when CANCELLED_ORDER %>
+  <%= link_to "Canceled", orders_path(status: CANCELLED_ORDER) %>: <%= canceled %> > <%= link_to "Show All" %>
+<% else %>
+Total orders: <%= @orders.count %>,
+<%= link_to "Pending", orders_path(status: PENDING_ORDER) %>: <%= pending %>,
+<%= link_to "Active", orders_path(status: ACTIVE_ORDER) %>: <%= active %>,
+<%= link_to "Shipped", orders_path(status: SHIPPED_ORDER) %>: <%= shipped %>,
+<%= link_to "Canceled", orders_path(status: CANCELLED_ORDER) %>: <%= canceled %>
+<% end %>

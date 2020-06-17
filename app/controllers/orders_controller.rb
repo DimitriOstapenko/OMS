@@ -11,12 +11,13 @@ class OrdersController < ApplicationController
 
   def index
     keyword = params[:findstr]; search_results = []
+    @status = params[:status]
     @client = current_client if current_user.client?  
-    if @client.present?
-      @orders = @client.orders
-    else
-      @orders = Order.all
-    end
+    @orders = Order.all
+    @orders = @client.orders if @client.present?
+    @orders = @orders.where(status: @status) if @status.present?
+    @status ||= 9
+
     search_results = Order.search(keyword,@client) if keyword
     @orders = search_results if search_results.any?
     @orders = @orders.reorder(sort_column + ' ' + sort_direction, "created_at desc") #.paginate(page: params[:page])  in view
@@ -142,13 +143,13 @@ class OrdersController < ApplicationController
 
 # Set all placements to "Shipped"; Regenerate PPO and mark Order as "Shipped"
   def set_to_shipped
-    @order = Order.find(params[:id]); msg = ''
+    @order = Order.find(params[:id])
     @order.placements.each do |pl|
       pl.set_to_shipped
     end
 
     flash[:info] = "Order #{@order.id} is set to Shipped"
-    redirect_to orders_path #, notice: "Order is set to Shipped #{msg}"
+    redirect_to orders_path #, notice: "Order is set to Shipped"
   end
 
 private

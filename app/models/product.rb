@@ -137,6 +137,20 @@ class Product < ApplicationRecord
     self.placements.where(status: status).sum(:quantity) rescue 0
   end
 
+  def pending_qty
+    self.total_pcs
+  end
+
+# Number of active pieces  
+  def active_qty 
+    self.placements.where(status: ACTIVE_ORDER).sum('quantity-shipped')
+  end
+
+# Number of shipped pieces  
+  def shipped_qty 
+    self.placements.sum(:shipped)
+  end
+
 # Last shipped PPO  
   def last_shipped_ppo
     Ppo.where(product_id:self.id).where(status: ARCHIVED_PPO).order('created_at desc').first rescue nil

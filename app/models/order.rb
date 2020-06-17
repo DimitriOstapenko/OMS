@@ -107,6 +107,19 @@ class Order < ApplicationRecord
     self.status == SHIPPED_ORDER 
   end
 
+  def quantity
+    self.placements.sum(:quantity)
+  end
+
+ # Pending and active 
+  def pending
+    self.quantity - self.shipped
+  end
+
+  def shipped
+    self.placements.sum(:shipped)
+  end
+
   def status_str
     ORDER_STATUSES.invert[self.status].to_s rescue nil
   end

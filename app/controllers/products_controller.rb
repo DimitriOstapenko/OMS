@@ -110,6 +110,12 @@ class ProductsController < ApplicationController
     render 'inventories/show_pending_orders'
   end
 
+  def show_active_orders
+    @product = Product.find(params[:id])
+    @placements = @product.active_order_placements.paginate(page: params[:page])
+    render 'inventories/show_active_orders'
+  end
+
 # post  
   def upload_image
     im = params[:image][:image] rescue nil
