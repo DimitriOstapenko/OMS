@@ -10,7 +10,7 @@
     <td class="text-center"><%= placement.pending %></td>
 
     <td class="text-center">
-      <% if placement.shipped? || action_name == 'show_pending_orders' %>
+      <% if current_user.client? || placement.shipped? || action_name == 'show_pending_orders' %>
         <%= placement.shipped %>
       <% else %>
        <%= simple_form_for [placement.order,placement], url: update_shipped_order_placement_path(placement.order,placement), html: { class: "form" } do |f| %>
