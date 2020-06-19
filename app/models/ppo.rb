@@ -19,6 +19,14 @@ def init
 #  self.pcs = self.placements.sum(:quantity)
 end
 
+def set_attributes!
+#  logger.debug "****** pcs: #{self.pcs} orders: #{self.orders}"
+  self.product.pending_order_placements.each do |pl|
+    pl.update_attributes(ppo_id: self.id, status: ACTIVE_ORDER)
+    pl.order.update_attribute(:status, ACTIVE_ORDER) #if pl.order.all_placements_active?
+  end
+end
+
 def quantity
   self.placements.sum(:quantity)
 end
@@ -30,14 +38,6 @@ end
 
 def shipped 
   self.placements.sum(:shipped)
-end
-
-def set_attributes!
-#  logger.debug "****** pcs: #{self.pcs} orders: #{self.orders}"
-  self.product.pending_order_placements.each do |pl|
-    pl.update_attributes(ppo_id: self.id, status: ACTIVE_ORDER)
-    pl.order.update_attribute(:status, ACTIVE_ORDER) if pl.order.all_placements_active?
-  end
 end
 
 def status_str

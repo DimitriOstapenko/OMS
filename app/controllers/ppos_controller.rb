@@ -55,7 +55,7 @@ class PposController < ApplicationController
     redirect_back(fallback_location: inventories_path)
   end
 
-# Set Placements across all orders for this product to Back Order, Generate PPO
+# Set orders in this PPO to Active; Generate PPO pdf
   def create
     @product = Product.find(params[:product_id])
     @ppo = @product.ppos.create
