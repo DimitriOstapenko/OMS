@@ -11,26 +11,31 @@
   Brand:       <%= @product.brand_str %><br>
   Cartons:     <%= @product.ctns %><br>
   Date Added:  <%= @product.added_date_str %><br>
+  Release Date: <%= @product.release_date || 'Not set' %><br>
 </div>
 <div class="col-md-3">
-  Release Date: <%= @product.release_date || 'Not set' %><br>
   Supplier:    <%= @product.supplier_str %><br>
   Manager:     <%= @product.manager_str || 'Unknown' %><br>
   Progress:    <%= @product.progress_str || 'Unknown' %><br>
   Active?      <%= @product.active_str %><br>
   Manual price? <%= @product.manual_price_str %><br>
-  Quantity Available: <%= @product.quantity %>
+  Pending/Active pcs: <%= @product.quantity %> <br>
+  Current Stock : <%= @product.stock %>
 </div>
 
 <div>&nbsp;</div>
 <div class="col-md-6" style="padding-left: 0">
 <%= render "price_matrix" %>
 </div>
-</div>
-</div>
 
-<div>
-   <%= @product.notes %>
+<div class="col-md-6" style="padding-left: 0">
+ <div> Product Notes </div>
+  <div class="panel panel-default">
+    <div class="panel-body p-3">
+  <%= @product.notes.html_safe %>
+    </div>
+  </div>
+</div>
 </div>
 
 

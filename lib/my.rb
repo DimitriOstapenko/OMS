@@ -180,7 +180,7 @@ module My
          :inline_format => true
     
     cl = order.client
-    client_contact = "<b>#{cl.name}</b> <br><br>#{cl.address} #{cl.state_prov} #{cl.country_str} #{cl.zip_postal} <br>VAT: #{cl.vat} <br>Phone: #{cl.contact_phone}<br>Email: #{cl.contact_email}"  
+    client_contact = "<b>#{cl.name}</b> <br><br>#{cl.address}<br> #{cl.state_prov} #{cl.country_str} #{cl.zip_postal} <br>VAT: #{cl.vat} <br>Phone: #{cl.contact_phone}<br>Email: #{cl.contact_email}"  
     pdf.text_box client_contact, :at => [110.mm,240.mm],
          :width => 90.mm,
          :height => 45.mm,

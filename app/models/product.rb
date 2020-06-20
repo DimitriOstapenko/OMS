@@ -30,6 +30,8 @@ class Product < ApplicationRecord
   validates :ref_code, presence: true, length: { maximum: 10 }, uniqueness: true
   validates :description, :brand, :category, :scale,  presence: true
   validates :price_eu, :price_eu2, :price_usd,  numericality: { greater_than_or_equal_to: 0 }, presence: true
+  validates :stock, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
+  validates :delta, numericality: { only_integer: true }
   
   before_validation { description.strip!.gsub!(/\s+/,' ') rescue '' }
   before_validation { ref_code.gsub!(/\W+/,'') rescue '' }

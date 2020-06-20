@@ -1,5 +1,5 @@
 <% if @placements.any? %>
-<h3>Production Purchase Order for item "<%= @ppo.product.ref_code %>" </h3>
+  <h3><%= @ppo.name %>: Production Purchase Order for item "<%= @ppo.product.ref_code %>" </h3>
 <table class="tbl2 table-hover table-striped table-bordered" >
   <thead>
       <tr>

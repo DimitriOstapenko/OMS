@@ -33,12 +33,16 @@
 
         <td class="text-center"><%= product.shipped_qty %></td> 
         <td class="text-center"> 
-          <% id = "product_#{product.id}" %>
-          <%= simple_form_for product, url: update_delta_path(product), method: :post, html: { class: "form" } do |f| %>
-          <div class="form-group" style="padding-top: 10px;">
+          <% if current_user.production? %>
+            <%= product.delta %>
+          <% else %>
+            <% id = "product_#{product.id}" %>
+            <%= simple_form_for product, url: update_delta_path(product), method: :post, html: { class: "form" } do |f| %>
+             <div class="form-group" style="padding-top: 10px;">
                  <%= f.input :delta, as: :string, label: false, input_html: { onchange: 'this.form.submit();', id: id }  %>
-          </div>
-          <% end %>
+             </div>
+           <% end %>
+         <% end %>
         </td>
         <td class="text-center"> 
           <%= simple_form_for product, url: update_stock_path(product), method: :post, html: { class: "form" } do |f| %>
@@ -47,6 +51,6 @@
           </div>
           <% end %>
         </td>
-        <td class="text-center"> <%= product.quantity - product.delta + product.stock %> </td>
+        <td class="text-center"> <%= product.quantity - product.delta + product.stock  %> </td>
 </tr>
 

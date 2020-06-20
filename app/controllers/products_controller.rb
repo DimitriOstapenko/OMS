@@ -14,7 +14,6 @@ class ProductsController < ApplicationController
 
   def index
     if current_user
-      redirect_to inventories_path if current_user.production?
       found = []
       @products = Product.all
       @products = Product.where(active: true) if (current_user.client? || current_user.user?)   # Do not show disabled products to clients and world
@@ -82,8 +81,12 @@ class ProductsController < ApplicationController
 
   def update_stock
     @product = Product.find(params[:id])
-    @product.update_attribute(:stock, params[:product][:stock])
-    flash[:info] = "Product : #{@product.ref_code} - updated available stock"
+    stock = params[:product][:stock].to_i.abs rescue 0
+    if @product.update_attribute(:stock, stock)
+       flash[:info] = "Product : #{@product.ref_code} - updated available stock"
+    else 
+       flash[:danger] = "Product : #{@product.ref_code} - error updating stock"
+    end
     redirect_back(fallback_location: inventories_path)
   end
 

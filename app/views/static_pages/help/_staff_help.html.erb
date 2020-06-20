@@ -13,7 +13,8 @@
   <li><%= link_to "Products", "#products" %> </li>
   <li><%= link_to "Clients", "#clients" %> </li>
   <li><%= link_to "Orders", "#orders" %> </li>
-  <li><%= link_to "Reports", "#reports" %> </li>
+  <li><%= link_to "Inventory", "#inventory" %> </li>
+  <li><%= link_to "Documents", "#documents" %> </li>
   <li><%= link_to "<i class='glyphicon glyphicon-menu-hamburger text-muted'></i> Hamburger Menu".html_safe, "#hamburger" %></li>
 </ul>
 
@@ -83,7 +84,7 @@ Once order is submitted several things will happen:
 
 <ul>
   <li> - Total order amount is calculated by adding shipping and tax, if any, and subtracting discount, if present, from total cart amount.
-    Shipping is calculated based on sum of all product weights and client's shipping cost per Kg. 
+    Shipping is calculated based on sum of all item weights and client's shipping cost per Kg. 
 
     If no shipping is to be charged, set shipping_cost in client profile to 0. Tax (%) is associated with client and defaults to 0, which means Tax is included into the final amount by default.
          Only non-zero values will appear on generated P.O and invoice.
@@ -98,18 +99,35 @@ Order status is set automatically by the system with the exception of 'Cancelled
 
 <ul>
   <li>Pending</li>
-  <li>Back Order</li>
+  <li>Active</li>
   <li>Shipped</li>
   <li>Cancelled</li>
 </ul>
 </p>
 
 <p>
-Initially, order, as well as each individual item in it, is given "Pending" status. At certain point, when number of pending orders for the product is high (and inventory is negative), you decide to send Production Purchase Order (PPO) to the factory. This is done by clicking on link in "Pending Orders" column on the inventory page. Once you click <b>[Create Production Purchase Order]</b> button in the modal that opens, PPO pdf will be created and all positions for the product in question in every order containing the product will be marked as "Backorder". You can only create one active backorder for any given product at a time. Once product is shipped from the factory, you, as responsible staff person clear active PPO by clicking on link in "Active PPO" column of the inventory. Modal window opens and you can use <b>[Download PPO]</b> or <b>[Mark All As Shipped]</b> buttons. When you click on <b>[Mark All As Shipped]</b> button, all positions in the PPO will be marked as shipped.
+Initially, order, as well as each individual item in it, is given "Pending" status. At certain point, when number of pending orders for the product is high (and inventory is negative), you may decide to issue Production Purchase Order (PPO) to the factory. This is done by clicking on link in "Pending Orders" column on the inventory page. Once you click <b>[Create Production Purchase Order]</b> button in the modal that opens, PPO pdf will be created and all positions for the product in question in every order containing the product will be marked as "Active". You can only create one active PPO for any given product at a time. Once product is shipped from the factory, you, as responsible staff person clear active PPO by clicking on link in "Active PPO" column of the inventory. Modal window opens and you can use <b>[Download PPO]</b> or <b>[Mark All As Shipped]</b> buttons. When you click on <b>[Mark All As Shipped]</b> button, all positions in the PPO will be marked as shipped. Alternatively you could also mark each position in PPO as partially shipped by providing number of pieces shipped.
 </p>
 <p>
-Order is assigned "Backorder" status once all positions in it are on Back Order. Order is assigned "Shipped" status when all positions in it are shipped. Last column on orders page is used to Cancel order. Order cancelling means it, and every position in it, will be marked as inactive. Such an order can be recovered at a later stage, if needed, and made active again. Cancelled orders are not taken into account in totals calculations and in the reports. They are also ignored in CSV export function. Cancelled orders are highlighted in red in Orders list.
+Order is assigned "Active" status once all positions in it are Active. Order is assigned "Shipped" status when all positions in it are shipped. Last column on orders page is used to Cancel order. Order cancelling means it, and every position in it, will be marked as inactive. Such an order can be recovered at a later stage, if needed, and made active again. Cancelled orders are not taken into account in totals calculations and in the reports. They are also ignored during generation of export files. Cancelled orders are highlighted in red in Orders list.
 </p>
+
+<p>&nbsp;</p>
+<pre>
+Notes about status
+
+Active: 
+
+1. Placement becomes active when PPO that contains it is created 
+2. Order becomes active when one of the placements within it is marked as active
+3. PPO becomes active on creation
+
+Shipped:
+
+1. Placement is marked as shipped when all pieces in it are shipped
+2. Order is marked as shipped when all placements within it are shipped
+3. PPO is marked as shipped when all positions within it are shipped
+</pre>
 
 
 <p>&nbsp;</p>
@@ -129,7 +147,10 @@ Search box is located in the header an is context-sensitive. That is in Products
 <a id="products"></a>
 <dt class="col-sm-1">Products</dt>
 
-<dd class="col-sm-11">This page shows list of all active products present currently in database. Reference Code column is linked to product profile. Edit icon, <i class="glyphicon glyphicon-edit"></i> will take you directly to <Edit Product> form, where you can change all product attributes, except reference code. Optional "notes' field is only visible to you and can be used to store product-specific info. 
+<dd class="col-sm-11">This page shows list of all active products currently in database. Reference Code column is linked to product profile. Edit icon, <i class="glyphicon glyphicon-edit"></i> will take you directly to <Edit Product> form, where you can change all product attributes, except reference code. Optional "notes' field is only visible to staff and admins and can be used to store product-related notes. 
+"Pending" column shows current number of pieces in all pending orders.
+Sorting: most columns can be sorted in ascending or descending order by clicking on the column header.
+Supported searches: by reference code, description and scale.
 </dd>
 
 <p>&nbsp;</p>
@@ -137,7 +158,11 @@ Search box is located in the header an is context-sensitive. That is in Products
 <a id="clients"></a>
 <dt class="col-sm-1">Clients</dt>
 
-<dd class="col-sm-11">List of clients in database. Client name column (first) is linked to client profile. Edit icon, <i class="glyphicon glyphicon-edit"></i> will take you directly to <Edit Client> form, where you can change client attributes. Required attributes of Client form are: Name, Type, Price Type, Country and Email
+<dd class="col-sm-11">List of clients in database. Client name column (first) is linked to client profile. Edit icon, <i class="glyphicon glyphicon-edit"></i> will take you directly to <Edit Client> form, where you can change client attributes. Required attributes of Client form are: Name, Type, Price Type, Country and Email.
+"Registered" column will show if client received and confirmed an invitation email. "Invite" column can be used to invite clients to register.
+Make sure that email of the client on file is current.
+Sorting: most columns can be sorted in ascending or descending order by clicking on the column header.
+Supported searches: by name, country and price type
 </dd>
 
 <p>&nbsp;</p>
@@ -145,19 +170,36 @@ Search box is located in the header an is context-sensitive. That is in Products
 <a id="orders"></a>
 <dt class="col-sm-1">Orders</dt>
 
-<dd class="col-sm-11">This page shows list of orders, most recent first. Client name column (first) is linked to client profile. Last column contains status drop-down which allows you to change order status. 
-Drop-down box at the top of the page allows you to filter orders by client. Grand total at the bottom shows total value of all orders in Euros using current USD/EUR FX conversion rate.
+<dd class="col-sm-11">This page shows list of orders, most recent first. Client name column (first) is linked to client profile display form.
+Next column, with order number, is linked to order page where you can see status of each placement and set the number of shipped pieces for each. Once any placement is marked as partially shipped, the order becomes active. Once all pieces in the placement are shipped, placement is marked as shipped. Once all placements in the order are shipped, order is marked "Shipped". To mark all placements at once as "Shipped" use "Set order as Shipped" button below order table.
+"Items" column shows number of different products ordered, 'Pcs' column has total number of pieces ordered of this particular product. "Shipped" column contains number of shipped pieces so far. 'Invoice' and 'PO' columns have links to corresponding PDF files.
+Last two columns are "Edit" and "Cancel". "Edit" will open a form that can be used to enter order Payment Method, Delivery company and Payment terms, as well as order notes. 
+"Cancel" colum allows you to cancel pending orders. "Active" or "Shipped" orders cannot be canceled, so there will be no link present in this case.
+Totals table at the bottom of the first page shows grand total value of all orders in Euros using current USD/EUR FX conversion rate. This table is context-sensitive, which means that numbers shown will summarize current search results. So in the context of product search, totals shown will summarize only product in question. Or, if seach was done for particular client, then totals will cover just the orders of that client.
+</dd>
+
+<!-- Inventory index page -->
+<p>&nbsp;</p>
+
+<a id="inventory"></a>
+<dt class="col-md-1">Inventory</dt>
+<dd class="col-md-11">
+Inventory page shows current numbers of pieces ordered, as well as number of active orders and available pieces at the warehouse for each product.
+If there are pending orders, they will be shown in corresponding column as number of orders/pieces link. This link opens "pending orders" modal, which will show all current orders for the product. To create Production Purchase Order you will click 'Create PPO" button below order table. Once you click that button, PPO pdf file will be generated and each order in it will become active. After PPO is generated it is sent to production so they could start working on it. When product becomes available, you can mark partial or complete shipments for each position in PPO. When all positions are shipped, PPO is marked as archived and "Total shipped" column is incremented accordingly. This column shows total all-time number, not just whatever was shipped for any particular order. Each time new shipment information is entered PPO pdf is regenerated. Delta column has number of pieces in addition to current orders. You as a staff member can modify this number. Stock column will have number of pieces currently available at the warehouse and should be entered by production role. Final column shows total inventory, which is Stock - (Delta + Active/Pending orders)
+
 </dd>
 
 <p>&nbsp;</p>
-<!-- Reports index page -->
-<a id="reports"></a>
-<dt class="col-sm-1">Reports</dt>
+<!-- Documents index page -->
+<a id="documents"></a>
+<dt class="col-sm-1">Documents</dt>
 
-<dd class="col-sm-11"> Reports section is used to create order reports customized by timeframe, type client and date range. Three report types are currently supported: "Sales", "Purchases" and "All". Sales reports will include only shipped and paid for orders, while Purchase reports will include "Pending" orders only. Timeframe can be "Day", "Week", "Month", "Quarter", "Year" and "Date Range". If last option, "Date Range" is selected, 2 additional date controls will pop up: "Start Date" and "End Date". By default report includes all clients with orders. However, if client is selected from corresponding Drop-Down, then report will only include orders for selected client. Further, level of detail can be specified from Detail Drop-Down: "Totals Only" or "Itemized Orders". In the first case, report will contain 1 line per order showing only total amount and total number of purchased products, while in second case each order will have details for each  purchased items. 
+<dd class="col-sm-11"> Documents section is used to create order reports based on client, product, timeframe, date range, detail and status. Three submenus are currently available: "Client reports", "Product Reports" and "PPOs". 
+
+Client reports group information by client, while product reports are generated per product. Timeframe can be "Day", "Week", "Month", "Quarter", "Year" and "Date Range". If last option, "Date Range" is selected, 2 additional date controls will pop up: "Start Date" and "End Date". By default report includes all clients with orders. However, if client is selected from corresponding Drop-Down, then report will only include orders for selected client. Further, level of detail can be specified from Detail Drop-Down: "Totals Only" or "Itemized Orders". In the first case, report will contain 1 line per order showing only total amount and total number of purchased products, while in second case each order will have details for each  purchased items. 
 
 <p>&nbsp;</p>
-Reports are generated in PDF format and stored in "reports" directory on the server. Even if the file is not present, in which case instead of download icon question mark is displayed, report can be easily regenerated by clicking on question mark icon.
+Reports are generated in PDF format and stored in "reports" directory on the server. In case any poarticular file is not present, instead of download icon question mark link is displayed, by clicking on it you can easily regenerate the report.
 
 </dd>
 
@@ -169,14 +211,14 @@ Reports are generated in PDF format and stored in "reports" directory on the ser
 <dd class="col-sm-11"> 
 
 <p><b><%= "<i class='glyphicon glyphicon-user'></i> My Profile".html_safe %> </b>: Edit logged in user profile. You can change your name, password and email on this page.   </p>
-<p><b><%= "<i class='glyphicon glyphicon-euro'></i> Price Models".html_safe %></b>: Update current price models; Apply prices to all products in database </p>
+<p><b><%= "<i class='glyphicon glyphicon-euro'></i> Price Matrix".html_safe %></b>: Update current price models; Apply prices to all products in database </p>
 <p><b><%= "<i class='glyphicon glyphicon-envelope'></i> Client Mailer".html_safe %></b>: Set up and send bulk email to group of clients </p>
 <p><b><%= "<i class='glyphicon glyphicon-export'></i> Export Orders".html_safe %></b>: Create CSV file of all orders in the system </p>
 <p><b><%= "<i class='glyphicon glyphicon-check'></i> Data Integrity Check".html_safe %></b>: Check for missing required fields in product and client tables </p>
+<p><b><%= "<i class='glyphicon glyphicon-upload'></i> Product Image Upload".html_safe %></b>: Upload product picture here. All appropriate thumbnails will be generated on the fly</p>
 <p><b><%= "<i class='glyphicon glyphicon-log-out'></i> Logout".html_safe %></b>: End current session</p>
 
 </dd>
-
 
 <p>&nbsp;</p>
 <p>&nbsp;</p>

@@ -21,7 +21,7 @@
 <td class="text-center"> <%= order.status_str %> </td>
 <td class="text-center"><%= to_currency order.total, locale: order.client.locale %></td>
 <td class="text-center">
-  <% unless order.cancelled? %>
+  <% unless order.cancelled? || order.shipped? %>
   <%= link_to '<i class="glyphicon glyphicon-edit"></i>'.html_safe, edit_order_path(order), remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %> 
   <% end %>
 </td>
