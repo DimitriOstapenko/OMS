@@ -1,7 +1,7 @@
 class ShippersController < ApplicationController
   before_action :set_shipper, only: [:show, :edit, :update, :destroy]
   before_action :logged_in_user
-  before_action :admin_user #, only: [:destroy]
+  before_action :admin_or_su_user 
 
   def new
     @shipper = Shipper.new
