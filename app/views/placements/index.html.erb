@@ -1,9 +1,9 @@
 <%= render "shared/modal" %>
 
   <% if current_user.client? %>
-    <h3 class='display-1'><%= @order.status_str %> Order #<%= @order.id %> received <%= @order.cre_date %></h3>
+    <h4 class='display-1'><%= @order.status_str %> Order #<%= @order.id %> received <%= @order.cre_date %></h4>
   <% else %>
-    <h3 class='display-1'>Client <%= @client.name %>: Order # <%= @order.id %> (<%= @order.status_str %>) </h3>
+    <h4 class='display-1'>Client <%= @client.name %>: Order # <%= @order.id %> (<%= @order.status_str %>, <%= @order.made_by  %>) </h4>
   <% end %>
 
 <table class="tbl2 table-hover table-striped table-bordered" >

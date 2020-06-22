@@ -4,6 +4,7 @@ class Order < ApplicationRecord
   include My::Docs
 
   belongs_to :client
+  belongs_to :user
 
   default_scope -> { order(created_at: :desc) }
   
@@ -237,5 +238,12 @@ class Order < ApplicationRecord
 
     return orders
   end
-  
+
+  def made_by 
+    self.by_client? ? 'Entered by client' : "Entered by staff #{self.user.email rescue ''}"
+  end
+
+  def by_client?
+    self.user.email == self.client.contact_email rescue false
+  end
 end

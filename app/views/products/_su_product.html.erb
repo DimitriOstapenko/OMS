@@ -4,5 +4,9 @@
   <%= link_to "#{product.pending_qty}", show_pending_orders_product_path(product),
             remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %>
 </td>
+<td class="text-center">
+  <%= link_to "#{product.active_qty}", show_active_orders_product_path(product),
+            remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %>
+</td>
 <td class="text-center"><%= link_to '<i class="glyphicon glyphicon-edit"></i>'.html_safe, edit_product_path(product), remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %> </td>
 <td class="text-center"><%= link_to '<i class="glyphicon glyphicon-remove-sign"></i>'.html_safe, product, method: :delete, data: { confirm: "Are you sure you want to delete #{product.ref_code}?" } %> </td>

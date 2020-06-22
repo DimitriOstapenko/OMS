@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_13_083004) do
+ActiveRecord::Schema.define(version: 2020_06_21_220518) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,7 +76,9 @@ ActiveRecord::Schema.define(version: 2020_06_13_083004) do
     t.decimal "discount", default: "0.0"
     t.float "tax", default: 0.0
     t.float "weight"
+    t.bigint "user_id"
     t.index ["client_id"], name: "index_orders_on_client_id"
+    t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
   create_table "placements", force: :cascade do |t|
@@ -232,6 +234,7 @@ ActiveRecord::Schema.define(version: 2020_06_13_083004) do
   end
 
   add_foreign_key "orders", "clients"
+  add_foreign_key "orders", "users"
   add_foreign_key "placements", "orders"
   add_foreign_key "placements", "ppos"
   add_foreign_key "placements", "products"

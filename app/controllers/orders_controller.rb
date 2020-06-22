@@ -39,6 +39,7 @@ class OrdersController < ApplicationController
   def create
     @client = current_client
     @order = @client.orders.build
+    @order.user_id = current_user.id
     @product_ids_and_quantities = get_cart #[[params[:order][:products], params[:order][:quantity]]]
     if @order.build_placements_with_product_ids_and_quantities?(@product_ids_and_quantities) && @order.save
        @order.reload
@@ -155,7 +156,7 @@ class OrdersController < ApplicationController
 private
 
   def order_params
-    params.require(:order).permit(:web_id, :status, :po_number, :inv_number, :delivery_by, :terms, :notes, :pmt_method, :shipping, :discount, :tax)
+    params.require(:order).permit(:web_id, :status, :po_number, :inv_number, :delivery_by, :terms, :notes, :pmt_method, :shipping, :discount, :tax, :weight, :user_id) 
   end
 
   def sort_column

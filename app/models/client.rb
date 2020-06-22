@@ -1,8 +1,9 @@
 class Client < ApplicationRecord
 
   has_many :products #, dependent: :destroy # remove when seeding products!
-  has_many :orders #, dependent: :destroy   # remove when seeding clients
-  has_one :user
+  has_many :orders, dependent: :destroy   # remove when seeding clients
+#  has_one :user
+  has_many :users, dependent: :destroy
 
   validates :name, :country, :cltype, :price_type, :contact_email, presence: true
 
