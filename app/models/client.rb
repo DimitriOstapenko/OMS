@@ -108,7 +108,7 @@ class Client < ApplicationRecord
 
 # Is client registered in OMS?  
   def registered_str
-    self.user.present? ? 'Yes' : 'No'
+    self.users.any? ? 'Yes' : 'No'
   end
 
 end

@@ -5,7 +5,9 @@ class OrderMailer < ActionMailer::Base
   def send_confirmation(order)
     @order = order
     @client = @order.client
-    mail to: @client.user.email, subject: "OMS Order Confirmation" rescue nil
+    @client.users.each do |user|
+      mail to: user.email, subject: "OMS Order Confirmation" rescue nil
+    end
   end
 
 # Notify staff of a new order
