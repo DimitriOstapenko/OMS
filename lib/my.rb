@@ -37,7 +37,7 @@ module My
     pdf.font_size 9
     rows =  [[ '#', 'Client', "Order#", "Ttl.Pcs", "Pending", "Shipped", "Date", "Order Status", "PO", "Subtotal"]]
     
-    ttl_pcs = num = 0; subtotal = ttl_amount = 0.0
+    ttl_pcs = pending_pcs = shipped_pcs = num = 0; subtotal = ttl_amount = 0.0
     placements.each do |pl|
       o = pl.order
       num += 1
@@ -45,9 +45,11 @@ module My
       rows += [[num, o.client.name, o.id, pl.quantity, pl.pending, pl.shipped, o.created_at.to_date, pl.status_str, o.po_number, number_to_currency(subtotal,locale: o.client.locale) ]] 
 
         ttl_pcs += pl.quantity
+        pending_pcs += pl.pending
+        shipped_pcs += pl.shipped
         ttl_amount += subtotal * o.client.fx_rate   # we convert all to euros
     end
-    rows += [['','','',ttl_pcs,'','','',  number_to_currency(ttl_amount, locale: :fr)]]
+    rows += [['','','',ttl_pcs,pending_pcs,shipped_pcs, '','','',  number_to_currency(ttl_amount, locale: :fr)]]
 
     pdf.table rows, cell_style: {inline_format: true} do |t|
         t.cells.border_width = 0
