@@ -37,6 +37,9 @@
   <div class="col-md-4">
     <%= button_to "Create Production Purchase Order", product_ppos_path(@product), class: "btn btn-success",  title: '* All placements on this page will be made active' %> <!--, disabled: disabled -->
   </div>
+  <div class="col-md-4">
+    <%= button_to "Mark all as Shipped", set_pending_orders_to_shipped_product_path, class: "btn btn-primary" %>
+  </div>
 </div>
 
   </div>  

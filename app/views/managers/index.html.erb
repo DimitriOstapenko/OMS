@@ -18,9 +18,13 @@
   </tbody>
 </table>
 
-<% if current_user.admin? %>
 <div class="bottom_buttons ">
 <%= will_paginate @managers, class: "btn" %>
 <%= button_to "Add Manager", new_manager_path, class: "btn btn-primary col-md-2 ", method: 'get'  %>
 </div>
-<% end %>
+
+<script>
+$zoho.salesiq.ready=function(embedinfo)
+{ $zoho.salesiq.floatbutton.visible("hide"); }
+</script>
+

@@ -25,3 +25,9 @@
 <%= button_to "Add Supplier", new_supplier_path, class: "btn btn-primary col-md-2 ", method: 'get'  %>
 </div>
 <% end %>
+
+<script>
+$zoho.salesiq.ready=function(embedinfo)
+{ $zoho.salesiq.floatbutton.visible("hide"); }
+</script>
+

@@ -4,6 +4,7 @@
 # Magic comment - do not remove
 # frozen_string_literal: true
 
+# Get EUR/USD exchange rate  
 def get_usd_euro_fx
   require 'net/http'
   require 'json'
@@ -21,7 +22,8 @@ end
 
 # General
 DEBUG_FLAG = Rails.env.development?true:false
-#DEBUG_FLAG = false 
+SEND_EMAILS = true           # User and staff email notifications
+LOW_QUANTITY_THRESHOLD = 300  # Notify Staff if product inventory is < -100 
 USD_EUR_FX = get_usd_euro_fx
 
 PROJECT_NAME = 'APD Order Management System'
@@ -48,7 +50,7 @@ ECD_CONTACT =
 PRINSES BEATRIXSTRAAT 7 - 5953LL REUVER - NETHERLANDS VAT NR. NL857575764B01"
 
 # Users & Roles
-ROLES = [:user, :staff, :admin, :production, :client ]
+ROLES = [:user, :staff, :admin, :production, :client, :su ]
 USER_ROLE = 0
 STAFF_ROLE = 1
 ADMIN_ROLE = 2
@@ -80,11 +82,10 @@ CLIENT_MAIL_CATEGORIES = {General: 0, Marketing: 1, 'New Products': 2, Promotion
 # Mailer
 REPLY_TO = '"apdoms.com" <ostapenko.dmitri@gmail.com>'  # Mail admin
 
-# Orders
-ORDER_STATUSES = {Pending: 0, Shipped: 1, Paid: 2, Cancelled: 3}
-PENDING_ORDER = ORDER_STATUSES[:Pending]
-SHIPPED_ORDER = ORDER_STATUSES[:Shipped]
-PAID_ORDER = ORDER_STATUSES[:Paid]
+ORDER_STATUSES  = { Pending: 0, Active: 1, Shipped: 2, Cancelled: 3 } 
+PENDING_ORDER   = ORDER_STATUSES[:Pending]
+ACTIVE_ORDER    = ORDER_STATUSES[:Active]
+SHIPPED_ORDER   = ORDER_STATUSES[:Shipped]
 CANCELLED_ORDER = ORDER_STATUSES[:Cancelled]
 
 POS_PATH = Rails.root.join('pos')
@@ -93,15 +94,22 @@ UPLOADS_PATH = Rails.root.join('public','uploads')
 
 PAYMENT_METHODS = {'Bank Transfer Payment': 1, Paypal: 2}
 PAYMENT_TERMS = {'In Advance by Wire Transfer': 1, 'Within 48 hours after receipt of goods': 2}
-DELIVERY_BY = {'DHL': 1, 'Logfret': 2, 'UPS': 3}
+
+# phased out; now in shippers table:
+#DELIVERY_BY = {'DHL': 1, 'Logfret': 2, 'UPS': 3}
 
 # Reports
 REPORTS_PATH = Rails.root.join('reports')
+
 REPORT_TYPES = {Purchases: 'PUR', Sales: 'SAL'}
 PURCHASES_REPORT = REPORT_TYPES[:Purchases]
 SALES_REPORT = REPORT_TYPES[:Sales]
 
-REPORT_TIMEFRAMES = {Day: 1, Week: 2, Month: 3, Quarter: 4, Year: 5, 'Date Range': 6}
+REPORT_CATEGORIES = {Client: 1, Product: 2}
+CLIENT_REPORT = REPORT_CATEGORIES[:Client]
+PRODUCT_REPORT = REPORT_CATEGORIES[:Product]
+
+REPORT_TIMEFRAMES = {Day: 1, Week: 2, Month: 3, 'Quarter To Date': 4, Year: 5, 'Date Range': 6}
 DAY_REPORT = REPORT_TIMEFRAMES[:Day]
 WEEK_REPORT = REPORT_TIMEFRAMES[:Week]
 MONTH_REPORT = REPORT_TIMEFRAMES[:Month]
@@ -109,7 +117,12 @@ QUARTER_REPORT = REPORT_TIMEFRAMES[:Quarter]
 YEAR_REPORT = REPORT_TIMEFRAMES[:Year]
 DRANGE_REPORT = REPORT_TIMEFRAMES[:'Date Range']
 
-REPORT_DETAILS = {'Totals Only': 1, 'Itemized Orders': 2}
+REPORT_DETAILS = {'Totals Only': 1, 'Itemized': 2}
 TOTALS_ONLY_REPORT = REPORT_DETAILS[:'Totals Only']
-ITEMIZED_REPORT = REPORT_DETAILS[:'Itemized Orders']
+ITEMIZED_REPORT = REPORT_DETAILS[:'Itemized']
+
+PPOS_PATH = Rails.root.join('ppos')
+PPO_STATUSES = {Active: 1, Archived: 2} 
+ACTIVE_PPO = PPO_STATUSES[:Active]
+ARCHIVED_PPO = PPO_STATUSES[:Archived]
 

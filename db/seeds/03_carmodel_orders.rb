@@ -11,7 +11,8 @@ csv_text = File.read(Rails.root.join('lib', 'seeds', 'carmodel_orders.csv'))
 csv = CSV.parse(csv_text, :headers => true, :encoding => 'ISO-8859-1', :col_sep => ',')
 
 def create_order(prod_and_qty)
-  order = $client.orders.new()
+  user =$client.users.first || User.first
+  order = $client.orders.new(user_id: user.id)
   order.build_placements_with_product_ids_and_quantities?(prod_and_qty)
   order.save!
 end

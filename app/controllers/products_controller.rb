@@ -119,6 +119,15 @@ class ProductsController < ApplicationController
     render 'inventories/show_active_orders'
   end
 
+  def set_pending_orders_to_shipped
+    @product = Product.find(params[:id])
+    @product.pending_order_placements.each do |pl|
+      pl.set_to_shipped
+    end
+    flash[:info] = "#{@product.ref_code}: All pending placements marked as 'Shipped'"
+    redirect_back(fallback_location: inventories_path)
+  end
+
 # post  
   def upload_image
     im = params[:image][:image] rescue nil
