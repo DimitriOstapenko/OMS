@@ -1,4 +1,7 @@
-<tr>
+<% cl = 'table-danger' if order.cancelled? %>
+<% cl = 'table-info' if order.by_client? %>
+
+<tr class="<%= cl %>">
 <td class="text-center"><%= link_to order.id, order_placements_path(order.id), remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %></td>
 <td class="text-center"><%= order.products.count %></td>
 <td class="text-center"><%= order.total_pcs %></td>

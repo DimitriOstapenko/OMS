@@ -6,7 +6,7 @@
 <%= render "totals_header" if first_page %>
 <% @orders = @orders.paginate(page: params[:page]) %>
 
-<div style="float:right"><small>Cancelled orders are highlighted in red</small></div>
+<div style="float:right"><small>Cancelled orders are highlighted in red; orders by client in blue</small></div>
 <table class="tbl2 table-hover table-striped table-bordered" >
 <%= render "#{current_user.role}_header" %>
   

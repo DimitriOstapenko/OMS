@@ -23,7 +23,7 @@
   <% end %>
 
     <td class="text-center"><%= link_to '<i class="glyphicon glyphicon-export"></i>'.html_safe, export_report_path(report, format: :csv) %></td>
-  <% if current_user.admin? || current_user.staff? %>
+  <% unless current_user.client?%>
     <td class="text-center"><%= link_to '<i class="glyphicon glyphicon-remove-sign"></i>'.html_safe, report, method: :delete, data: { confirm: "Are you sure you want to delete report '#{report.name}'?" } %> </td>
   <% end %>
  </tr>

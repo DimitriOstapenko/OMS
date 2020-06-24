@@ -13,6 +13,7 @@ class PposController < ApplicationController
     else 
       @ppos = Ppo.all
     end
+    flash[:warning] = 'No PPOs found' unless @ppos.any?
     @ppos = @ppos.paginate(page: params[:page])
   end
 

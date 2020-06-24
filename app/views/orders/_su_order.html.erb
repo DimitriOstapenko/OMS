@@ -1,4 +1,5 @@
 <% cl = 'table-danger' if order.status == CANCELLED_ORDER %>
+<% cl = 'table-info' if order.by_client? %>
 
 <tr class="<%= cl %>">
 <td><%= link_to order.client.name, client_path(order.client_id), remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %></td>

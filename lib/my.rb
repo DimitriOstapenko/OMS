@@ -27,7 +27,7 @@ module My
     client_name = report.client.name rescue 'All'
     fx = "Fx USD/EUR: #{get_usd_euro_fx}"unless report.client && report.client.currency == :eur
 
-    pdf = Prawn::Document.new( :page_size => "LETTER", margin: [10.mm,10.mm,20.mm,20.mm])
+    pdf = Prawn::Document.new( :page_size => "LETTER", margin: [20.mm,8.mm,20.mm,15.mm])
     pdf.font "Helvetica"
     pdf.text "#{report.product.ref_code}: #{report.category_str} Report: #{report.status_str} Placements - #{report.timeframe_str}", align: :center, size: 15, style: :bold
 
@@ -35,14 +35,14 @@ module My
   
     pdf.move_down 5.mm
     pdf.font_size 9
-    rows =  [[ '#', 'Client', "Order", "Pcs", "Date", "Status", "PO", "Subtotal"]]
+    rows =  [[ '#', 'Client', "Order#", "Ttl.Pcs", "Pending", "Shipped", "Date", "Order Status", "PO", "Subtotal"]]
     
     ttl_pcs = num = 0; subtotal = ttl_amount = 0.0
-    placements.all.each do |pl|
+    placements.each do |pl|
       o = pl.order
       num += 1
       subtotal = pl.price * pl.quantity
-      rows += [[num, o.client.name, o.id, pl.quantity, o.created_at.to_date, pl.status_str, o.po_number, number_to_currency(subtotal,locale: o.client.locale) ]] 
+      rows += [[num, o.client.name, o.id, pl.quantity, pl.pending, pl.shipped, o.created_at.to_date, pl.status_str, o.po_number, number_to_currency(subtotal,locale: o.client.locale) ]] 
 
         ttl_pcs += pl.quantity
         ttl_amount += subtotal * o.client.fx_rate   # we convert all to euros
@@ -51,7 +51,7 @@ module My
 
     pdf.table rows, cell_style: {inline_format: true} do |t|
         t.cells.border_width = 0
-        t.column_widths = [10.mm, 45.mm, 15.mm, 15.mm, 25.mm, 25.mm, 25.mm, 25.mm ]
+        t.column_widths = [10.mm, 40.mm, 15.mm, 15.mm, 15.mm, 15.mm, 20.mm, 20.mm, 20.mm, 20.mm ]
         t.header = true
         t.row(0).font_style = t.row(-1).font_style = :bold
         t.row(0).min_font_size = t.row(-1).min_font_size = 10
@@ -89,7 +89,7 @@ module My
          o.placements.each do |pl|
            price  = number_to_currency(pl.price, locale: o.client.locale)
            total  = number_to_currency(pl.price * pl.quantity, locale: o.client.locale)
-           rows += [['','', {content: "<b>#{pl.product.ref_code}</b>: #{pl.product.scale_str}  #{pl.product.colour_str} x #{pl.quantity} pcs @ #{price}; Subtotal: #{total}; Status: #{pl.status_str}", colspan: 6, align: :left} ]] 
+           rows += [['','', {content: "<b>#{pl.product.ref_code}</b>: #{pl.product.scale_str}  #{pl.product.colour_str} x #{pl.quantity} pcs @ #{price}; Subtotal: #{total}; Status: '#{pl.status_str}', Shipped: #{pl.shipped} pcs", colspan: 6, align: :left} ]] 
          end
          rows += [[ {size: 25}]]
          rows += [[ {size: 25}]]

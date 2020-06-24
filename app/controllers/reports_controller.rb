@@ -14,6 +14,7 @@ class ReportsController < ApplicationController
     @reports = Report.where(category: @category)
     @reports = @reports.where(client_id: current_user.client_id) if current_user.client?
     @reports = @reports.reorder(sort_column + ' ' + sort_direction, "created_at desc").paginate(page: params[:page])
+    flash.now[:warning] = 'No reports found' unless @reports.any?
   end
 
   def new
