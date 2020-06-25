@@ -73,7 +73,7 @@ module My
     client_name = report.client.name rescue 'All'
     fx = "Fx USD/EUR: #{get_usd_euro_fx}"unless report.client && report.client.currency == :eur
 
-    pdf = Prawn::Document.new( :page_size => "LETTER", margin: [10.mm,10.mm,20.mm,20.mm])
+    pdf = Prawn::Document.new( :page_size => "LETTER", margin: [20.mm,8.mm,20.mm,15.mm])
     pdf.font "Helvetica"
     pdf.text "#{report.detail_str} #{report.category_str} Report: #{report.status_str} Orders - #{report.timeframe_str}", align: :center, size: 15, style: :bold
 
@@ -81,34 +81,33 @@ module My
   
     pdf.move_down 5.mm
     pdf.font_size 9
-    rows =  [[ '#', "Order", "Items", "Pcs", "Date", "Status", "Invoice", "Total"]]
+    rows =  [[ '#', "Order", "Items", "Pcs", "Shipped", "Date", "Status", "Invoice", "Total"]]
     
-    ttl_products = ttl_amount = ttl_items = num = 0
+    ttl_products = ttl_amount = ttl_pcs = ttl_shipped = num = 0
     orders.all.each do |o|
       num += 1
-      rows += [["<b>#{num}</b>", o.id, o.products.count, o.total_pcs, o.created_at.to_date, o.status_str.to_s, o.inv_number, number_to_currency(o.total,locale: o.client.locale)]]
+      rows += [["<b>#{num}</b>", o.id, o.products.count, o.total_pcs, o.shipped, o.created_at.to_date, o.status_str.to_s, o.inv_number, number_to_currency(o.total,locale: o.client.locale)]]
       if report.detail == ITEMIZED_REPORT
          o.placements.each do |pl|
            price  = number_to_currency(pl.price, locale: o.client.locale)
            total  = number_to_currency(pl.price * pl.quantity, locale: o.client.locale)
            rows += [['','', {content: "<b>#{pl.product.ref_code}</b>: #{pl.product.scale_str}  #{pl.product.colour_str} x #{pl.quantity} pcs @ #{price}; Subtotal: #{total}; Status: '#{pl.status_str}', Shipped: #{pl.shipped} pcs", colspan: 6, align: :left} ]] 
          end
-         rows += [[ {size: 25}]]
-         rows += [[ {size: 25}]]
-         rows += [[ {size: 25}]]
+         rows += [[ {size:25}, {size:20}, {size:20} ]]
       end
       ttl_products += o.products.count
-      ttl_items += o.total_pcs
+      ttl_pcs += o.total_pcs
+      ttl_shipped += o.shipped
       ttl_amount += o.total * o.client.fx_rate   # we convert all to euros
     end
-    rows += [['Totals: ','',ttl_products,ttl_items,'','','',  number_to_currency(ttl_amount, locale: :fr)]]
+    rows += [['Totals: ','',ttl_products,ttl_pcs,ttl_shipped,'','','',  number_to_currency(ttl_amount, locale: :fr)]]
 
     pdf.table rows, cell_style: {inline_format: true} do |t|
         t.cells.border_width = 0
-        t.column_widths = [15.mm, 20.mm, 20.mm, 20.mm, 30.mm, 25.mm, 25.mm, 25.mm ]
+        t.column_widths = [15.mm, 18.mm, 18.mm, 18.mm, 18.mm, 28.mm, 23.mm, 25.mm, 28.mm ]
         t.header = true
         t.row(0).font_style = t.row(-1).font_style = :bold
-        t.row(0).min_font_size = t.row(-1).min_font_size = 10
+        t.row(0).min_font_size = t.row(-1).min_font_size = 12
         t.position = 5.mm
         t.cells.padding = 3
 
