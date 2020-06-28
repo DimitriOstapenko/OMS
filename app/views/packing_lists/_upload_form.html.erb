@@ -1,0 +1,50 @@
+<h4>Packing list upload form</h4>
+<div class="well">
+
+  <h5> Please provide comma-separated file with "csv" extension. After upload, file will be checked and if valid, stock will be reduced by quantities shipped. Quantities of each product will also be adjusted. Order, placement and PPO statuses will be set accordingly. </h5>
+  <%= simple_form_for @packing_list, url: upload_packing_list_path, html: {multipart: false, class: "dropzone", id:"my-dropzone"}, method: :post do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+  
+<div id='dropzone_panel'>
+  <div class="dz-message">Drop csv file here to upload</div>
+  <%= f.hint 'If file with identical number of shipped pieces exists on the server, new file will be ignored.' %>
+</div>
+</form>
+</div>
+<%= f.button :submit, "Upload", class:"btn btn-block btn-primary", id: "submit", disabled: true %>
+<% end %>
+
+<script>
+Dropzone.options.myDropzone = {
+  paramName: "file[file]",
+  acceptedFiles: ".csv,.CSV",
+  maxFiles: 1,
+  maxFilesize: 145, // MB
+  addRemoveLinks: true,
+  url: "<%= upload_packing_list_url %>",
+  autoDiscover: true,
+  uploadMultiple: false,
+  autoProcessQueue: false,
+//  autoQueue: false,
+
+init: function() {
+    this.on("addedfile", function() { if (this.files[1]!=null){ this.removeFile(this.files[0]); } });
+    this.on("success", function(file) { window.location = "<%= packing_lists_path %>"; });
+    var submitButton = document.querySelector("#submit")
+        myDropzone = this; // closure
+
+    submitButton.addEventListener("click", function() {
+      myDropzone.processQueue(); // Tell Dropzone to process all queued files.
+    });
+
+    this.on("addedfile", function(file) {
+      var submit = document.getElementById('submit');
+//    console.log("loaded");
+      submit.disabled = false;
+    });
+}
+};
+  
+</script>
+
+

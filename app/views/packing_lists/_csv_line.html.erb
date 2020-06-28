@@ -1,0 +1,7 @@
+<% col = csv_line.split(',') %>
+<% return unless col[0].to_i > 0 %>
+<tr>
+  <td class="text-center"> <%= col[0] %> </td>
+  <td class="text-center"> <%= col[1] %> </td>
+  <td class="text-center"> <%= col[2] %> </td>
+</tr>

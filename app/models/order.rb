@@ -113,8 +113,12 @@ class Order < ApplicationRecord
   end
 
  # Pending and active 
-  def pending
-    self.quantity - self.shipped
+  def pending(product_id=nil)
+    if product_id
+      return self.placements.find_by(product_id: product_id).pending rescue 0
+    else
+      return self.quantity - self.shipped
+    end
   end
 
   def shipped

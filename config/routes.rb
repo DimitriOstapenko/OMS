@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
 
+  get 'packing_lists/index'
+  get 'packing_lists/show'
+  get 'packing_lists/new'
+  get 'packing_lists/create'
+  get 'packing_lists/upload'
   root 'static_pages#home'
 #  root 'products#index'
 
@@ -44,11 +49,15 @@ Rails.application.routes.draw do
       get 'download', on: :member
     end
   end
+
 # extra ppo paths  
   resources :ppos, only: [:index, :show, :create] do
     get 'show_placements', on: :member 
     post 'set_to_shipped', on: :member
   end
+
+  resources :'packing_lists', only: [:index, :show, :create]
+  post 'upload_packing_list', to: 'packing_lists#upload_csv'
 
   get '/export_orders', to: 'orders#export' 
   get '/export_ppos', to: 'ppos#export' 

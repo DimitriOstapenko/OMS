@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_21_220518) do
+ActiveRecord::Schema.define(version: 2020_06_27_141951) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -79,6 +79,21 @@ ActiveRecord::Schema.define(version: 2020_06_21_220518) do
     t.bigint "user_id"
     t.index ["client_id"], name: "index_orders_on_client_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
+  end
+
+  create_table "packing_lists", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "csv"
+    t.integer "lines", default: 0
+    t.integer "pcs", default: 0
+    t.integer "orders", default: 0
+    t.integer "products", default: 0
+    t.integer "status", default: 0
+    t.index ["user_id"], name: "index_packing_lists_on_user_id"
   end
 
   create_table "placements", force: :cascade do |t|
@@ -235,6 +250,7 @@ ActiveRecord::Schema.define(version: 2020_06_21_220518) do
 
   add_foreign_key "orders", "clients"
   add_foreign_key "orders", "users"
+  add_foreign_key "packing_lists", "users"
   add_foreign_key "placements", "orders"
   add_foreign_key "placements", "ppos"
   add_foreign_key "placements", "products"

@@ -1,0 +1,26 @@
+<%= render "shared/modal" %>
+
+<table class="tbl2 table-hover table-striped table-bordered" >
+  <caption>List of Packing Lists</caption>
+  <thead>
+      <tr>
+          <th class="tbl_sm, text-center">Name</th>
+          <th class="tbl_md, text-center">Description</th>
+          <th class="tbl_md text-center">Date</th>
+          <th class="tbl_md, text-center">Orders</th>
+          <th class="tbl_md, text-center">Products</th>
+          <th class="tbl_md, text-center">Total Pcs Shipped</th>
+          <th class="tbl_md, text-center">Status</th>
+          <th></th>
+      </tr>
+  </thead>
+  <tbody>
+
+  <%= render partial: 'packing_list', collection: @plists, as: :packing_list, remote: device_is_desktop? %>
+
+  </tbody>
+</table>
+
+<div class="bottom_buttons ">
+  <%= button_to "Upload Packing List", packing_lists_upload_path, class: "btn btn-primary col-md-2", method: :get %> <%#, remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %>
+</div>
