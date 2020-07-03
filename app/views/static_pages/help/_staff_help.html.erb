@@ -15,6 +15,7 @@
   <li><%= link_to "Orders", "#orders" %> </li>
   <li><%= link_to "Inventory", "#inventory" %> </li>
   <li><%= link_to "Documents", "#documents" %> </li>
+  <li><%= link_to "Shipping from Packing List".html_safe, "#plist_shipping" %></li>
   <li><%= link_to "<i class='glyphicon glyphicon-menu-hamburger text-muted'></i> Hamburger Menu".html_safe, "#hamburger" %></li>
 </ul>
 
@@ -217,6 +218,47 @@ Reports are generated in PDF format and stored in "reports" directory on the ser
 <p><b><%= "<i class='glyphicon glyphicon-check'></i> Data Integrity Check".html_safe %></b>: Check for missing required fields in product and client tables </p>
 <p><b><%= "<i class='glyphicon glyphicon-upload'></i> Product Image Upload".html_safe %></b>: Upload product picture here. All appropriate thumbnails will be generated on the fly</p>
 <p><b><%= "<i class='glyphicon glyphicon-log-out'></i> Logout".html_safe %></b>: End current session</p>
+
+</dd>
+
+
+<p>&nbsp;</p>
+<!-- Shipping from Packing List -->
+<a id="plist_shipping"></a>
+<dt class="col-sm-1">Shipping From Packing List</dt>
+
+<dd class="col-sm-11"> 
+In addition to shipping from Order and from Production Order (See Inventory above) it's possible to ship from Packing List.
+The process is two stage. 
+<ol>
+<li>Packing List is uploaded to the server  </li>
+<li>Packing list is processed and quantities/statuses are adjusted accordingly</li>
+</ol>
+<p>
+<b>Uploading Packing List </b>
+</p>
+<p>
+File format: Packing List uses comma-seperated value (CSV) format. First 3 colums are: "Order Id", "Reference Code" and "Quantity To Ship". The rest of the columns, if present, are currently ignored.
+When you open "Packing Lists" menu, you will see the list of active/archived packing lists, with active listed first. You cannot upload new packing list until active list is shipped. 
+</p>
+<p>
+To upload new packing list, just drag and drop CSV file into upload form and press "Upload" button. The list will be validated for syntax and basic sanity check will be run. Each order number and product code  will be checked for existance and if not present in the system, appropriate error message will be generated. There's also validation of number of pieces to be shipped. This number cannot exceed number of pending/active pieces. If everything is ok, the file will be accepted and uploaded to the server. Each corresponding placement will have updated "to_ship" attribute with number of pieces to be shipped, but nothing else will be changed at this point. Shipped quantities, order statuses and PPO pdfs will be updated during the next step. Freshly uploaded list will be given "Active" status and culums with number of orders, products and total number of pieces will be updated.
+</p>
+<p>
+<b>List processing</b>
+</p>
+<p>
+Now you are ready to do actual shipping. Active list is shipped by clicking on "Ship it" link. When you do that, several things will happen:
+<ol>
+  <li> If shipped quantity of placement is the same as ordered quantity, placement will be marked as "Shipped" </li>
+  <li> Ordered quantity will be reduced by the number of pieces shipped </li>
+  <li> If all placements of the order are shipped, then order itself will be marked as "Shipped" </li>
+  <li> If placement has associated PPO, it will be regenerated </li>
+  <li> Packing List itself will be marked as "Archived" </li>
+</ol>
+
+<p>
+Shipped files will be kept in the list of Packing Lists and can be downloaded/viewed when necessary. 
 
 </dd>
 
