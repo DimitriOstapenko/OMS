@@ -3,6 +3,8 @@
 #
 # ARG: none
 #
+# N.B! convert/identify paths are platform-dependent 
+#
 require 'pathname'
 
 width = '2000' 
