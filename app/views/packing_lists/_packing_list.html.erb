@@ -5,6 +5,26 @@
   <td class="text-center"><%= packing_list.orders %></td>
   <td class="text-center"><%= packing_list.products %></td>
   <td class="text-center"><%= packing_list.pcs %></td>
+  <td class="text-center"><%= packing_list.user.email %></td>
   <td class="text-center"><%= packing_list.status_str %></td>
-  <td class="text-center">edit here</td>
+
+  <td class="text-center">
+  <% if packing_list.active? %>
+    <%= link_to "Ship It", ship_packing_list_path(packing_list), method: :patch, data: { confirm: "About to ship Packing list #{packing_list.name}. This will update pending and shipped quantities as well as order/PPO statuses. Do you want to Proceed?" } %>
+  <% else %>
+    shipped
+  <% end %>
+  <td class="text-center"><%= link_to '<i class="glyphicon glyphicon-edit"></i>'.html_safe, edit_packing_list_path(packing_list), remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %> </td>
+  
+  <td class="text-center">
+  <% unless packing_list.active? %>
+    <%= link_to '<i class="glyphicon glyphicon-download"></i>'.html_safe, download_packing_list_path(packing_list, format: :csv) %>
+  <% end %>
+  </td>
+  
+  <td class="text-center">
+  <% if packing_list.active? %>
+  <%= link_to '<i class="glyphicon glyphicon-remove-sign"></i>'.html_safe, packing_list, method: :delete, data: { confirm: "Are you sure you want to delete #{packing_list.name}?" } %>
+  <% end %>
+  </td>
 </tr>

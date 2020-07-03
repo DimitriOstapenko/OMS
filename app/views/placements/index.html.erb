@@ -58,8 +58,8 @@
 
 <% unless  current_user.client? || @order.shipped? || @order.cancelled? %>
 <div class="row">
-<div class="col-md-4">
-<%= button_to "Set Order To Shipped", set_to_shipped_order_path(@order), class: "btn btn-primary", method: :patch %>
+<div class="col-md-3">
+<%= button_to "Ship This Order", set_to_shipped_order_path(@order), class: "btn btn-primary", method: :patch %>
 </div>
 </div>
 <% end %>

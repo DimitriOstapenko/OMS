@@ -4,13 +4,17 @@
   <caption>List of Packing Lists</caption>
   <thead>
       <tr>
-          <th class="tbl_sm, text-center">Name</th>
-          <th class="tbl_md, text-center">Description</th>
-          <th class="tbl_md text-center">Date</th>
-          <th class="tbl_md, text-center">Orders</th>
-          <th class="tbl_md, text-center">Products</th>
-          <th class="tbl_md, text-center">Total Pcs Shipped</th>
-          <th class="tbl_md, text-center">Status</th>
+          <th class="text-center">Name</th>
+          <th class="text-center">Description</th>
+          <th class="text-center">Date</th>
+          <th class="text-center">Orders</th>
+          <th class="text-center">Products</th>
+          <th class="text-center">Total Pcs To Ship</th>
+          <th class="text-center">Uploaded by</th>
+          <th class="text-center">Status</th>
+          <th class="text-center">Ship it </th>
+          <th></th>
+          <th></th>
           <th></th>
       </tr>
   </thead>
@@ -22,5 +26,6 @@
 </table>
 
 <div class="bottom_buttons ">
-  <%= button_to "Upload Packing List", packing_lists_upload_path, class: "btn btn-primary col-md-2", method: :get %> <%#, remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %>
+  <% disabled = PackingList.any_active? %> 
+  <%= button_to "Upload Packing List", new_packing_list_path, class: "btn btn-primary col-md-2", method: :get, disabled: disabled, title: 'Please ship Active Packing List first'%> 
 </div>

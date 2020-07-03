@@ -104,9 +104,13 @@ class PposController < ApplicationController
   end
 
   def export
-    @ppos = Ppo.all
-    send_data @ppos.to_csv, filename: "PPOs-#{Date.today}.csv"
-#    flash.now[:info] = 'All PPOs exported to CSV file'
+    @ppo = Ppo.find(params[:id]) rescue nil
+    if @ppo.present?
+      send_data @ppo.to_csv, filename: "PPO-#{Date.today}.csv"
+    else
+      @ppos = Ppo.all
+      send_data @ppos.to_csv, filename: "PPOs-#{Date.today}.csv"
+    end
   end
 
 end

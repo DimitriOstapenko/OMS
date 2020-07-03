@@ -7,7 +7,13 @@
 <% end %>
 
   <tr class="<%= cl %>">
-  <td class="text-center"><%= link_to product.ref_code, product, remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window', class: cl %></td> 
+    <td class="text-center">
+    <% if device_is_desktop? %>
+      <%= link_to product.ref_code, product, remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window', class: cl %>
+    <% else %>
+      <%= link_to product.ref_code, product %>
+    <% end %>
+
     <td class="text-center"><%= product.scale_str %></td> 
     <td class="text-center"><%= product.colour_str %></td> 
     <td class="text-center"><%= product.weight.to_i %></td> 
@@ -16,7 +22,7 @@
     <td class="text-center"><%= product.brand_str %></td> 
     <td class="text-center"><%= product.ctns %></td> 
     <td class="text-center"><%= product.release_date_str %></td>
-     <%= render("#{current_user.role}_product", product: product) if current_user %>
+    <%= render("#{current_user.role}_product", product: product) if current_user %>
 </tr>
 
 

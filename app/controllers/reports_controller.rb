@@ -87,7 +87,7 @@ class ReportsController < ApplicationController
    end
   end
 
-# Generate PDF version of the report, save in reports directory
+# Generate PDF,CSV versions of the report, save in reports directory
   def export
     @report = Report.find(params[:id])
     @orders = get_orders( @report )
@@ -109,7 +109,7 @@ class ReportsController < ApplicationController
 
   def show
     @report = Report.find(params[:id])
-    redirect_to reports_path unless @report
+    (redirect_to reports_path; return) unless @report
 
     respond_to do |format|
       format.html {
@@ -150,7 +150,8 @@ private
       placements = placements.select{|p| p.order.client_id == report.client_id} if report.client_id
       return placements
     else 
-      logger.error "*** Invalid Report Category: #{report.inspect}"
+#      logger.error "*** Invalid Report Category: #{report.inspect}"
+       redirect_to reports_path
     end
   end
 

@@ -146,7 +146,7 @@ class Order < ApplicationRecord
   end
 
   def self.to_csv
-    attributes = %w{id client_name client_code cre_date product_list product_count total_pcs currency total po_number inv_number pmt_method_str shipping discount tax delivery_by weight status_str notes}
+    attributes = %w{id client_name client_code cre_date product_list_quoted product_count total_pcs currency total po_number inv_number pmt_method_str shipping discount tax delivery_by weight status_str notes}
     CSV.generate(headers: attributes, write_headers: true) do |csv|
       all.each do |order|
         csv << attributes.map{ |attr| order.send(attr) }
@@ -172,9 +172,14 @@ class Order < ApplicationRecord
   def cre_date
     created_at.to_date
   end
-
+  
   def product_list
     self.products.pluck(:ref_code).join(':') rescue ''
+  end
+
+# for CSV not to trigger currency with 'TOP' 
+  def product_list_quoted
+    self.products.pluck(:ref_code).join(':').inspect rescue ''
   end
 
   def product_count

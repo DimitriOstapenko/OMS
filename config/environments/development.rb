@@ -6,6 +6,11 @@ Rails.application.configure do
   # since you don't have to restart the web server when you make code changes.
   config.cache_classes = false
 
+  # Time zone: (UTC by default, converted back to local when pulled from DB)
+#  config.time_zone = "America/New_York"
+#  config.active_record.default_timezone = :local
+#  config.active_record.time_zone_aware_attributes = false
+
   # Do not eager load code on boot.
   config.eager_load = false
 

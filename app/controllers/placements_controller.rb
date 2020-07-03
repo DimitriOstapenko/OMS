@@ -93,7 +93,7 @@ class PlacementsController < ApplicationController
 
 private
 #  def placement_params
-#    params.require(:placement).permit( :order_id, :product_id, :quantity, :price, :status, :ppo_id, :shipped)
+#    params.require(:placement).permit( :order_id, :product_id, :quantity, :price, :status, :ppo_id, :shipped, :to_ship, :last_pl_id)
 #  end  
 
 end

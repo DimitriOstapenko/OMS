@@ -1,10 +1,5 @@
 Rails.application.routes.draw do
 
-  get 'packing_lists/index'
-  get 'packing_lists/show'
-  get 'packing_lists/new'
-  get 'packing_lists/create'
-  get 'packing_lists/upload'
   root 'static_pages#home'
 #  root 'products#index'
 
@@ -45,19 +40,21 @@ Rails.application.routes.draw do
 #    post 'clear_active_order', on: :member
     post 'set_pending_orders_to_shipped', on: :member
     get 'disable', on: :member
-    resources :ppos, only: [:index, :show, :create, :destroy] do
-      get 'download', on: :member
-    end
+    resources :ppos, only: [:index, :show, :create, :destroy] 
   end
 
 # extra ppo paths  
   resources :ppos, only: [:index, :show, :create] do
     get 'show_placements', on: :member 
     post 'set_to_shipped', on: :member
+    get 'export', on: :member
+    get 'download', on: :member
   end
 
-  resources :'packing_lists', only: [:index, :show, :create]
-  post 'upload_packing_list', to: 'packing_lists#upload_csv'
+  resources :'packing_lists' do 
+     get 'download', on: :member
+     patch 'ship', on: :member
+  end
 
   get '/export_orders', to: 'orders#export' 
   get '/export_ppos', to: 'ppos#export' 

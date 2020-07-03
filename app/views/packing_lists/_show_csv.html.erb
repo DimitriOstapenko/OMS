@@ -1,0 +1,21 @@
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <table class="tbl2 table-hover table-striped table-bordered">
+      <caption><%= @packing_list.status_str %> packing List "<%= @packing_list.name %>", uploaded <%= @packing_list.created_at.to_date %> by <%= @packing_list.user.email %></caption>
+      <thead>
+      <tr>
+          <th class="tbl_md, text-center">Order</th>
+          <th class="tbl_md, text-center">Ref Code</th>
+          <th class="tbl_md text-center">Pcs Shipped</th>
+      </tr>
+      </thead>
+      <tbody>
+         <%= render partial: "csv_line", collection: @packing_list.contents %>
+      </tbody>
+      <tfoot>
+        <th colspan=2></th>
+        <th class="text-center font-weight-bold"><%= @packing_list.pcs %></th>
+      </tfoot>
+    </table>
+  </div>
+</div>

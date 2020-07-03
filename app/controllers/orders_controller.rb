@@ -67,15 +67,19 @@ class OrdersController < ApplicationController
     end
   end
 
-# Destroy Order, update inventory  
+# Destroy Order, update product quantity  
   def destroy
     @order =  Order.find(params[:id])
-    @order.placements.each do |pl|
-      pl.product.update_attribute(:quantity, pl.quantity + pl.product.quantity) if @order.status == PENDING_ORDER
-      pl.ppo.regenerate if pl.ppo.present?
-    end 
-    @order.destroy
-    flash[:success] = "Order deleted. Inventory adjusted. PPOs regenerated"
+    if @order.status == PENDING_ORDER
+      @order.placements.each do |pl|
+        pl.product.update_attribute(:quantity, pl.quantity + pl.product.quantity) if pl.status == PENDING_ORDER
+        pl.ppo.regenerate if pl.ppo.present?
+      end 
+      @order.destroy
+      flash[:success] = "Order deleted. Product quantity adjusted. PPOs regenerated"
+    else
+      flash[:warning] = "Cannot delete Active/Shipped orders."
+    end
     redirect_to orders_path
   end
 

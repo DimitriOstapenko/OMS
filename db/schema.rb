@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_27_141951) do
+ActiveRecord::Schema.define(version: 2020_07_02_201412) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -93,6 +93,7 @@ ActiveRecord::Schema.define(version: 2020_06_27_141951) do
     t.integer "orders", default: 0
     t.integer "products", default: 0
     t.integer "status", default: 0
+    t.string "md5"
     t.index ["user_id"], name: "index_packing_lists_on_user_id"
   end
 
@@ -106,7 +107,10 @@ ActiveRecord::Schema.define(version: 2020_06_27_141951) do
     t.integer "status", default: 0
     t.bigint "ppo_id"
     t.integer "shipped", default: 0
+    t.integer "to_ship", default: 0
+    t.bigint "packing_list_id"
     t.index ["order_id"], name: "index_placements_on_order_id"
+    t.index ["packing_list_id"], name: "index_placements_on_packing_list_id"
     t.index ["ppo_id"], name: "index_placements_on_ppo_id"
     t.index ["product_id"], name: "index_placements_on_product_id"
   end
@@ -252,6 +256,7 @@ ActiveRecord::Schema.define(version: 2020_06_27_141951) do
   add_foreign_key "orders", "users"
   add_foreign_key "packing_lists", "users"
   add_foreign_key "placements", "orders"
+  add_foreign_key "placements", "packing_lists"
   add_foreign_key "placements", "ppos"
   add_foreign_key "placements", "products"
   add_foreign_key "ppos", "products"

@@ -20,6 +20,7 @@
           <th class="text-center">Status</th>
           <th class="tbl_sm"></th>
           <th class="tbl_sm"></th>
+          <th class="tbl_sm"></th>
           <% if current_user.su? %>
           <th class="tbl_sm"></th>
           <% end %>
@@ -32,7 +33,7 @@
   </tbody>
 </table>
 
-<%= button_to "Export To CSV", export_ppos_path, class: "btn btn-primary col-md-2", method: :get %>
+<%= button_to "Export All To CSV", export_ppos_path, class: "btn btn-primary col-md-2", method: :get %>
 <% end %>
 
 <div class="bottom_nav">

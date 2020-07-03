@@ -60,6 +60,15 @@ def exists?
   File.exists?(self.filespec) rescue false
 end
 
+def to_csv
+  attributes = %w{order_id client_name created_at quantity shipped status_str }
+  CSV.generate(headers: attributes, write_headers: true) do |csv|
+    self.placements.each do |placement|
+      csv << attributes.map{ |attr| placement.send(attr) }
+    end
+  end
+end
+
 def self.to_csv
   attributes = %w{id name date status_str product_code orders pcs }
     CSV.generate(headers: attributes, write_headers: true) do |csv|

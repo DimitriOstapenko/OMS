@@ -3,9 +3,7 @@
 
 <tr class="<%= cl %>">
 
-<td class="text-center">
-  <%= link_to order.client_name, order.client, remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %> 
-</td>
+<td> <%= link_to order.client_name, order.client, remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %> </td>
 
 <td class="text-center"><%= link_to order.id, order_placements_path(order.id) %></td>
 <td class="text-center"><%= order.products.count %></td>
@@ -21,5 +19,11 @@
 <% unless order.cancelled? || order.shipped? %>
   <%= link_to '<i class="glyphicon glyphicon-edit"></i>'.html_safe, edit_order_path(order), remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %> 
 <% end %>
-<td class="text-center"><%= link_to '<i class="glyphicon glyphicon-remove-sign"></i>'.html_safe, order, method: :delete, data: { confirm: "Are you sure you want to delete order # #{order.id}?" } %> </td>
+
+<td class="text-center">
+<% if order.status == PENDING_ORDER %>
+    <%= link_to '<i class="glyphicon glyphicon-remove-sign"></i>'.html_safe, order, method: :delete, data: { confirm: "Are you sure you want to delete order # #{order.id}?" } %> 
+    <%# link_to '<i class="glyphicon glyphicon glyphicon-remove-sign"></i>'.html_safe, cancel_order_path(order), data:{ confirm: "Are you sure you want to cancel order # #{order.id}? Order will stay in the system, but will be marked as Cancelled" } %> 
+<% end %>
+</td>
 </tr>

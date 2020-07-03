@@ -36,11 +36,24 @@ class Placement < ApplicationRecord
     if self.shipped < self.quantity
       self.product.update_attribute(:quantity, self.product.quantity + self.quantity - self.shipped)
       self.update_attribute(:shipped, self.quantity)
+      self.update_attribute(:to_ship, 0)
     end 
     self.order.update_attribute(:status, SHIPPED_ORDER) if self.order.all_placements_shipped?
     if self.ppo.present?
       self.ppo.regenerate 
       self.ppo.update_attribute(:status, ARCHIVED_PPO) if self.ppo.all_placements_shipped?
+    end
+  end
+
+# Ship placement in Packing List  
+  def ship_plist
+    if self.quantity == self.to_ship
+      self.set_to_shipped
+    else
+      self.update_attribute(:quantity, self.quantity - self.to_ship)
+      self.update_attribute(:to_ship, 0)
+      self.order.update_attribute(:status, ACTIVE_ORDER)
+      self.ppo.regenerate if self.ppo.present?
     end
   end
 
@@ -65,8 +78,12 @@ class Placement < ApplicationRecord
     self.quantity - self.shipped
   end
 
+  def ref_code
+    self.product.ref_code.inspect
+  end
+
   def self.to_csv
-    attributes = %w{id order_id client_name product_id created_at updated_at quantity price status_str ppo_id shipped ptotal}
+    attributes = %w{order_id client_name ref_code created_at quantity price ptotal ppo_id shipped pending to_ship packing_list_id status_str}
     CSV.generate(headers: attributes, write_headers: true) do |csv|
       all.each do |placement|
         csv << attributes.map{ |attr| placement.send(attr) }
