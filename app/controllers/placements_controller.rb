@@ -16,7 +16,6 @@ class PlacementsController < ApplicationController
   end
 
   def add_product
-# app_controller    
     quantity = params[:quantity] || params[:placement][:quantity]
     id = params[:id] || params[:placement][:id]
     flash[:danger] = "Error adding product to cart. #{params.inspect}" unless add_to_cart?(id, quantity)
@@ -30,7 +29,7 @@ class PlacementsController < ApplicationController
     redirect_back(fallback_location: products_path) 
   end
 
-# Update number of pieces for the product - Readd product
+# Update number of pieces for the product in Cart
   def update_product_qty
     id = params[:id] || params[:placement][:id]
     quantity = params[:quantity] || params[:placement][:quantity]
@@ -46,14 +45,13 @@ class PlacementsController < ApplicationController
     shipped = params[:placement][:shipped].to_i.abs rescue 0
     shipped = @placement.quantity if shipped > @placement.quantity 
     prev_shipped = @placement.shipped
-    @placement.product.update_attribute(:quantity, @placement.product.quantity + shipped - prev_shipped)
     if shipped && @placement.update_attribute(:shipped, shipped)
        flash[:success] = "Placement updated " 
        if shipped == @placement.quantity
-#         redirect_to set_to_shipped_order_placement_path(@placement.order,@placement) 
           @placement.set_to_shipped
           redirect_back(fallback_location: inventories_path)
        else
+#         @placement.product.update_attribute(:quantity, @placement.product.quantity + shipped - prev_shipped)
          @placement.update_attribute(:status, ACTIVE_ORDER)
          @placement.order.update_attribute(:status, ACTIVE_ORDER)
          redirect_back(fallback_location: inventories_path)
@@ -71,7 +69,6 @@ class PlacementsController < ApplicationController
 
   def empty_cart
     clear_cart
-#    redirect_back(fallback_location: products_path)
     redirect_to products_path
   end
 
@@ -84,8 +81,6 @@ class PlacementsController < ApplicationController
     flash[:info] = msg
     if request.referer.match(/orders/)
       redirect_to order_placements_path(@placement.order) 
-#    elsif request.referer.match(/show_placements/)
-#      redirect_to show_placements_ppo_path(@placement.ppo)
     else
      redirect_to product_ppos_path(@placement.product)
     end

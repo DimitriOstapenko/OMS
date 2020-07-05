@@ -70,6 +70,7 @@ Rails.application.routes.draw do
       patch 'update_shipped', on: :member
     end
   end
+
   resources :clients do
     get 'send_invite_to_register', on: :member
   end 

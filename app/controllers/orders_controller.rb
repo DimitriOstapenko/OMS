@@ -60,7 +60,6 @@ class OrdersController < ApplicationController
     @order = Order.find(params[:id])
     if @order.update_attributes(order_params)
       flash[:success] = "Order #{@order.id} updated"
-#      redirect_back(fallback_location: orders_path)
       redirect_to orders_path
     else
       render 'edit'
@@ -72,7 +71,6 @@ class OrdersController < ApplicationController
     @order =  Order.find(params[:id])
     if @order.status == PENDING_ORDER
       @order.placements.each do |pl|
-        pl.product.update_attribute(:quantity, pl.quantity + pl.product.quantity) if pl.status == PENDING_ORDER
         pl.ppo.regenerate if pl.ppo.present?
       end 
       @order.destroy
@@ -88,11 +86,10 @@ class OrdersController < ApplicationController
     @order = Order.find(params[:id])
     @order.placements.each do |pl|
        pl.update_attribute(:status, CANCELLED_ORDER)
-       pl.product.update_attribute(:quantity, pl.quantity + pl.product.quantity) if @order.status == PENDING_ORDER
        pl.ppo.regenerate if pl.ppo.present?
     end 
     @order.update_attribute(:status, CANCELLED_ORDER) 
-    flash[:warning] = 'Order was cancelled. Inventory adjusted. PPOs regenerated'
+    flash[:warning] = 'Order was cancelled. Product quantity adjusted. PPOs regenerated'
     redirect_to orders_path
   end
 
@@ -164,11 +161,11 @@ private
   end
 
   def sort_column
-          Order.column_names.include?(params[:sort]) ? params[:sort] : "created_at"
+    Order.column_names.include?(params[:sort]) ? params[:sort] : "created_at"
   end
 
   def sort_direction
-          %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
   end
 
 end

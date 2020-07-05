@@ -26,7 +26,13 @@ class ProductsController < ApplicationController
           flash.now[:info] = "No products found"
         end
       end
-      @products = @products.reorder(sort_column + ' ' + sort_direction).paginate(page: params[:page])
+      if params[:sort] == 'pending'
+        @products = Product.joins(:placements).where('placements.status': PENDING_ORDER).group('id').reorder('sum(quantity-shipped)'+ ' ' + sort_direction).paginate(page: params[:page])
+      elsif params[:sort] == 'active' 
+        @products = Product.joins(:placements).where('placements.status': ACTIVE_ORDER).group('id').reorder('sum(quantity-shipped)'+ ' ' + sort_direction).paginate(page: params[:page])
+      else
+        @products = @products.reorder(sort_column + ' ' + sort_direction).paginate(page: params[:page])
+      end
     else 
       redirect_to home_path
     end  
@@ -157,7 +163,7 @@ class ProductsController < ApplicationController
 private
   def product_params
     params.require(:product).permit( :ref_code, :description, :brand, :category, :scale, :colour, :ctns, :release_date, :added_date, 
-                                     :weight, :quantity, :active, :price_eu, :price_eu2, :price_eu3, :price_eu4, :price_eu5, :price_eu6, 
+                                     :weight, :active, :price_eu, :price_eu2, :price_eu3, :price_eu4, :price_eu5, :price_eu6, 
                                      :price_usd, :price_usd2, :supplier, :manager, :progress, :manual_price,  :notes, :image, :stock, :delta ) 
   end
 

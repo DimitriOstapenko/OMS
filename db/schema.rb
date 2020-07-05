@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_02_201412) do
+ActiveRecord::Schema.define(version: 2020_07_04_201434) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -160,7 +160,6 @@ ActiveRecord::Schema.define(version: 2020_07_02_201412) do
     t.integer "supplier"
     t.integer "manager"
     t.integer "progress"
-    t.integer "quantity", default: 0
     t.decimal "price_eu2", default: "0.0"
     t.decimal "price_usd2", default: "0.0"
     t.decimal "price_eu3", default: "0.0"

@@ -13,7 +13,7 @@ class OrderMailerPreview < ActionMailer::Preview
 
   def product_quantity_alert
     product = Product.first
-    OrderMailer.product_quantity_alert(product,-1)
+    OrderMailer.product_quantity_alert(product)
   end
 
 end

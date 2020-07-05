@@ -20,10 +20,7 @@ class InventoriesController < ApplicationController
   end 
 
   def update
-    @product = Product.find(params[:id])
-    @product.update_attribute(:quantity, params[:quantity])
-    flash[:info] = "Product : #{@product.ref_code} - updated quantity: #{@product.quantity}"
-    redirect_back(fallback_location: inventories_path)
+#    redirect_back(fallback_location: inventories_path)
   end
 
   def new

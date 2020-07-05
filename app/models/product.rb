@@ -148,6 +148,19 @@ class Product < ApplicationRecord
     self.placements.where(status: ACTIVE_ORDER).sum('quantity-shipped')
   end
 
+#  def quantity
+#    self.active_qty + self.pending_qty
+#  end
+
+# Ordered quantity  
+  def quantity
+    self.placements.sum('quantity-shipped')
+  end
+
+  def total_qty
+    self.stock - self.delta - self.quantity
+  end
+
 # Number of shipped pieces  
   def shipped_qty 
     self.placements.sum(:shipped)

@@ -19,9 +19,8 @@ class OrderMailer < ActionMailer::Base
   end  
 
 # Notify staff of a low quantity for product  
-  def product_quantity_alert(product, newqty)
+  def product_quantity_alert(product)
     @product = product
-    @product.quantity = newqty
     emails = User.where('role=?', STAFF_ROLE).pluck(:email)
     mail to: emails, subject: "OMS Low Product Quantity alert"
   end

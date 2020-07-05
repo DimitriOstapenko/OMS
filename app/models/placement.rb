@@ -7,12 +7,12 @@ class Placement < ApplicationRecord
 
   validates :quantity, numericality: { only_integer: true, greater_than: 0 }
 
-  after_create :decrement_product_quantity!
+#  after_create :decrement_product_quantity!
   default_scope -> {order(product_id: :asc) }
 
-  def decrement_product_quantity!
-    self.product.decrement!(:quantity, quantity)
-  end
+#  def decrement_product_quantity!
+#    self.product.decrement!(:quantity, quantity)
+#  end
 
   def ptotal
     self.quantity * self.price
@@ -33,12 +33,11 @@ class Placement < ApplicationRecord
 # Set placement to shipped; update product quantity(pcs in active/pending orders); Update PPO if present  
   def set_to_shipped
     self.update_attribute(:status, SHIPPED_ORDER)
-    if self.shipped < self.quantity
-      self.product.update_attribute(:quantity, self.product.quantity + self.quantity - self.shipped)
-      self.update_attribute(:shipped, self.quantity)
-      self.update_attribute(:to_ship, 0)
-    end 
+#    logger.debug("****** #{self.product.quantity} : #{self.quantity} : #{self.shipped}")
+#    self.product.update_attribute(:quantity, self.product.quantity + self.quantity - self.shipped)
+    self.update_attribute(:shipped, self.quantity)
     self.order.update_attribute(:status, SHIPPED_ORDER) if self.order.all_placements_shipped?
+    self.update_attribute(:to_ship, 0)
     if self.ppo.present?
       self.ppo.regenerate 
       self.ppo.update_attribute(:status, ARCHIVED_PPO) if self.ppo.all_placements_shipped?
@@ -47,13 +46,14 @@ class Placement < ApplicationRecord
 
 # Ship placement in Packing List  
   def ship_plist
-    if self.quantity == self.to_ship
-      self.set_to_shipped
-    else
-      self.update_attribute(:quantity, self.quantity - self.to_ship)
-      self.update_attribute(:to_ship, 0)
+    if self.to_ship < self.quantity
+#      self.product.update_attribute(:quantity, self.product.quantity + self.to_ship)
+      self.update_attribute(:shipped, self.to_ship)
       self.order.update_attribute(:status, ACTIVE_ORDER)
       self.ppo.regenerate if self.ppo.present?
+      self.update_attribute(:to_ship, 0)
+    else
+      self.set_to_shipped
     end
   end
 

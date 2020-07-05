@@ -18,7 +18,7 @@ end
 def sortable(column, title = nil)
       title ||= ActiveSupport::Inflector.titleize(column)
 #      css_class = column == sort_column ? "current #{sort_direction}" : nil
-      direction = (column == sort_column && sort_direction == "asc") ? "desc" : "asc"
+      direction = (sort_direction == "asc") ? "desc" : "asc"
 #      link_to title, { direction: direction, sort: column, date: params[:date]}, {class: "hdr-link"}
       link_to title, { direction: direction, sort: column, findstr: params[:findstr] }, class: "hdr-link"
 end
