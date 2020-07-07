@@ -12,7 +12,7 @@
       <li><%= link_to "About", about_path, target: '_new' %></li>
       <li><%= link_to "Help", help_path, target: '_new' %></li>
       <li><%= link_to "Contact", contact_path, target: '_new' %></li>
-      <% unless current_user.client? %>
+      <% if current_user && !current_user.client? %>
       <li><%= link_to "News", news_path, target: '_new' %></li>
       <% end %>
       <li><%= link_to "Terms", terms_path, target: '_new' %></li>
