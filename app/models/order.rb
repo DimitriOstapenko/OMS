@@ -37,6 +37,7 @@ class Order < ApplicationRecord
   attr_accessor :quantity # to get quantity from form
 
   before_create :set_attributes!
+  before_save :set_total!
 
 # *** SET SEND_EMAILS WHEN IN PRODUCTION
   after_create :send_emails! if SEND_EMAILS
@@ -57,6 +58,9 @@ class Order < ApplicationRecord
     self.terms = self.client.default_terms
     self.tax = self.total * self.client.tax_pc / 100 if self.client.tax_pc > 0
     self.shipping = self.client.shipping_cost * self.weight 
+  end
+
+  def set_total!
     self.total += (self.shipping - self.discount + self.tax)
   end
 
