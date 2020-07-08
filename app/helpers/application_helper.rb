@@ -4,7 +4,7 @@ module ApplicationHelper
 # /mobile|android|iphone|blackberry|iemobile|kindle/
     def device_type
       ua  = request.user_agent.downcase rescue 'unknown'
-      if ua.match(/macintosh|windows/)
+      if ua.match(/macintosh|windows|linux/)
 	 'desktop'
       else 
 	 'mobile'
@@ -81,4 +81,8 @@ end
     def order_status_str(status)
       ORDER_STATUSES.invert[status] rescue '' 
     end    
+
+    def cuser
+      User.current_scope
+    end 
 end

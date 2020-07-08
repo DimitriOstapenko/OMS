@@ -5,7 +5,6 @@ class Product < ApplicationRecord
   has_many :placements
   has_many :orders, through: :placements
   has_many :ppos
-#  has_one  :manager
 
    mount_uploader :image, ImageUploader
 
@@ -148,10 +147,6 @@ class Product < ApplicationRecord
     self.placements.where(status: ACTIVE_ORDER).sum('quantity-shipped')
   end
 
-#  def quantity
-#    self.active_qty + self.pending_qty
-#  end
-
 # Ordered quantity  
   def quantity
     self.placements.sum('quantity-shipped')
@@ -170,5 +165,11 @@ class Product < ApplicationRecord
   def last_shipped_ppo
     Ppo.where(product_id:self.id).where(status: ARCHIVED_PPO).order('created_at desc').first rescue nil
   end
+
+  def visible(client_id = nil)
+#    return unless client_id  # invisible if no client 
+#    return if self.visible.include?(client_id)
+  end
+
 
 end
