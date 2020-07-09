@@ -58,6 +58,7 @@ class OrdersController < ApplicationController
 
   def update
     @order = Order.find(params[:id])
+    @order.user_id ||= current_user.id
     if @order.update_attributes(order_params)
       flash[:success] = "Order #{@order.id} updated"
       redirect_to orders_path
