@@ -74,7 +74,7 @@ class ProductsController < ApplicationController
       @product.clients.push(client) if client
     end
     if @product.update_attributes(product_params)
-      flash[:success] = "Product updated #{clients.inspect}"
+      flash[:success] = "Product updated"
       redirect_back(fallback_location: products_path)
     else
       render 'edit'
