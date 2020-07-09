@@ -29,7 +29,7 @@
 <div class="panel panel-info text-justify">
   <div class="panel-heading">Current Pricing Allocation Notes<span style="float: right"><%= link_to "<i class='glyphicon glyphicon-edit active'></i>".html_safe, edit_table_note_path(@table_note), remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window', method: :get %></span></div>
   <div class="panel-body" style="padding: 0;">
-<pre ><%= notes.html_safe %></pre>
+<pre ><%= notes.html_safe rescue '' %></pre>
 </div>
 </div>
 </div>

@@ -75,7 +75,7 @@ class OrdersController < ApplicationController
         pl.ppo.regenerate if pl.ppo.present?
       end 
       @order.destroy
-      flash[:success] = "Order deleted. Product quantity adjusted. PPOs regenerated"
+      flash[:success] = "Order deleted"
     else
       flash[:warning] = "Cannot delete Active/Shipped orders."
     end
@@ -112,8 +112,7 @@ class OrdersController < ApplicationController
                     type: "application/pdf",
                     disposition: :attachment
           else
-            pdf = build_po(@order)
-            pdf.render_file @order.po_filespec
+            @order.regenerate_po
             flash[:info] = 'File regenerated'
             redirect_to download_po_order_path(@order)
        end 
@@ -133,8 +132,7 @@ class OrdersController < ApplicationController
                   type: "application/pdf",
                   disposition: :attachment
       else
-        pdf = build_invoice(@order)
-        pdf.render_file @order.inv_filespec
+        @order.regenerate_invoice
         flash[:info] = 'File regenerated'
         redirect_to download_invoice_order_path(@order)
       end 

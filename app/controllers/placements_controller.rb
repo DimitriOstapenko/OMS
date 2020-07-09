@@ -3,7 +3,7 @@ class PlacementsController < ApplicationController
   before_action :logged_in_user
   before_action :client_user, only: [:create]
   before_action :admin_or_staff_user, only: [:edit, :update]
-  before_action :admin_user, only: [:destroy]
+  before_action :admin_or_su_user, only: [:destroy]
 
   def index
     @order = Order.find(params[:order_id])
@@ -83,6 +83,22 @@ class PlacementsController < ApplicationController
       redirect_to order_placements_path(@placement.order) 
     else
      redirect_to product_ppos_path(@placement.product)
+    end
+  end
+
+  def destroy
+    @placement = Placement.find(params[:id])
+    @order = @placement.order
+    @placement.destroy
+    if @order.placements.count < 1
+      flash[:success] = "Placement & order deleted"
+      @order.destroy 
+      redirect_to orders_path
+    else 
+      flash[:success] = "Placement deleted"
+      @placement.ppo.regenerate if @placement.ppo.present?
+      @order.save!
+      redirect_back(fallback_location: @order)
     end
   end
 

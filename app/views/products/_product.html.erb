@@ -1,4 +1,5 @@
 <% cl = nil %>
+<% return if current_user.client? && !product.visible?(current_user.client_id) %>
 <% if current_user.client? %>
    <% cl = 'table-success' if in_cart?(product.id)  %>
 <% elsif current_user.staff? || current_user.admin? || current_user.su? %>

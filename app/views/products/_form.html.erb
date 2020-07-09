@@ -20,22 +20,19 @@
   <%= f.input :ctns, label: 'Pcs x Cartons' %>
   </div>
   <div class="col-md-2">
-  <%= f.input :weight, label: 'Weight (G)' %>
+  <%= f.input :scale  %>
   </div>
   </div>
 
   <div class="row" %>
-  <div class="col-md-10">
+  <div class="col-md-12">
   <%= f.input :description %>
   </div>
-  <div class="col-md-2">
-  <%= f.input :quantity %>
-  </div>
   </div>
 
   <div class="row" %>
   <div class="col-md-2">
-  <%= f.input :scale  %>
+  <%= f.input :weight, label: 'Weight (G)' %>
   </div>
   <div class="col-md-3">
   <%= f.input :added_date, as: :date, html5: true  %>
@@ -52,33 +49,6 @@
   </div>
 
   <div class="row" %>
-  <div class="col-md-2">
-  <%= f.input :price_eu %>
-  </div>
-  <div class="col-md-2">
-  <%= f.input :price_eu2 %>
-  </div>
-  <div class="col-md-2">
-  <%= f.input :price_eu3 %>
-  </div>
-  <div class="col-md-2">
-  <%= f.input :price_eu4 %>
-  </div>
-  <div class="col-md-2">
-  <%= f.input :price_eu5 %>
-  </div>
-  <div class="col-md-2">
-  <%= f.input :price_eu6 %>
-  </div>
-  </div>
-
-  <div class="row" %>
-  <div class="col-md-2">
-  <%= f.input :price_usd %>
-  </div>
-  <div class="col-md-2">
-  <%= f.input :price_usd2 %>
-  </div>
   <div class="col-md-3">
   <%= f.input :manager, collection: get_managers, include_blank: 'unknown'  %>
   </div>
@@ -87,6 +57,9 @@
   </div>
   <div class="col-md-2">
   <%= f.input :progress, label: '% Complete' %>
+  </div>
+  <div class="col-md-4">
+    <%= f.input :visible_to, collection: Client.all, include_blank: 'ALL', selected: 0, input_html: {multiple: true, size: 5} %>
   </div>
   </div>
 

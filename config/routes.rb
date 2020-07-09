@@ -64,12 +64,19 @@ Rails.application.routes.draw do
     get 'download_invoice', on: :member
     get 'cancel', on: :member
     patch 'set_to_shipped', on: :member
-    resources :placements, only: [:index, :show, :create] do
+    resources :placements, only: [:index]  do #, :show, :create, :destroy] do
+#      patch 'set_to_shipped', on: :member
+#      get 'set_to_shipped', on: :member  # for redirect_to in placements#update_shipped
+#      patch 'update_shipped', on: :member
+    end
+  end
+
+  resources :placements, only: [:index, :show, :create, :destroy] do
       patch 'set_to_shipped', on: :member
       get 'set_to_shipped', on: :member  # for redirect_to in placements#update_shipped
       patch 'update_shipped', on: :member
-    end
-  end
+   end
+
 
   resources :clients do
     get 'send_invite_to_register', on: :member

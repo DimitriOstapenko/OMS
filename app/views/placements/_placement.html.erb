@@ -13,7 +13,7 @@
       <% if current_user.client? || placement.shipped? || action_name == 'show_pending_orders' %>
         <%= placement.shipped %>
       <% else %>
-       <%= simple_form_for [placement.order,placement], url: update_shipped_order_placement_path(placement.order,placement), html: { class: "form" } do |f| %>
+       <%= simple_form_for [placement.order,placement], url: update_shipped_placement_path(placement), html: { class: "form" } do |f| %>
          <div class="form-group" style="padding-top: 10px;">
            <%= f.input :shipped, as: :string, label: false, input_html: { onchange: 'this.form.submit();' }  %>
          </div>
@@ -22,4 +22,9 @@
     </td>
 
     <td class="text-center"><%= placement.status_str %></td>
+    <td class="text-center"> 
+    <% if current_user.su? && !placement.shipped? %>
+        <%= link_to '<i class="glyphicon glyphicon-remove-sign"></i>'.html_safe, placement, method: :delete, data: { confirm: "Are you sure you want to delete placement #{placement.product.ref_code} ?" } %> 
+    <% end %>
+    </td>
 </tr>

@@ -20,7 +20,8 @@
   Active?      <%= @product.active_str %><br>
   Manual price? <%= @product.manual_price_str %><br>
   Pending/Active pcs: <%= @product.pending_qty %> <br>
-  Current Stock : <%= @product.stock %>
+  Current Stock : <%= @product.stock %> <br>
+  Visible to: <%= @product.visible_to_str %>
 </div>
 
 <div>&nbsp;</div>
@@ -28,11 +29,11 @@
 <%= render "price_matrix" %>
 </div>
 
-<div class="col-md-6" style="padding-left: 0">
+<div class="col-md-12">
  <div> Product Notes </div>
   <div class="panel panel-default">
     <div class="panel-body p-3">
-  <%= @product.notes.html_safe %>
+      <%= @product.notes.html_safe rescue '' %>
     </div>
   </div>
 </div>

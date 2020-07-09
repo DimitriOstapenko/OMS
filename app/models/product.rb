@@ -5,6 +5,7 @@ class Product < ApplicationRecord
   has_many :placements
   has_many :orders, through: :placements
   has_many :ppos
+  has_many :clients
 
    mount_uploader :image, ImageUploader
 
@@ -34,11 +35,25 @@ class Product < ApplicationRecord
   
   before_validation { description.strip!.gsub!(/\s+/,' ') rescue '' }
   before_validation { ref_code.gsub!(/\W+/,'') rescue '' }
+  before_validation :set_prices!
   after_create :send_emails 
 
 # Notify staff, admins
   def send_emails
     UserMailer.new_product(self).deliver 
+  end
+
+  def set_prices!
+    pr = Price.find_by(scale: self.scale, category: self.category)
+    (errors.add(:price_eu, "Could not find price rule for this scale/category"); return; ) unless pr.present?
+    self.price_eu = pr.price_eu
+    self.price_eu2 = pr.price_eu2
+    self.price_eu3 = pr.price_eu3
+    self.price_eu4 = pr.price_eu4
+    self.price_eu5 = pr.price_eu5
+    self.price_eu6 = pr.price_eu6
+    self.price_usd = pr.price_usd
+    self.price_usd2 = pr.price_usd2
   end
 
   def scale_str
@@ -166,10 +181,15 @@ class Product < ApplicationRecord
     Ppo.where(product_id:self.id).where(status: ARCHIVED_PPO).order('created_at desc').first rescue nil
   end
 
-  def visible(client_id = nil)
-#    return unless client_id  # invisible if no client 
-#    return if self.visible.include?(client_id)
+  def visible_to_str
+    return 'All clients' unless self.clients.any?
+    return "#{self.clients.count} clients"  
   end
 
+  def visible?(client_id = nil)
+    return unless client_id
+    return true if self.visible_to.empty?
+    return true if self.clients.exists?(client_id)
+  end
 
 end

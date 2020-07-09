@@ -37,7 +37,7 @@ class Order < ApplicationRecord
   attr_accessor :quantity # to get quantity from form
 
   before_create :set_attributes!
-  before_update :set_total!
+  before_update :set_totals!
 
 # *** SET SEND_EMAILS WHEN IN PRODUCTION
   after_create :send_emails! if SEND_EMAILS
@@ -61,8 +61,9 @@ class Order < ApplicationRecord
     self.total += (self.shipping - self.discount + self.tax)
   end
 
-  def set_total!
+  def set_totals!
     self.total = self.total_price + self.shipping - self.discount + self.tax
+    self.weight = self.total_weight
   end
 
   def send_emails!
@@ -75,18 +76,37 @@ class Order < ApplicationRecord
     self.placements.sum('price*quantity') rescue 0
   end
 
+# Order total weight  
+  def total_weight
+    self.placements.joins(:product).sum('quantity*weight/1000') rescue 0
+  end
+
 # Order currency
   def currency
     self.client.currency
   end
 
   def create_po_and_invoice 
-      pdf = build_po(self)
-      pdf.render_file self.po_filespec rescue nil
-      pdf = build_invoice(self)
-      pdf.render_file self.inv_filespec rescue nil
+    self.regenerate_po
+    self.regenerate_invoice
   end
-  
+
+  def regenerate_invoice
+    pdf = build_invoice(self)
+    if pdf 
+      File.delete( self.inv_filespec ) rescue nil 
+      pdf.render_file self.inv_filespec
+    end
+  end
+            
+  def regenerate_po
+    pdf = build_po(self)
+    if pdf
+      File.delete( self.po_filespec ) rescue nil 
+      pdf.render_file self.po_filespec
+    end
+  end
+            
   def build_placements_with_product_ids_and_quantities?(product_ids_and_quantities)
     return false unless product_ids_and_quantities.any?
     product_ids_and_quantities.each do |product_id_and_quantity|

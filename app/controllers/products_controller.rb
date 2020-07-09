@@ -13,7 +13,6 @@ class ProductsController < ApplicationController
   end
 
   def index
-    if current_user
       found = []
       @products = Product.all
       @products = Product.where(active: true) if (current_user.client? || current_user.user?)   # Do not show disabled products to clients and world
@@ -26,16 +25,13 @@ class ProductsController < ApplicationController
           flash.now[:info] = "No products found"
         end
       end
-      if params[:sort] == 'pending'
+      if params[:sort] == 'pending'  # sorting on joined table
         @products = Product.joins(:placements).where('placements.status': PENDING_ORDER).group('id').reorder('sum(quantity-shipped)'+ ' ' + sort_direction).paginate(page: params[:page])
       elsif params[:sort] == 'active' 
         @products = Product.joins(:placements).where('placements.status': ACTIVE_ORDER).group('id').reorder('sum(quantity-shipped)'+ ' ' + sort_direction).paginate(page: params[:page])
       else
         @products = @products.reorder(sort_column + ' ' + sort_direction).paginate(page: params[:page])
       end
-    else 
-      redirect_to home_path
-    end  
   end
 
   def show
@@ -69,8 +65,16 @@ class ProductsController < ApplicationController
 
   def update
     @product = Product.find(params[:id])
+    clients = params[:product][:'visible_to']
+    clients = clients[1..] if clients.any?  # remove empty string
+    clients.each do |cl|
+      client_id = cl.to_i
+      next unless client_id.positive?
+      client = Client.find(cl.to_i)
+      @product.clients.push(client) if client
+    end
     if @product.update_attributes(product_params)
-      flash[:success] = "Product updated"
+      flash[:success] = "Product updated #{clients.inspect}"
       redirect_back(fallback_location: products_path)
     else
       render 'edit'
@@ -164,7 +168,7 @@ private
   def product_params
     params.require(:product).permit( :ref_code, :description, :brand, :category, :scale, :colour, :ctns, :release_date, :added_date, 
                                      :weight, :active, :price_eu, :price_eu2, :price_eu3, :price_eu4, :price_eu5, :price_eu6, 
-                                     :price_usd, :price_usd2, :supplier, :manager, :progress, :manual_price,  :notes, :image, :stock, :delta ) 
+                                     :price_usd, :price_usd2, :supplier, :manager, :progress, :manual_price,  :notes, :image, :stock, :delta, visible_to: [] ) 
   end
 
   def sort_column

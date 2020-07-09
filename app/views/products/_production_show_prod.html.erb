@@ -22,11 +22,11 @@
   Current Stock : <%= @product.stock %>
 </div>
 
-<div class="col-md-6" style="padding-left: 0">
+<div class="col-md-12">
  <div> Product Notes </div>
   <div class="panel panel-default">
     <div class="panel-body p-3">
-  <%= @product.notes.html_safe %>
+      <%= @product.notes.html_safe rescue '' %>
     </div>
   </div>
 </div>
