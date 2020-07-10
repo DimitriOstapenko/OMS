@@ -5,7 +5,14 @@
 
 <td> <%= link_to order.client_name, order.client, remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %> </td>
 
-<td class="text-center"><%= link_to order.id, order_placements_path(order.id) %></td>
+<td class="text-center">
+<% if order.shipped? %>
+  <%= link_to order.id, order, remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %>
+<% else %>
+  <%= link_to order.id, order %>
+<% end %>
+</td>
+
 <td class="text-center"><%= order.products.count %></td>
 <td class="text-center"><%= order.total_pcs %></td>
 <td class="text-center"><%= order.shipped %></td>

@@ -59,7 +59,7 @@
   <%= f.input :progress, label: '% Complete' %>
   </div>
   <div class="col-md-4">
-    <%= f.input :visible_to, collection: Client.all, include_blank: 'ALL', selected: 0, input_html: {multiple: true, size: 5} %>
+    <%= f.input :visible_to, collection: Client.all, label: "Visible to (All by default)", include_blank: 'ALL', selected: 0, input_html: {multiple: true, size: 5} %>
   </div>
   </div>
 

@@ -81,9 +81,13 @@ end
 # Regenerate PPO after order deleted/cancelled
 def regenerate
   pdf = build_ppo_pdf(self)
-  File.delete( self.filespec ) rescue nil if pdf
-  pdf.render_file self.filespec
+  pdf.render_file self.filespec if pdf
 end
+
+# PPO is auto generated, so we just need to delete PDF on changes to placements
+  def delete_pdf
+    File.delete( self.filespec ) rescue nil 
+  end
 
 # Are all placement statuses equal to 'status'?
   def all_statuses_are?(status = 0)

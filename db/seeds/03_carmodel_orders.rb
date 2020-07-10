@@ -25,9 +25,6 @@ Order.destroy_all
 Ppo.destroy_all # set ppo_id in placements to null before running 
 Dir.glob("#{PPOS_PATH}/*.pdf").each { |file| File.delete(file)}
 
-# Reset all inventory to 0:
-Product.update_all(quantity: 0)
-
 num =0; prod_and_qty = []
 csv.each do |row|
     refcode = row[0].strip rescue nil

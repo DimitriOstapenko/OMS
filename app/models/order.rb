@@ -41,7 +41,6 @@ class Order < ApplicationRecord
 
 # *** SET SEND_EMAILS WHEN IN PRODUCTION
   after_create :send_emails! if SEND_EMAILS
-  after_save :create_po_and_invoice
 
 # Calculate Order Total including Tax, Discount and Shipping  
   def set_attributes!
@@ -86,11 +85,6 @@ class Order < ApplicationRecord
     self.client.currency
   end
 
-  def create_po_and_invoice 
-    self.regenerate_po
-    self.regenerate_invoice
-  end
-
   def regenerate_invoice
     pdf = build_invoice(self)
     if pdf 
@@ -107,6 +101,12 @@ class Order < ApplicationRecord
     end
   end
             
+# invoice & PO are auto generated, so we just need to delete PDFs on changes to placements
+  def delete_pdfs
+    File.delete( self.po_filespec ) rescue nil 
+    File.delete( self.inv_filespec ) rescue nil 
+  end
+
   def build_placements_with_product_ids_and_quantities?(product_ids_and_quantities)
     return false unless product_ids_and_quantities.any?
     product_ids_and_quantities.each do |product_id_and_quantity|

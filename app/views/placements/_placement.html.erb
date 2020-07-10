@@ -23,8 +23,8 @@
 
     <td class="text-center"><%= placement.status_str %></td>
     <td class="text-center"> 
-    <% if current_user.su? && !placement.shipped? %>
-        <%= link_to '<i class="glyphicon glyphicon-remove-sign"></i>'.html_safe, placement, method: :delete, data: { confirm: "Are you sure you want to delete placement #{placement.product.ref_code} ?" } %> 
+    <% if placement.pending? %>
+      <%= link_to '<i class="glyphicon glyphicon-remove-sign"></i>'.html_safe, placement, method: :delete, data: { confirm: "Are you sure you want to delete placement #{placement.product.ref_code} ?" } %> 
     <% end %>
     </td>
 </tr>

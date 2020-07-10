@@ -27,7 +27,9 @@ class OrdersController < ApplicationController
   end 
 
   def show
-    @order = current_client.orders.find(params[:id]) rescue nil
+    @order = Order.find(params[:id])
+    @client = @order.client
+    @placements = @order.placements
   end
 
   def new
@@ -72,9 +74,10 @@ class OrdersController < ApplicationController
     @order =  Order.find(params[:id])
     if @order.status == PENDING_ORDER
       @order.placements.each do |pl|
-        pl.ppo.regenerate if pl.ppo.present?
+        pl.ppo.delete_pdf if pl.ppo.present?
       end 
       @order.destroy
+      @order.delete_pdfs
       flash[:success] = "Order deleted"
     else
       flash[:warning] = "Cannot delete Active/Shipped orders."
@@ -87,10 +90,11 @@ class OrdersController < ApplicationController
     @order = Order.find(params[:id])
     @order.placements.each do |pl|
        pl.update_attribute(:status, CANCELLED_ORDER)
-       pl.ppo.regenerate if pl.ppo.present?
+       pl.ppo.delete_pdf if pl.ppo.present?
     end 
     @order.update_attribute(:status, CANCELLED_ORDER) 
-    flash[:warning] = 'Order was cancelled. Product quantity adjusted. PPOs regenerated'
+    @order.delete_pdfs
+    flash[:warning] = 'Order was canceled.'
     redirect_to orders_path
   end
 

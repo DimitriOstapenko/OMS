@@ -47,10 +47,9 @@ class Placement < ApplicationRecord
 # Ship placement in Packing List  
   def ship_plist
     if self.to_ship < self.quantity
-#      self.product.update_attribute(:quantity, self.product.quantity + self.to_ship)
       self.update_attribute(:shipped, self.to_ship)
       self.order.update_attribute(:status, ACTIVE_ORDER)
-      self.ppo.regenerate if self.ppo.present?
+      self.ppo.delete_pdf if self.ppo.present?
       self.update_attribute(:to_ship, 0)
     else
       self.set_to_shipped

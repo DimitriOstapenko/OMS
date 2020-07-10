@@ -1,9 +1,9 @@
 class PlacementsController < ApplicationController
 
   before_action :logged_in_user
-  before_action :client_user, only: [:create]
-  before_action :admin_or_staff_user, only: [:edit, :update]
-  before_action :admin_or_su_user, only: [:destroy]
+#  before_action :client_user, only: [:create, :update, :destroy]
+#  before_action :admin_or_staff_user, only: [:edit, :update, :destroy]
+#  before_action :admin_or_su_user, only: [:destroy]
 
   def index
     @order = Order.find(params[:order_id])
@@ -51,7 +51,6 @@ class PlacementsController < ApplicationController
           @placement.set_to_shipped
           redirect_back(fallback_location: inventories_path)
        else
-#         @placement.product.update_attribute(:quantity, @placement.product.quantity + shipped - prev_shipped)
          @placement.update_attribute(:status, ACTIVE_ORDER)
          @placement.order.update_attribute(:status, ACTIVE_ORDER)
          redirect_back(fallback_location: inventories_path)
@@ -90,13 +89,14 @@ class PlacementsController < ApplicationController
     @placement = Placement.find(params[:id])
     @order = @placement.order
     @placement.destroy
+    @order.delete_pdfs
     if @order.placements.count < 1
       flash[:success] = "Placement & order deleted"
       @order.destroy 
       redirect_to orders_path
     else 
       flash[:success] = "Placement deleted"
-      @placement.ppo.regenerate if @placement.ppo.present?
+      @placement.ppo.delete_pdf if @placement.ppo.present?
       @order.save!
       redirect_back(fallback_location: @order)
     end

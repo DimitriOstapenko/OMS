@@ -2,11 +2,12 @@
 
 <tr class="<%= cl %>">
 <tr>
+
 <td class="text-center">
 <% if order.shipped? %>
-  <%= link_to order.id, order_placements_path(order.id), remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %>
+  <%= link_to order.id, order, remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %>
 <% else %>
-  <%= link_to order.id, order_placements_path(order.id) %>
+  <%= link_to order.id, order %>
 <% end %>
 </td>
 
