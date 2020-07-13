@@ -10,6 +10,7 @@
 <ul> 
   <li><%= link_to "Products", "#products" %> </li>
   <li><%= link_to "Orders", "#orders" %> </li>
+  <li><%= link_to "Documents", "#documents" %> </li>
   <li><%= link_to "<i class='glyphicon glyphicon-menu-hamburger text-muted'></i> Hamburger Menu".html_safe, "#hamburger" %></li>
 </ul>
 
@@ -17,22 +18,27 @@
 <a id="introduction"></a>
 <h4>Introduction</h4>
 
-Ordering Management System, OMS in the future, was developed to handle ordering of car models by different categories of clients including retailers and distributors. While ordering is done exclusively by clients, that is users that have 'client' role assigned to them, system itself is managed by 2 privileged roles: "stff" and "administrator".
-This section of the help file describes functionality available to staff members (see <%= link_to "User Categories", "#user_categories" %> below) 
+Ordering Management System, OMS in the future, was developed to handle ordering of car models by different categories of clients including retailers and distributors. While ordering is done exclusively by clients, that is users that have 'client' role assigned to them, system itself is managed by 2 privileged roles: "staff" and "administrator".
+This section of the help file describes functionality available to "clients"
 
 <p>&nbsp;</p>
 <a id="ordering"></a>
 <h4>Ordering</h4>
 
-Ordering is done by registered clients. 
-There are two ways to order products: directly from product list, by entering number for each selected product, or by goling to Orders page and clicking on <Add Product To Cart> button at the bottom. In both cases, entered number of selected product will be added to shopping cart, which whill show as a shopping cart symbol and number in upper right corner of the page. Once selection is finished and all products are added to shopping cart, you can finalize the order by first clicking on shopping cart symbol which will open shopping cart modal, where you can either submit order or empty shopping cart and start from the beginning. 
+Ordering is done by registered clients only. 
+<p>
+To order products go to product list and add products to shopping cart using <Add> button in product row.
+</p>
+<p>
+Shopping cart symbol will pop up in upper right corner of the page. It will show the number of added products. Once selection is complete and all products are added to shopping cart, you can finalize the order by clicking on shopping cart symbol which will open shopping cart modal, where you can either submit order or clear shopping cart and start from the beginning. Number of items for each product can also be adjusted at this stage before submitting the order. 
+</p>
 
 <p>
 Once order is submitted several things will happen: 
 
 <ul>
-<li> - Inventory is updated: number of available products is automatically reduced by the ordered number </li>
-<li> - Emails are sent: Order confirmation email to the user, Order notification to staff members and  Low quantity notification to staff if number of available products is nevative </li>
+<li> - New order is created and added to client list of orders </li>
+<li> - Order confirmation email is sent </li>
 <li> - PO and Invoice for the new order are generated and order is assigned 'Pending' status </li>
 </ul>
 
@@ -43,7 +49,8 @@ Once order is submitted several things will happen:
 
 Navigating through pages in OMS is pretty straightforward. All pages have pagination footer at the bottom where you can either go back and forth by one page, or select page number and go directly to it. As a productivity shortcut, you can also use <back> and <forward> keys on your keyboard to flip through pages.
 <p>
-Search box is located in the header an is context-sensitive. That is, in Products page you can use it to search for products, in Clients page for client and so forth. Currently products can be searched using complete or partial reference codes, complete or partial name. Client search supports searches by name and country code. Orders can be filtered by order number, date, client PO and Invoice number. 
+
+Search box is located in page header an is context-sensitive. That is, in Products page you can use it to search for products, in Orders page for order and so forth. Currently products can be searched using complete or partial reference codes, or name. Orders can be searched by number, client name, product reference code. To see available search options, just move your mouse pointer over <Find ..> search box and wait a second. Label will pop up and list available searches. 
 <p>&nbsp;</p>
 <a id="menu_descriptions"></a>
 <h4>Menu Descriptions</h4>
@@ -53,7 +60,7 @@ Search box is located in the header an is context-sensitive. That is, in Product
 <a id="products"></a>
 <dt class="col-sm-1">Products</dt>
 
-<dd class="col-sm-11">This page shows list of all active products present currently in database. Reference Code column is linked to product profile. Edit icon, <i class="glyphicon glyphicon-edit"></i> will take you directly to <Edit Product> form, where you can change all product attributes, except reference code. Optional "notes' field is only visible to you and can be used to store product-specific info. 
+<dd class="col-sm-11">This page shows list of all active products currently present in database. Reference Code column is linked to product profile which will show product picture and different product attributes, like color, type, brand, scale and others. To add product to shopping cart, just press <Add> button in the last column.
 </dd>
 
 <p>&nbsp;</p>
@@ -61,11 +68,23 @@ Search box is located in the header an is context-sensitive. That is, in Product
 <a id="orders"></a>
 <dt class="col-sm-1">Orders</dt>
 
-<dd class="col-sm-11">This page shows list of client orders, most recent first. #Products column shows number of different products bought, while #Items column signifies total number of items.  
-Drop-down box at the top of the page allows you to filter orders by order number, total amount, date etc. Invoice and PO colums have links to download PO/Invoice in PDF format. Grand total at the bottom shows total value of all orders in Euros using current USD/EUR FX conversion rate shown in the footer.
+<dd class="col-sm-11">This page shows list of your orders, most recent first. #Products column shows number of different products bought, while #Pcs column will show total number of pieces ordered. Table header shows number of Pending, Active, Shipped and Canceled orders. Each category links to the page showing corresponding orders
+<p>
+<Find Order> control at the top of the page allows you to filter orders by order number, reference code, etc. PO column links to PO in PDF format. Grand total at the bottom shows total value of all orders in your client currency using current USD/EUR FX conversion rate (if applicable) shown in the footer.
+</p>
 </dd>
 
 <p>&nbsp;</p>
+<!-- Documents index page -->
+<a id="documents"></a>
+<dt class="col-sm-1">Documents</dt>
+<dd class="col-sm-11">This section gives you access to reports and other documents. Currently there are 2 report types:
+<ul>
+  <li> - Client reports: index page with all your client reports. It has <Create Client Report> button at the bottom where you can use different options, like "Time Frame", "Order Status" and "Detail Level" to generate your custom reports. Once report is generated, you can show it by clicking on the Report Id in the first column, download it using <i class='glyphicon glyphicon-download'></i> icon, or create spreadsheet export file by clicking on <i class='glyphicon glyphicon-export'></i> icon.</li>
+  <li> - Product reports: this page lists all the product reports that you created. To generate new report, click <Create Product Report> button and then select different options for the new report. Just like in case of Client report you can download newly generated product report in PDF and CSV format.
+  </li>
+</ul>
+
 </dd>
 
 <p>&nbsp;</p>
@@ -75,7 +94,7 @@ Drop-down box at the top of the page allows you to filter orders by order number
 
 <dd class="col-sm-11"> 
 
-<p><b><%= "<i class='glyphicon glyphicon-user'></i> My Profile".html_safe %> </b>: Edit logged in user profile. You can change your name, password and email on this page. To change you password you need to enter your current one. If not, please log out (see next item)  and then use "Forgot password" link at the login screen. </p>
+<p><b><%= "<i class='glyphicon glyphicon-user'></i> My Profile".html_safe %> </b>: Gives you access to your user profile. You can change your name, password and email on this page. To change you password you need to enter your current one. If you forgot your password, please log out (see next item)  and then use "Forgot password" link at the login screen. Password reset link will be emailed to you. </p>
 <p><b><%= "<i class='glyphicon glyphicon-log-out'></i> Logout".html_safe %></b>: End current session</p>
 
 </dd>
