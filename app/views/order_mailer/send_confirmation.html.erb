@@ -42,7 +42,7 @@ Dear <%= @client.name %></b>, you ordered following products from APD Order Mana
 
 <p>&nbsp;</p>
 <p>
-<%= button_to 'See your order online', order_placements_url(@order), class: "email-btn", method: :get %>
+<%= link_to 'See your order online', order_url(@order)  %>
 </p>
 
 </div>

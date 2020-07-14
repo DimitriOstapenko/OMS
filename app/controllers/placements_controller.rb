@@ -88,7 +88,7 @@ class PlacementsController < ApplicationController
     msg << "#{@placement.product.ref_code}: Placement is set to Shipped; "
     flash[:info] = msg
     if request.referer.match(/orders/)
-      redirect_to order_placements_path(@placement.order) 
+      redirect_to order_path(@placement.order) 
     else
      redirect_to product_ppos_path(@placement.product)
     end

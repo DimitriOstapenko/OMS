@@ -1,9 +1,7 @@
 <div class="email-container">
-  <div class='email-header'>New Order #<%= @order.id %> just received from <%= @client.name %></div>
-
-  <p>Ordered <%= @order.products.count %> <%= 'product'.pluralize(@order.products.count) %></p>
-  
-<table class='table table-striped table-bordered'> 
+<div class='email-header'>New Order #<%= @order.id %> just received from <%= @client.name %></div>
+<p>Ordered <%= @order.products.count %> <%= 'product'.pluralize(@order.products.count) %></p>
+<table class='table table-striped table-bordered'>
 <thead>
   <tr>
     <th> Ref.Code </th>
@@ -40,7 +38,7 @@
 
 <p>&nbsp;</p>
 <p>
-<%= link_to "See this order online",  order_placements_url(@order), method: :get %>
+<%= link_to "See this order online", order_url(@order), method: :get %>
 </p>
 
 </div>
