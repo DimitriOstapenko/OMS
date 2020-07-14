@@ -39,12 +39,21 @@ class PlacementsController < ApplicationController
     redirect_back(fallback_location: products_path) 
   end
 
+# update this placement
+  def update
+    @placement = Placement.find(params[:id])
+    if @placement.update_attributes(placement_params)
+      flash[:success] = "Placement updated" 
+      @placement.order.save
+    end
+    redirect_back(fallback_location: order_path(@placement.order))
+  end 
+
 # Set shipped attribute;  
   def update_shipped
     @placement = Placement.find(params[:id])
     shipped = params[:placement][:shipped].to_i.abs rescue 0
     shipped = @placement.quantity if shipped > @placement.quantity 
-    prev_shipped = @placement.shipped
     if shipped && @placement.update_attribute(:shipped, shipped)
        flash[:success] = "Placement updated " 
        if shipped == @placement.quantity
@@ -103,8 +112,8 @@ class PlacementsController < ApplicationController
   end
 
 private
-#  def placement_params
-#    params.require(:placement).permit( :order_id, :product_id, :quantity, :price, :status, :ppo_id, :shipped, :to_ship, :last_pl_id)
-#  end  
+  def placement_params
+    params.require(:placement).permit( :order_id, :product_id, :quantity, :price, :status, :ppo_id, :shipped, :to_ship, :packing_list_id)
+  end  
 
 end

@@ -64,6 +64,9 @@
 
 <div><b> Grand Total : <%= to_currency @order.total, locale: @order.client.locale %> </b></div>
 </p>
+<% unless @order.shipped? %>
+<div style="float:right">You can change ordered quantity for pending placements</div>
+<% end %>
 
 <% unless @order.shipped? || current_user.client? %>
 <div class="row">

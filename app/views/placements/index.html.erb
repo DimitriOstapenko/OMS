@@ -2,6 +2,7 @@
 
   <% if current_user.client? %>
     <h4 class='display-1'><%= @order.status_str %> Order #<%= @order.id %> received <%= @order.cre_date %></h4>
+    You can change ordered quantity for pending placements
   <% else %>
     <h4 class='display-1'>Client <%= @client.name %>: Order # <%= @order.id %> (<%= @order.status_str %>, <%= @order.made_by  %>) </h4>
   <% end %>

@@ -6,14 +6,24 @@
     <td class="text-center"><%= placement.product.description %></td>
     <td class="text-center"><%= to_currency placement.price, locale: @order.client.locale %></td>
     <td class="text-center"><%= to_currency placement.ptotal, locale: @order.client.locale %></td>
-    <td class="text-center"><%= placement.quantity %> </td>
+    <td class="text-center">
+      <% if placement.pending?  %>
+       <%= simple_form_for placement, method: :patch,  html: { class: "form" } do |f| %>
+         <div class="form-group" style="padding-top: 10px;">
+           <%= f.input :quantity, as: :string, label: false, input_html: { onchange: 'this.form.submit();' }  %>
+         </div>
+       <% end %>
+      <% else %>
+         <%= placement.quantity %>
+      <% end %>
+    </td>
     <td class="text-center"><%= placement.pending %></td>
 
     <td class="text-center">
       <% if current_user.client? || placement.shipped? || action_name == 'show_pending_orders' %>
         <%= placement.shipped %>
       <% else %>
-       <%= simple_form_for [placement.order,placement], url: update_shipped_placement_path(placement), html: { class: "form" } do |f| %>
+       <%= simple_form_for placement, url: update_shipped_placement_path(placement), html: { class: "form" } do |f| %>
          <div class="form-group" style="padding-top: 10px;">
            <%= f.input :shipped, as: :string, label: false, input_html: { onchange: 'this.form.submit();' }  %>
          </div>
