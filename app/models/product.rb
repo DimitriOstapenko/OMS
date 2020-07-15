@@ -1,6 +1,7 @@
 class Product < ApplicationRecord
 
   include ApplicationHelper
+  require 'csv'
 
   has_many :placements
   has_many :orders, through: :placements
@@ -190,6 +191,20 @@ class Product < ApplicationRecord
     return unless client_id
     return true if self.visible_to.empty?
     return true if self.clients.exists?(client_id)
+  end
+
+  def available
+    0
+  end 
+
+# Inventory CSV template  
+  def self.to_csv
+    attributes = %w{ref_code description brand_str category_str colour_str scale_str notes available }
+    CSV.generate(headers: attributes, write_headers: true) do |csv|
+      all.each do |product|
+        csv << attributes.map{ |attr| product.send(attr) }
+      end
+    end
   end
 
 end

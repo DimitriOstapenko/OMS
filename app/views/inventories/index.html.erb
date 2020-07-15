@@ -30,6 +30,8 @@
 <%= will_paginate @products, class: "btn" %>
 </div>
 
+<%= button_to "Download Inventory Template", inventory_template_path(format: :csv), class: "btn btn-success col-md-2", method: :get  %>
+
 <script>
 $zoho.salesiq.ready=function(embedinfo)
 { $zoho.salesiq.floatbutton.visible("hide"); }

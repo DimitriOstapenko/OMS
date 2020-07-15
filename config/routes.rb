@@ -30,6 +30,7 @@ Rails.application.routes.draw do
 
   get '/image_upload', to: 'products#image_upload'
   post '/upload_image', to: 'products#upload_image'
+  get '/inventory_template', to: 'products#inventory_template'
 
   get '/self_test', to: 'self_test#index', as: :self_test
 

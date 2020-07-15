@@ -164,6 +164,16 @@ class ProductsController < ApplicationController
     render "upload"
   end
 
+  # Generate inventory template in CSV
+  def inventory_template
+    @products = Product.where(active: true)
+    respond_to do |format|
+      format.html { redirect_to inventories_path }
+      format.csv { send_data @products.to_csv, filename: "inventory_#{Time.now.strftime("%d_%m_%Y")}.csv" }
+    end
+    flash.now[:info] = "Inventory template generated. Contains #{@products.count} products"
+  end
+
 private
   def product_params
     params.require(:product).permit( :ref_code, :description, :brand, :category, :scale, :colour, :ctns, :release_date, :added_date, 
