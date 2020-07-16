@@ -30,7 +30,6 @@ Rails.application.routes.draw do
 
   get '/image_upload', to: 'products#image_upload'
   post '/upload_image', to: 'products#upload_image'
-  get '/inventory_template', to: 'products#inventory_template'
 
   get '/self_test', to: 'self_test#index', as: :self_test
 
@@ -55,6 +54,12 @@ Rails.application.routes.draw do
   resources :'packing_lists' do 
      get 'download', on: :member
      patch 'ship', on: :member
+  end
+
+  get '/inventory_template', to: 'products#inventory_template'
+  get '/show_inventory', to: 'products#show_inventory'
+  resources :inventories do
+    get 'download', on: :member
   end
 
   get '/export_orders', to: 'orders#export' 

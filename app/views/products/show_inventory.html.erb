@@ -1,0 +1,37 @@
+<%= render "shared/modal" %>
+
+<div id="status"> </div>
+
+<table class="tbl2 table-hover table-striped table-bordered" >
+  <thead>
+      <tr>
+          <th class="tbl_sm, text-center"><%= sortable 'ref_code', 'Ref.Code' %></th>
+	  <th class="tbl_md, text-center">Scale</th>
+          <th class="tbl_lg">Description</th>
+          <th class="tbl_md, text-center">Pending <br> Orders/Pcs </td>
+          <th class="tbl_md, text-center">Active PPO </td>
+          <th class="tbl_md, text-center">Last Shipped PPO</td>
+          <th class="tbl_md text-center"><%= sortable 'quantity', "Active".html_safe %></th>
+	  <th class="tbl_md, text-center">Total Shipped</th>
+          <th class="tbl_md text-center"><%= sortable 'delta', "Delta" %></th>
+          <th class="tbl_md text-center"><%= sortable 'stock', "Stock" %></th>
+          <th class="tbl_md text-center">Total</th>
+      </tr>
+  </thead>
+  <tbody>
+
+  <%= render partial: 'inventory', collection: @products, as: :product, remote: device_is_desktop? %>
+
+  </tbody>
+</table>
+
+
+<div class="bottom_nav">
+<%= will_paginate @products, class: "btn" %>
+</div>
+
+<script>
+$zoho.salesiq.ready=function(embedinfo)
+{ $zoho.salesiq.floatbutton.visible("hide"); }
+</script>
+

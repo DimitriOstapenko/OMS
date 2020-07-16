@@ -1,0 +1,18 @@
+<%= render "shared/modal" %>
+<tr>
+      <td class="text-center"><%= inventory.name %></td> 
+      <td class="text-center"><%= inventory.description %></td> 
+      <td class="text-center"><%= inventory.products %></td> 
+      <td class="text-center"><%= inventory.pcs %></td> 
+      <td class="text-center"><%= inventory.created_at %></td> 
+      <td class="text-center"><%= inventory.user.email %></td> 
+      <td class="text-center"><%= inventory.status_str %></td> 
+
+      <td class="text-center"><%= link_to '<i class="glyphicon glyphicon-edit"></i>'.html_safe, edit_inventory_path(inventory), remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %> </td>
+      <td class="text-center"> <%= link_to '<i class="glyphicon glyphicon-download"></i>'.html_safe, download_inventory_path(inventory,format: :csv) %> </td>
+      <td class="text-center">
+      <% if current_user.su? %>
+        <%= link_to '<i class="glyphicon glyphicon-remove-sign"></i>'.html_safe, inventory, method: :delete, data: { confirm: "Are you sure you want to delete #{inventory.name}?" } %>
+      <% end %>
+</tr>
+

@@ -193,13 +193,13 @@ class Product < ApplicationRecord
     return true if self.clients.exists?(client_id)
   end
 
-  def available
-    0
+  def pcs_available
+    ''
   end 
 
 # Inventory CSV template  
   def self.to_csv
-    attributes = %w{ref_code description brand_str category_str colour_str scale_str notes available }
+    attributes = %w{ref_code pcs_available description brand_str category_str colour_str scale_str notes }
     CSV.generate(headers: attributes, write_headers: true) do |csv|
       all.each do |product|
         csv << attributes.map{ |attr| product.send(attr) }

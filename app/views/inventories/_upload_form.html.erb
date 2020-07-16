@@ -1,0 +1,49 @@
+<h4>Inventory upload form</h4>
+<div class="well">
+
+  <h5> Please drag and drop csv file here. First 2 columns must be : "Reference Code", and "Number of Pcs". After successful validation "Stock" column for each product will be updated to privided value. </h5> 
+  <%= simple_form_for @inventory, html: {multipart: false, class: "dropzone", id:"my-dropzone"}, method: :post do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+  
+<div id='dropzone_panel'>
+  <div class="dz-message">Drop csv file here to upload</div>
+</div>
+</form>
+</div>
+<%= f.button :submit, "Upload", class:"btn btn-block btn-primary", id: "submit", disabled: true %>
+<% end %>
+
+<script>
+Dropzone.options.myDropzone = {
+  paramName: "file[file]",
+  acceptedFiles: ".csv,.CSV",
+  maxFiles: 1,
+  maxFilesize: 145, // MB
+  addRemoveLinks: true,
+  url: "<%= inventories_url %>",
+  autoDiscover: true,
+  uploadMultiple: false,
+  autoProcessQueue: false,
+//  autoQueue: false,
+
+init: function() {
+    this.on("addedfile", function() { if (this.files[1]!=null){ this.removeFile(this.files[0]); } });
+    this.on("success", function(file) { window.location = "<%= inventories_path %>"; });
+    var submitButton = document.querySelector("#submit")
+        myDropzone = this; // closure
+
+    submitButton.addEventListener("click", function() {
+      myDropzone.processQueue(); // Tell Dropzone to process all queued files.
+    });
+
+    this.on("addedfile", function(file) {
+      var submit = document.getElementById('submit');
+//    console.log("loaded");
+      submit.disabled = false;
+    });
+}
+};
+  
+</script>
+
+

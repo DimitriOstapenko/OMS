@@ -43,6 +43,19 @@ class ProductsController < ApplicationController
     end
   end
 
+  def show_inventory
+    if params[:findstr]
+      @products = Product.search(params[:findstr]).paginate(page: params[:page])
+      if @products.any?
+        flash.now[:info] = "Found #{@products.count} #{'product'.pluralize(@products.count)} matching string #{params[:findstr].inspect}"
+      else
+        flash.now[:info] = "No products found"
+      end
+    else
+      @products = Product.where(active: :true).reorder(sort_column + ' ' + sort_direction, "ref_code asc").paginate(page: params[:page])
+    end
+  end
+
   def create
     @product = Product.new(product_params)
     if @product.save

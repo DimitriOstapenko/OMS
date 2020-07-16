@@ -5,32 +5,36 @@
 <table class="tbl2 table-hover table-striped table-bordered" >
   <thead>
       <tr>
-          <th class="tbl_sm, text-center"><%= sortable 'ref_code', 'Ref.Code' %></th>
-	  <th class="tbl_md, text-center">Scale</th>
-          <th class="tbl_lg">Description</th>
-          <th class="tbl_md, text-center">Pending <br> Orders/Pcs </td>
-          <th class="tbl_md, text-center">Active PPO </td>
-          <th class="tbl_md, text-center">Last Shipped PPO</td>
-          <th class="tbl_md text-center"><%= sortable 'quantity', "Active".html_safe %></th>
-	  <th class="tbl_md, text-center">Total Shipped</th>
-          <th class="tbl_md text-center"><%= sortable 'delta', "Delta" %></th>
-          <th class="tbl_md text-center"><%= sortable 'stock', "Stock" %></th>
-          <th class="tbl_md text-center">Total</th>
+        <th class="text-center">Name</th>
+        <th class="text-center">Description</th>
+        <th class="text-center">Products</th>
+        <th class="text-center">Ttl Pcs</th>
+        <th class="text-center">Uploaded Date</th>
+        <th class="text-center">Uploaded By</th>
+        <th class="text-center">Status</th>
+        <th colspan=3></th>
       </tr>
   </thead>
   <tbody>
 
-  <%= render partial: 'product', collection: @products, as: :product, remote: device_is_desktop? %>
+  <%= render partial: 'inventory', collection: @inventories  %>
 
   </tbody>
 </table>
 
 
 <div class="bottom_nav">
-<%= will_paginate @products, class: "btn" %>
+<%= will_paginate @inventories, class: "btn" %>
 </div>
 
-<%= button_to "Download Inventory Template", inventory_template_path(format: :csv), class: "btn btn-success col-md-2", method: :get  %>
+<div class="row">
+  <div class="col-md-2">
+    <%= button_to "Download Inventory Template", inventory_template_path(format: :csv), class: "btn btn-success", method: :get  %>
+  </div>
+  <div class="col-md-2">
+    <%= button_to "Upload Inventory file", new_inventory_path, class: "btn btn-primary", method: :get %>
+  </div>
+</div>
 
 <script>
 $zoho.salesiq.ready=function(embedinfo)

@@ -55,8 +55,6 @@ private
     require 'csv'
     require 'digest'
 
-    puts "validate_csv_file "
-
     (errors.add(:packing_list, "No CSV name"); return) unless self.name.present?
 
     csv_text = File.read( self.csv_path ) rescue nil
