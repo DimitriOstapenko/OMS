@@ -1,6 +1,5 @@
-Totals:
 <table  class="table table-sm table-responsive table-condensed table-bordered">
-  <thead>
+  <thead class="bg-success">
   <tr>
     <th class="table-condensed"> Grand Total </th>
     <th class="table-condensed"> Pending Orders </th>
@@ -15,6 +14,6 @@ Totals:
     <td> <%= to_currency @orders.where(status: PENDING_ORDER).sum(:total) %> </td>
     <td> <%= to_currency @orders.where(status: ACTIVE_ORDER).sum(:total) %> </td>
     <td> <%= to_currency @orders.where(status: SHIPPED_ORDER).sum(:total) %></td>
-    <td>  <%= to_currency @orders.where(status: CANCELLED_ORDER).sum(:total) %></td>
+    <td> <%= to_currency @orders.where(status: CANCELLED_ORDER).sum(:total) %></td>
   </tbody>
 </table>

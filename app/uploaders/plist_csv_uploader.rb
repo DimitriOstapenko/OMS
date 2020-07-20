@@ -23,13 +23,13 @@ class PlistCsvUploader < CarrierWave::Uploader::Base
 
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:
-  # def extension_whitelist
-  #   %w(csv CSV)
-  # end
+   def extension_whitelist
+     %w(csv CSV)
+   end
 
   # Override the filename of the uploaded files:
   # Avoid using model.id or version_name here, see uploader/store.rb for details.
-#   def filename
-#     "#{model.name}.csv" if original_filename.present?
-#   end
+   def filename
+     "plist_#{Date.today}.csv" if original_filename.present?
+   end
 end

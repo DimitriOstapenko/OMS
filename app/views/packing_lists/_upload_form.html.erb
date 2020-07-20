@@ -1,7 +1,7 @@
 <h4>Packing list upload form</h4>
 <div class="well">
 
-  <h5> Please provide comma-separated file with "csv" extension. First 3 columns must be : "Order Number", "Ref Code" and "Number of Pcs to ship". After upload, file will be checked and if valid, "to_ship" column will be set in each placement. This file can be then processed to update quantities and statuses by using "Ship It" link generated. </h5>
+  <h5> Please provide comma-separated file with "csv" extension. First 3 columns must be : "Order Number", "Ref Code" and "Number of Pcs to ship". After upload, file will be checked and if valid, "to_ship" attribute will be set in each corresponding placement. This file can be then processed to update quantities and statuses by using "Ship It" link generated. </h5>
   <%= simple_form_for @packing_list, html: {multipart: false, class: "dropzone", id:"my-dropzone"}, method: :post do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
   

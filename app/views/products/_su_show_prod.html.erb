@@ -3,7 +3,7 @@
       <img src="<%= @product.large_image_rel_path %>">
   </div>
   
-<div class="col-md-3 padding-0">
+<div class="col-md-3">
   Scale:       <%= @product.scale_str %> <br>
   Colour:      <%= @product.colour_str %> <br>
   Weight:      <%= @product.weight.to_i %>g <br>
@@ -25,7 +25,7 @@
 </div>
 
 <div>&nbsp;</div>
-<div class="col-md-6" style="padding-left: 0">
+<div class="col-md-6">
 <%= render "price_matrix" %>
 </div>
 

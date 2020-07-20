@@ -1,7 +1,7 @@
 <h4>Inventory upload form</h4>
 <div class="well">
 
-  <h5> Please drag and drop csv file here. First 2 columns must be : "Reference Code", and "Number of Pcs". After successful validation "Stock" column for each product will be updated to privided value. </h5> 
+  <h5> Please drag and drop weekly inventory CSV file here. First 2 columns must be : "Reference Code", and "Number of Pcs". The rest of the columns are ignored. After successful validation "Stock" attribute for each product will be set to provided value. </h5> 
   <%= simple_form_for @inventory, html: {multipart: false, class: "dropzone", id:"my-dropzone"}, method: :post do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
   

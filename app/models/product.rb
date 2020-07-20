@@ -38,6 +38,7 @@ class Product < ApplicationRecord
   before_validation { ref_code.gsub!(/\W+/,'') rescue '' }
   before_validation :set_prices!
   after_create :send_emails 
+  before_save :remove_blank_visible_tos
 
 # Notify staff, admins
   def send_emails
@@ -191,6 +192,10 @@ class Product < ApplicationRecord
     return unless client_id
     return true if self.visible_to.empty?
     return true if self.clients.exists?(client_id)
+  end
+
+  def remove_blank_visible_tos
+    visible_to.reject!(&:blank?)
   end
 
   def pcs_available
