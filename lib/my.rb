@@ -25,7 +25,7 @@ module My
 # Generate product report. Filter placements to include only product report was created for 
   def build_product_report ( report, placements)  
     client_name = report.client.name rescue 'All'
-    fx = "Fx USD/EUR: #{get_usd_euro_fx}"unless report.client && report.client.currency == :eur
+    fx = "Fx USD/EUR: #{get_usd_euro_fx}" unless report.client && report.client.currency == :eur
 
     pdf = Prawn::Document.new( :page_size => "LETTER", margin: [20.mm,8.mm,20.mm,15.mm])
     pdf.font "Helvetica"
@@ -71,7 +71,7 @@ module My
 # Generate Client Report
   def build_client_report( report, orders )
     client_name = report.client.name rescue 'All'
-    fx = "Fx USD/EUR: #{get_usd_euro_fx}"unless report.client && report.client.currency == :eur
+    fx = "Fx USD/EUR: #{get_usd_euro_fx}" unless report.client && report.client.currency == :eur
 
     pdf = Prawn::Document.new( :page_size => "LETTER", margin: [20.mm,8.mm,20.mm,15.mm])
     pdf.font "Helvetica"
