@@ -1,4 +1,6 @@
 <% case controller_name %>
+<% when 'users' %>
+  <%= render 'layouts/find_form', tool_tip_title: 'Search by name, email' if current_user.su? %>
 <%  when 'products', 'inventories' %>
   <%= render 'layouts/find_form', tool_tip_title: 'Search by Ref.Code, Description or Scale' %>
 <% when 'clients' %>

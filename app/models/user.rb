@@ -13,6 +13,10 @@ class User < ApplicationRecord
 #  validates :client_id, presence: true, if: Proc.new { |u| u.client? } 
 
   default_scope -> { order(Arel.sql("upper(name)"), email: :asc) }  # see also sort in controller
+
+  scope :filter_by_name_or_email, lambda { |keyword|
+    where("lower(name) LIKE '%#{keyword.downcase}%' OR lower(email) LIKE '%#{keyword.downcase}%'" )
+  }
   
   after_initialize :set_default_role, :if => :new_record?
   before_create :set_client
@@ -59,6 +63,11 @@ class User < ApplicationRecord
 # Do not send confirmation email if created through invite
   def send_confirmation_notification?
     !self.invited?
+  end
+
+# Global method; search by name or email
+  def self.search(keyword = '')
+    User.filter_by_name_or_email(keyword) if keyword
   end
 
 end

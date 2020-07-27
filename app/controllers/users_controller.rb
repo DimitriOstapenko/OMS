@@ -7,6 +7,15 @@ class UsersController < ApplicationController
 
   def index
     @users = User.reorder(sort_column + ' ' + sort_direction ).paginate(page: params[:page])
+    if params[:findstr]
+      found = @users.search(params[:findstr])
+      if found.any?
+        @users = found
+        flash.now[:info] = "Found #{@users.count} #{'user'.pluralize(@users.count)} matching string #{params[:findstr].inspect}"
+      else
+        flash.now[:info] = "No users found"
+      end
+    end
   end
 
   def show
