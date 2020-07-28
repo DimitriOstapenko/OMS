@@ -1,6 +1,7 @@
 <% provide(:title, 'All users') %>
 <%= render "shared/modal", size: 'md' %>
 
+<div class="table-wrapper-scroll-x">
 <table class="tbl2 table-hover table-striped table-bordered" >
    <thead>
       <tr>
@@ -29,6 +30,7 @@
 
   </tbody>
 </table>
+</div>
 
 <div class="bottom_buttons ">
 <%= will_paginate @users, class: "btn" %>

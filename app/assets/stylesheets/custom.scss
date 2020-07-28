@@ -537,13 +537,14 @@ input, select{
 .tbl2 th {
   background: $brand-info; //#5bc0de;
   color: white;
-  height: 28px;
+  height: 38px;
   padding: 2px;
 }
-.tbl2 th,td {
-  font-size: 1em;
+.tbl2 { overflow-x: scroll; } 
+ th, td {
   padding: 2px 5px;
-}
+  vertical-align: middle;
+ }
 
 .tbl td,
 .tbl th {
@@ -560,6 +561,12 @@ input, select{
     background: $gray-lighter; //#5bc0de;
 }
 
+
+.table-wrapper-scroll-x {
+display: block;
+overflow: auto;
+}
+
 /* Pagination */
 
 .pagination {
@@ -568,12 +575,6 @@ input, select{
     margin-right: 1em;
     padding: 0.1em 0.1em;
 }
-
-//.pagination > * {
-//    margin-right: 0.1em;
-//    padding: 0.1em 0.1em;
-//    margin-bottom: 0px;
-//}
 
 .pagination a:hover_ {
     background: #202020 none repeat scroll 0 0;
@@ -623,30 +624,6 @@ input, select{
 
 .hdr-link {
  color: white;
-}
-
-/* used for sorting headers in diagnosis - disabled  */
-table.pretty {
-  border-collapse: collapse;
-}
-
-.pretty td, .pretty th {
-  padding: 4px 10px;
-  border: solid 1px #AAA;
-}
-
-.pretty th .current {
-  padding-right: 12px;
-  background-repeat: no-repeat;
-  background-position: right center;
-}
-
-.pretty th .asc {
-  background-image: url(/images/up_arrow.gif);
-}
-
-.pretty th .desc {
-  background-image: url(/images/down_arrow.gif);
 }
 
 .panel-heading {
