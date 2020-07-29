@@ -6,7 +6,7 @@ class UsersController < ApplicationController
   helper_method :sort_column, :sort_direction
 
   def index
-    @users = User.reorder(sort_column + ' ' + sort_direction ).paginate(page: params[:page])
+    @users = User.all
     if params[:findstr]
       found = @users.search(params[:findstr])
       if found.any?
@@ -16,6 +16,7 @@ class UsersController < ApplicationController
         flash.now[:info] = "No users found"
       end
     end
+    @users = @users.reorder(sort_column + ' ' + sort_direction ).paginate(page: params[:page])
   end
 
   def show

@@ -7,15 +7,14 @@
 <% @orders = @orders.paginate(page: params[:page]) %>
 
 <div style="float:right"><small>Cancelled orders are highlighted in red; orders by client in blue</small></div>
-<div class="table-wrapper-scroll-x">
-<table class="tbl2 table-hover table-striped table-bordered" >
+<% scroll = "table-wrapper-scroll-x" if mobile_device? %>
+<table class="tbl2 table-hover table-striped table-bordered <%= scroll %>" >
 <%= render "#{current_user.role}_header" %>
   
 <tbody>
 <%= render @orders, remote: device_is_desktop?  %>
 </tbody>
 </table>
-</div>
 
 <div class="row">
   <div class="col-md-6">

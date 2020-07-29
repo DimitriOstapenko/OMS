@@ -5,7 +5,8 @@
   <div style="float:right"><small>Inactive products are highlighted with yellow; Manual price products with red</small></div>
 <% end %>
 
-<table class="tbl2 table-hover table-striped table-bordered" >
+<% scroll = "table-wrapper-scroll-x" if mobile_device? %>
+<table class="tbl2 table-hover table-striped table-bordered <%= scroll %>" >
   <thead>
       <tr>
           <th class="tbl_sm, text-center"><%= sortable 'ref_code', 'Ref.Code' %></th>

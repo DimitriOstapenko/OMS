@@ -1,8 +1,8 @@
 <% provide(:title, 'All users') %>
 <%= render "shared/modal", size: 'md' %>
 
-<div class="table-wrapper-scroll-x">
-<table class="tbl2 table-hover table-striped table-bordered" >
+<% scroll = "table-wrapper-scroll-x" if mobile_device? %>
+<table class="tbl2 table-hover table-striped table-bordered <%= scroll %>" >
    <thead>
       <tr>
           <th><%= sortable 'name', 'Username' %></th>
@@ -30,7 +30,6 @@
 
   </tbody>
 </table>
-</div>
 
 <div class="bottom_buttons ">
 <%= will_paginate @users, class: "btn" %>

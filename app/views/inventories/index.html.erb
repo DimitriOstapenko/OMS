@@ -2,8 +2,8 @@
 
 <div id="status"> </div>
 
-<div class="table-wrapper-scroll-x">
-<table class="tbl2 table-hover table-striped table-bordered" >
+<% scroll = "table-wrapper-scroll-x" if mobile_device? %>
+<table class="tbl2 table-hover table-striped table-bordered <%= scroll %>" >
   <thead>
       <tr>
         <th class="text-center">Name</th>
@@ -22,8 +22,6 @@
 
   </tbody>
 </table>
-</div>
-
 
 <div class="bottom_nav">
 <%= will_paginate @inventories, class: "btn" %>
