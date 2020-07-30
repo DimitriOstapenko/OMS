@@ -16,6 +16,7 @@
   <li><%= link_to "Inventory", "#inventory" %> </li>
   <li><%= link_to "Documents", "#documents" %> </li>
   <li><%= link_to "Shipping from Packing List".html_safe, "#plist_shipping" %></li>
+  <li><%= link_to "Inventory File Uppload".html_safe, "#inventory_upload" %></li>
   <li><%= link_to "<i class='glyphicon glyphicon-menu-hamburger text-muted'></i> Hamburger Menu".html_safe, "#hamburger" %></li>
 </ul>
 
@@ -217,6 +218,8 @@ Reports are generated in PDF format and stored in "reports" directory on the ser
 <p><b><%= "<i class='glyphicon glyphicon-export'></i> Export Orders".html_safe %></b>: Create CSV file of all orders in the system </p>
 <p><b><%= "<i class='glyphicon glyphicon-check'></i> Data Integrity Check".html_safe %></b>: Check for missing required fields in product and client tables </p>
 <p><b><%= "<i class='glyphicon glyphicon-upload'></i> Product Image Upload".html_safe %></b>: Upload product picture here. All appropriate thumbnails will be generated on the fly</p>
+<p><b><font color="red"><%= "<i class='glyphicon glyphicon-upload'></i></font> Packing List Upload".html_safe %></b>: Upload packing list to ship from.</p>
+<p><b><font color="blue"> <%= "<i class='glyphicon glyphicon-upload'></i></font> Inventory File Upload".html_safe %></b>: Upload filled out inventory file here. </p>
 <p><b><%= "<i class='glyphicon glyphicon-log-out'></i> Logout".html_safe %></b>: End current session</p>
 
 </dd>
@@ -242,13 +245,13 @@ File format: Packing List uses comma-seperated value (CSV) format. First 3 colum
 When you open "Packing Lists" menu, you will see the list of active/archived packing lists, with active listed first. You cannot upload new packing list until active list is shipped. 
 </p>
 <p>
-To upload new packing list, just drag and drop CSV file into upload form and press "Upload" button. The list will be validated for syntax and basic sanity check will be run. Each order number and product code  will be checked for existance and if not present in the system, appropriate error message will be generated. There's also validation of number of pieces to be shipped. This number cannot exceed number of pending/active pieces. If everything is ok, the file will be accepted and uploaded to the server. Each corresponding placement will have updated "to_ship" attribute with number of pieces to be shipped, but nothing else will be changed at this point. Shipped quantities, order statuses and PPO pdfs will be updated during the next step. Freshly uploaded list will be given "Active" status and culums with number of orders, products and total number of pieces will be updated.
+To upload new packing list, just drag and drop CSV file into upload form and press "Upload" button. The list will be validated for syntax and basic sanity check will be run. Each order number and product code  will be checked for existance and if not present in the system, appropriate error message will be generated. There's also validation of number of pieces to be shipped. This number cannot exceed number of pending/active pieces. And of course there's check against available inventory (stock column).  If everything is ok, the file will be accepted and uploaded to the server. Each corresponding placement will have updated "to_ship" attribute with number of pieces to be shipped, but nothing else will be changed at this point. Shipped quantities, order statuses and PPO pdfs will be updated during the next step. Freshly uploaded list will be given "Active" status and culums with number of orders, products and total number of pieces will be updated.
 </p>
 <p>
-<b>List processing</b>
+<b>Packing List processing</b>
 </p>
 <p>
-Now you are ready to do actual shipping. Active list is shipped by clicking on "Ship it" link. When you do that, several things will happen:
+Now you are ready to do actual shipping. Active list is shipped by simply clicking on "Ship it" link. When you do that, several things will happen:
 <ol>
   <li> If shipped quantity of placement is the same as ordered quantity, placement will be marked as "Shipped" </li>
   <li> Ordered quantity will be reduced by the number of pieces shipped </li>
@@ -259,6 +262,15 @@ Now you are ready to do actual shipping. Active list is shipped by clicking on "
 
 <p>
 Shipped files will be kept in the list of Packing Lists and can be downloaded/viewed when necessary. 
+
+</dd>
+
+<!-- Inventory File Upload -->
+<a id="inventory_upload"></a>
+<dt class="col-sm-1">Inventory File Upload</dt>
+
+<dd class="col-sm-11">
+Accessible from both "hamburger" menu and Documents>Inventory Files page, this function allows you to upload simple CSV inventory file. This file has just 2 columns as a minimum: 'Reference Code' and 'Number of Pcs Available". To help responsible person fill out this file, there's also "Download Inventory Template" button at the bottom of Documents>Inventoriy Files page. Clicking on this button will generate empty template with all the currently used product codes. File has also "Description", "Brand", "Category", "Color", "Scale" and "Notes" columns, just for reference. File should be filled and uploaded at regilar intervals, preferrably every week. On file upload "Stock" column for each corresponding product will be filled with values supplied in the file.
 
 </dd>
 
