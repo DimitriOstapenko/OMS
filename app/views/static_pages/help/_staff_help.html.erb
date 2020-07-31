@@ -16,9 +16,10 @@
   <li><%= link_to "Inventory", "#inventory" %> </li>
   <li><%= link_to "Documents", "#documents" %> </li>
   <li><%= link_to "Shipping from Packing List".html_safe, "#plist_shipping" %></li>
-  <li><%= link_to "Inventory File Uppload".html_safe, "#inventory_upload" %></li>
+  <li><%= link_to "Inventory File Upload".html_safe, "#inventory_upload" %></li>
   <li><%= link_to "<i class='glyphicon glyphicon-menu-hamburger text-muted'></i> Hamburger Menu".html_safe, "#hamburger" %></li>
 </ul>
+<li><%= link_to "Back-up server notes", "#backup_server_notes" %> </li>
 
 <p>&nbsp;</p>
 <a id="introduction"></a>
@@ -217,11 +218,10 @@ Reports are generated in PDF format and stored in "reports" directory on the ser
 <p><b><%= "<i class='glyphicon glyphicon-envelope'></i> Client Mailer".html_safe %></b>: Set up and send bulk email to group of clients </p>
 <p><b><%= "<i class='glyphicon glyphicon-export'></i> Export Orders".html_safe %></b>: Create CSV file of all orders in the system </p>
 <p><b><%= "<i class='glyphicon glyphicon-check'></i> Data Integrity Check".html_safe %></b>: Check for missing required fields in product and client tables </p>
-<p><b><%= "<i class='glyphicon glyphicon-upload'></i> Product Image Upload".html_safe %></b>: Upload product picture here. All appropriate thumbnails will be generated on the fly</p>
+<p><b><%= "<i class='glyphicon glyphicon-upload'></i> Product Image Upload".html_safe %></b>: Upload product picture here. All required thumbnails will be generated on the fly. In case the upload form is grayed-out, please refresh the page before uploading. Alternatively, in case of any browser-specific problems, click on the upload form to bring up "Open file" dialog and select your image file. </p>
 <p><b><font color="red"><%= "<i class='glyphicon glyphicon-upload'></i></font> Packing List Upload".html_safe %></b>: Upload packing list to ship from.</p>
-<p><b><font color="blue"> <%= "<i class='glyphicon glyphicon-upload'></i></font> Inventory File Upload".html_safe %></b>: Upload filled out inventory file here. </p>
+<p><b><font color="blue"> <%= "<i class='glyphicon glyphicon-upload'></i></font> Inventory File Upload".html_safe %></b>: Upload filled out inventory file here. Just drag and drop or select the CSV file from you computer and click "Upload". To get file template with most current product reference codes, use "Download Inventory Template" button on Documents>Inventory Files page </p>
 <p><b><%= "<i class='glyphicon glyphicon-log-out'></i> Logout".html_safe %></b>: End current session</p>
-
 </dd>
 
 
@@ -241,7 +241,7 @@ The process is two stage.
 <b>Uploading Packing List </b>
 </p>
 <p>
-File format: Packing List uses comma-seperated value (CSV) format. First 3 colums are: "Order Id", "Reference Code" and "Quantity To Ship". The rest of the columns, if present, are currently ignored.
+File format: Packing List uses comma-seperated value (CSV) format. First 3 colums are: "Order Id", "Reference Code" and "Quantity To Ship". The rest of the columns, if present, are currently ignored. <b>N.B! Files using delimiter other than comma will be silently ignored.</b>
 When you open "Packing Lists" menu, you will see the list of active/archived packing lists, with active listed first. You cannot upload new packing list until active list is shipped. 
 </p>
 <p>
@@ -277,4 +277,10 @@ Accessible from both "hamburger" menu and Documents>Inventory Files page, this f
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 
+<a id="backup_server_notes"></a>
+<dt class="col-sm-1">Notes about back-up server</dt>
 
+<dd class="col-sm-11">
+Backup server is currently accessible on port 8081 (https://apdoms.com:8081) and has the same version of the vebsite as production site, source code updated daily.
+Database is copied from production server every night at 3am EST, so any changes made during the day for testing will be overwritten. Functionality of the backup website is the same except for emails. Order confirmation emails, low quantity alerts, other staff emails are not sent to prevent customers from receiving test order emails.
+</dd>

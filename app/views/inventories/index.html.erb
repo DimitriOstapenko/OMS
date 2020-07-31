@@ -28,11 +28,11 @@
 </div>
 
 <div class="row">
-  <div class="col-md-2">
+  <div class="col-md-3">
     <%= button_to "Download Inventory Template", inventory_template_path(format: :csv), class: "btn btn-success", method: :get  %>
   </div>
-  <div class="col-md-2">
-    <%= button_to "Upload Inventory file", new_inventory_path, class: "btn btn-primary", method: :get %>
+  <div class="col-md-3">
+    <%= button_to "Upload And Process Inventory File", new_inventory_path, class: "btn btn-primary", method: :get %>
   </div>
 </div>
 
