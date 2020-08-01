@@ -154,13 +154,25 @@ class OrdersController < ApplicationController
     end
 
     flash[:info] = "Order #{@order.id} is set to Shipped"
-    redirect_to orders_path #, notice: "Order is set to Shipped"
+    redirect_to orders_path 
+  end
+
+# Mark this order as paid and set all placements to active to prevent further changes to quantities
+  def mark_as_paid
+    @order = Order.find(params[:id])
+    @order.update_attribute(:status, ACTIVE_ORDER)
+    @order.update_attribute(:paid, true)
+    @order.placements.each do |pl|
+      pl.set_to_active if pl.pending?
+    end
+    flash[:info] = "Order #{@order.id} is marked as paid"
+    redirect_to orders_path 
   end
 
 private
 
   def order_params
-    params.require(:order).permit(:web_id, :status, :po_number, :inv_number, :delivery_by, :terms, :notes, :pmt_method, :shipping, :discount, :tax, :weight, :user_id) 
+    params.require(:order).permit(:web_id, :status, :po_number, :inv_number, :delivery_by, :terms, :notes, :pmt_method, :shipping, :discount, :tax, :weight, :user_id, :paid) 
   end
 
   def sort_column

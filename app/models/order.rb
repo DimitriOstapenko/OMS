@@ -39,7 +39,7 @@ class Order < ApplicationRecord
   before_create :set_attributes!
   before_update :set_totals!
 
-# *** SET SEND_EMAILS WHEN IN PRODUCTION
+# emails are sent from 'tiny' only when in production mode 
   after_create :send_emails! if SEND_EMAILS
 
 # Calculate Order Total including Tax, Discount and Shipping  

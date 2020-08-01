@@ -10,10 +10,6 @@ class Placement < ApplicationRecord
 #  after_create :decrement_product_quantity!
   default_scope -> {order(product_id: :asc) }
 
-#  def decrement_product_quantity!
-#    self.product.decrement!(:quantity, quantity)
-#  end
-
   def ptotal
     self.quantity * self.price
   end
@@ -30,11 +26,10 @@ class Placement < ApplicationRecord
     self.order.client_name
   end
 
-# Set placement to shipped; update product quantity(pcs in active/pending orders); Update PPO if present  
+# Set placement to shipped; set shipped quantity, order status; Update PPO if present  
   def set_to_shipped
     self.update_attribute(:status, SHIPPED_ORDER)
 #    logger.debug("****** #{self.product.quantity} : #{self.quantity} : #{self.shipped}")
-#    self.product.update_attribute(:quantity, self.product.quantity + self.quantity - self.shipped)
     self.update_attribute(:shipped, self.quantity)
     self.order.update_attribute(:status, SHIPPED_ORDER) if self.order.all_placements_shipped?
     self.update_attribute(:to_ship, 0)
@@ -42,6 +37,10 @@ class Placement < ApplicationRecord
       self.ppo.regenerate 
       self.ppo.update_attribute(:status, ARCHIVED_PPO) if self.ppo.all_placements_shipped?
     end
+  end
+
+  def set_to_active
+    self.update_attribute(:status, ACTIVE_ORDER)
   end
 
 # Ship placement in Packing List  

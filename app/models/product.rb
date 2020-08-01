@@ -37,8 +37,8 @@ class Product < ApplicationRecord
   before_validation { description.strip!.gsub!(/\s+/,' ') rescue '' }
   before_validation { ref_code.gsub!(/\W+/,'') rescue '' }
   before_validation :set_prices!
-  after_create :send_emails 
-  before_save :remove_blank_visible_tos
+  after_create :send_emails if SEND_EMAILS
+  before_save :remove_blank_visible_tos, :set_active
 
 # Notify staff, admins
   def send_emails
@@ -164,7 +164,7 @@ class Product < ApplicationRecord
     self.placements.where(status: ACTIVE_ORDER).sum('quantity-shipped')
   end
 
-# Ordered quantity  
+# Ordered quantity (pending+active)
   def quantity
     self.placements.sum('quantity-shipped')
   end
@@ -196,6 +196,10 @@ class Product < ApplicationRecord
 
   def remove_blank_visible_tos
     visible_to.reject!(&:blank?)
+  end
+
+  def set_active
+    self.active = false unless self.image_file_present?
   end
 
   def pcs_available

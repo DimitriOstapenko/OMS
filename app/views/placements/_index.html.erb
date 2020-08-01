@@ -70,8 +70,12 @@
 
 <% unless @order.shipped? || current_user.client? %>
 <div class="row">
-<div class="col-md-4">
-<%= button_to "Set Order To Shipped", set_to_shipped_order_path(@order), class: "btn btn-primary", method: :patch %>
+<div class="col-md-2">
+<%= button_to "Ship This Order", set_to_shipped_order_path(@order), class: "btn btn-primary", method: :patch, title: "Set all placements to 'Shipped'" %>
+</div>
+<% disabled = @order.paid? %>
+<div class="col-md-2">
+<%= button_to "Mark As Paid", mark_as_paid_order_path(@order), class: "btn btn-success", method: :patch, title: "Mark as 'Paid' and set all placements to 'Active' to prevent further changes", disabled: disabled %>
 </div>
 </div>
 <% end %>

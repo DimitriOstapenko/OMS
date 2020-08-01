@@ -1,4 +1,4 @@
-<table class="table table-sm table-responsive table-condensed table-bordered">
+<table class="table table-responsive table-condensed table-bordered">
     <caption> Price Matrix </caption>
     <thead>
       <tr>
@@ -14,6 +14,7 @@
     </thead>
     <tbody>
       <tr>
+<small>
       <td nowrap> <%= to_currency @product.price_eu %> </td>
       <td nowrap> <%= to_currency @product.price_eu2 %> </td>
       <td nowrap> <%= to_currency @product.price_eu3 %> </td>
@@ -22,6 +23,7 @@
       <td nowrap> <%= to_currency @product.price_eu6 %> </td>
       <td nowrap> <%= to_currency @product.price_usd, locale: :us %> </td>
       <td nowrap> <%= to_currency @product.price_usd2, locale: :us %> </td>
+</small>
       </tr>
     </tbody>
   </table>

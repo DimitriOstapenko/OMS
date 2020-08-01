@@ -59,8 +59,10 @@ table {
   width: 100%;
 }
 
-.table-condensed{
-  font-size: 11px;
+.table-condensed {
+  th,td{
+    font-size: 11px;
+  }
 }
 
 #findstr {

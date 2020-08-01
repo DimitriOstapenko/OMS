@@ -20,6 +20,7 @@
   <li><%= link_to "<i class='glyphicon glyphicon-menu-hamburger text-muted'></i> Hamburger Menu".html_safe, "#hamburger" %></li>
 </ul>
 <li><%= link_to "Back-up server notes", "#backup_server_notes" %> </li>
+<li><%= link_to "Reporting errors. New feature proposals", "#reporting_errors" %> </li>
 
 <p>&nbsp;</p>
 <a id="introduction"></a>
@@ -91,14 +92,20 @@ Once order is submitted several things will happen:
 
     If no shipping is to be charged, set shipping_cost in client profile to 0. Tax (%) is associated with client and defaults to 0, which means Tax is included into the final amount by default.
          Only non-zero values will appear on generated P.O and invoice.
-<li> - Inventory is updated: number of available products is automatically reduced by the ordered number </li>
-<li> - Emails are sent: Order confirmation email to the user, Order notification to staff members and Low quantity notification to staff if number of available product is negative and lower than system-defind threshold (LOW_QUANTITY_THRESHOLD)</li>
+<li> - Order and all placements in it are given 'Pending' status </li>
+<li> - Emails are sent: Order confirmation email to the user, Order notification to staff members and Low quantity notification to staff if number of available product is lower than system-defind threshold (LOW_QUANTITY_THRESHOLD)</li>
 <li> - PO and Invoice for the new order are generated and order is assigned 'Pending' status </li>
 <li> - Delivery method is set to Preferred Delivery value from CLient's profile. </li>
 <li> - Payment Terms field is set to default terms value from CLient's profile. </li>
 </ul>
-No changes are allowed on submitted orders except for three fileds: 'Payment Method', 'Delivery By' and 'Payment Terms'. To change any of these, you can use  <i class='glyphicon glyphicon-edit'></i> link on orders page.
+<p>
+Client is allowed to change the quantity of each placement up or down, as long as placement has "Pending" status. Once status changes to "Active", no further changes are allowed. Placement becomes active when order is marked as 'Paid', when PPO is generated or when one of the positions is shipped.
+</p>
+
+<p>
+You, as staff member, can change the following attributes of submitted orders: 'Payment Method', 'Delivery By' and 'Payment Terms'. To change any of these, you can use  <i class='glyphicon glyphicon-edit'></i> link on orders page.
 Order status is set automatically by the system with the exception of 'Cancelled' status. There are following four status values:
+</p>
 
 <ul>
   <li>Pending</li>
@@ -109,7 +116,7 @@ Order status is set automatically by the system with the exception of 'Cancelled
 </p>
 
 <p>
-Initially, order, as well as each individual item in it, is given "Pending" status. At certain point, when number of pending orders for the product is high (and inventory is negative), you may decide to issue Production Purchase Order (PPO) to the factory. This is done by clicking on link in "Pending Orders" column on the inventory page. Once you click <b>[Create Production Purchase Order]</b> button in the modal that opens, PPO pdf will be created and all positions for the product in question in every order containing the product will be marked as "Active". You can only create one active PPO for any given product at a time. Once product is shipped from the factory, you, as responsible staff person clear active PPO by clicking on link in "Active PPO" column of the inventory. Modal window opens and you can use <b>[Download PPO]</b> or <b>[Mark All As Shipped]</b> buttons. When you click on <b>[Mark All As Shipped]</b> button, all positions in the PPO will be marked as shipped. Alternatively you could also mark each position in PPO as partially shipped by providing number of pieces shipped.
+Initially, order, as well as each individual item in it, is given "Pending" status. At certain point, when number of pending orders for the product is high, you may decide to issue Production Purchase Order (PPO) to the factory. This is done by clicking on link in "Pending Orders" column on the inventory page. Once you click <b>[Create Production Purchase Order]</b> button in the modal that opens, PPO pdf will be created and all positions for the product in question in every order containing the product will be marked as "Active". You can only create one active PPO for any given product at a time. Once product is shipped from the factory, you, as responsible staff person clear active PPO by clicking on link in "Active PPO" column of the inventory. Modal window opens and you can use <b>[Download PPO]</b> or <b>[Mark All As Shipped]</b> buttons. When you click on <b>[Mark All As Shipped]</b> button, all positions in the PPO will be marked as shipped. Alternatively you could also mark each position in PPO as partially shipped by providing number of pieces shipped.
 </p>
 <p>
 Order is assigned "Active" status once all positions in it are Active. Order is assigned "Shipped" status when all positions in it are shipped. Last column on orders page is used to Cancel order. Order cancelling means it, and every position in it, will be marked as inactive. Such an order can be recovered at a later stage, if needed, and made active again. Cancelled orders are not taken into account in totals calculations and in the reports. They are also ignored during generation of export files. Cancelled orders are highlighted in red in Orders list.
@@ -117,7 +124,7 @@ Order is assigned "Active" status once all positions in it are Active. Order is 
 
 <p>&nbsp;</p>
 <pre>
-Notes about status
+More About Status
 
 Active: 
 
@@ -130,6 +137,15 @@ Shipped:
 1. Placement is marked as shipped when all pieces in it are shipped
 2. Order is marked as shipped when all placements within it are shipped
 3. PPO is marked as shipped when all positions within it are shipped
+</pre>
+
+<pre>
+More About Avalable Stock
+
+Currently available stock is updated by dedicated person that knows situation at the warehouse. This person downloads Inventory Template File every week, 
+fills  out quantity  column and then uploads  the  same  file using "Upload Inventory" button. If file has no errors, "Stock" column will be updated with 
+supplied values. Stock column can also be manually updated.  Other than that, value in this column is not adjusted by the system. System only keeps track
+of pending/active/shipped orders. 
 </pre>
 
 
@@ -275,7 +291,6 @@ Accessible from both "hamburger" menu and Documents>Inventory Files page, this f
 </dd>
 
 <p>&nbsp;</p>
-<p>&nbsp;</p>
 
 <a id="backup_server_notes"></a>
 <dt class="col-sm-1">Notes about back-up server</dt>
@@ -283,4 +298,37 @@ Accessible from both "hamburger" menu and Documents>Inventory Files page, this f
 <dd class="col-sm-11">
 Backup server is currently accessible on port 8081 (https://apdoms.com:8081) and has the same version of the vebsite as production site, source code updated daily.
 Database is copied from production server every night at 3am EST, so any changes made during the day for testing will be overwritten. Functionality of the backup website is the same except for emails. Order confirmation emails, low quantity alerts, other staff emails are not sent to prevent customers from receiving test order emails.
+</dd>
+
+<p>&nbsp;</p>
+<a id="reporting_errors"></a>
+<dt class="col-sm-1">Reporting errors. New feature proposals</dt>
+
+<dd class="col-sm-11">
+<p>
+To streamline our communications and expedite bug fixes we will use "Bug Reports/New Feautures" section of the web site in the near future. In this new section you will be able to file your bug reports, assign priorities  and follow the status of the fix.
+For new features/changes, you will be able to make a suggestions, describe the suggested way to resolve the issue and follow the status.
+</p>
+
+<p>
+For now, before this new section is available, please provide the following information in direct email to me with each bug report:
+<ul>
+  <li> id or email of the user reporting the bug </li>
+  <li> id or code of the client, if logged in as client, or if error was experienced by client </li>
+  <li> order number, if applicable </li>
+  <li> Timestamp(Date/Time) of the error </li>
+  <li> On which server this error was noticed (production/Backup) </li>
+  <li> Reference code or id  of the product, if applicable </li>
+  <li> Screenshot of the FULL SCREEN, not just a small portion of it, during the time error was experienced, unless it was client error </li>
+  <li> File attachment, if error was caused by file upload/download/viewing </li>
+  <li> Short description of the problem </li>
+  <li> Platform/browser used </li>
+</ul>
+
+<p>
+For new features/changes please provide your suggested solution, if possible. For example, if you think that CVS client report format can be improved, provide short excel/CVS file showing you suggested solution. 
+</p>
+
+
+
 </dd>

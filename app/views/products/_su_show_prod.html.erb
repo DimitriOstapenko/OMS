@@ -19,7 +19,8 @@
   Progress:    <%= @product.progress_str || 'Unknown' %><br>
   Active?      <%= @product.active_str %><br>
   Manual price? <%= @product.manual_price_str %><br>
-  Pending/Active pcs: <%= @product.pending_qty %> <br>
+  Pending pcs: <%= @product.pending_qty %> <br>
+  Active pcs: <%= @product.active_qty %> <br>
   Current Stock : <%= @product.stock %> <br>
   Visible to: <%= @product.visible_to_str %>
 </div>
@@ -38,5 +39,8 @@
   </div>
 </div>
 </div>
+
+<%= link_to "Shopping Cart Image",  @product.normal_image_rel_path  %> | 
+<%= link_to "Full Size Image",  @product.full_size_image_rel_path  %>
 
 

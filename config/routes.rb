@@ -70,6 +70,7 @@ Rails.application.routes.draw do
     get 'download_invoice', on: :member
     get 'cancel', on: :member
     patch 'set_to_shipped', on: :member
+    patch 'mark_as_paid', on: :member
   end
 
   resources :placements, only: [:index, :show, :create, :update, :destroy] do
