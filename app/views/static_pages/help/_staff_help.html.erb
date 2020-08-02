@@ -234,7 +234,7 @@ Reports are generated in PDF format and stored in "reports" directory on the ser
 <p><b><%= "<i class='glyphicon glyphicon-envelope'></i> Client Mailer".html_safe %></b>: Set up and send bulk email to group of clients </p>
 <p><b><%= "<i class='glyphicon glyphicon-export'></i> Export Orders".html_safe %></b>: Create CSV file of all orders in the system </p>
 <p><b><%= "<i class='glyphicon glyphicon-check'></i> Data Integrity Check".html_safe %></b>: Check for missing required fields in product and client tables </p>
-<p><b><%= "<i class='glyphicon glyphicon-upload'></i> Product Image Upload".html_safe %></b>: Upload product picture here. All required thumbnails will be generated on the fly. In case the upload form is grayed-out, please refresh the page before uploading. Alternatively, in case of any browser-specific problems, click on the upload form to bring up "Open file" dialog and select your image file. </p>
+<p><b><%= "<i class='glyphicon glyphicon-upload'></i> Product Image Upload".html_safe %></b>: Upload product picture here. All required thumbnails will be generated on the fly. In case the upload form is grayed-out, please refresh the page before uploading. Alternatively, in case of any browser-specific problems, click on the upload form to bring up "Open file" dialog and select your image file. Product will remain inactive until image is uploaded. </p>
 <p><b><font color="red"><%= "<i class='glyphicon glyphicon-upload'></i></font> Packing List Upload".html_safe %></b>: Upload packing list to ship from.</p>
 <p><b><font color="blue"> <%= "<i class='glyphicon glyphicon-upload'></i></font> Inventory File Upload".html_safe %></b>: Upload filled out inventory file here. Just drag and drop or select the CSV file from you computer and click "Upload". To get file template with most current product reference codes, use "Download Inventory Template" button on Documents>Inventory Files page </p>
 <p><b><%= "<i class='glyphicon glyphicon-log-out'></i> Logout".html_safe %></b>: End current session</p>
@@ -258,10 +258,10 @@ The process is two stage.
 </p>
 <p>
 File format: Packing List uses comma-seperated value (CSV) format. First 3 colums are: "Order Id", "Reference Code" and "Quantity To Ship". The rest of the columns, if present, are currently ignored. <b>N.B! Files using delimiter other than comma will be silently ignored.</b>
-When you open "Packing Lists" menu, you will see the list of active/archived packing lists, with active listed first. You cannot upload new packing list until active list is shipped. 
+When you open "Packing Lists" menu, you will see the list of active/archived packing lists, with active one listed first. You cannot upload new packing list until active list is shipped. 
 </p>
 <p>
-To upload new packing list, just drag and drop CSV file into upload form and press "Upload" button. The list will be validated for syntax and basic sanity check will be run. Each order number and product code  will be checked for existance and if not present in the system, appropriate error message will be generated. There's also validation of number of pieces to be shipped. This number cannot exceed number of pending/active pieces. And of course there's check against available inventory (stock column).  If everything is ok, the file will be accepted and uploaded to the server. Each corresponding placement will have updated "to_ship" attribute with number of pieces to be shipped, but nothing else will be changed at this point. Shipped quantities, order statuses and PPO pdfs will be updated during the next step. Freshly uploaded list will be given "Active" status and culums with number of orders, products and total number of pieces will be updated.
+To upload new packing list, just drag and drop CSV file into upload form and press "Upload" button. You can also click anywhere in upload form to bring up "Open File" dialog. The list will be validated for syntax and basic sanity checks will be run. Each order number and product code will be checked for existance and if not present in the system, appropriate error message will be generated. There's also validation of number of pieces to be shipped. This number cannot exceed number of pending/active pieces. And finally, there's check against available inventory (stock column). There must be sufficient product stock for placement to be marked as shipped. If everything is ok, the file will be accepted and uploaded to the server. Each corresponding placement will have updated "to_ship" attribute with number of pieces to be shipped, but nothing else would be changed at this point. Shipped quantities, order statuses and PPO pdfs will be updated during the next step. Freshly uploaded list will be given "Active" status and columns with number of orders, products and total number of pieces will be updated.
 </p>
 <p>
 <b>Packing List processing</b>
@@ -269,11 +269,11 @@ To upload new packing list, just drag and drop CSV file into upload form and pre
 <p>
 Now you are ready to do actual shipping. Active list is shipped by simply clicking on "Ship it" link. When you do that, several things will happen:
 <ol>
-  <li> If shipped quantity of placement is the same as ordered quantity, placement will be marked as "Shipped" </li>
+  <li> If shipped quantity of placement is the same as ordered quantity, placement will be marked as "Shipped", otherwise it will stay as "Active" </li>
   <li> Ordered quantity will be reduced by the number of pieces shipped </li>
-  <li> If all placements of the order are shipped, then order itself will be marked as "Shipped" </li>
-  <li> If placement has associated PPO, it will be regenerated </li>
-  <li> Packing List itself will be marked as "Archived" </li>
+  <li> If all placements of the order are shipped, then the order itself will be marked as "Shipped" </li>
+  <li> If placement has associated PPO, this PPO will be regenerated </li>
+  <li> Packing List itself will be marked as "Archived" and saved into DB. </li>
 </ol>
 
 <p>
@@ -286,7 +286,7 @@ Shipped files will be kept in the list of Packing Lists and can be downloaded/vi
 <dt class="col-sm-1">Inventory File Upload</dt>
 
 <dd class="col-sm-11">
-Accessible from both "hamburger" menu and Documents>Inventory Files page, this function allows you to upload simple CSV inventory file. This file has just 2 columns as a minimum: 'Reference Code' and 'Number of Pcs Available". To help responsible person fill out this file, there's also "Download Inventory Template" button at the bottom of Documents>Inventoriy Files page. Clicking on this button will generate empty template with all the currently used product codes. File has also "Description", "Brand", "Category", "Color", "Scale" and "Notes" columns, just for reference. File should be filled and uploaded at regilar intervals, preferrably every week. On file upload "Stock" column for each corresponding product will be filled with values supplied in the file.
+Accessible from both "hamburger" menu and Documents>"Inventory Files" page, this function allows you to upload CSV inventory file. This file has 2 required columns as a minimum: 'Reference Code' and 'Number of Pcs Available". To help responsible person fill out this file, there's also "Download Inventory Template" button at the bottom of Documents>"Inventory Files" page. Clicking on this button will generate empty template with all the currently available product codes. File has also "Description", "Brand", "Category", "Color", "Scale" and "Notes" columns,  for reference. File should be filled and uploaded at regilar intervals, preferrably every week. After file upload, "Stock" column for each corresponding product will be filled with values supplied in the file.
 
 </dd>
 
@@ -296,8 +296,9 @@ Accessible from both "hamburger" menu and Documents>Inventory Files page, this f
 <dt class="col-sm-1">Notes about back-up server</dt>
 
 <dd class="col-sm-11">
-Backup server is currently accessible on port 8081 (https://apdoms.com:8081) and has the same version of the vebsite as production site, source code updated daily.
-Database is copied from production server every night at 3am EST, so any changes made during the day for testing will be overwritten. Functionality of the backup website is the same except for emails. Order confirmation emails, low quantity alerts, other staff emails are not sent to prevent customers from receiving test order emails.
+Backup server is currently accessible on port 8081 (https://apdoms.com:8081) and has the same version of the website as main site with source code updated overnight.
+Fresh database backup file is copied from production server every night at 3am EST, so any changes made during the day for testing will be overwritten. Functionality of the backup website is the same except for emails.
+Order confirmation emails, low quantity alerts, new product emails, other staff emails are not sent to prevent customers and staff from receiving fake order emails.
 </dd>
 
 <p>&nbsp;</p>
@@ -306,8 +307,8 @@ Database is copied from production server every night at 3am EST, so any changes
 
 <dd class="col-sm-11">
 <p>
-To streamline our communications and expedite bug fixes we will use "Bug Reports/New Feautures" section of the web site in the near future. In this new section you will be able to file your bug reports, assign priorities  and follow the status of the fix.
-For new features/changes, you will be able to make a suggestions, describe the suggested way to resolve the issue and follow the status.
+To streamline our communications and expedite bug fixes we will use appropriate project management solution in the near future. You will be able to file your bug reports, assign priorities and follow the status of the fix.  For new features/changes, you will be able to make a suggestions, describe the proposed way to resolve the issue and follow the status. We will use Github for this purpose. Project source code is already managed using Github, so it was natural choice for project management. This is much better way to handle project-related issues than sending emails. All team members will be able to collaborate on the project and see status updates and other changes in one central location.
+I am planning to issue invitations to all team members shortly. You will have to join Github to have access to this new feature. Registration is straightforward. Invitations are good for 7 days. After that if anybody wants to join, send me an email request about it.
 </p>
 
 <p>
@@ -315,7 +316,7 @@ For now, before this new section is available, please provide the following info
 <ul>
   <li> id or email of the user reporting the bug </li>
   <li> id or code of the client, if logged in as client, or if error was experienced by client </li>
-  <li> order number, if applicable </li>
+  <li> Order number, if applicable </li>
   <li> Timestamp(Date/Time) of the error </li>
   <li> On which server this error was noticed (production/Backup) </li>
   <li> Reference code or id  of the product, if applicable </li>
@@ -326,7 +327,7 @@ For now, before this new section is available, please provide the following info
 </ul>
 
 <p>
-For new features/changes please provide your suggested solution, if possible. For example, if you think that CVS client report format can be improved, provide short excel/CVS file showing you suggested solution. 
+For new features/changes please provide your proposed solution. For example, if you think that CVS client report format can be improved, attach short excel/CVS file showing you suggested solution. Just saying "bad format" is not constructive.
 </p>
 
 
