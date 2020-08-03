@@ -10,8 +10,13 @@
   <%= render 'edit_form' %>
 
   <% unless @order.shipped? %>
-  <%= button_to "Set Order To Shipped", set_to_shipped_order_path(@order), class: "btn btn-success", method: :patch %>
+  <%= button_to "Ship This Order", set_to_shipped_order_path(@order), class: "btn btn-success", method: :patch %>
   <% end %>
+
+  <% unless @order.paid? %>
+  <%= button_to "Mark As Paid", mark_as_paid_order_path(@order), class: "btn btn-info", method: :patch, title: "Mark as 'Paid' and set all placements to 'Active' to prevent further changes" %>
+  <% end %>
+
 </div>
 
 <div class="modal-footer">
