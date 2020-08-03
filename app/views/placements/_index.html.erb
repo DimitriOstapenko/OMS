@@ -68,7 +68,7 @@
 <div style="float:right">You can change ordered quantity for pending placements</div>
 <% end %>
 
-<% unless @order.shipped? || current_user.client? %>
+<% unless @order.shipped? || @order.cancelled? || current_user.client? %>
 <div class="row">
 <div class="col-md-2">
 <%= button_to "Ship This Order", set_to_shipped_order_path(@order), class: "btn btn-primary", method: :patch, title: "Set all placements to 'Shipped'" %>
@@ -80,8 +80,12 @@
 </div>
 <% end %>
 
+<div class="pt-5">
+<%= @order.notes %>
 </div>
 </div>
+</div>
+
 
 <div class="modal-footer">
 </div>

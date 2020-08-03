@@ -88,12 +88,15 @@ class OrdersController < ApplicationController
 # Cancel Order, update inventory, regenerate PPO. Keep cancelled order in the system.
   def cancel
     @order = Order.find(params[:id])
+    email = current_user.email rescue ''
     @order.placements.each do |pl|
        pl.update_attribute(:status, CANCELLED_ORDER)
        pl.ppo.delete_pdf if pl.ppo.present?
     end 
     @order.update_attribute(:status, CANCELLED_ORDER) 
+    @order.update_attribute(:notes, "#{@order.notes} \n Cancelled by #{email} on #{Time.now}") 
     @order.delete_pdfs
+    OrderMailer.cancelled_order(@order,email).deliver_now
     flash[:warning] = 'Order was canceled.'
     redirect_to orders_path
   end

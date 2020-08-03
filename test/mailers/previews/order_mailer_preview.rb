@@ -11,6 +11,11 @@ class OrderMailerPreview < ActionMailer::Preview
     OrderMailer.notify_staff(order)
   end
 
+  def cancelled_order
+    order = Order.first
+    OrderMailer.cancelled_order(order, 'dosta@me.com')
+  end
+
   def product_quantity_alert
     product = Product.first
     OrderMailer.product_quantity_alert(product)

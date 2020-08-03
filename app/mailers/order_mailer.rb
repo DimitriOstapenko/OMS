@@ -18,6 +18,13 @@ class OrderMailer < ActionMailer::Base
     mail to: emails, subject: "OMS New order just received" rescue nil
   end  
 
+# Notify admins about cancelled order  
+  def cancelled_order(order,email)
+    @order = order; @email = email
+    emails = User.where('role=?', ADMIN_ROLE).pluck(:email)
+    mail to: emails, subject: "OMS order #{order.id} was cancelled by #{email}" #rescue nil
+  end
+
 # Notify staff of a low quantity for product  
   def product_quantity_alert(product)
     @product = product

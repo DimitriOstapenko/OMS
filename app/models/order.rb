@@ -154,6 +154,10 @@ class Order < ApplicationRecord
     ORDER_STATUSES.invert[self.status].to_s rescue nil
   end
 
+  def paid_str
+    self.paid? ? 'Yes' : 'No'
+  end
+
   def terms_str
     PAYMENT_TERMS.invert[self.terms].to_s rescue nil
   end

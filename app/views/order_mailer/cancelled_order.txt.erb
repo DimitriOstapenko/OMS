@@ -1,0 +1,14 @@
+Order (#<%= @order.id %>) was cancelled <%= @client.name %>
+
+  
+     Ref.Code | Description | Price/Unit | Qty 
+<% @order.placements.each do |placement| %>
+  <%= placement.product.ref_code %> | <%= placement.product.description %> | <%= number_to_currency(placement.price, locale: @order.client.locale) %> | <%= placement.quantity %>
+<% end %>
+
+Order Total: <%= number_to_currency(@order.total,locale: @order.client.locale) %>
+
+<%= @order.notes %>
+
+<%= link_to 'Follow this link to see the order online', orders_url(@client) %>
+

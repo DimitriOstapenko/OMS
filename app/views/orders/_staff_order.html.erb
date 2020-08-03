@@ -1,5 +1,5 @@
-<% cl = 'table-danger' if order.cancelled? %>
 <% cl = 'table-info' if order.by_client? %>
+<% cl = 'table-danger' if order.cancelled? %>
 
 <tr class="<%= cl %>">
 <td><%= link_to order.client.name, client_path(order.client_id), remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %></td>
@@ -21,6 +21,7 @@
 <td class="text-center"><%= order.delivery_by %></td>
 <td class="text-center"> <%= order.status_str %> </td>
 <td class="text-center"><%= to_currency order.total, locale: order.client.locale %></td>
+<td class="text-center"><%= order.paid_str %></td>
 <td class="text-center">
   <% unless order.cancelled? || order.shipped? %>
   <%= link_to '<i class="glyphicon glyphicon-edit"></i>'.html_safe, edit_order_path(order), remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %> 
