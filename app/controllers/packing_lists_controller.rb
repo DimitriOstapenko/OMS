@@ -67,6 +67,7 @@ class PackingListsController < ApplicationController
 
 # download CSV  
   def download
+    (flash[:warning] = 'Packing list file missing'; redirect_to packing_lists_path; return) unless @packing_list.exists?
     respond_to do |format|
       format.csv { 
            send_file(@packing_list.csv_path,

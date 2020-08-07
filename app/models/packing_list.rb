@@ -13,10 +13,15 @@ class PackingList < ApplicationRecord
 
   def csv_path
     PLISTS_PATH.join(self.filename) rescue nil
+#   self.csv.to_s
   end
 
   def filespec
     csv_path
+  end
+
+  def exists?
+    File.exists?(self.filespec) rescue false
   end
 
   def status_str
@@ -25,11 +30,11 @@ class PackingList < ApplicationRecord
 
 # Return array of lines from CSV   
   def contents
-    self.csv.read.split("\r\n")
+    self.csv.read.split("\r\n") rescue nil
   end 
 
   def filename
-    "plist_#{Date.today}.csv"
+    self.csv.identifier
   end
 
   def active?
