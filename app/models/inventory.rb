@@ -62,7 +62,7 @@ class Inventory < ApplicationRecord
     ttl_pcs = lines = 0; products = {};
     csv.each do |row|
       lines +=1
-      next if row[1].blank?
+      next if row[1].blank? || row[1] == '0'
       pcs = row[1].to_i
       (errors.add(:pcs, "line #{lines}: bad number of pieces: '#{row[1]}'"); return) if pcs == 0
       ref_code = row[0]
