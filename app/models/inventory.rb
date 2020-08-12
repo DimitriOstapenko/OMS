@@ -19,6 +19,10 @@ class Inventory < ApplicationRecord
     csv_path
   end
 
+  def exists?
+    File.exists?(self.filespec) rescue false
+  end
+
   def status_str
     INVENTORY_STATUSES.invert[self.status].to_s rescue nil
   end
@@ -29,7 +33,7 @@ class Inventory < ApplicationRecord
   end
 
   def filename
-    self.name + '.csv'
+    self.csv.identifier
   end
 
   def uploaded?
@@ -62,12 +66,12 @@ class Inventory < ApplicationRecord
     ttl_pcs = lines = 0; products = {};
     csv.each do |row|
       lines +=1
-      next if row[1].blank? || row[1] == '0'
+      next if row[1].blank? 
       pcs = row[1].to_i
-      (errors.add(:pcs, "line #{lines}: bad number of pieces: '#{row[1]}'"); return) if pcs == 0
+      (errors.add(:pcs, "line #{lines}: bad number of pieces: '#{row[1]}'"); return) unless pcs.to_i == pcs # integer test
       ref_code = row[0]
       product = Product.find_by(ref_code: ref_code)
-      (errors.add(:products, "line #{lines}: unknown product code #{ref_code}"); return) unless product
+      (errors.add(:products, "line #{lines}: unknown product code #{ref_code}"); return) unless product.present?
       products[ref_code] = 1 if ref_code
       ttl_pcs += pcs
       product.update_attribute(:stock, pcs) 

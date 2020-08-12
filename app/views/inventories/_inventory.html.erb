@@ -1,12 +1,12 @@
 <%= render "shared/modal" %>
 <tr>
       <td class="text-center"><%= inventory.name %></td> 
-      <td class="text-center"><%= inventory.description %></td> 
+      <td class="tbl_lg text-center"><%= inventory.description %></td> 
       <td class="text-center"><%= inventory.products %></td> 
       <td class="text-center"><%= inventory.pcs %></td> 
       <td class="text-center"><%= inventory.created_at %></td> 
-      <td class="text-center"><%= inventory.user.email %></td> 
-      <td class="text-center"><%= inventory.status_str %></td> 
+      <td class="tbl_md text-center"><%= inventory.user.email %></td> 
+      <td class="tbl_md text-center"><%= inventory.status_str %></td> 
 
       <td class="text-center"><%= link_to '<i class="glyphicon glyphicon-edit"></i>'.html_safe, edit_inventory_path(inventory), remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %> </td>
       <td class="text-center"> <%= link_to '<i class="glyphicon glyphicon-download"></i>'.html_safe, download_inventory_path(inventory,format: :csv) %> </td>

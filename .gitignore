@@ -39,10 +39,12 @@
 /yarn-error.log
 
 /public/assets
-/reports/*.pdf
-/pos/*.pdf
-/ppos/*.pdf
-/invoices/*.pdf
+/reports/**
+/pos/**
+/ppos/**
+/invoices/**
+/plists/**
+/inventories/**
 /public/uploads
 .byebug_history
 

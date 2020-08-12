@@ -56,6 +56,7 @@ class InventoriesController < ApplicationController
 
   # download CSV
   def download
+    (flash[:warning] = 'Inventory file missing'; redirect_to inventories_path; return) unless @inventory.exists?
     respond_to do |format|
       format.csv {
            send_file(@inventory.csv_path,
