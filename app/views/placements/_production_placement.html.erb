@@ -1,0 +1,38 @@
+    <td class="text-center"><%= placement_counter + 1 %></td>
+    <td class="text-center"><%= placement.product.ref_code %></td>
+    <td class="text-center">1:<%= placement.product.scale %></td>
+    <td class="text-center"><%= placement.product.colour_str %></td>
+    <td class="text-center"><%= placement.product.description %></td>
+    <td class="text-center"><%= to_currency placement.price, locale: @order.client.locale %></td>
+    <td class="text-center"><%= to_currency placement.ptotal, locale: @order.client.locale %></td>
+    <td class="text-center">
+      <% if placement.pending?  %>
+       <%= simple_form_for placement, method: :patch,  html: { class: "form" } do |f| %>
+         <div class="form-group" style="padding-top: 10px;">
+           <%= f.input :quantity, as: :string, label: false, input_html: { onchange: 'this.form.submit();' }  %>
+         </div>
+       <% end %>
+      <% else %>
+         <%= placement.quantity %>
+      <% end %>
+    </td>
+    <td class="text-center"><%= placement.pending %></td>
+
+    <td class="text-center">
+      <% if placement.shipped? || placement.cancelled? || action_name == 'show_pending_orders' %>
+        <%= placement.shipped %>
+      <% else %>
+       <%= simple_form_for placement, url: update_shipped_placement_path(placement), html: { class: "form" } do |f| %>
+         <div class="form-group" style="padding-top: 10px;">
+           <%= f.input :shipped, as: :string, label: false, input_html: { onchange: 'this.form.submit();' }  %>
+         </div>
+       <% end %>
+     <% end %>
+    </td>
+
+    <td class="text-center"><%= placement.status_str %></td>
+    <td class="text-center"> 
+    <% if placement.pending? %>
+      <%= link_to '<i class="glyphicon glyphicon glyphicon-remove-sign"></i>'.html_safe, cancel_placement_path(placement), data:{ confirm: "Are you sure you want to cancel placement #{placement.product.ref_code}?" } %>
+    <% end %>
+    </td>

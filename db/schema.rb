@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_31_194246) do
+ActiveRecord::Schema.define(version: 2020_08_14_182443) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,7 +78,6 @@ ActiveRecord::Schema.define(version: 2020_07_31_194246) do
 
   create_table "orders", force: :cascade do |t|
     t.bigint "client_id"
-    t.decimal "total"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "po_number"
@@ -89,12 +88,11 @@ ActiveRecord::Schema.define(version: 2020_07_31_194246) do
     t.string "delivery_by"
     t.text "notes"
     t.integer "pmt_method", default: 1
-    t.decimal "shipping", default: "0.0"
     t.decimal "discount", default: "0.0"
-    t.float "tax", default: 0.0
-    t.float "weight"
     t.bigint "user_id"
     t.boolean "paid", default: false
+    t.float "total"
+    t.float "weight"
     t.index ["client_id"], name: "index_orders_on_client_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end

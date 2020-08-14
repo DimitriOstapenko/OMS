@@ -43,6 +43,7 @@ class PlacementsController < ApplicationController
   def update
     @placement = Placement.find(params[:id])
     if @placement.update_attributes(placement_params)
+      @placement.delete_pdfs
       flash[:success] = "Placement updated" 
       @placement.order.save
     end
@@ -110,6 +111,22 @@ class PlacementsController < ApplicationController
       redirect_back(fallback_location: @order)
     end
   end
+
+  # Cancel placement. Cancel order if all placements deleted.  Keep in the db 
+  def cancel
+    @placement = Placement.find(params[:id])
+    email = current_user.email rescue ''
+    @placement.cancel(email)
+    
+    if @placement.order.all_placements_cancelled? 
+      flash[:warning] = "Order #{@placement.order_id} was canceled."
+    else
+      flash[:warning] = "Placement #{@placement.id} was canceled."
+    end
+
+    redirect_back(fallback_location: @order)
+  end
+
 
 private
   def placement_params

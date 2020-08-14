@@ -9,7 +9,7 @@
   <% if current_user.client? %>
     <b class="modal-title" id="myModalLabel"><%= @order.status_str %> Order #<%= @order.id %> received on <%= @order.cre_date %></b>
   <% else %>
-    <b class="modal-title" id="myModalLabel"><font color="#777"><%= @client.name %></font>: <%= @order.status_str %> Order # <%= @order.id %> received on <%= @order.cre_date %> (<%= @order.made_by %>)</b>
+    <b class="modal-title" id="myModalLabel"><font color="#777"><%= @client.name %></font>: <%= @order.status_str %> <%= @order.paid ? 'Paid':'' %> Order # <%= @order.id %> received on <%= @order.cre_date %> - <%= @order.made_by %></b>
   <% end %>
 </div>
 
@@ -62,9 +62,9 @@
   <div> Sales Tax (<%= @client.tax_pc %>%): <%= to_currency @order.tax, locale: @client.locale %></div>
 <% end %>
 
-<div><b> Grand Total : <%= to_currency @order.total, locale: @order.client.locale %> </b></div>
+<div><b> Grand Total : <%= to_currency @order.grand_total, locale: @order.client.locale %> </b></div>
 </p>
-<% unless @order.shipped? %>
+<% if @order.pending?  %>
 <div style="float:right">You can change ordered quantity for pending placements</div>
 <% end %>
 
@@ -85,7 +85,6 @@
 </div>
 </div>
 </div>
-
 
 <div class="modal-footer">
 </div>

@@ -7,7 +7,7 @@ Ref.Code | Description | Price/Unit |  Qty.
   <%= placement.product.ref_code %> | <%= placement.product.description %> | <td><%= number_to_currency(placement.price, locale: @client.locale) %> | <td><%= placement.quantity %>
 <% end %>
 
-Order Total: <%= number_to_currency(@order.total, locale: @client.locale) %>
+Order Total: <%= number_to_currency(@order.grand_total, locale: @client.locale) %>
 
 You can see all your orders with us <%= link_to 'here', orders_url(@client) %> 
 

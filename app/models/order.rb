@@ -46,8 +46,9 @@ class Order < ApplicationRecord
   def set_attributes!
     self.total = self.weight = 0
     placements.each do |placement|
-      self.total += placement.price * placement.quantity
-      self.weight += placement.product.weight/1000 * placement.quantity rescue 0
+       next if placement.cancelled?
+       self.total += placement.price * placement.quantity
+       self.weight += placement.product.weight/1000 * placement.quantity rescue 0
     end
     nextid = Order.maximum(:id).next rescue 1
     suff = nextid.to_s
@@ -55,14 +56,37 @@ class Order < ApplicationRecord
     self.inv_number = 'INV-' + suff
     self.delivery_by = self.client.pref_delivery_by_str
     self.terms = self.client.default_terms
-    self.tax = self.total * self.client.tax_pc / 100 if self.client.tax_pc > 0
-    self.shipping = self.client.shipping_cost * self.weight 
     self.total += (self.shipping - self.discount + self.tax)
   end
 
   def set_totals!
     self.total = self.total_price + self.shipping - self.discount + self.tax
     self.weight = self.total_weight
+  end
+  
+  def grand_total
+    total = read_attribute(:total)
+    if total.present?
+      return total
+    else
+      return self.total_price + self.shipping - self.discount + self.tax
+    end
+  end
+
+#  def total
+#    self.grand_total
+#  end
+
+  def cancelled_total
+    self.placements.where(status: CANCELLED_ORDER).sum('price*quantity') rescue 0
+  end
+
+  def tax
+    self.total_price * self.client.tax_pc / 100 rescue 0
+  end
+
+  def shipping 
+    self.client.shipping_cost * self.weight rescue 0
   end
 
   def send_emails!
@@ -72,13 +96,22 @@ class Order < ApplicationRecord
 
 # Total Order price before Taxes, Shipping, Discount etc.  
   def total_price
-    self.placements.sum('price*quantity') rescue 0
+    self.placements.where.not(status: CANCELLED_ORDER).sum('price*quantity') rescue 0
   end
 
 # Order total weight  
   def total_weight
-    self.placements.joins(:product).sum('quantity*weight/1000') rescue 0
+    total = read_attribute(:weight)
+    if total.present?
+      return weight
+    else
+      return self.placements.where.not(status: CANCELLED_ORDER).joins(:product).sum('quantity*weight/1000') rescue 0
+    end
   end
+  
+#  def weight
+#    self.total_weight
+#  end
 
 # Order currency
   def currency
@@ -137,12 +170,17 @@ class Order < ApplicationRecord
     self.placements.sum(:quantity)
   end
 
+# Number of cancelled pieces  
+  def cancelled
+     self.placements.where(status: CANCELLED_ORDER).sum(:quantity)
+  end
+
  # Pending and active 
   def pending(product_id=nil)
     if product_id
       return self.placements.find_by(product_id: product_id).pending rescue 0
     else
-      return self.quantity - self.shipped
+      return self.quantity - self.shipped - self.cancelled
     end
   end
 
@@ -175,7 +213,7 @@ class Order < ApplicationRecord
   end
 
   def self.to_csv
-    attributes = %w{id client_name client_code cre_date product_list_quoted product_count total_pcs currency total po_number inv_number pmt_method_str shipping discount tax delivery_by weight status_str notes}
+    attributes = %w{id client_name client_code cre_date product_list_quoted product_count total_pcs currency po_number inv_number pmt_method_str shipping discount tax delivery_by status_str notes}
     CSV.generate(headers: attributes, write_headers: true) do |csv|
       all.each do |order|
         csv << attributes.map{ |attr| order.send(attr) }
@@ -251,6 +289,17 @@ class Order < ApplicationRecord
 # Are all placements in current order marked as cancelled?
   def all_placements_cancelled?
     self.all_statuses_are?(CANCELLED_ORDER)
+  end
+
+# Cancel this order, notify admins
+  def cancel (by_email)
+    self.update_attribute(:status, CANCELLED_ORDER)
+    self.update_attribute(:notes, "#{self.notes} \n Cancelled by #{by_email} on #{Time.now}")
+    self.placements.each do |placement|
+      placement.cancel(by_email)
+    end
+
+    OrderMailer.cancelled_order(self,by_email).deliver_now
   end
 
 # Global search method

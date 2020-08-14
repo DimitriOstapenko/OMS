@@ -3,6 +3,7 @@ class OrdersController < ApplicationController
   include My::Docs
   helper_method :sort_column, :sort_direction
 
+  before_action :init, only: [:show, :edit, :update, :download, :download_po, :download_invoice, :cancel, :destroy, :set_to_shipped, :mark_as_paid ]
   before_action :logged_in_user
   before_action :production_admin_or_staff_user, only: [:edit, :update]
   before_action :client_user, only: [:create]
@@ -20,14 +21,11 @@ class OrdersController < ApplicationController
 
     search_results = Order.search(keyword,@client) if keyword
     @orders = search_results if search_results.any?
-    @orders = @orders.reorder(sort_column + ' ' + sort_direction, "created_at desc") #.paginate(page: params[:page])  in view
-    @grand_total = @orders.sum{|o| o[:total]*o.client.fx_rate}
-
-#    flash[:info] = "#{search_results.count} orders found" if keyword
+    @orders_ = @orders
+    @orders = @orders.reorder(sort_column + ' ' + sort_direction, "created_at desc").paginate(page: params[:page]) 
   end 
 
   def show
-    @order = Order.find(params[:id])
     @client = @order.client
     @placements = @order.placements
   end
@@ -55,11 +53,9 @@ class OrdersController < ApplicationController
   end
 
   def edit
-    @order = Order.find(params[:id])
   end
 
   def update
-    @order = Order.find(params[:id])
     @order.user_id ||= current_user.id
     if @order.update_attributes(order_params)
       flash[:success] = "Order #{@order.id} updated"
@@ -71,7 +67,6 @@ class OrdersController < ApplicationController
 
 # Destroy Order, update product quantity  
   def destroy
-    @order =  Order.find(params[:id])
     if @order.status == PENDING_ORDER
       @order.placements.each do |pl|
         pl.ppo.delete_pdf if pl.ppo.present?
@@ -87,17 +82,9 @@ class OrdersController < ApplicationController
 
 # Cancel Order, update inventory, regenerate PPO. Keep cancelled order in the system.
   def cancel
-    @order = Order.find(params[:id])
     email = current_user.email rescue ''
-    @order.placements.each do |pl|
-       pl.update_attribute(:status, CANCELLED_ORDER)
-       pl.ppo.delete_pdf if pl.ppo.present?
-    end 
-    @order.update_attribute(:status, CANCELLED_ORDER) 
-    @order.update_attribute(:notes, "#{@order.notes} \n Cancelled by #{email} on #{Time.now}") 
-    @order.delete_pdfs
-    OrderMailer.cancelled_order(@order,email).deliver_now
-    flash[:warning] = 'Order was canceled.'
+    @order.cancel(email)
+    flash[:warning] = "Order #{@order.id} was canceled."
     redirect_to orders_path
   end
 
@@ -110,48 +97,34 @@ class OrdersController < ApplicationController
 
 # Generate PDF PO  
   def download_po
-    @order = Order.find( params[:id] ) rescue nil
-   
-    if @order
-       if @order.po_file_present?
-          send_file @order.po_filespec,
-                    filename: @order.po_number,
-                    type: "application/pdf",
-                    disposition: :attachment
-          else
-            @order.regenerate_po
-            flash[:info] = 'File regenerated'
-            redirect_to download_po_order_path(@order)
-       end 
-       else
-        flash[:warning] = 'Order does not exist'
-        redirect_to orders_path
-    end
+    if @order.po_file_present?
+      send_file @order.po_filespec,
+                filename: @order.po_number,
+                type: "application/pdf",
+                disposition: :attachment
+      else
+        @order.regenerate_po
+        flash[:info] = 'File regenerated'
+        redirect_to download_po_order_path(@order)
+    end 
   end
 
 # Generate PDF invoice  
   def download_invoice
-   @order = Order.find( params[:id] ) rescue nil
-   if @order 
-     if @order.invoice_file_present?
-        send_file @order.inv_filespec,
-                  filename: @order.inv_number,
-                  type: "application/pdf",
-                  disposition: :attachment
-      else
-        @order.regenerate_invoice
-        flash[:info] = 'File regenerated'
-        redirect_to download_invoice_order_path(@order)
-      end 
+    if @order.invoice_file_present?
+      send_file @order.inv_filespec,
+                filename: @order.inv_number,
+                type: "application/pdf",
+                disposition: :attachment
     else
-      flash[:warning] = 'Order does not exist'
-      redirect_to orders_path
-    end
+      @order.regenerate_invoice
+      flash[:info] = 'File regenerated'
+      redirect_to download_invoice_order_path(@order)
+    end 
   end
 
 # Set all placements to "Shipped"; Regenerate PPO and mark Order as "Shipped"
   def set_to_shipped
-    @order = Order.find(params[:id])
     @order.placements.each do |pl|
       pl.set_to_shipped
     end
@@ -162,7 +135,6 @@ class OrdersController < ApplicationController
 
 # Mark this order as paid and set all placements to active to prevent further changes to quantities
   def mark_as_paid
-    @order = Order.find(params[:id])
     @order.update_attribute(:status, ACTIVE_ORDER)
     @order.update_attribute(:paid, true)
     @order.placements.each do |pl|
@@ -173,9 +145,13 @@ class OrdersController < ApplicationController
   end
 
 private
+  def init
+    @order = Order.find(params[:id]) rescue nil
+    (flash[:warning] = "Order not found"; redirect_to orders_path) unless @order
+  end
 
   def order_params
-    params.require(:order).permit(:web_id, :status, :po_number, :inv_number, :delivery_by, :terms, :notes, :pmt_method, :shipping, :discount, :tax, :weight, :user_id, :paid) 
+    params.require(:order).permit(:web_id, :status, :po_number, :inv_number, :delivery_by, :terms, :notes, :pmt_method, :discount, :user_id, :paid) 
   end
 
   def sort_column

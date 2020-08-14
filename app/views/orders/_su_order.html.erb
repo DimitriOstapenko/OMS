@@ -20,7 +20,7 @@
 <td class="text-center"><%= link_to order.inv_number, download_invoice_order_path(order) %></td>
 <td class="text-center"><%= order.delivery_by %></td>
 <td class="text-center"> <%= order.status_str %> </td>
-<td class="text-center"><%= to_currency order.total, locale: order.client.locale %></td>
+<td class="text-center"><%= to_currency order.grand_total, locale: order.client.locale %></td>
 <td class="text-center"><%= order.paid_str %></td>
 <td class="text-center"> <%= link_to '<i class="glyphicon glyphicon-edit"></i>'.html_safe, edit_order_path(order), remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %> </td>
 <td class="text-center"><%= link_to '<i class="glyphicon glyphicon-remove-sign"></i>'.html_safe, order, method: :delete, data: { confirm: "Are you sure you want to delete order # #{order.id}?" } %> </td>

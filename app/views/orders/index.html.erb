@@ -4,7 +4,6 @@
 <% first_page = params[:page] == '1' || params[:page].blank? %>
 <p></p>
 <%= render "totals_header" if first_page %>
-<% @orders = @orders.paginate(page: params[:page]) %>
 
 <div style="float:right"><small>Cancelled orders are highlighted in red; orders by client in blue</small></div>
 <% scroll = "table-wrapper-scroll-x" if mobile_device? %>
@@ -18,9 +17,7 @@
 
 <div class="row">
   <div class="col-md-6">
-<% if (current_user.staff? || current_user.admin? || current_user.su?) && first_page %>
-  <%= render "totals_table" %>
-<% end %>
+    <%= render "totals_table" if first_page %>
   </div>
 
   <div class="col-md-6">
