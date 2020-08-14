@@ -73,9 +73,9 @@ class Order < ApplicationRecord
     end
   end
 
-#  def total
-#    self.grand_total
-#  end
+  def total
+    grand_total
+  end
 
   def cancelled_total
     self.placements.where(status: CANCELLED_ORDER).sum('price*quantity') rescue 0
@@ -101,17 +101,17 @@ class Order < ApplicationRecord
 
 # Order total weight  
   def total_weight
-    total = read_attribute(:weight)
-    if total.present?
+    weight = read_attribute(:weight)
+    if weight.present?
       return weight
     else
       return self.placements.where.not(status: CANCELLED_ORDER).joins(:product).sum('quantity*weight/1000') rescue 0
     end
   end
   
-#  def weight
-#    self.total_weight
-#  end
+  def weight
+    self.total_weight
+  end
 
 # Order currency
   def currency

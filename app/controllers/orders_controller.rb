@@ -151,7 +151,7 @@ private
   end
 
   def order_params
-    params.require(:order).permit(:web_id, :status, :po_number, :inv_number, :delivery_by, :terms, :notes, :pmt_method, :discount, :user_id, :paid) 
+    params.require(:order).permit(:web_id, :status, :po_number, :inv_number, :delivery_by, :terms, :notes, :pmt_method, :discount, :user_id, :paid, :total, :weight) 
   end
 
   def sort_column
