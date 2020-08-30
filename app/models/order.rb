@@ -255,7 +255,8 @@ class Order < ApplicationRecord
 
 # Total pieces in all products  
   def total_pcs # items_count
-    self.placements.sum(:quantity)
+#    self.placements.sum(:quantity)
+    self.placements.where.not(status: CANCELLED_ORDER).sum(:quantity)
   end
 
   def po_file_present?

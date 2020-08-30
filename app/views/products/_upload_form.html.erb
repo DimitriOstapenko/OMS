@@ -7,7 +7,7 @@
   
 <div id='dropzone_panel'>
   <div class="dz-message">Drop jpg file here to upload</div>
-  <%= f.hint 'If image exists on the server, it will be replaced. Current size limit is 145Mb' %>
+  <%= f.hint 'If image exists on the server, it will be replaced. Current size limit is 5Mb' %>
 </div>
 </form>
 </div>
@@ -21,7 +21,7 @@ Dropzone.options.myDropzone = {
   paramName: "image[image]",
   acceptedFiles: ".jpg,.JPG ",
   maxFiles: 1,
-  maxFilesize: 145, // MB
+  maxFilesize: 5, // MB
   addRemoveLinks: true,
   url: "<%= upload_image_url %>",
   autoDiscover: true,
