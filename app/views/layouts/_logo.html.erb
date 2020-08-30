@@ -9,7 +9,7 @@
         <li><%= link_to "<i class='glyphicon glyphicon-envelope'></i> Client Mailer".html_safe, client_mails_path %></li>
         <li><%= link_to "<i class='glyphicon glyphicon-export'></i> Export Orders".html_safe, export_orders_path %></li>
         <li><%= link_to "<i class='glyphicon glyphicon-check'></i> Data Integrity Check".html_safe, self_test_path %></li>
-        <li><%= link_to "<i class='glyphicon glyphicon-upload'></i> Product image upload".html_safe, image_upload_path %></li>
+        <li><%= link_to "<i class='glyphicon glyphicon-upload'></i> Product image upload".html_safe, image_upload_path, data: { turbolinks: false } %></li>
         <li><%= link_to "<font color='red'><i class='glyphicon glyphicon-upload'></i></font> Packing list upload".html_safe, new_packing_list_path %></li>
         <li><%= link_to "<font color='blue'><i class='glyphicon glyphicon-upload'></i></font> Inventory File Upload".html_safe, new_inventory_path %></li>
       <% end %>
