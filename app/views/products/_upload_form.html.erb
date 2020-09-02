@@ -7,7 +7,7 @@
   
 <div id='dropzone_panel'>
   <div class="dz-message">Drop jpg file here to upload</div>
-  <%= f.hint 'If image exists on the server, it will be replaced. Current size limit is 145Mb' %>
+  <%= f.hint 'If image exists on the server, it will be replaced. Current size limit is 5Mb' %>
 </div>
 </form>
 </div>
@@ -16,24 +16,26 @@
 
 <script>
 Dropzone.options.myDropzone = {
-//  thumbnailWidth: 150,
-//  thumbnailHeight: 200,
   paramName: "image[image]",
   acceptedFiles: ".jpg,.JPG ",
   maxFiles: 1,
-  maxFilesize: 145, // MB
+  maxFilesize: 5, // MB
   addRemoveLinks: true,
   url: "<%= upload_image_url %>",
-  autoDiscover: true,
+  autoDiscover: false,
   uploadMultiple: false,
   autoProcessQueue: false,
+  parallelUploads: 20,
+  timeout: 60000,
 //  autoQueue: false,
 
 init: function() {
-    this.on("addedfile", function() { if (this.files[1]!=null){ this.removeFile(this.files[0]); } });
+//    this.on("addedfile", function() { if (this.files[1]!=null){ this.removeFile(this.files[0]); } });
     this.on("success", function(file) { window.location = "<%= products_path %>"; });
-    var submitButton = document.querySelector("#submit")
-        myDropzone = this; // closure
+    this.on("error", function (msg) { alert(msg.responseText); });
+    this.on("queuecomplete", function () { alert("Upload successful"); });
+    var submitButton = document.querySelector("#submit");
+    myDropzone = this; // closure
 
     submitButton.addEventListener("click", function() {
       myDropzone.processQueue(); // Tell Dropzone to process all queued files.

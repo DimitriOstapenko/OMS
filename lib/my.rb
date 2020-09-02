@@ -198,6 +198,7 @@ module My
 
     num = 0
     order.placements.each do |p|
+      next if p.cancelled?
       num +=1
       rows += [[num, p.product.ref_code, p.product.scale_str, p.product.colour_str, p.product.description, number_to_currency(p.price, locale: order.client.locale), p.quantity, number_to_currency(p.ptotal, locale: order.client.locale)]]
     end
@@ -221,7 +222,7 @@ module My
     pdf.text "Shipping & Handling: #{number_to_currency(order.shipping, locale: order.client.locale )}" if order.shipping.positive?
     pdf.text "Discount: #{number_to_currency(order.discount, locale: order.client.locale )}" if order.discount.positive?
     pdf.text "Sales Tax (#{order.client.tax_pc}%): #{number_to_currency(order.tax, locale: order.client.locale)}" if order.tax.positive?
-    pdf.text "Grand Total (Including Tax): #{number_to_currency(order.total, locale: order.client.locale)}", style: :bold
+    pdf.text "Grand Total (Including Tax): #{number_to_currency(order.grand_total, locale: order.client.locale)}", style: :bold
 
     return pdf
   end # build_po
@@ -274,6 +275,7 @@ module My
 
     num = 0
     order.placements.each do |p|
+      next if p.cancelled?
       num +=1
       rows += [[num, p.product.ref_code, p.product.scale_str, p.product.colour_str, p.product.description, number_to_currency(p.price, locale: order.client.locale), p.quantity, number_to_currency(p.ptotal, locale: order.client.locale)]]
     end
@@ -295,7 +297,7 @@ module My
     pdf.text "Shipping & Handling: #{number_to_currency(order.shipping, locale: order.client.locale )}" if order.shipping.positive?
     pdf.text "Discount: #{number_to_currency(order.discount, locale: order.client.locale )}" if order.discount.positive?
     pdf.text "Sales Tax (#{order.client.tax_pc}%): #{number_to_currency(order.tax, locale: order.client.locale)}" if order.tax.positive?
-    pdf.text "Grand Total (Including Tax): #{number_to_currency(order.total, locale: order.client.locale)}", style: :bold
+    pdf.text "Grand Total (Including Tax): #{number_to_currency(order.grand_total, locale: order.client.locale)}", style: :bold
 
     pdf.move_down 10.mm
     pdf.text "Please check the integrity of the product.", style: :italic

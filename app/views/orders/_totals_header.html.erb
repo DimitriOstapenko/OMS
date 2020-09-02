@@ -1,8 +1,8 @@
 <% 
-   pending = @orders.select{|o| o.pending?}.count rescue 0
-   active =  @orders.select{|o| o.active?}.count rescue 0 
-   shipped = @orders.select{|o| o.shipped?}.count rescue 0
-   canceled = @orders.select{|o| o.cancelled?}.count rescue 0
+   pending = @orders_.select{|o| o.pending?}.count rescue 0
+   active =  @orders_.select{|o| o.active?}.count rescue 0 
+   shipped = @orders_.select{|o| o.shipped?}.count rescue 0
+   canceled = @orders_.select{|o| o.cancelled?}.count rescue 0
 %>
 
 <% case @status.to_i %>

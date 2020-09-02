@@ -10,10 +10,10 @@
   </thead>
   <tbody>
   <tr>
-    <td> <%= to_currency @orders.sum(:total) %></td>
-    <td> <%= to_currency @orders.where(status: PENDING_ORDER).sum(:total) %> </td>
-    <td> <%= to_currency @orders.where(status: ACTIVE_ORDER).sum(:total) %> </td>
-    <td> <%= to_currency @orders.where(status: SHIPPED_ORDER).sum(:total) %></td>
-    <td> <%= to_currency @orders.where(status: CANCELLED_ORDER).sum(:total) %></td>
+    <td> <%= to_currency @orders_.sum{|o| o.grand_total*o.client.fx_rate} %></td>
+    <td> <%= to_currency @orders_.where(status: PENDING_ORDER).sum{|o| o.grand_total*o.client.fx_rate} %> </td>
+    <td> <%= to_currency @orders_.where(status: ACTIVE_ORDER).sum{|o| o.grand_total*o.client.fx_rate} %> </td>
+    <td> <%= to_currency @orders_.where(status: SHIPPED_ORDER).sum{|o| o.grand_total*o.client.fx_rate} %></td>
+    <td> <%= to_currency @orders_.where(status: CANCELLED_ORDER).sum{|o| o.cancelled_total*o.client.fx_rate} %></td>
   </tbody>
 </table>

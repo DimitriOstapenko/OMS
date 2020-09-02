@@ -83,8 +83,8 @@ class PackingListsController < ApplicationController
 
 private
   def init
-    @packing_list = PackingList.find(params[:id])
-    redirect_to packing_lists_path unless @packing_list 
+    @packing_list = PackingList.find(params[:id]) rescue nil
+    (flash[:warning]="Packing List not found"; redirect_to packing_lists_path) unless @packing_list 
   end
 
   def packing_list_params

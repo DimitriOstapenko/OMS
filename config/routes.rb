@@ -73,12 +73,12 @@ Rails.application.routes.draw do
     patch 'mark_as_paid', on: :member
   end
 
-  resources :placements, only: [:index, :show, :create, :update, :destroy] do
-      patch 'set_to_shipped', on: :member
-      get 'set_to_shipped', on: :member  # for redirect_to in placements#update_shipped
+  resources :placements do
+#      patch 'set_to_shipped', on: :member
+#      get 'set_to_shipped', on: :member  # for redirect_to in placements#update_shipped
       patch 'update_shipped', on: :member
+      get 'cancel', on: :member
    end
-
 
   resources :clients do
     get 'send_invite_to_register', on: :member

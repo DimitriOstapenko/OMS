@@ -7,7 +7,7 @@ Ordered <%= @order.products.count %> <%= 'product'.pluralize(@order.products.cou
   <%= placement.product.ref_code %> | <%= placement.product.description %> | <%= number_to_currency(placement.price, locale: @client.locale) %> | <%= placement.quantity %>
 <% end %>
 
-Order Total: <%= number_to_currency(@order.total,locale: @client.locale) %>
+Order Total: <%= number_to_currency(@order.grand_total,locale: @client.locale) %>
 
 <%= link_to 'Follow this link to see the order online', orders_url(@client) %>
 

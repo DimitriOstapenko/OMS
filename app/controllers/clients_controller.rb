@@ -2,7 +2,7 @@ class ClientsController < ApplicationController
 
   before_action :logged_in_user
   before_action :admin_or_staff_user #, only: [:index, :edit, :update]
-  before_action :admin_user, only: [:destroy]
+  before_action :admin_or_su_user, only: [:destroy]
 
   helper_method :sort_column, :sort_direction
 

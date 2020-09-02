@@ -51,7 +51,7 @@
 <% if @order.tax.positive? %>
   <div> Sales Tax (<%= @client.tax_pc %>%): <%= to_currency @order.tax, locale: @client.locale %></div>
 <% end %>
-<div><b> Grand Total : <%= to_currency @order.total, locale: @client.locale %> </b></div>
+<div><b> Grand Total : <%= to_currency @order.grand_total, locale: @client.locale %> </b></div>
 </p>
 
 <div class="bottom_nav">

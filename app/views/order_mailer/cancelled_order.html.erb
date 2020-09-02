@@ -27,7 +27,7 @@
 <tfoot>
   <tr>
     <td colspan=4><b>Total:</b></td>
-    <td><%= number_to_currency(@order.total,locale: @order.client.locale) %></td>
+    <td><%= number_to_currency(@order.grand_total,locale: @order.client.locale) %></td>
     <td> <%= @order.placements.sum(:quantity) %> </td>
   </tr>
 </tfoot>

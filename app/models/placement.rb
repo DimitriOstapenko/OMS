@@ -5,12 +5,13 @@ class Placement < ApplicationRecord
   belongs_to :order, inverse_of: :placements
   belongs_to :product, inverse_of: :placements
 
-  validates :quantity, numericality: { only_integer: true, greater_than: 0 }
+  validates :quantity, numericality: { only_integer: true}
 
 #  after_create :decrement_product_quantity!
   default_scope -> {order(product_id: :asc) }
 
   def ptotal
+    return 0 if self.cancelled?
     self.quantity * self.price
   end
 
@@ -73,11 +74,27 @@ class Placement < ApplicationRecord
 
   # Pending and active
   def pending
-    self.quantity - self.shipped
+    return 0 if self.cancelled?
+    self.quantity - self.shipped 
   end
 
   def ref_code
     self.product.ref_code.inspect
+  end
+
+  def delete_pdfs
+    self.ppo.delete_pdf if self.ppo.present?
+    self.order.delete_pdfs # invoice + PO
+  end
+
+# Cancel this placement, cancel order if all placements canceled 
+  def cancel(by_email)
+    return unless self.pending?
+    self.update_attributes(status: CANCELLED_ORDER)
+    self.delete_pdfs
+    self.order.save
+    return if self.order.cancelled?
+    self.order.cancel(by_email) if self.order.all_placements_cancelled?
   end
 
   def self.to_csv

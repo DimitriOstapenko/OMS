@@ -32,7 +32,7 @@ Dear <%= @client.name %></b>, you ordered following products from APD Order Mana
 <tfoot>
   <tr>
     <td colspan=5><b>Total:</b></td>
-    <td><%= number_to_currency(@order.total,locale: @client.locale) %></td>
+    <td><%= number_to_currency(@order.grand_total,locale: @client.locale) %></td>
     <td> <%= @order.placements.sum(:quantity) %> </td>
   </tr>
 </tfoot>
