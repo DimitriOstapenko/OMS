@@ -1,6 +1,7 @@
 <%= render "shared/modal" %>
 
 <% if @products.any? %>
+Products:   <%= @products.count %>
 <% if current_user.staff? || current_user.admin? %>
   <div style="float:right"><small>Inactive products are highlighted with yellow; Manual price products with red</small></div>
 <% end %>

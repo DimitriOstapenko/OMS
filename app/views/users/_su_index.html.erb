@@ -1,6 +1,7 @@
 <% provide(:title, 'All users') %>
 <%= render "shared/modal", size: 'md' %>
 
+Users:   <%= @users.count %>
 <% scroll = "table-wrapper-scroll-x" if mobile_device? %>
 <table class="tbl2 table-hover table-striped table-bordered <%= scroll %>" >
    <thead>
@@ -24,7 +25,6 @@
   </thead>
   <tbody>
 
-  Users:   <%= @users.count %>
 
   <%= render @users %>
 

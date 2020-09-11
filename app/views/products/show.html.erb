@@ -2,7 +2,7 @@
 
 <div class="row">
 <div class="col-md-10 col-md-offset-1">
-	<h3 class='display-1'>Product:  <%= @product.ref_code %> - details  </h3>
+	<h3 class='display-1'>Product:  <%= @product.ref_code %>: <%= @product.description %> </h3>
 
         <%= render "#{current_user.role}_show_prod" %>
 

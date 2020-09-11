@@ -107,7 +107,7 @@ class PlacementsController < ApplicationController
     else 
       flash[:success] = "Placement deleted"
       @placement.ppo.delete_pdf if @placement.ppo.present?
-      @order.save!
+      @order.save
       redirect_back(fallback_location: @order)
     end
   end

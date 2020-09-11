@@ -1,5 +1,6 @@
 <%= render "shared/modal" %>
 
+Clients:   <%= @clients.count %>
 <% scroll = "table-wrapper-scroll-x" if mobile_device? %>
 <table class="tbl2 table-hover table-striped table-bordered <%= scroll %>" >
   <thead>
