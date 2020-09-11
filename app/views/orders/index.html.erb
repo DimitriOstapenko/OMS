@@ -2,6 +2,7 @@
 
 <% if @orders.any? %>
 <% first_page = params[:page] == '1' || params[:page].blank? %>
+<% show_totals = first_page && params[:show_totals].present? %>
 <p></p>
 <%= render "totals_header" if first_page %>
 
@@ -16,8 +17,12 @@
 </table>
 
 <div class="row">
-  <div class="col-md-6">
-    <%= render "totals_table" if first_page %>
+  <div class="col-md-6 pt-3">
+    <% if show_totals %>
+      <%= render "totals_table" %>
+    <% else %>
+      <%= link_to 'Show Totals', orders_path(show_totals: 1) %>
+    <% end %> 
   </div>
 
   <div class="col-md-6">
