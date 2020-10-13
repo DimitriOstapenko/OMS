@@ -56,6 +56,7 @@ class Product < ApplicationRecord
     self.price_eu6 = pr.price_eu6
     self.price_usd = pr.price_usd
     self.price_usd2 = pr.price_usd2
+    self.delta ||= 0
   end
 
   def scale_str
