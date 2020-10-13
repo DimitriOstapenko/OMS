@@ -115,7 +115,8 @@ class ProductsController < ApplicationController
 
   def update_delta
     @product = Product.find(params[:id])
-    @product.update_attribute(:delta, params[:product][:delta])
+    delta = params[:product][:delta].to_i.abs rescue 0
+    @product.update_attribute(:delta, delta)
     flash[:info] = "Product : #{@product.ref_code} - updated delta amount"
     redirect_back(fallback_location: inventories_path)
   end
