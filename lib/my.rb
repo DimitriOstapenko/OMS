@@ -10,13 +10,15 @@ module My
     require 'prawn/measurement_extensions'
     include ActionView::Helpers::NumberHelper
 
-# Generate Client/Product Report
+# Generate Client/Product/Summary Report
   def build_report( report, orders )
     case report.category
       when PRODUCT_REPORT
         pdf = build_product_report(report, orders)
       when CLIENT_REPORT
         pdf = build_client_report(report, orders)
+      when SUMMARY_REPORT
+        pdf = build_summary_report(report, orders)
       else   
         logger.error "*** Report error: Invalid category #{report.inspect}"
       end
@@ -29,31 +31,32 @@ module My
 
     pdf = Prawn::Document.new( :page_size => "LETTER", margin: [20.mm,8.mm,20.mm,15.mm])
     pdf.font "Helvetica"
-    pdf.text "#{report.product.ref_code}: #{report.category_str} Report: #{report.status_str} Placements - #{report.timeframe_str}", align: :center, size: 15, style: :bold
+    ref_code = report.product.present? ? report.product.ref_code : 'All products'
+    pdf.text "#{ref_code}: #{report.category_str} Report: #{report.status_str} Placements - #{report.timeframe_str}", align: :center, size: 15, style: :bold
 
     pdf.text "#{report.daterange}, #{placements.count} orders; Client: #{client_name}; #{fx}", align: :center, size: 10, style: :bold
   
     pdf.move_down 5.mm
     pdf.font_size 9
-    rows =  [[ '#', 'Client', "Order#", "Ttl.Pcs", "Pending", "Shipped", "Date", "Order Status", "PO", "Subtotal"]]
+    rows =  [[ '#', 'Ref.Code', "Client", "Order#", "Ttl.Pcs", "Pending", "Shipped", "Ordered", "Order Status", "PO#", "Subtotal"]]
     
     ttl_pcs = pending_pcs = shipped_pcs = num = 0; subtotal = ttl_amount = 0.0
     placements.each do |pl|
       o = pl.order
       num += 1
       subtotal = pl.price * pl.quantity
-      rows += [[num, o.client.name, o.id, pl.quantity, pl.pending, pl.shipped, o.created_at.to_date, pl.status_str, o.po_number, number_to_currency(subtotal,locale: o.client.locale) ]] 
+      rows += [[num, pl.product.ref_code, o.client.code, o.id, pl.quantity, pl.pending, pl.shipped, o.created_at.to_date, pl.status_str, o.po_number, number_to_currency(subtotal,locale: o.client.locale) ]] 
 
         ttl_pcs += pl.quantity
         pending_pcs += pl.pending
         shipped_pcs += pl.shipped
         ttl_amount += subtotal * o.client.fx_rate   # we convert all to euros
     end
-    rows += [['','','',ttl_pcs,pending_pcs,shipped_pcs, '','','',  number_to_currency(ttl_amount, locale: :fr)]]
+    rows += [['','','','',ttl_pcs,pending_pcs,shipped_pcs, '','','',  number_to_currency(ttl_amount, locale: :fr)]]
 
     pdf.table rows, cell_style: {inline_format: true} do |t|
         t.cells.border_width = 0
-        t.column_widths = [10.mm, 40.mm, 15.mm, 15.mm, 15.mm, 15.mm, 20.mm, 20.mm, 20.mm, 20.mm ]
+        t.column_widths = [8.mm, 18.mm, 20.mm, 15.mm, 15.mm, 15.mm, 15.mm, 22.mm, 20.mm, 20.mm, 20.mm ]
         t.header = true
         t.row(0).font_style = t.row(-1).font_style = :bold
         t.row(0).min_font_size = t.row(-1).min_font_size = 10
@@ -66,7 +69,7 @@ module My
     end
 
     return pdf
-  end
+  end # generate_product_report
 
 # Generate Client Report
   def build_client_report( report, orders )
@@ -120,6 +123,25 @@ module My
 
     return pdf
   end  # build_client_report
+
+
+  # Generate Summary Report
+  def build_summary_report( report, placements )
+    client_name = report.client.name rescue 'All'
+    fx = "Fx USD/EUR: #{get_usd_euro_fx}" unless report.client && report.client.currency == :eur
+
+    pdf = Prawn::Document.new( :page_size => "LETTER", margin: [20.mm,8.mm,20.mm,15.mm])
+    pdf.font "Helvetica"
+    pdf.text "#{report.detail_str} #{report.category_str} Report: #{report.status_str} Orders - #{report.timeframe_str}", align: :center, size: 15, style: :bold
+
+    pdf.text "#{report.daterange} #{placements.count} placements; Client: #{client_name}; #{fx}", align: :center, size: 10, style: :bold
+
+    pdf.move_down 5.mm
+    pdf.font_size 9
+    rows =  [[ '#', "Ref.Code", "Pcs", "Orders", "Active", "Shipped", "Total"]]
+
+    return pdf
+  end # build_summary_report
 
   def build_ppo_pdf( ppo )
     return unless ppo.present?

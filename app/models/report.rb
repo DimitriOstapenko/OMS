@@ -9,7 +9,7 @@ class Report < ApplicationRecord
         validates :timeframe, :client_id, :detail,  numericality: { only_integer: true }, allow_blank: true
 #        validates :sdate, presence: true, if: Proc.new { |a| a.timeframe == DAY_REPORT || a.timeframe == DRANGE_REPORT }
 #        validates :edate, presence: true, if: Proc.new { |a| a.timeframe == DRANGE_REPORT}
-        validates :product_id, presence: true, if: Proc.new { |p| p.category == PRODUCT_REPORT}
+##        validates :product_id, presence: true, if: Proc.new { |p| p.category == PRODUCT_REPORT}
 
   def set_attributes!
     nextid = Report.maximum(:id).next rescue 1
@@ -54,6 +54,11 @@ class Report < ApplicationRecord
 
   def category_str
     REPORT_CATEGORIES.invert[self.category] || 1
+  end
+
+# Class method  
+  def self.cat_str(category)
+    REPORT_CATEGORIES.invert[category] || 1
   end
   
   def timeframe_str

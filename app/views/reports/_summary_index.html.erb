@@ -1,0 +1,29 @@
+<% if @reports.any? %>
+<table class="tbl2 table-hover table-striped table-bordered">
+  <caption>List of Summary Reports</caption>
+   <thead>
+      <tr>
+          <th class="text-center tbl_sm">Id</th>
+          <th>Client</th>
+          <th>Type</th>
+          <th>Time Frame</th>
+          <th class="tbl_lmd">Date Range</th>
+          <th>Detail</th>
+          <th class='tbl_lmd'>Created on</th> 
+          <th class="tbl_sm"></th>
+          <th class="tbl_sm"></th>
+      </tr>
+  </thead>
+  <tbody>
+
+  <%= render @reports %>
+
+  </tbody>
+</table>
+
+<div class="bottom_nav">
+<%= will_paginate @reports, class: "btn" %>
+</div>
+
+<% end %>
+

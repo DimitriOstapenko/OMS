@@ -4,18 +4,13 @@
 
   <%= f.input :category, as: :hidden %>
   <div class="row" %>
-   <div class="col-md-6">
-       <%= f.input :product_id, collection: Product.all, value_method: :id, label_method: :ref_code_and_descr, include_blank: 'All' %> 
-   </div>
-   <div class="col-md-6">
+   <div class="col-md-4">
        <%= f.input :client_id, collection: get_clients_with_orders, include_blank: 'All', selected: current_user.client_id, disabled: disabled %>
    </div>
-  </div>
-  <div class="row" %>
-   <div class="col-md-6">
+   <div class="col-md-4">
       <%= f.input :status, collection: ORDER_STATUSES, label: "Order Status ", include_blank: 'All'  %>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-4">
        <%= f.input :timeframe, collection: REPORT_TIMEFRAMES, include_blank: 'All Time' %>
     </div>
   </div>

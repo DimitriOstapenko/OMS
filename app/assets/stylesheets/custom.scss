@@ -363,7 +363,7 @@ footer {
 }
 
 .bottom_buttons {
-  padding-top: 20px;
+  padding-top: ($spacer * 5) !important;
   margin-left: 20px;
 }
 

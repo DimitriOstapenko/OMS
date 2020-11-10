@@ -137,21 +137,29 @@ private
 
 # Get orders/placements in given timeframe matching given client/status 
   def get_orders(report)
-    if report.category == CLIENT_REPORT 
+    case report.category
+      when CLIENT_REPORT
       orders = Order.all
       orders = orders.where(client_id: report.client_id) if report.client_id
       orders = orders.where(created_at: (report.sdate..report.edate))
       orders = orders.where(status: report.status) if report.status.present?
       return orders
-    elsif report.category == PRODUCT_REPORT 
-      placements = Placement.where(product_id: report.product_id)
-      placements = placements.where(created_at: (report.sdate..report.edate))
+    when PRODUCT_REPORT
+      placements = Placement.where(created_at: (report.sdate..report.edate))
+      placements = placements.where(product_id: report.product_id) if report.product_id
       placements = placements.where(status: report.status) if report.status.present?
-      placements = placements.select{|p| p.order.client_id == report.client_id} if report.client_id
+      placements = placements.joins(:order).where('orders.client_id': report.client_id) if report.client_id
+      return placements
+    when SUMMARY_REPORT
+#p= Placement.joins(:order).where("orders.client_id":405).group(:product_id).pluck(:product_id,'sum(quantity)','sum(shipped)','sum(to_ship)','count(order_id)','sum(price)')
+      placements = Placement.where(created_at: (report.sdate..report.edate))
+      placements = placements.where(status: report.status) if report.status.present?
+      placements = placements.joins(:order).where('orders.client_id': report.client_id) if report.client_id
       return placements
     else 
 #      logger.error "*** Invalid Report Category: #{report.inspect}"
-       redirect_to reports_path
+#       redirect_to reports_path
+       return []
     end
   end
 

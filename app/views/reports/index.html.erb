@@ -1,46 +1,12 @@
 <% provide(:title, 'Reports') %>
 <%= render "shared/modal" %>
 
-<% cat_str = (@category == PRODUCT_REPORT) ? 'Product' : 'Client' %>
-<% if @reports.any? %>
-<table class="tbl2 table-hover table-striped table-bordered">
-  <caption>List of <%= cat_str %> Reports</caption>
-   <thead>
-      <tr>
-          <th class="text-center tbl_sm">Id</th>
-          <% if @category == PRODUCT_REPORT %>
-          <th>Product</th>
-          <% end %>
-          <th>Client</th>
-          <th>Type</th>
-          <th>Time Frame</th>
-          <th class="tbl_lmd">Date Range</th>
-          <th>Detail</th>
-          <th class='tbl_lmd'>Created on</th> 
-          <th class="tbl_sm"></th>
-          <th class="tbl_sm"></th>
-          <% unless current_user.client? %>
-            <th class="tbl_sm"></th>
-          <% end %>
-      </tr>
-  </thead>
-  <tbody>
-
-  <%= render @reports %>
-
-  </tbody>
-</table>
-
-<div class="bottom_nav">
-<%= will_paginate @reports, class: "btn" %>
-</div>
-
-<% end %>
+<% cat_str = Report.cat_str(@category).downcase rescue 'product' %>
+<%= render "#{cat_str}_index" %>
 
 <div class="bottom_buttons">
-  <%= link_to "Create #{cat_str} Report ", new_report_path(category: @category), class: "btn btn-primary col-md-2 ", method: 'get'  %>
+  <%= link_to "Create #{cat_str} report ", new_report_path(category: @category), class: "btn btn-primary col-md-2 ", method: 'get'  %>
 </div>
-
 
 <script>
 $zoho.salesiq.ready=function(embedinfo)
