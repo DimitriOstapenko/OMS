@@ -84,12 +84,12 @@ module My
   
     pdf.move_down 5.mm
     pdf.font_size 9
-    rows =  [[ '#', "Order", "Items", "Pcs", "Shipped", "Date", "Status", "Invoice", "Total"]]
+    rows =  [[ '#', "Client", "Order", "Items", "Pcs", "Shipped", "Ordered", "Status", "Invoice", "Total"]]
     
     ttl_products = ttl_amount = ttl_pcs = ttl_shipped = num = 0
     orders.all.each do |o|
       num += 1
-      rows += [["<b>#{num}</b>", o.id, o.products.count, o.total_pcs, o.shipped, o.created_at.to_date, o.status_str.to_s, o.inv_number, number_to_currency(o.total,locale: o.client.locale)]]
+      rows += [["<b>#{num}</b>", o.client.code, o.id, o.products.count, o.total_pcs, o.shipped, o.created_at.to_date, o.status_str.to_s, o.inv_number, number_to_currency(o.total,locale: o.client.locale)]]
       if report.detail == ITEMIZED_REPORT
          o.placements.each do |pl|
            price  = number_to_currency(pl.price, locale: o.client.locale)
@@ -103,11 +103,11 @@ module My
       ttl_shipped += o.shipped
       ttl_amount += o.total * o.client.fx_rate   # we convert all to euros
     end
-    rows += [['Totals: ','',ttl_products,ttl_pcs,ttl_shipped,'','','',  number_to_currency(ttl_amount, locale: :fr)]]
+    rows += [['','','',ttl_products,ttl_pcs,ttl_shipped,'','','',  number_to_currency(ttl_amount, locale: :fr)]]
 
     pdf.table rows, cell_style: {inline_format: true} do |t|
         t.cells.border_width = 0
-        t.column_widths = [15.mm, 18.mm, 18.mm, 18.mm, 18.mm, 28.mm, 23.mm, 25.mm, 28.mm ]
+        t.column_widths = [10.mm, 22.mm, 16.mm, 16.mm, 16.mm, 16.mm, 27.mm, 22.mm, 22.mm, 22.mm ]
         t.header = true
         t.row(0).font_style = t.row(-1).font_style = :bold
         t.row(0).min_font_size = t.row(-1).min_font_size = 12
@@ -125,7 +125,7 @@ module My
   end  # build_client_report
 
 
-  # Generate Summary Report
+  # Generate Summary Report (to be finished)
   def build_summary_report( report, placements )
     client_name = report.client.name rescue 'All'
     fx = "Fx USD/EUR: #{get_usd_euro_fx}" unless report.client && report.client.currency == :eur

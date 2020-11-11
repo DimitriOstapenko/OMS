@@ -27,6 +27,22 @@ class Placement < ApplicationRecord
     self.order.client_name
   end
 
+  def client_code
+    self.order.client_name
+  end
+
+  def po_number
+    self.order.po_number
+  end
+
+  def inv_number
+    self.order.inv_number
+  end
+
+  def ordered
+    self.created_at.to_date
+  end  
+
 # Set placement to shipped; set shipped quantity, order status; Update PPO if present  
   def set_to_shipped
     self.update_attribute(:status, SHIPPED_ORDER)
@@ -98,7 +114,7 @@ class Placement < ApplicationRecord
   end
 
   def self.to_csv
-    attributes = %w{order_id client_name ref_code created_at quantity price ptotal ppo_id shipped pending to_ship packing_list_id status_str}
+    attributes = %w{ref_code client_code order_id quantity pending shipped to_ship ordered status_str price ptotal po_number inv_number ppo_id packing_list_id status_str}
     CSV.generate(headers: attributes, write_headers: true) do |csv|
       all.each do |placement|
         csv << attributes.map{ |attr| placement.send(attr) }
