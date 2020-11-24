@@ -1,4 +1,4 @@
-<% if !logged_in? %>
+<%# if !logged_in? %>
   <% 
      random = Dir.glob("#{IMAGE_BASE}/fullsize/[TLG]*.jpg")[rand(650)] 
      img = Pathname(random).basename rescue 'reduced.jpg'
@@ -12,4 +12,4 @@ body {
   background-size: cover;
 }
 </style>
-<% end %>
+<%# end %>
