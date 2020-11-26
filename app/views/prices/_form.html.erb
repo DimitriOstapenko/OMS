@@ -1,58 +1,58 @@
 <%= simple_form_for @price do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
+  <% new_rule = (action_name == 'new')? true : false %>  
 
-  <% readonly = (action_name == 'edit')? true : false %>  
+  <% if new_rule %>
+    <div class="row">
+      <div class="col-md-2">
+      <%= f.input :scale %>
+      </div>
+      <div class="col-md-2">
+      <%= f.input :category, collection: CATEGORIES, include_blank: false %>
+      </div>
+    </div>
+  <% end %>
 
   <div class="row">
-  <div class="col-md-1"> </div>
   <div class="col-md-2">
-  <%= f.input :scale, readonly: readonly %>
-  </div>
-
-  <div class="col-md-2">
-  <%= f.input :category, collection: CATEGORIES, include_blank: false, readonly: readonly %>
-  </div>
-
-  <div class="col-md-2">
-  <%= f.input :price_eu %>
+    <%= f.input :price_eu %>
   </div>
   
   <div class="col-md-2">
-  <%= f.input :price_eu2 %>
+    <%= f.input :price_eu2 %>
   </div>
 
   <div class="col-md-2">
-  <%= f.input :price_eu3 %>
+    <%= f.input :price_eu3 %>
+  </div>
+  
+  <div class="col-md-2">
+    <%= f.input :price_eu4 %>
+  </div>
+
+  <div class="col-md-2">
+    <%= f.input :price_eu5 %>
+  </div>
+  
+  <div class="col-md-2">
+    <%= f.input :price_eu6 %>
   </div>
   </div>
 
   <div class="row">
-  <div class="col-md-1"> </div>
   <div class="col-md-2">
-  <%= f.input :price_eu4 %>
+    <%= f.input :price_usd %>
   </div>
 
   <div class="col-md-2">
-  <%= f.input :price_eu5 %>
-  </div>
-  
-  <div class="col-md-2">
-  <%= f.input :price_eu6 %>
-  </div>
-
-  <div class="col-md-2">
-  <%= f.input :price_usd %>
-  </div>
-
-  <div class="col-md-2">
-  <%= f.input :price_usd2 %>
+    <%= f.input :price_usd2 %>
   </div>
   </div>
 
   <% unless action_name == 'show' %>
   <div class="row">
     <div class="col-md-12">
-    <%= f.submit yield(:button_text), class: "btn btn-primary" %>
+      <%= f.submit yield(:button_text), class: "btn btn-primary" %>
     </div>
   </div>
   <% end %>
