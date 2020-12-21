@@ -25,6 +25,7 @@ class SelfTestController < ApplicationController
     @empty_price_eu5 = Product.where(price_eu5: 0)
     @empty_price_usd = Product.where(price_usd: nil)
     @empty_price_usd2 = Product.where(price_usd2: 0)
+    @empty_price_cny = Product.where(price_cny: 0)
 
     @missing_images = []
     Product.all.each do |p|

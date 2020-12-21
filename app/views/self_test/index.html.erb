@@ -26,6 +26,7 @@
   <ul> <%= @empty_price_eu2.any? ? error_icon:ok_icon %> Missing price EU2 test: <%= render 'show_products', collection: @empty_price_eu2 %> </ul>
   <ul> <%= @empty_price_usd.any? ? error_icon:ok_icon %> Missing price USD test: <%= render 'show_products', collection: @empty_price_usd %> </ul>
   <ul> <%= @empty_price_usd2.any? ? error_icon:ok_icon %> Missing price USD2 test: <%= render 'show_products', collection: @empty_price_usd2 %> </ul>
+  <ul> <%= @empty_price_cny.any? ? error_icon:ok_icon %> Missing price CNY test: <%= render 'show_products', collection: @empty_price_cny %> </ul>
   <ul> <%= @missing_images.any? ? error_icon:ok_icon %> Missing picture test: <%= render 'show_products', collection: @missing_images %> </ul>
   <ul> <%= @missing_ref_codes.any? ? error_icon:ok_icon %> Pictures without corresponding products: <%= render 'show_pictures', collection: @missing_ref_codes %> </ul>
 </ul>
