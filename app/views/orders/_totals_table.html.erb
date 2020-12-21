@@ -1,3 +1,5 @@
+<% locale = :eu %>
+<% locale = :cn if current_user.production? || (current_user.client? && current_client.cn?) %>
 <table  class="table table-sm table-responsive table-condensed table-bordered">
   <thead class="bg-success">
   <tr>
@@ -10,10 +12,10 @@
   </thead>
   <tbody>
   <tr>
-    <td> <%= to_currency @orders_.sum{|o| o.grand_total*o.client.fx_rate} %></td>
-    <td> <%= to_currency @orders_.where(status: PENDING_ORDER).sum{|o| o.grand_total*o.client.fx_rate} %> </td>
-    <td> <%= to_currency @orders_.where(status: ACTIVE_ORDER).sum{|o| o.grand_total*o.client.fx_rate} %> </td>
-    <td> <%= to_currency @orders_.where(status: SHIPPED_ORDER).sum{|o| o.grand_total*o.client.fx_rate} %></td>
-    <td> <%= to_currency @orders_.where(status: CANCELLED_ORDER).sum{|o| o.cancelled_total*o.client.fx_rate} %></td>
+    <td> <%= to_currency @orders_.sum{|o| o.grand_total*o.client.fx_rate}, locale: locale %></td>
+    <td> <%= to_currency @orders_.where(status: PENDING_ORDER).sum{|o| o.grand_total*o.client.fx_rate}, locale: locale %> </td>
+    <td> <%= to_currency @orders_.where(status: ACTIVE_ORDER).sum{|o| o.grand_total*o.client.fx_rate}, locale: locale %> </td>
+    <td> <%= to_currency @orders_.where(status: SHIPPED_ORDER).sum{|o| o.grand_total*o.client.fx_rate}, locale: locale %></td>
+    <td> <%= to_currency @orders_.where(status: CANCELLED_ORDER).sum{|o| o.cancelled_total*o.client.fx_rate}, locale: locale %></td>
   </tbody>
 </table>

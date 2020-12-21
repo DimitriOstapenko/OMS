@@ -49,20 +49,33 @@ class Client < ApplicationRecord
           product.price_usd
         when USD2_PRICE
           product.price_usd2
+        when CNY_PRICE
+          product.price_cny
         else
           errors.add('Price Type Error',"Client price_type is invalid")
           return 0
       end 
   end
 
+# Chinese client?
+  def cn?
+    self.geo == GEO_CN
+  end
+
+  def world?
+    self.geo == GEO_WRLD
+  end
+
 # locale to be used in currency conversions and total calculations  
   def locale
+    return :cn if self.cn?
     country = Country[self.country]
     (country.continent == 'Europe') ? :fr : :us rescue :fr
   end
 
 # Client's currency  
   def currency
+    return :cny if self.cn?
     (self.locale == :us)? :usd : :eur
   end
 

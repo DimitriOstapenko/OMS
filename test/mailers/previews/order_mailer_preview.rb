@@ -6,9 +6,19 @@ class OrderMailerPreview < ActionMailer::Preview
     OrderMailer.send_confirmation(order)
   end
 
+  def send_confirmation_about_changes
+    order = Order.last
+    OrderMailer.send_confirmation_about_changes(order)
+  end
+
   def notify_staff
     order = Order.first
     OrderMailer.notify_staff(order)
+  end
+
+  def notify_staff_about_changes
+    order = Order.last
+    OrderMailer.notify_staff_about_changes(order)
   end
 
   def cancelled_order

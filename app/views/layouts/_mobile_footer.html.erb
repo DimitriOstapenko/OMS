@@ -1,0 +1,18 @@
+<footer>
+  <small>
+    <img src="/favicon.ico" width="16x16"></img>
+    <a href="<%= project_url %>"><%= short_title %></a>  -  &copy; <%= Date.today.year %> 
+  </small>
+  <nav>
+    <ul>
+      <small>
+      <li><%= link_to "About", about_path, target: '_new' %></li>
+      <li><%= link_to "Help", help_path, target: '_new' %></li>
+      <li><%= link_to "Contact", contact_path, target: '_new' %></li>
+      <% if current_user && !current_user.client? %>
+      <% end %>
+      <li><%= link_to "Terms", terms_path, target: '_new' %></li>
+      </small>
+    </ul>
+  </nav>
+</footer>

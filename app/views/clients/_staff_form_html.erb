@@ -1,0 +1,94 @@
+<%  readonly = disabled = (action_name == 'show') %>
+
+  <%= simple_form_for @client  do |f| %>
+
+  <%= render 'shared/error_messages', object: f.object %>
+
+  <%= f.hidden_field :geo, value: GEO_WRLD %>
+
+  <div class="row">
+  <div class="col-md-10">
+  <%= f.input :name, label: 'Client Name', readonly: readonly %>
+  </div>
+  <div class="col-md-2">
+    <b><%= f.input :registered_str, label: 'Registered?', readonly: true %></b>
+  </div>
+  </div>
+
+  <div class="row">
+  <div class="col-md-3">
+    <%= f.input :cltype, collection: CLIENT_TYPES, label: "Client Type", include_blank: false, readonly: readonly  %>
+  </div>
+  <div class="col-md-3">
+    <%= f.input :price_type, collection: PRICE_TYPES, label: 'Price Model', include_blank: false, readonly: readonly  %> 
+  </div>
+  <div class="col-md-3">
+  <%= f.input :country, as: :country, include_blank: 'Please Select', readonly: readonly   %>
+  </div>
+  <div class="col-md-3">
+  <%= f.input :state_prov, label: 'State/Province', readonly: readonly %>
+  </div>
+  </div>
+  
+  <div class="row">
+  <div class="col-md-10">
+  <%= f.input :address, label: 'Street Address', readonly: readonly %>
+  </div>
+  <div class="col-md-2">
+  <%= f.input :zip_postal, label: 'ZIP/Postal', readonly: readonly  %>
+  </div>
+  </div>
+
+  <div class="row">
+  <div class="col-md-4">
+  <%= f.input :contact_lname, label: 'Contact Last Name', readonly: readonly  %>
+  </div>
+  <div class="col-md-4">
+  <%= f.input :contact_fname, label: 'Contact First Name', readonly: readonly  %>
+  </div>
+
+  <div class="col-md-4">
+  <%= f.input :contact_email, readonly: readonly  %>
+  </div>
+  </div>
+
+  <div class="row">
+  <div class="col-md-3">
+  <%= f.input :contact_phone, readonly: readonly  %>
+  </div>
+  <div class="col-md-3">
+  <%= f.input :vat, label: 'VAT #', readonly: readonly  %>
+  </div>
+  <div class="col-md-2">
+  <%= f.input :tax_pc, label: 'Tax Payable (%)', readonly: readonly  %>
+  </div>
+  <div class="col-md-4">
+  <%= f.input :web, label: 'Website', readonly: readonly  %>
+  </div>
+  </div>
+  
+  <div class="row">
+  <div class="col-md-4">
+  <%= f.input :default_terms, collection: PAYMENT_TERMS, label: 'Default Payment Terms', include_blank: false, readonly: readonly   %>
+  </div>
+  <div class="col-md-4">
+  <%= f.input :pref_delivery_by, collection: Shipper.all, label: 'Preferred Delivery by', include_blank: false, readonly: readonly  %>
+  </div>
+  <div class="col-md-4">
+  <%= f.input :shipping_cost, label: 'Shipping Cost/Kg', readonly: readonly  %>
+  </div>
+  </div>
+
+  <div class="row">
+  <div class="col-md-12">
+  <%= f.input :notes, readonly: readonly  %>
+  </div>
+  </div>
+
+  <% unless disabled %>
+  <%= f.submit yield(:button_text), class: "btn btn-primary" %>
+  <% end %>
+
+<% end %>
+
+

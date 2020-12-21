@@ -67,8 +67,14 @@ end
     end
 
 # Build array of clients with orders
-    def get_clients_with_orders
-      Order.joins(:client).group(:client_id,:name).reorder('').pluck('name,client_id')
+    def get_clients_with_orders(geo = nil)
+      if geo
+        orders = Order.where(geo: geo)
+      else 
+        orders = Order.all
+      end
+
+      orders.joins(:client).group(:client_id,:name).reorder('').pluck('name,client_id')
     end
 
 # Return symbol for client type
@@ -87,6 +93,9 @@ end
     end    
 
     def cuser
-      User.current_scope
+#      User.current_scope
+       current_user
     end 
+
+
 end

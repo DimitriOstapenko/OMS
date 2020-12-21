@@ -3,7 +3,7 @@
       <img src="<%= @product.large_image_rel_path %>">
   </div>
   
-<div class="col-md-3">
+<div class="col-md-3 pt-5">
   Scale:       <%= @product.scale_str %> <br>
   Colour:      <%= @product.colour_str %> <br>
   Weight:      <%= @product.weight.to_i %>g <br>
@@ -13,7 +13,7 @@
   Date Added:  <%= @product.added_date_str %><br>
   Release Date: <%= @product.release_date || 'Not set' %><br>
 </div>
-<div class="col-md-3">
+<div class="col-md-3 pt-5">
   Supplier:    <%= @product.supplier_str %><br>
   Manager:     <%= @product.manager_str || 'Unknown' %><br>
   Progress:    <%= @product.progress_str || 'Unknown' %><br>
@@ -21,18 +21,22 @@
   Manual price? <%= @product.manual_price_str %><br>
   Pending pcs: <%= @product.pending_qty %> <br>
   Active pcs: <%= @product.active_qty %> <br>
-  Current Stock : <%= @product.stock %><br>
+  Current Stock : <%= @product.stock %> <br>
   Visible to: <%= @product.visible_to_str %>
 </div>
-
-<div>&nbsp;</div>
-<div class="col-md-6">
-<%= render "price_matrix" %>
 </div>
 
+<div class="row">
+<div>&nbsp;</div>
+<div class="col-md-7 col-md-offset-5">
+<%= render "price_matrix" %>
+</div>
+</div>
+
+<div class="row">
 <div class="col-md-12">
  <div> Product Notes </div>
-  <div class="panel panel-default">
+  <div class="panel panel-info">
     <div class="panel-body p-3">
       <%= @product.notes.html_safe rescue '' %>
     </div>
@@ -42,3 +46,5 @@
 
 <%= link_to "Shopping Cart Image",  @product.normal_image_rel_path  %> | 
 <%= link_to "Full Size Image",  @product.full_size_image_rel_path  %>
+
+

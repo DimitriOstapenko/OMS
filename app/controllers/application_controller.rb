@@ -56,6 +56,23 @@ class ApplicationController < ActionController::Base
      return if current_user && current_user.su?
      redirect_back fallback_location: root_path, alert: "This operation is reserved to client users only" unless current_user && current_user.client?
   end
+  
+# Geographic area China/World  
+  def client_geo
+    return GEO_CN if current_user.production? || (current_user.client? && current_client.cn?)
+    return GEO_WRLD
+  end
+
+# Don't show non-cn orders to cn  
+  def verify_order_geo
+    redirect_back fallback_location: orders_path if (client_geo == GEO_CN && !@order.cn?)
+  end
+
+# Don't show non-cn clients to cn  
+  def verify_client_geo
+#    redirect_back fallback_location: clients_path if (client_geo == GEO_CN && !@client.cn?)
+    logger.debug("*********************in app cont: #{@client.inspect}")
+  end
 
   def no_user_user
      redirect_back fallback_location: root_path, alert: "You have no rights for this operation" if current_user && current_user.user?

@@ -125,7 +125,7 @@ class ProductsController < ApplicationController
     Price.all.each do |pr|
       Product.where(scale: pr.scale).where(category: pr.category).where(manual_price: :false).
         update_all(price_eu: pr.price_eu, price_eu2: pr.price_eu2, price_eu3: pr.price_eu3, price_eu4: pr.price_eu4, 
-                   price_eu5: pr.price_eu5, price_eu6: pr.price_eu6, price_usd: pr.price_usd, price_usd2: pr.price_usd2)
+                   price_eu5: pr.price_eu5, price_eu6: pr.price_eu6, price_usd: pr.price_usd, price_usd2: pr.price_usd2, price_cny: pr.price_cny)
     end
     flash[:success] = "Price rules applied to all products"
     redirect_back(fallback_location: prices_path)
@@ -192,7 +192,8 @@ private
   def product_params
     params.require(:product).permit( :ref_code, :description, :brand, :category, :scale, :colour, :ctns, :release_date, :added_date, 
                                      :weight, :active, :price_eu, :price_eu2, :price_eu3, :price_eu4, :price_eu5, :price_eu6, 
-                                     :price_usd, :price_usd2, :supplier, :manager, :progress, :manual_price,  :notes, :image, :stock, :delta, visible_to: [] ) 
+                                     :price_usd, :price_usd2, :price_cny,  :supplier, :manager, :progress, :manual_price,  :notes, :image,
+                                     :stock, :delta, visible_to: [] ) 
   end
 
   def sort_column

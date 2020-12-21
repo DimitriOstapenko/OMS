@@ -1,15 +1,16 @@
-<%= simple_form_for(resource, as: resource_name, url: session_path(resource_name) )  do |f| %>
+<div class="pt-5"></div>
+<div class="pt-5"></div>
 
-<div class="spacer-30"></div>
+<%= simple_form_for(resource, as: resource_name, url: session_path(resource_name) )  do |f| %>
 <div class='row'>
-<div class="col-md-4 col-sm-4 col-md-offset-4 col-sm-offset-4">
+<div class="col-md-3 col-sm-4 col-md-offset-4 col-sm-offset-4">
 <div class="well">
     <%= f.input :email %>
     <%= f.input :password %>
     <% if devise_mapping.rememberable? %>
     <%= f.input :remember_me, as: :boolean  %>
     <% end %>
-    <%= f.button :submit, "Log in", class: "btn btn-primary" %>
+    <%= f.button :submit, "Log in", class: "btn-primary" %>
 
 <%= render "devise/shared/links" %>
 </div>

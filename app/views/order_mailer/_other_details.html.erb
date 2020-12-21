@@ -1,0 +1,11 @@
+<p>&nbsp;</p>
+<ul>
+  <li> Payment Terms: <%= @order.terms_str %> </li>
+  <li> Payment method: <%= @order.pmt_method_str %> </li>
+  <li> Delivery by: <%= @order.delivery_by %> </li>
+  <% if @order.notes.present? %> 
+  <li> Notes: <%= @order.notes %>  </li>
+  <% end %>
+</ul>
+<p>&nbsp;</p>
+

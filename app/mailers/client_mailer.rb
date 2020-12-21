@@ -8,7 +8,7 @@ class ClientMailer < ApplicationMailer
     @user.reset_password_token = hashed 
     @user.save 
 
-    mail to: @client.contact_email, subject: "Invitation to register to Order Management System"
+    mail to: @client.contact_email, subject: "Invitation to register to APD Order Management System"
   end
   
 end

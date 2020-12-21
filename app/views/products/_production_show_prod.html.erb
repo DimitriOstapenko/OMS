@@ -11,7 +11,9 @@
   Brand:       <%= @product.brand_str %><br>
   Cartons:     <%= @product.ctns %><br>
   Date Added:  <%= @product.added_date_str %><br>
-  Release Date: <%= @product.release_date || 'Not set' %><br>
+  Release Date: <%= @product.release_date || 'Not set' %><p>
+
+   <img src="<%= @product.qr_code %>" style="margin-top: 20px;" >
 </div>
 <div class="col-md-3">
   Supplier:    <%= @product.supplier_str %><br>
@@ -19,9 +21,12 @@
   Progress:    <%= @product.progress_str || 'Unknown' %><br>
   Active?      <%= @product.active_str %><br>
   Pending/Active pcs: <%= @product.quantity %> <br>
-  Current Stock : <%= @product.stock %>
+  Current Stock : <%= @product.stock %> <br>
+  Price: <%= to_currency @product.price_cny, locale: :cn  %>
+</div>
 </div>
 
+<% if @product.notes.present? %>
 <div class="col-md-12">
  <div> Product Notes </div>
   <div class="panel panel-default">
@@ -30,6 +35,11 @@
     </div>
   </div>
 </div>
+<% end %>
+
+<div class="pull-right">
+<img src="<%= @product.barcode %>" >
 </div>
 
+<p class="pt-5"></p>
 

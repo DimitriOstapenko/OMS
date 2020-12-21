@@ -3,7 +3,7 @@
       <img src="<%= @product.large_image_rel_path %>">
   </div>
   
-<div class="col-md-6">
+<div class="col-md-3">
   Scale:       <%= @product.scale_str %> <br>
   Colour:      <%= @product.colour_str %> <br>
   Weight:      <%= @product.weight.to_i %>g <br>
@@ -12,6 +12,11 @@
   Cartons:     <%= @product.ctns %><br>
   Date Added:  <%= @product.added_date_str %><br>
   Release Date: <%= @product.release_date || 'Not set' %><br>
+  Price: <%= to_currency current_client.price(@product), locale: current_client.locale  %> <p>
+</div>
+
+<div class="col-md-3 pt-5">
+   <img src="<%= @product.qr_code %>" >
 </div>
 
 </div>

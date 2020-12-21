@@ -9,6 +9,7 @@
         <td class='text-center'><%= to_currency price.price_eu6 %></td>
         <td class='text-center'><%= to_currency price.price_usd, locale: :us %></td>
         <td class='text-center'><%= to_currency price.price_usd2, locale: :us %></td>
+        <td class='text-center'><%= to_currency price.price_cny, locale: :cn %></td>
         <td class='text-center'><%= link_to '<i class="glyphicon glyphicon-edit"></i>'.html_safe, edit_price_path(price),
           remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %> 
         </td>

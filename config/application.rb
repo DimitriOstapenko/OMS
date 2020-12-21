@@ -13,7 +13,7 @@ module Oms
     config.autoload_paths << "#{Rails.root}/lib"
 
     I18n.enforce_available_locales = false
-    I18n.config.available_locales = :fr
+    I18n.config.available_locales = [:fr, :en, :cn] 
     config.i18n.default_locale = :en
 
     # Settings in config/environments/* take precedence over those specified here.

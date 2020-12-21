@@ -7,7 +7,10 @@
     <ul>
       <small>
       <% if current_user %>
-        <li>USD/EUR fx: <%= USD_EUR_FX %></li>
+        <li>USD/EUR fx: <%= sprintf "%0.4f", USD_EUR_FX %></li>
+        <li>USD/CNY fx: <%= sprintf "%0.4f", USD_CNY_FX %></li>
+        <li>EUR/CNY fx: <%= sprintf "%0.4f", EUR_CNY_FX %></li>
+        <li class="p-5"></li>
       <% end %>
       <li><%= link_to "About", about_path, target: '_new' %></li>
       <li><%= link_to "Help", help_path, target: '_new' %></li>

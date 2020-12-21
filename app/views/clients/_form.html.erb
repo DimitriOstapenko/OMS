@@ -4,6 +4,10 @@
 
   <%= render 'shared/error_messages', object: f.object %>
 
+  <% if current_user.production? %> 
+  <%= f.hidden_field :geo, value: GEO_CN %>
+  <% end %>
+
   <div class="row">
   <div class="col-md-10">
   <%= f.input :name, label: 'Client Name', readonly: readonly %>

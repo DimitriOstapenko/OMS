@@ -4,7 +4,8 @@ class ClientMailerPreview < ActionMailer::Preview
   # Send invitation to register to client
   def send_invite_to_register
     client = Client.first
-    ClientMailer.send_invite_to_register(client)
+    user = User.first
+    ClientMailer.send_invite_to_register(client,user)
   end
 
 

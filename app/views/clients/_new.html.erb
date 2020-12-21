@@ -8,7 +8,7 @@
       <b class="modal-title" id="myModalLabel">Create New Client</b>
 </div>
 <div class="modal-body">
-       <%= render 'form' %>
+  <%= render "#{current_user.role}_form" %>
 </div>
 
 <div class="modal-footer">

@@ -61,3 +61,6 @@ gem 'countries', require: 'countries/global'
 
 gem 'prawn',                   '2.2.2'
 gem 'prawn-table',             '0.2.2'
+gem 'barby', '~> 0.6.8'
+gem 'chunky_png', '~> 1.3', '>= 1.3.15'
+gem 'rqrcode', '~> 1.1', '>= 1.1.2'

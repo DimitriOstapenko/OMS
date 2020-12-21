@@ -12,6 +12,7 @@ class ReportsController < ApplicationController
   def index
     @category = params[:category].to_i || 1
     @reports = Report.where(category: @category)
+    @reports = @reports.where(geo: GEO_CN) if current_user.production?
     @reports = @reports.where(client_id: current_user.client_id) if current_user.client?
     @reports = @reports.reorder(sort_column + ' ' + sort_direction, "created_at desc").paginate(page: params[:page])
     flash.now[:warning] = 'No reports found' unless @reports.any?
@@ -19,6 +20,7 @@ class ReportsController < ApplicationController
 
   def new
     @report = Report.new(category: params[:category])
+    @report.geo = client_geo
   end
 
   def create
@@ -55,6 +57,7 @@ class ReportsController < ApplicationController
        if flash[:danger]
           redirect_back(fallback_location: reports_path)
        elsif @report.save
+         flash.now[:info] = @report.inspect
           redirect_to export_report_path(@report, category: params[:category] )
        else
           flash.now[:danger] = @report.errors.full_messages.to_sentence
@@ -124,7 +127,7 @@ class ReportsController < ApplicationController
 
 private
   def report_params
-    params.require(:report).permit(:name, :filename, :status, :category, :client_id, :product_id, :sdate, :edate, :timeframe, :detail)
+    params.require(:report).permit(:name, :filename, :status, :category, :client_id, :product_id, :sdate, :edate, :timeframe, :detail, :geo)
   end
 
   def sort_column

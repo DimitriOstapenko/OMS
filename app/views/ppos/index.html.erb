@@ -1,7 +1,7 @@
 <%= render "shared/modal" %>
 
 <% if @ppos.any? %>
-<table class="tbl2 table-hover table-striped table-bordered" >
+<table class="table table-hover table-striped table-bordered" >
   <% if @product %>
     <caption><%= @product.ref_code %> : <%= @product.description %>:  List of active PPOs</caption>
   <% else %>

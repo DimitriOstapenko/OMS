@@ -1,0 +1,15 @@
+Changes to the order (#<%= @order.id %>) received from <%= @client.name %>
+
+Ordered <%= @order.products.count %> <%= 'product'.pluralize(@order.products.count) %>
+  
+     Ref.Code | Description | Price/Unit | Qty 
+<% @order.placements.each do |placement| %>
+  <%= placement.product.ref_code %> | <%= placement.product.description %> | <%= number_to_currency(placement.price, locale: @client.locale) %> | <%= placement.quantity %>
+<% end %>
+
+Order Total: <%= number_to_currency(@order.grand_total,locale: @client.locale) %>
+
+  <%= render "other_details" %>
+
+<%= link_to 'Follow this link to see the order online', orders_url(@client) %>
+

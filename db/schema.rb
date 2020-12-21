@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_14_182443) do
+ActiveRecord::Schema.define(version: 2020_12_18_013236) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(version: 2020_08_14_182443) do
     t.float "tax_pc", default: 0.0
     t.float "shipping_cost", default: 0.0
     t.bigint "product_id"
+    t.integer "geo", default: 0
     t.index ["product_id"], name: "index_clients_on_product_id"
   end
 
@@ -93,6 +94,7 @@ ActiveRecord::Schema.define(version: 2020_08_14_182443) do
     t.boolean "paid", default: false
     t.float "total"
     t.float "weight"
+    t.integer "geo", default: 0
     t.index ["client_id"], name: "index_orders_on_client_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
@@ -156,6 +158,7 @@ ActiveRecord::Schema.define(version: 2020_08_14_182443) do
     t.decimal "price_eu4"
     t.decimal "price_eu5"
     t.decimal "price_eu6"
+    t.decimal "price_cny"
   end
 
   create_table "products", force: :cascade do |t|
@@ -189,6 +192,7 @@ ActiveRecord::Schema.define(version: 2020_08_14_182443) do
     t.integer "delta", default: 0
     t.integer "stock", default: 0
     t.string "visible_to", default: [], array: true
+    t.decimal "price_cny", default: "0.0"
     t.index ["ref_code"], name: "index_products_on_ref_code"
   end
 
@@ -205,6 +209,7 @@ ActiveRecord::Schema.define(version: 2020_08_14_182443) do
     t.integer "category"
     t.integer "status", default: 0
     t.integer "product_id"
+    t.integer "geo", default: 0
   end
 
   create_table "sessions", force: :cascade do |t|

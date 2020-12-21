@@ -9,12 +9,14 @@ class OrdersController < ApplicationController
   before_action :client_user, only: [:create]
   before_action :admin_or_su_user, only: [:destroy]
   before_action :no_user_user, only: [:index]
+  before_action :verify_order_geo, only: [:show, :edit, :update]
 
   def index
     keyword = params[:findstr]; search_results = []
     @status = params[:status]
     @client = current_client if current_user.client?  
     @orders = Order.all
+    @orders = Order.where(geo: GEO_CN) if current_user.production?
     @orders = @client.orders if @client.present?
     @orders = @orders.where(status: @status) if @status.present?
     @status ||= 9
@@ -39,6 +41,7 @@ class OrdersController < ApplicationController
   def create
     @client = current_client
     @order = @client.orders.build
+    @order.geo = client_geo  # app controller
     @order.user_id = current_user.id
     @product_ids_and_quantities = get_cart #[[params[:order][:products], params[:order][:quantity]]]
     if @order.build_placements_with_product_ids_and_quantities?(@product_ids_and_quantities) && @order.save
@@ -151,7 +154,8 @@ private
   end
 
   def order_params
-    params.require(:order).permit(:web_id, :status, :po_number, :inv_number, :delivery_by, :terms, :notes, :pmt_method, :discount, :user_id, :paid, :total, :weight) 
+    params.require(:order).permit(:web_id, :status, :po_number, :inv_number, :delivery_by, :terms, 
+                                  :notes, :pmt_method, :discount, :user_id, :paid, :total, :weight, :geo) 
   end
 
   def sort_column
@@ -161,5 +165,6 @@ private
   def sort_direction
     %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
   end
+
 
 end

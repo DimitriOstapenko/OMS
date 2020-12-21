@@ -1,6 +1,7 @@
 <% disabled = current_user.client? %>
 <%= simple_form_for @report do |f| %>
   <%= f.hidden_field :client_id, value: current_user.client_id %>
+  <%= f.hidden_field :geo, value: @report.geo %>
 
   <%= f.input :category, as: :hidden %>
   <div class="row" %>
@@ -8,7 +9,7 @@
        <%= f.input :product_id, collection: Product.all, value_method: :id, label_method: :ref_code_and_descr, include_blank: 'All' %> 
    </div>
    <div class="col-md-6">
-       <%= f.input :client_id, collection: get_clients_with_orders, include_blank: 'All', selected: current_user.client_id, disabled: disabled %>
+       <%= f.input :client_id, collection: get_clients_with_orders(@report.geo), include_blank: 'All', selected: current_user.client_id, disabled: disabled %>
    </div>
   </div>
   <div class="row" %>

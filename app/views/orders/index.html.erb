@@ -8,7 +8,7 @@
 
 <div style="float:right"><small>Cancelled orders are highlighted in red; orders by client in blue</small></div>
 <% scroll = "table-wrapper-scroll-x" if mobile_device? %>
-<table class="tbl2 table-hover table-striped table-bordered <%= scroll %>" >
+<table class="table table-hover table-striped table-bordered <%= scroll %>" >
 <%= render "#{current_user.role}_header" %>
   
 <tbody>
@@ -18,11 +18,13 @@
 
 <div class="row">
   <div class="col-md-6 pt-3">
+<% unless current_user.production? %>
     <% if show_totals %>
       <%= render "totals_table" %>
     <% else %>
       <%= link_to 'Show Totals', orders_path(show_totals: 1) %>
     <% end %> 
+<% end %>
   </div>
 
   <div class="col-md-6">

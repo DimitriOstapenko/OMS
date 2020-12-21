@@ -535,18 +535,26 @@ input, select{
   text-align: center;
 }
 
-// Temp!!!!
-.tbl2 th {
-  background: $brand-info; //#5bc0de;
+.table th {
+  background: #17a2b8; //#5bc0de; $brand-info;
   color: white;
   height: 38px;
   padding: 2px;
 }
-.tbl2 { overflow-x: scroll; } 
- th, td {
-  padding: 2px 5px;
-  vertical-align: middle;
- }
+
+// Temp!!!!
+//.tbl2 th {
+//  background: #17a2b8; //#5bc0de; $brand-info;
+//  color: white;
+//  height: 38px;
+//  padding: 2px;
+//}
+
+//.tbl2 { overflow-x: scroll; } 
+// th, td {
+//  padding: 2px 5px;
+//  vertical-align: middle;
+// }
 
 .tbl td,
 .tbl th {
@@ -822,10 +830,9 @@ card > hr {
 .btn {
 	padding: 6px;  // control button size
 	margin-top: 5px;
-//	border: 0 none;
 	font-weight: 800;
-	font-size: 1em;
-//	text-transform: uppercase;
+	font-size: 1.05em;
+	text-transform: uppercase;
 	border-radius: 5px;
         line-height: 25px;
 }

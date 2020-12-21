@@ -2,6 +2,7 @@ class Order < ApplicationRecord
 
   require 'csv'
   include My::Docs
+  include ApplicationHelper
 
   belongs_to :client
   belongs_to :user
@@ -42,14 +43,18 @@ class Order < ApplicationRecord
 # emails are sent from 'tiny' only when in production mode 
   after_create :send_emails! if SEND_EMAILS
 
+# send email to staff on quantity change
+  after_update :send_change_order_emails!
+
 # Calculate Order Total including Tax, Discount and Shipping  
   def set_attributes!
-    self.total = self.weight = 0
+    self.total = self.weight = 0.0
     placements.each do |placement|
        next if placement.cancelled?
        self.total += placement.price * placement.quantity
-       self.weight += placement.product.weight/1000 * placement.quantity rescue 0
+#       self.weight += placement.product.weight *  placement.quantity rescue 0
     end
+    self.weight = placements.sum{|pl| pl.product.weight * pl.quantity} rescue 0
     nextid = Order.maximum(:id).next rescue 1
     suff = nextid.to_s
     self.po_number = 'PO-' + suff 
@@ -57,6 +62,15 @@ class Order < ApplicationRecord
     self.delivery_by = self.client.pref_delivery_by_str
     self.terms = self.client.default_terms
     self.total += (self.shipping - self.discount + self.tax)
+  end
+
+# Chinese order?
+  def cn?
+    self.geo == GEO_CN
+  end
+
+  def world?
+    self.geo == GEO_WRLD
   end
 
   def set_totals!
@@ -94,6 +108,11 @@ class Order < ApplicationRecord
     OrderMailer.send_confirmation(self).deliver_now
   end
 
+  def send_change_order_emails!
+    OrderMailer.notify_staff_about_changes(self).deliver_now
+    OrderMailer.send_confirmation_about_changes(self).deliver_now
+  end
+
 # Total Order price before Taxes, Shipping, Discount etc.  
   def total_price
     self.placements.where.not(status: CANCELLED_ORDER).sum('price*quantity') rescue 0
@@ -102,11 +121,8 @@ class Order < ApplicationRecord
 # Order total weight  
   def total_weight
     weight = read_attribute(:weight)
-    if weight.present?
-      return weight
-    else
-      return self.placements.where.not(status: CANCELLED_ORDER).joins(:product).sum('quantity*weight/1000') rescue 0
-    end
+    weight ||= self.placements.where.not(status: CANCELLED_ORDER).joins(:product).sum('quantity*weight/1000') rescue 0
+    return sprintf("%0.2f", weight)
   end
   
   def weight

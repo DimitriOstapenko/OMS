@@ -10,6 +10,7 @@
       <th class="table-condensed">EU6</th>
       <th class="table-condensed">USD1</th>
       <th class="table-condensed">USD2</th>
+      <th class="table-condensed">CNY</th>
       </tr>
     </thead>
     <tbody>
@@ -23,6 +24,7 @@
       <td nowrap> <%= to_currency @product.price_eu6 %> </td>
       <td nowrap> <%= to_currency @product.price_usd, locale: :us %> </td>
       <td nowrap> <%= to_currency @product.price_usd2, locale: :us %> </td>
+      <td nowrap> <%= to_currency @product.price_cny, locale: :cn %> </td>
 </small>
       </tr>
     </tbody>

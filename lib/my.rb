@@ -27,7 +27,13 @@ module My
 # Generate product report. Filter placements to include only product report was created for 
   def build_product_report ( report, placements)  
     client_name = report.client.name rescue 'All'
-    fx = "Fx USD/EUR: #{get_usd_euro_fx}" unless report.client && report.client.currency == :eur
+    if report.client.cn?
+      fx = ''
+      locale = :cn
+    else
+      fx = "Fx USD/EUR: #{USD_EUR_FX}" unless report.client && report.client.currency == :eur
+      locale = :fr
+    end
 
     pdf = Prawn::Document.new( :page_size => "LETTER", margin: [20.mm,8.mm,20.mm,15.mm])
     pdf.font "Helvetica"
@@ -52,7 +58,7 @@ module My
         shipped_pcs += pl.shipped
         ttl_amount += subtotal * o.client.fx_rate   # we convert all to euros
     end
-    rows += [['','','','',ttl_pcs,pending_pcs,shipped_pcs, '','','',  number_to_currency(ttl_amount, locale: :fr)]]
+    rows += [['','','','',ttl_pcs,pending_pcs,shipped_pcs, '','','',  number_to_currency(ttl_amount, locale: locale)]]
 
     pdf.table rows, cell_style: {inline_format: true} do |t|
         t.cells.border_width = 0
@@ -74,7 +80,13 @@ module My
 # Generate Client Report
   def build_client_report( report, orders )
     client_name = report.client.name rescue 'All'
-    fx = "Fx USD/EUR: #{get_usd_euro_fx}" unless report.client && report.client.currency == :eur
+    if report.client.cn?
+      fx = ''
+      locale = :cn
+    else
+      fx = "Fx USD/EUR: #{USD_EUR_FX}" unless report.client && report.client.currency == :eur
+      locale = :fr
+    end
 
     pdf = Prawn::Document.new( :page_size => "LETTER", margin: [20.mm,8.mm,20.mm,15.mm])
     pdf.font "Helvetica"
@@ -101,9 +113,9 @@ module My
       ttl_products += o.products.count
       ttl_pcs += o.total_pcs
       ttl_shipped += o.shipped
-      ttl_amount += o.total * o.client.fx_rate   # we convert all to euros
+      ttl_amount += o.total * o.client.fx_rate   # we convert to euros for WRLD clients only
     end
-    rows += [['','','',ttl_products,ttl_pcs,ttl_shipped,'','','',  number_to_currency(ttl_amount, locale: :fr)]]
+    rows += [['','','',ttl_products,ttl_pcs,ttl_shipped,'','','',  number_to_currency(ttl_amount, locale: locale)]]
 
     pdf.table rows, cell_style: {inline_format: true} do |t|
         t.cells.border_width = 0
@@ -128,7 +140,13 @@ module My
   # Generate Summary Report (to be finished)
   def build_summary_report( report, placements )
     client_name = report.client.name rescue 'All'
-    fx = "Fx USD/EUR: #{get_usd_euro_fx}" unless report.client && report.client.currency == :eur
+    if report.client.cn?
+      fx = ''
+      locale = :cn
+    else
+      fx = "Fx USD/EUR: #{USD_EUR_FX}" unless report.client && report.client.currency == :eur
+      locale = :fr
+    end
 
     pdf = Prawn::Document.new( :page_size => "LETTER", margin: [20.mm,8.mm,20.mm,15.mm])
     pdf.font "Helvetica"

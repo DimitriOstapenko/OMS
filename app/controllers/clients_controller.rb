@@ -1,8 +1,10 @@
 class ClientsController < ApplicationController
 
+  before_action :init, only: [:show, :edit, :update, :destroy, :send_invite_to_register ]
   before_action :logged_in_user
-  before_action :admin_or_staff_user #, only: [:index, :edit, :update]
+  before_action :production_admin_or_staff_user #, only: [:index, :edit, :update]
   before_action :admin_or_su_user, only: [:destroy]
+  before_action :verify_client_geo, only: [:show, :edit, :update]
 
   helper_method :sort_column, :sort_direction
 
@@ -12,6 +14,7 @@ class ClientsController < ApplicationController
 
   def index
     @clients = Client.all; found = []
+    @clients = @clients.where(geo: GEO_CN) if current_user.production?
     found = @clients.search(params[:findstr]) if params[:findstr]
     if found.any?
       @clients = found
@@ -23,7 +26,6 @@ class ClientsController < ApplicationController
   end
 
   def show
-    @client = Client.find(params[:id])
   end
 
   def create
@@ -37,17 +39,15 @@ class ClientsController < ApplicationController
   end
 
   def destroy
-    Client.find(params[:id]).destroy
+    @client.destroy
     flash[:success] = "Client deleted"
     redirect_back(fallback_location: clients_path)
   end
 
    def edit
-    @client = Client.find(params[:id])
   end
 
   def update
-    @client = Client.find(params[:id])
     if @client.update_attributes(client_params)
       flash[:success] = "Client updated"
       redirect_to clients_path
@@ -58,7 +58,6 @@ class ClientsController < ApplicationController
   
 # This is invite to change password only. Registration is automatic
   def send_invite_to_register
-    @client = Client.find(params[:id])
     if @client.present?
       @user = User.find_by(email: @client.contact_email) 
       if @user
@@ -86,7 +85,12 @@ private
   def client_params
     params.require(:client).permit( :name, :cltype, :code, :country, :state_prov, :address, :zip_postal, :web, :notes, 
                                     :contact_fname, :contact_lname, :vat, :contact_phone, :contact_email, :price_type, 
-                                    :pref_delivery_by, :default_terms, :tax_pc, :shipping_cost )
+                                    :pref_delivery_by, :default_terms, :tax_pc, :shipping_cost, :geo )
+  end
+  
+  def init
+    @client = Client.find(params[:id]) rescue nil
+    (flash[:warning] = "Client not found"; redirect_to clients_path) unless @client
   end
 
   def sort_column

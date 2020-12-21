@@ -1,6 +1,9 @@
 <div class="email-container">
 <div class='email-header'>Confirmation of your Order #<%= @order.id %> of <%= @order.cre_date %></div>
-Dear <%= @client.name %></b>, you ordered following products from APD Order Management System:</p>
+<b>Dear <%= @client.name %></b>,
+
+<p>&nbsp;</p>
+You ordered following products from APD Order Management System:</p>
 <p>&nbsp;</p>
   
 <table class='table table-striped table-bordered'> 
@@ -40,7 +43,8 @@ Dear <%= @client.name %></b>, you ordered following products from APD Order Mana
 
 <div style="clear:both">
 
-<p>&nbsp;</p>
+  <%= render "other_details" %>
+
 <p>
 <%= link_to 'See your order online', order_url(@order)  %>
 </p>

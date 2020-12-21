@@ -207,6 +207,27 @@ class Product < ApplicationRecord
     ''
   end 
 
+# Generate QR code, return encoded string  
+  def qr_code
+    require 'barby'
+    require 'barby/barcode'
+    require 'barby/barcode/qr_code'
+    require 'barby/outputter/png_outputter'
+    url = "#{PROJECT_URL}/products/#{self.id}"
+    qr = Barby::QrCode.new(url, level: :q, size: 5)
+    base64_output = Base64.encode64(qr.to_png({ xdim: 2 }))
+    return "data:image/png;base64,#{base64_output}"
+  end
+
+  def barcode
+    require 'barby'
+    require 'barby/barcode/code_128'
+    require 'barby/outputter/png_outputter'
+    barcode = Barby::Code128.new("#{self.id} : #{self.description}")
+    base64_output = Base64.encode64(barcode.to_png(:height => 35, :margin => 5))
+    return "data:image/png;base64,#{base64_output}"
+  end
+
 # Inventory CSV template  
   def self.to_csv
     attributes = %w{ref_code pcs_available description brand_str category_str colour_str scale_str notes }

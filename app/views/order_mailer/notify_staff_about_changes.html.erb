@@ -1,0 +1,45 @@
+<div class="email-container">
+<div class='email-header-warn'>Changes to the order #<%= @order.id %> received from <%= @client.name %></div>
+<p>New order details:  <%= @order.products.count %> <%= 'product'.pluralize(@order.products.count) %></p>
+<table class='table table-striped table-bordered'>
+<thead>
+  <tr>
+    <th> Ref.Code </th>
+    <th> Description </th>
+    <th> Scale </th>
+    <th> Colour </th>
+    <th> Price/Unit </th>
+    <th> Qty </th>
+  </tr>
+</thead>
+<tbody>
+<% @order.placements.each do |placement| %>
+  <tr>
+  <td><%= placement.product.ref_code %></td>
+  <td><%= placement.product.description %> </td>
+  <td>1:<%= placement.product.scale %> </td>
+  <td><%= placement.product.colour_str %> </td>
+  <td><%= number_to_currency(placement.price, locale: @client.locale) %></td>
+  <td><%= placement.quantity %></td>
+  </tr>
+<% end %>
+</tbody>
+
+<tfoot>
+  <tr>
+    <td colspan=4><b>Total:</b></td>
+    <td><%= number_to_currency(@order.grand_total,locale: @client.locale) %></td>
+    <td> <%= @order.placements.sum(:quantity) %> </td>
+  </tr>
+</tfoot>
+</table>
+
+<div style="clear:both">
+  
+  <%= render "other_details" %>
+
+<p>
+<%= link_to "See this order online", order_url(@order), method: :get %>
+</p>
+
+</div>
