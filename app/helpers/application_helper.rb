@@ -68,7 +68,7 @@ end
 
 # Build array of clients with orders
     def get_clients_with_orders(geo = nil)
-      if geo
+      if geo && geo > GEO_WRLD
         orders = Order.where(geo: geo)
       else 
         orders = Order.all
