@@ -28,11 +28,19 @@
 
 <div class="row">
 <div>&nbsp;</div>
-<div class="col-md-7 col-md-offset-5">
+<div class="col-md-2 col-md-offset-2">
+<img src="<%= @product.qr_code %>" >
+</div>
+<div class="col-md-7 col-md-offset-1">
 <%= render "price_matrix" %>
 </div>
 </div>
 
+<div class="pull-right">
+<img src="<%= @product.barcode %>" >
+</div>
+
+<% if @product.notes.present? %>
 <div class="row">
 <div class="col-md-12">
  <div> Product Notes </div>
@@ -43,7 +51,9 @@
   </div>
 </div>
 </div>
+<% end %>
 
+<p class="pt-3"></p>
 <%= link_to "Shopping Cart Image",  @product.normal_image_rel_path  %> | 
 <%= link_to "Full Size Image",  @product.full_size_image_rel_path  %>
 
