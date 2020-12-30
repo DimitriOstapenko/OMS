@@ -234,11 +234,11 @@ class Order < ApplicationRecord
       all.each do |order|
         csv << attributes.map{ |attr| order.send(attr) }
         if order.placements.count > 1
- #         order.placements.each do |pl|
- #           ppo_name = pl.ppo.name rescue ''
- #           subtotal = pl.price * pl.quantity
- #           csv << ['', pl.product.ref_code, pl.quantity, pl.price, subtotal, pl.status_str, ppo_name]
- #         end
+          order.placements.each do |pl|
+            ppo_name = pl.ppo.name rescue ''
+            subtotal = pl.price * pl.quantity
+            csv << ['', pl.product.ref_code, pl.quantity, pl.price, subtotal, pl.status_str, ppo_name]
+          end
         end
       end
     end
