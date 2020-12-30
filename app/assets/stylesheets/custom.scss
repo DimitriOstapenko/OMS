@@ -60,6 +60,10 @@ table {
   width: 100%;
 }
 
+.table > tbody > tr > td,th {
+  vertical-align: middle;
+}
+
 .table-condensed {
   th,td{
     font-size: 11px;
