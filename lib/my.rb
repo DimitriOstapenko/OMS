@@ -25,9 +25,9 @@ module My
   end
 
 # Generate product report. Filter placements to include only product report was created for 
-  def build_product_report ( report, placements)  
+  def build_product_report (report, placements)  
     client_name = report.client.name rescue 'All'
-    if report.client.cn?
+    if report.client && report.client.cn?
       fx = ''
       locale = :cn
     else
@@ -80,7 +80,7 @@ module My
 # Generate Client Report
   def build_client_report( report, orders )
     client_name = report.client.name rescue 'All'
-    if report.client.cn?
+    if report.client && report.client.cn?
       fx = ''
       locale = :cn
     else

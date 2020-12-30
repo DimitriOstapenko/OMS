@@ -16,12 +16,9 @@ Clients:   <%= @clients.count %>
         <th>Invite</th>
         <th class="text-center"><%= sortable 'vat', 'VAT#' %></th>
         <th class="text-center"><%= sortable 'tax_pc', 'Tax%' %></th>
+        <th>&nbsp;</th>
 
-        <% if current_user.staff? || current_user.admin? || current_user.su? %>
-          <th>&nbsp;</th>
-        <% end %>
-
-        <% if current_user.su? %>
+        <% if current_user.su? || current_user.production? %>
           <th>&nbsp;</th>
         <% end %>
       </tr>
