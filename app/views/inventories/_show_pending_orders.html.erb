@@ -6,7 +6,8 @@
 <div class="modal-body">
   <div class="well">
 
-<table class="table table-hover table-striped table-bordered" >
+<% scroll = "table-wrapper-scroll-x" if mobile_device? %>
+<table class="table table-hover table-striped table-bordered <%= scroll %>" >
   <thead>
       <tr>
           <th class="tbl_sm text-center">Order #</th>
@@ -34,7 +35,7 @@
 </table>
 
 <div class="row">
-  <div class="col-md-4">
+  <div class="col-md-5">
     <%= button_to "Create Production Purchase Order", product_ppos_path(@product), class: "btn btn-success",  title: '* All placements on this page will be made active' %> <!--, disabled: disabled -->
   </div>
   <div class="col-md-4">

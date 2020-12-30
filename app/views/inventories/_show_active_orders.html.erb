@@ -6,7 +6,8 @@
 <div class="modal-body">
   <div class="well">
 
-<table class="table table-hover table-striped table-bordered" >
+<% scroll = "table-wrapper-scroll-x" if mobile_device? %>
+<table class="table table-hover table-striped table-bordered <%= scroll %>" >
   <thead>
       <tr>
           <th class="tbl_sm text-center">Order #</th>
