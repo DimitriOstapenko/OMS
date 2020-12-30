@@ -3,7 +3,7 @@
 Products: <%= Product.count %>
 <% if @products.any? %>
 <% if current_user.staff? || current_user.admin? %>
-  <div style="float:right"><small>Inactive products are highlighted with yellow; Manual price products with red</small></div>
+  <div style="float:right"><small>Inactive products are shown in yellow; Manual price products in red</small></div>
 <% end %>
 
 <% scroll = "table-wrapper-scroll-x" if mobile_device? %>

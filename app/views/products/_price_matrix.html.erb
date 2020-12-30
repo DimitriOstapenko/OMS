@@ -1,4 +1,5 @@
-<table class="table table-responsive table-condensed table-bordered">
+<% scroll = "table-wrapper-scroll-x" if mobile_device? %>
+<table class="table table-responsive table-condensed table-bordered <%= scroll %>">
     <caption> Price Matrix </caption>
     <thead>
       <tr>
