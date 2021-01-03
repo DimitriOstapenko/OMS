@@ -3,7 +3,7 @@
 
 Users:   <%= @users.count %>
 <% scroll = "table-wrapper-scroll-x" if mobile_device? %>
-<table class="table table-hover table-striped table-bordered <%= scroll %>" >
+<table class="table table-hover table-striped <%= scroll %>" >
    <thead>
       <tr>
           <th><%= sortable 'name', 'Username' %></th>

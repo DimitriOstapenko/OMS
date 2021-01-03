@@ -8,7 +8,7 @@
 
 <div style="float:right"><small>Orders by client are shown in blue, cancelled orders in red</small></div>
 <% scroll = "table-wrapper-scroll-x" if mobile_device? %>
-<table class="table table-hover table-striped table-bordered <%= scroll %>" >
+<table class="table table-hover table-striped <%= scroll %>" >
 <%= render "#{current_user.role}_header" %>
   
 <tbody>

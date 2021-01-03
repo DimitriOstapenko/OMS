@@ -62,20 +62,21 @@ table {
 
 .table > tbody > tr > td,th {
   vertical-align: middle;
+  font-size: 1.1em;
 }
 
 .table-condensed {
   th,td{
-    font-size: 11px;
+    font-size: 1em;
   }
 }
 
 #findstr {
-	border-radius: 5px;
+  border-radius: 5px;
 }
 
 #body {
-   clear: both;
+ clear: both;
 }
 
 /* navbar */
@@ -88,9 +89,7 @@ table {
 
 .navbar-light {
     padding-right: 5px;
-    font-size: 14px;
-//    background-color: #333;
-//padding-top: 10px;
+    font-size: 1.1em;
     height: 50px;
 }
 
