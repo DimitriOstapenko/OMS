@@ -9,15 +9,19 @@
 <% when PENDING_ORDER %>
   <%= link_to "Pending", orders_path(status: PENDING_ORDER) %>: <%= pending %> > <%= link_to "Show All" %>
 <% when ACTIVE_ORDER %>
-  <%= link_to "Active", orders_path(status: ACTIVE_ORDER) %>: <%= active %> > <%= link_to "Show All" %>
+  <%= link_to "Active", orders_path(status: ACTIVE_ORDER), class:'nav-link'  %>: <%= active %> > <%= link_to "Show All" %>
 <% when SHIPPED_ORDER %>
   <%= link_to "Shipped", orders_path(status: SHIPPED_ORDER) %>: <%= shipped %> > <%= link_to "Show All" %>
 <% when CANCELLED_ORDER %>
   <%= link_to "Canceled", orders_path(status: CANCELLED_ORDER) %>: <%= canceled %> > <%= link_to "Show All" %>
 <% else %>
-Total orders: <%= @orders.count %>,
-<%= link_to "Pending", orders_path(status: PENDING_ORDER) %>: <%= pending %>,
-<%= link_to "Active", orders_path(status: ACTIVE_ORDER) %>: <%= active %>,
-<%= link_to "Shipped", orders_path(status: SHIPPED_ORDER) %>: <%= shipped %>,
-<%= link_to "Canceled", orders_path(status: CANCELLED_ORDER) %>: <%= canceled %>
+  Total orders: <%= @orders.count %>,
+<% pen_class = 'disabled' if pending.zero? %>
+<% act_class = 'disabled' if active.zero? %>
+<% shp_class = 'disabled' if shipped.zero? %>
+<% can_class = 'disabled' if canceled.zero? %>
+<%= link_to "Pending", orders_path(status: PENDING_ORDER), class: pen_class %>: <%= pending %>,
+<%= link_to "Active", orders_path(status: ACTIVE_ORDER), class: act_class %>: <%= active %>,
+<%= link_to "Shipped", orders_path(status: SHIPPED_ORDER), class: shp_class %>: <%= shipped %>,
+<%= link_to "Canceled", orders_path(status: CANCELLED_ORDER), class: can_class %>: <%= canceled %>
 <% end %>
