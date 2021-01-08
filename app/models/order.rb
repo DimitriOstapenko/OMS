@@ -3,6 +3,7 @@ class Order < ApplicationRecord
   require 'csv'
   include My::Docs
   include ApplicationHelper
+  include ActiveModel::Dirty
 
   belongs_to :client
   belongs_to :user
@@ -44,7 +45,7 @@ class Order < ApplicationRecord
   after_create :send_emails! if SEND_EMAILS
 
 # send email to staff on quantity change
-  after_update :send_change_order_emails!
+  before_update :send_change_order_emails!
 
 # Calculate Order Total including Tax, Discount and Shipping  
   def set_attributes!
@@ -108,9 +109,14 @@ class Order < ApplicationRecord
     OrderMailer.send_confirmation(self).deliver_now
   end
 
+# Send emails to client and staff only if total has changed  
   def send_change_order_emails!
-    OrderMailer.notify_staff_about_changes(self).deliver_now
-    OrderMailer.send_confirmation_about_changes(self).deliver_now
+#    logger.debug("*********** total was changed?  #{self.total_changed?}  was #{self.total_was}")
+    if self.total_changed?
+      self.notes = "#{self.notes} \n Previous total was: #{to_currency(self.total_was, locale: self.client.locale)}"
+      OrderMailer.notify_staff_about_changes(self).deliver_now
+      OrderMailer.send_confirmation_about_changes(self).deliver_now
+    end
   end
 
 # Total Order price before Taxes, Shipping, Discount etc.  

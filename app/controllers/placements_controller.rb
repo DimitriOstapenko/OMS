@@ -45,6 +45,7 @@ class PlacementsController < ApplicationController
     if @placement.update_attributes(placement_params)
       @placement.delete_pdfs
       flash[:success] = "Placement updated" 
+      @placement.order.last_change_by = current_user.email
       @placement.order.save
     end
     redirect_back(fallback_location: order_path(@placement.order))

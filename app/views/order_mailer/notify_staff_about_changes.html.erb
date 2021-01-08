@@ -1,5 +1,5 @@
 <div class="email-container">
-<div class='email-header-warn'>Changes to the order #<%= @order.id %> received from <%= @client.name %></div>
+<div class='email-header-warn'>Changes to the order #<%= @order.id %> - new quantity. Applied by <%= @email %></div>
 <p>New order details:  <%= @order.products.count %> <%= 'product'.pluralize(@order.products.count) %></p>
 <table class='table table-striped'>
 <thead>

@@ -28,9 +28,10 @@ class OrderMailer < ActionMailer::Base
 
   def notify_staff_about_changes(order)
     @order = order
+    @email = 'blah@blah.com'
     @client = @order.client
     emails = User.where('role=?', STAFF_ROLE).pluck(:email)
-    logger.debug("******************* order: #{@order.id} client:  #{@client.id} emails: #{emails.count}")
+#    logger.debug("******************* order: #{@order.id} client:  #{@client.id} emails: #{emails.count}")
     mail to: emails, subject: "APDOMS: Changes to the order #{@order.id}"
   end
 

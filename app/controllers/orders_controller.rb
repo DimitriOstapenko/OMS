@@ -60,6 +60,7 @@ class OrdersController < ApplicationController
 
   def update
     @order.user_id ||= current_user.id
+    @order.last_change_by = current_user.email
     if @order.update_attributes(order_params)
       flash[:success] = "Order #{@order.id} updated"
       redirect_to orders_path
@@ -154,8 +155,8 @@ private
   end
 
   def order_params
-    params.require(:order).permit(:web_id, :status, :po_number, :inv_number, :delivery_by, :terms, 
-                                  :notes, :pmt_method, :discount, :user_id, :paid, :total, :weight, :geo) 
+    params.require(:order).permit(:web_id, :status, :po_number, :inv_number, :delivery_by, :terms, :notes, 
+                                  :pmt_method, :discount, :user_id, :paid, :total, :weight, :geo, :last_change_by) 
   end
 
   def sort_column
