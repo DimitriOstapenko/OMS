@@ -18,6 +18,7 @@ class OrderMailerPreview < ActionMailer::Preview
 
   def notify_staff_about_changes
     order = Order.last
+    order.last_change_by = 'blah@blah.com'
     OrderMailer.notify_staff_about_changes(order)
   end
 

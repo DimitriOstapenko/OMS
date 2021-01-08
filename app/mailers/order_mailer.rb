@@ -28,7 +28,7 @@ class OrderMailer < ActionMailer::Base
 
   def notify_staff_about_changes(order)
     @order = order
-    @email = 'blah@blah.com'
+    @email = order.last_change_by
     @client = @order.client
     emails = User.where('role=?', STAFF_ROLE).pluck(:email)
 #    logger.debug("******************* order: #{@order.id} client:  #{@client.id} emails: #{emails.count}")
