@@ -2,6 +2,7 @@
    provide(:title, 'Order details')
    @client ||= @order.client
    @placements ||= @order.placements
+   last_change_by = @order.last_change_by.present? ? ". Last quantity change by: #{@order.last_change_by}" : ''
 %>
 
 <div class="modal-header">
@@ -9,7 +10,7 @@
   <% if current_user.client? %>
     <b class="modal-title" id="myModalLabel"><%= @order.status_str %> Order #<%= @order.id %> received on <%= @order.cre_date %></b>
   <% else %>
-    <b class="modal-title" id="myModalLabel"><font color="#777"><%= @client.name %></font>: <%= @order.status_str %> <%= @order.paid ? 'Paid':'' %> Order # <%= @order.id %> received on <%= @order.cre_date %> - <%= @order.made_by %></b>
+    <b class="modal-title" id="myModalLabel"><font color="#777"><%= @client.name %></font>: <%= @order.status_str %> <%= @order.paid ? 'Paid':'' %> Order # <%= @order.id %> received on <%= @order.cre_date %>. <%= @order.made_by %><%= last_change_by  %></b>
   <% end %>
 </div>
 

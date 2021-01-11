@@ -1,5 +1,5 @@
 <div class="email-container">
-<div class='email-header-warn'>Changes to the order #<%= @order.id %> - new quantity. Applied by <%= @email %></div>
+<div class='email-header-warn'>New quantity is set for the order #<%= @order.id %> by <%= @email %></div>
 <p>New order details:  <%= @order.products.count %> <%= 'product'.pluralize(@order.products.count) %></p>
 <table class='table table-striped'>
 <thead>
@@ -10,6 +10,8 @@
     <th> Colour </th>
     <th> Price/Unit </th>
     <th> Qty </th>
+    <th> Total </th>
+    <th> Status </th>
   </tr>
 </thead>
 <tbody>
@@ -21,15 +23,18 @@
   <td><%= placement.product.colour_str %> </td>
   <td><%= number_to_currency(placement.price, locale: @client.locale) %></td>
   <td><%= placement.quantity %></td>
+  <td><%= number_to_currency(placement.ptotal, locale: @client.locale) %></td>
+  <td><%= placement.status_str %></td>
   </tr>
 <% end %>
 </tbody>
 
 <tfoot>
   <tr>
-    <td colspan=4><b>Total:</b></td>
-    <td><%= number_to_currency(@order.grand_total,locale: @client.locale) %></td>
+    <td colspan=5><b>Total:</b></td>
     <td> <%= @order.placements.sum(:quantity) %> </td>
+    <td><%= number_to_currency(@order.grand_total,locale: @client.locale) %></td>
+    <td></td>
   </tr>
 </tfoot>
 </table>

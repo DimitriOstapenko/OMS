@@ -15,6 +15,7 @@ You ordered following products from APD Order Management System:</p>
     <th> Colour </th>
     <th> Price/Unit </th>
     <th> Qty. </th>
+    <th> Status </th>
   </tr>
 </thead>
 <tbody>
@@ -27,6 +28,7 @@ You ordered following products from APD Order Management System:</p>
   <td><%= placement.product.colour_str %> </td>
   <td><%= number_to_currency(placement.price, locale: @client.locale) %>
   <td><%= placement.quantity %></td>
+  <td><%= placement.status_str %></td>
   </tr>
 <% end %>
 </tbody>
@@ -36,6 +38,7 @@ You ordered following products from APD Order Management System:</p>
     <td colspan=5><b>Total:</b></td>
     <td><%= number_to_currency(@order.grand_total,locale: @client.locale) %></td>
     <td> <%= @order.placements.sum(:quantity) %> </td>
+    <td></td>
   </tr>
 </tfoot>
 </table>

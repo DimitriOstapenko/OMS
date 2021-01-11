@@ -39,13 +39,13 @@ class Order < ApplicationRecord
   attr_accessor :quantity # to get quantity from form
 
   before_create :set_attributes!
-  before_update :set_totals!
+
+# set totals and send email to staff on quantity change
+  before_update :set_totals!, :send_change_order_emails!
 
 # emails are sent from 'tiny' only when in production mode 
   after_create :send_emails! if SEND_EMAILS
-
-# send email to staff on quantity change
-  before_update :send_change_order_emails!
+  after_save :changes_applied
 
 # Calculate Order Total including Tax, Discount and Shipping  
   def set_attributes!
@@ -111,11 +111,11 @@ class Order < ApplicationRecord
 
 # Send emails to client and staff only if total has changed  
   def send_change_order_emails!
-#    logger.debug("*********** total was changed?  #{self.total_changed?}  was #{self.total_was}")
+#     logger.debug("******************  changes : #{self.changes} prev: #{self.previous_changes}")
     if self.total_changed?
-      self.notes = "#{self.notes} \n Previous total was: #{to_currency(self.total_was, locale: self.client.locale)}"
-      OrderMailer.notify_staff_about_changes(self).deliver_now
-      OrderMailer.send_confirmation_about_changes(self).deliver_now
+       self.notes = "#{self.notes} \n Previous total was: #{to_currency(self.total_was, locale: self.client.locale)}" if self.total_was
+       OrderMailer.notify_staff_about_changes(self).deliver_now
+       OrderMailer.send_confirmation_about_changes(self).deliver_now
     end
   end
 
