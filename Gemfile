@@ -1,14 +1,13 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-#ruby '2.7.0'
 #ruby '2.6.4'
 gem 'bundler', '~> 2.1', '>= 2.1.4'
-gem 'rails', '~> 5.2.3'
+gem 'rails', '~> 6.1'
 gem 'pg'
-gem 'puma', '~> 4.3', '>= 4.3.3'
-gem 'devise', '~> 4.7', '>= 4.7.1'
-gem 'nokogiri', '~> 1.10', '>= 1.10.8'
+gem 'puma', '~> 5.1', '>= 5.1.1'
+gem 'devise', '~> 4.7', '>= 4.7.3'
+gem 'nokogiri', '~> 1.11', '>= 1.11.1'
 
 gem 'carrierwave', '~> 2.1'
 gem 'dropzonejs-rails', '~> 0.8.4'
@@ -17,9 +16,9 @@ gem 'will_paginate', '~> 3.3'
 
 #gem 'bootstrap', '~> 4.4', '>= 4.4.1'
 gem 'bootstrap-sass',       '~> 3.4.1'
-gem 'bootstrap-email', '~> 0.3.0'
+gem 'bootstrap-email', '~> 0.3.4'
 gem 'bootstrap-will_paginate', '1.0.0'
-#gem 'will_paginate-bootstrap', '~> 1.0', '>= 1.0.2'
+#gem 'will_paginate-bootstrap4', '~> 0.2.2'
 
 gem 'sassc', 		       '~> 2.0'
 gem 'sassc-rails',	       '~> 2.1'
@@ -28,7 +27,7 @@ gem 'coffee-rails', '~> 4.2'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'jquery-rails',            '4.3.1'
-gem 'select2-rails',           '4.0.3'
+gem 'select2-rails', '~> 4.0', '>= 4.0.13'
 gem 'popper_js', '~> 1.14.3'
 
 # Reduces boot times through caching; required in config/boot.rb
@@ -54,7 +53,7 @@ group :test do
 end
 
 gem 'activerecord-session_store'
-gem 'simple_form', '~> 5.0.0'
+gem 'simple_form', '~> 5.0', '>= 5.0.3'
 gem 'whenever', require: false
 gem 'country_select'  #, '~> 3.1.1'
 gem 'countries', require: 'countries/global'
