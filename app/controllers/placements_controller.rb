@@ -42,7 +42,7 @@ class PlacementsController < ApplicationController
 # update this placement
   def update
     @placement = Placement.find(params[:id])
-    if @placement.update_attributes(placement_params)
+    if @placement.update(placement_params)
       @placement.delete_pdfs
       flash[:success] = "Placement updated" 
       @placement.order.last_change_by = current_user.email

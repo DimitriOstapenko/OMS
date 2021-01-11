@@ -45,7 +45,7 @@ class ManagersController < ApplicationController
 
   def update
     @manager = Manager.find(params[:id])
-    if @manager.update_attributes(manager_params)
+    if @manager.update(manager_params)
       flash[:success] = "Manager updated"
       redirect_to managers_path
     else

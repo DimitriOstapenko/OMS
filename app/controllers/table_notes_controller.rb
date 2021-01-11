@@ -36,7 +36,7 @@ class TableNotesController < ApplicationController
 
   def update
     @table_note = TableNote.find(params[:id])
-    if @table_note.update_attributes(table_note_params)
+    if @table_note.update(table_note_params)
       flash[:success] = "Note updated"
       redirect_back(fallback_location: prices_path)
     else

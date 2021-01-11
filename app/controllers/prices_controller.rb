@@ -28,7 +28,7 @@ class PricesController < ApplicationController
 
   def update
     @price = Price.find(params[:id])
-    if @price.update_attributes(price_params)
+    if @price.update(price_params)
       flash[:success] = "Price rule updated"
       redirect_to prices_path
     else

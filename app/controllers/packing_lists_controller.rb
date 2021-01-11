@@ -35,7 +35,7 @@ class PackingListsController < ApplicationController
   # delete active list, reset placements 'to_ship' attribute.  
   def destroy
     @packing_list.placements.each do |pl|
-      pl.update_attributes(to_ship: 0, packing_list_id: nil)
+      pl.update(to_ship: 0, packing_list_id: nil)
     end
     File.delete( @packing_list.filespec ) rescue nil
     flash[:success] = "Packing list #{@packing_list.name} deleted. "
@@ -47,7 +47,7 @@ class PackingListsController < ApplicationController
   end
 
   def update
-    if @packing_list.update_attributes(packing_list_params)
+    if @packing_list.update(packing_list_params)
       flash[:success] = "Packing List updated"
       redirect_back(fallback_location: packing_lists_path)
     else

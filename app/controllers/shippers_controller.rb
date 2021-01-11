@@ -28,7 +28,7 @@ class ShippersController < ApplicationController
   end
 
   def update
-    if @shipper.update_attributes(shipper_params)
+    if @shipper.update(shipper_params)
       flash[:success] = "Shipper updated"
       redirect_to shippers_path
     else

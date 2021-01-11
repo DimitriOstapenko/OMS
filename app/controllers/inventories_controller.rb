@@ -46,7 +46,7 @@ class InventoriesController < ApplicationController
   end
 
   def update
-    if @inventory.update_attributes(inventory_params)
+    if @inventory.update(inventory_params)
       flash[:success] = "Inventory updated"
       redirect_back(fallback_location: inventories_path)
     else

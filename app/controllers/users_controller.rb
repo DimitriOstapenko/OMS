@@ -34,7 +34,7 @@ class UsersController < ApplicationController
       params[:user].delete(:password_confirmation)
     end
   
-    if @user.update_attributes(user_params)
+    if @user.update(user_params)
       msg = "New email will be active once confirmed by the user" if @user.unconfirmed_email.present?
       flash[:success] = "Profile updated. #{msg}"
       redirect_to users_path

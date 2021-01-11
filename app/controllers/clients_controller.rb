@@ -48,7 +48,7 @@ class ClientsController < ApplicationController
   end
 
   def update
-    if @client.update_attributes(client_params)
+    if @client.update(client_params)
       flash[:success] = "Client updated"
       redirect_to clients_path
     else

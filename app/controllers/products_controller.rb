@@ -86,7 +86,7 @@ class ProductsController < ApplicationController
       client = Client.find(cl.to_i)
       @product.clients.push(client) if client
     end
-    if @product.update_attributes(product_params)
+    if @product.update(product_params)
       flash[:success] = "Product updated"
       redirect_back(fallback_location: products_path)
     else

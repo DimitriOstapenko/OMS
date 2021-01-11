@@ -31,7 +31,7 @@ class ClientMailsController < ApplicationController
 
   def update
     @client_mail = ClientMail.find(params[:id])
-    if @client_mail.update_attributes(client_mail_params)
+    if @client_mail.update(client_mail_params)
       flash[:success] = "Email updated"
       redirect_to client_mails_path
     else
