@@ -15,6 +15,7 @@ class PlacementsController < ApplicationController
     @placement = Placement.find(params[:id])
   end
 
+# Add product to shopping cart  
   def add_product
     quantity = params[:quantity] || params[:placement][:quantity]
     id = params[:id] || params[:placement][:id]
@@ -57,13 +58,13 @@ class PlacementsController < ApplicationController
     shipped = params[:placement][:shipped].to_i.abs rescue 0
     shipped = @placement.quantity if shipped > @placement.quantity 
     if shipped && @placement.update_attribute(:shipped, shipped)
+       @placement.order.update_attribute(:status, ACTIVE_ORDER)
        flash[:success] = "Placement updated " 
        if shipped == @placement.quantity
           @placement.set_to_shipped
           redirect_back(fallback_location: inventories_path)
        else
          @placement.update_attribute(:status, ACTIVE_ORDER)
-         @placement.order.update_attribute(:status, ACTIVE_ORDER)
          redirect_back(fallback_location: inventories_path)
        end
     else 

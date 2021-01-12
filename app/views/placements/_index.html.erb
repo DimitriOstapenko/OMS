@@ -21,7 +21,6 @@
     <table class="table table-hover table-striped <%= scroll %>"> 
   <thead>
       <tr>
-          <th class="tbl_sm text-center">Product</th>
           <th class="tbl_sm text-center">Code</th>
           <th class="tbl_sm text-center">Scale</th>
           <th class="tbl_sm text-center">Color</th>
@@ -40,7 +39,7 @@
   </tbody>
   <tfoot>
     <tr>
-      <th colspan=6></th>
+      <th colspan=5><%= @placements.count  %> <%= 'product'.pluralize(@placements.count) %></th>
       <th class="text-center"><%= to_currency @order.total_price, locale: @client.locale %></th>
       <th class="text-center"><%= @order.total_pcs %></th>
       <th class="text-center"><%= @order.pending %></th>

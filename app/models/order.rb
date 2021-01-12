@@ -112,10 +112,10 @@ class Order < ApplicationRecord
 # Send emails to client and staff only if total has changed  
   def send_change_order_emails!
 #    logger.debug("******************  changes : #{self.changes} prev: #{self.previous_changes}")
-    if self.total_changed?
-       self.notes = "#{self.notes} \n Previous total was: #{to_currency(self.total_was, locale: self.client.locale)}" if self.total_was
-       OrderMailer.notify_staff_about_changes(self).deliver_now
-       OrderMailer.send_confirmation_about_changes(self).deliver_now
+    if self.total_changed? && self.total_was
+       self.notes = "#{self.notes} \n Previous total was: #{to_currency(self.total_was, locale: self.client.locale)}"
+       OrderMailer.notify_staff_about_changes(self).deliver_now 
+#       OrderMailer.send_confirmation_about_changes(self).deliver_now
     end
   end
 
