@@ -1,5 +1,7 @@
 {
   "name": "oms",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "bootstrap-icons": "^1.2.2"
+  }
 }
