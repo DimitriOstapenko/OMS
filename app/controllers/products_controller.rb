@@ -26,9 +26,9 @@ class ProductsController < ApplicationController
         end
       end
       if params[:sort] == 'pending'  # sorting on joined table
-        @products = Product.joins(:placements).where('placements.status': PENDING_ORDER).group('id').reorder('sum(quantity-shipped)'+ ' ' + sort_direction).paginate(page: params[:page])
+        @products = Product.joins(:placements).where('placements.status': PENDING_ORDER).group('id').reorder(Arel.sql('sum(quantity-shipped)' + ' ' + sort_direction)).paginate(page: params[:page])
       elsif params[:sort] == 'active' 
-        @products = Product.joins(:placements).where('placements.status': ACTIVE_ORDER).group('id').reorder('sum(quantity-shipped)'+ ' ' + sort_direction).paginate(page: params[:page])
+        @products = Product.joins(:placements).where('placements.status': ACTIVE_ORDER).group('id').reorder(Arel.sql('sum(quantity-shipped)'+ ' ' + sort_direction)).paginate(page: params[:page])
       else
         @products = @products.reorder(sort_column + ' ' + sort_direction).paginate(page: params[:page])
       end
