@@ -13,7 +13,7 @@
 <% when SHIPPED_ORDER %>
   <%= link_to "Shipped", orders_path(status: SHIPPED_ORDER) %>: <%= shipped %> > <%= link_to "Show All" %>
 <% when CANCELLED_ORDER %>
-  <%= link_to "Canceled", orders_path(status: CANCELLED_ORDER) %>: <%= canceled %> > <%= link_to "Show All" %>
+  <%= link_to "Cancelled", orders_path(status: CANCELLED_ORDER) %>: <%= canceled %> > <%= link_to "Show All" %>
 <% else %>
   Total orders: <%= @orders.count %>,
 <% pen_class = 'disabled' if pending.zero? %>
