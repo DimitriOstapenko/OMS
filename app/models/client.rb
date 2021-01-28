@@ -70,7 +70,7 @@ class Client < ApplicationRecord
   def locale
     return :cn if self.cn?
     country = Country[self.country]
-    (country.continent == 'Europe') ? :fr : :us rescue :fr
+    (country.continent == 'Europe') ? :fr : :en rescue :fr
   end
 
 # Client's currency  
