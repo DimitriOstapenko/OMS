@@ -1,17 +1,18 @@
 <%= simple_form_for @price do |f| %>
   <%= render 'shared/error_messages', object: f.object %>
-  <% new_rule = (action_name == 'new')? true : false %>  
+  <% edit = (action_name == 'edit')? true : false %>  
 
-  <% if new_rule %>
-    <div class="row">
-      <div class="col-md-2">
-      <%= f.input :scale %>
-      </div>
-      <div class="col-md-2">
-      <%= f.input :category, collection: CATEGORIES, include_blank: false %>
-      </div>
+  <div class="row">
+    <div class="col-md-3">
+    <%= f.input :brand, collection: BRANDS, include_blank: false, disabled: edit %>
     </div>
-  <% end %>
+    <div class="col-md-2">
+    <%= f.input :scale, collection: SCALES, include_blank: false, disabled: edit %>
+    </div>
+    <div class="col-md-2">
+    <%= f.input :category, collection: CATEGORIES, include_blank: false, disabled: edit %>
+    </div>
+  </div>
 
   <div class="row">
   <div class="col-md-2">

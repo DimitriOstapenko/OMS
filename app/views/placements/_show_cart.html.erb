@@ -1,10 +1,10 @@
 <%= render "shared/modal" %>
 
-<div class="help-container">
+<div class="container">
 <h3 class='display-1'>Shopping Cart </h3>
 <div class="row">
-  <div class="col-md-8">
-<table class="table table-striped" >
+  <div class="col-md-9">
+<table class="table table-striped table-bordered" >
   <tbody>
 <% grand_total = pos = total_quantity = 0 %>
 <% @products.sort.each do |prod_and_qty| %>
@@ -15,25 +15,21 @@
   <% grand_total += product_total; pos += 1 %>
   <% total_quantity += quantity %>
   <tr>
-    <td width='100px'>
-       <img src="<%= product.normal_image_rel_path %>">
+    <td class="w-30">
+      <img src="<%= product.normal_image_rel_path %>" class="img-fluid img-thumbnail"> 
     </td>
-    <td valign='top'>
-      <div style="position:relative">
-      <div class='cart_product_header'><%= product.description %></div><br>
-      Ref# <%= product.ref_code %>, 
-      Scale: 1:<%= product.scale %> Color: <%= product.colour_str %>, Weight: <%= product.weight.to_i %>g<br>
-      Release Date: <%= product.release_date %> <br>
-      <div style='position:absolute; top:40%; height:10em; margin-top: 6em'> 
+    <td>
+      <div class='cart_product_header'><%= product.ref_code %>: <%= product.description %></div>
+      Brand: <%= product.brand_str %>, Category: <%= product.category_str %>, Scale: <%= product.scale_str %> <br>
+      Color: <%= product.colour_str %>, Weight: <%= product.weight.to_i %>g, Release Date: <%= product.release_date %> <br>
+      <div class="pt-5"></div>
         <%= simple_form_for :placement, url: update_product_qty_path(product.id), method: :post, html: { class: "form-inline" } do |f| %>
             Qty:<%= f.input :quantity, label: false, input_html: {value: quantity, onchange: 'this.form.submit();', size: 3} %>
         Price: <%= to_currency @client.price(product), locale: @client.locale %> |
       <%= link_to 'Delete', delete_product_path(product) %>
         <% end %>
-      </div>
-      </div>
   </td>
-  <td valign="top">
+  <td>
     <div class="cart_product_subtotal">
     <%= to_currency product_total, locale: @client.locale %></td>
     </div>

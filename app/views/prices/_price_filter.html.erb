@@ -1,0 +1,20 @@
+<%= simple_form_for :price, url: prices_path, method: :get do |f| %>
+  <div class="row">
+    <div class="col-md-1 pt-3"> 
+      <b> Show only: </b>
+    </div> 
+
+    <div class="col-md-2">
+      <%= f.input :scale, collection: SCALES, label: false, include_blank: 'All Scales', selected: @scale, input_html: { onchange: 'this.form.submit();'} %>
+    </div>
+
+    <div class="col-md-2">
+    <%= f.input :brand, collection: BRANDS, label: false, include_blank: 'All Brands', selected: @brand, input_html: { onchange: 'this.form.submit();'} %>
+    </div>
+
+    <div class="col-md-2">
+    <%= f.input :category, collection: CATEGORIES, label: false, include_blank: 'All Categories', selected: @category,  input_html: { onchange: 'this.form.submit();'}  %>
+    </div>
+  </div>
+<% end %>
+

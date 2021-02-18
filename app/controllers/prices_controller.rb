@@ -8,8 +8,21 @@ class PricesController < ApplicationController
   end
 
   def index
-    @prices = Price.all.paginate(page: params[:page])
+    @prices = Price.all
+    filter = params[:price]
+    if filter
+      @scale = filter[:scale]
+      @brand = filter[:brand]
+      @category = filter[:category]
+    end 
+
+    @prices = @prices.where(scale: @scale) if @scale.present?
+    @prices = @prices.where(brand: @brand) if @brand.present?
+    @prices = @prices.where(category: @category) if @category.present?
+
     @table_note = TableNote.find_by(table_name: 'prices') || TableNote.create('table_name': 'prices')
+    @prices = @prices.paginate(page: params[:page])
+#    flash[:info] = "scale: #{@scale} brand: #{@brand} cat: #{@category}"
   end
 
   def create
@@ -50,7 +63,7 @@ class PricesController < ApplicationController
 
 private
   def price_params
-    params.require(:price).permit( :scale, :category, :price_eu, :price_eu2, :price_eu3, :price_eu4, :price_eu5, :price_eu6, :price_usd, :price_usd2, :price_cny )
+    params.require(:price).permit( :scale, :category, :brand, :price_eu, :price_eu2, :price_eu3, :price_eu4, :price_eu5, :price_eu6, :price_usd, :price_usd2, :price_cny )
   end  
 
 end
