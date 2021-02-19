@@ -41,6 +41,15 @@ class SelfTestController < ApplicationController
       @missing_ref_codes.push(ref_code) 
     end
 
+    @missing_price_rules = []
+    BRANDS.values.each do |brand|
+      CATEGORIES.values.each do |category|
+        SCALES.values.each do |scale|
+          @missing_price_rules.push(Price.new(scale:scale,category:category,brand:brand)) unless Price.exists?(scale:scale, category:category, brand:brand)   
+        end
+      end
+    end
+
   end
 
 end

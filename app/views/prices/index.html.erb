@@ -3,6 +3,9 @@
 <%= render 'price_filter' %>
 
 <table class="table table-hover table-striped" >
+  <caption>
+    Products not covered by these rules will be ignored and their prices won't change
+  </caption>
   <thead>
       <tr>
           <th class='text-center'>Scale</th>
@@ -44,9 +47,12 @@
     <div class="col-md-3">
     <%= button_to "Add Price Rule", new_price_path, class: "btn btn-primary", remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window', method: :get %>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-4">
     <%= button_to "Apply Price Rules to All Products", apply_price_rules_path, class: "btn btn-warning mr-1", method: :post %>
     </div>
     <div class="col-md-7"></div>
   </div>
-<p>&nbsp;</p>
+
+  <div class="p-4"></div>
+   <p>* After changing existing or adding new prices, press "APPLY PRICE RULES" button. Otherwise prices won't change. </p>
+   <p>** New prices will be applied only to products for which price rule exists in price matrix. The rest will be left unchanged. You can check for missing price rules with "Data Integrity Check" command accessible in top left sandwich menu. </p>

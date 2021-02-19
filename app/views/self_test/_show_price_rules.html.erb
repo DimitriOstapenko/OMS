@@ -1,0 +1,13 @@
+<b><%= collection.count == 0 ? 'Ok' : collection.count %></b> 
+<% if collection.count > 0 %>
+  <% if collection.count > 1 %>
+, including: 
+  <% end %>
+  <% collection[0..15].each do |price| %>
+    <%=   " | #{price.scale_str} #{price.brand_str} #{price.category_str}" %>
+    <%# price.inspect %>
+  <% end %>
+  <% if collection.count > 15 %>
+    .. | <b>  and <%= collection.count-15 %> more </b>
+  <% end %>
+<% end %>
