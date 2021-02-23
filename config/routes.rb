@@ -11,7 +11,8 @@ Rails.application.routes.draw do
   get '/inventories', to: 'inventories#index'
   post '/update_stock/:id', to: 'products#update_stock', as:  :update_stock 
   post '/update_delta/:id', to: 'products#update_delta', as:  :update_delta 
-  post '/apply_price_rules(/:id)', to: 'products#apply_price_rules', as:  :apply_price_rules
+  post '/apply_price_rules_to_products', to: 'products#apply_price_rules', as:  :apply_price_rules_to_products
+  post '/apply_price_rules_to_orders', to: 'orders#apply_price_rules', as:  :apply_price_rules_to_orders
   get '/reports', to: 'reports#index'
 
   get '/home', to: 'static_pages#home'

@@ -31,7 +31,7 @@ class Order < ApplicationRecord
   }
 
   validates :client_id, presence: true
-  validates_with EnoughProductsValidator
+  validates_with EnoughProductsValidator, on: :create
 
   has_many :placements, :dependent => :destroy
   has_many :products, through: :placements

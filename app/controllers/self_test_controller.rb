@@ -1,7 +1,7 @@
 class SelfTestController < ApplicationController
 
   before_action :logged_in_user
-  before_action :admin_or_staff_user, only: [:new, :create, :edit, :update]
+  before_action :admin_or_staff_user, only: [:new, :create, :edit, :update, :index ]
   before_action :admin_user, only: [:destroy]
 
   def index
@@ -49,6 +49,12 @@ class SelfTestController < ApplicationController
         end
       end
     end
+
+    @products_without_matching_price_rule = []
+    Product.all.each do |prod|
+      @products_without_matching_price_rule.push(prod) unless Price.exists?(scale:prod.scale, category:prod.category, brand:prod.brand)
+    end
+
 
   end
 

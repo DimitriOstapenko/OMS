@@ -2,7 +2,9 @@
   <%= render 'shared/error_messages', object: f.object %>
   <% edit = (action_name == 'edit')? true : false %>  
 
-  <div class="row">
+  Required fields are marked with asterisk
+  
+  <div class="row pt-3">
     <div class="col-md-3">
     <%= f.input :brand, collection: BRANDS, include_blank: false, disabled: edit %>
     </div>

@@ -4,7 +4,7 @@
 
 <table class="table table-hover table-striped" >
   <caption>
-    Products not covered by these rules will be ignored and their prices won't change
+    Products without matching rule will be ignored and their prices won't change. (See data integrity test for more details)
   </caption>
   <thead>
       <tr>
@@ -45,14 +45,18 @@
 
   <div class="row">
     <div class="col-md-3">
-    <%= button_to "Add Price Rule", new_price_path, class: "btn btn-primary", remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window', method: :get %>
+    <%= button_to "Add New Price Rule", new_price_path, class: "btn btn-primary", remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window', method: :get %>
     </div>
+    <div class="col-md-3">
+    <%= button_to "Apply Prices to All Products", apply_price_rules_to_products_path, class: "btn btn-warning mr-1", method: :post %>
+    </div>
+
     <div class="col-md-4">
-    <%= button_to "Apply Price Rules to All Products", apply_price_rules_path, class: "btn btn-warning mr-1", method: :post %>
+      <%= button_to "Apply Prices To All Pending Orders", apply_price_rules_to_orders_path, class: "btn btn-danger mr-1", method: :post,  data: { confirm: "Are you sure you want to modify prices of all pending orders? This might take a minite or two. Please do not interrupt"} %>
     </div>
-    <div class="col-md-7"></div>
   </div>
 
   <div class="p-4"></div>
    <p>* After changing existing or adding new prices, press "APPLY PRICE RULES" button. Otherwise prices won't change. </p>
    <p>** New prices will be applied only to products for which price rule exists in price matrix. The rest will be left unchanged. You can check for missing price rules with "Data Integrity Check" command accessible in top left sandwich menu. </p>
+   <p>*** When you change prices of pending orders, all related documents, including POs and invoices, as well as order totals will change accordingly. Reports will be excluded from this operation and will reflect old prices/totals.

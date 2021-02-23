@@ -148,6 +148,31 @@ class OrdersController < ApplicationController
     redirect_to orders_path 
   end
 
+# Apply current product prices to all pending orders
+  def apply_price_rules
+    orders = 0
+    Order.where(status: PENDING_ORDER).each do |order|
+      changed_placements = false
+      order.placements.each do |placement|
+        new_price = order.client.price(placement.product)
+        next if (new_price - placement.price).abs < 1
+        changed_placements = true
+        placement.price = new_price
+        placement.ppo.delete_pdfs if placement.ppo.present?
+        placement.save!
+      end
+      if changed_placements
+        order.delete_pdfs
+        order.last_change_by = "#{current_user.email} (price matrix bulk change)"
+        order.save!
+        orders += 1
+      end
+    end
+
+    redirect_back(fallback_location: prices_path)
+    flash[:info] = "#{orders} pending orders were modified"
+  end  
+
 private
   def init
     @order = Order.find(params[:id]) rescue nil

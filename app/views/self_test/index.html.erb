@@ -30,12 +30,13 @@
   <ul> <%= @empty_price_usd.any? ? error_icon:ok_icon %> Missing price USD? <%= render 'show_products', collection: @empty_price_usd %> </ul>
   <ul> <%= @empty_price_usd2.any? ? error_icon:ok_icon %> Missing price USD2? <%= render 'show_products', collection: @empty_price_usd2 %> </ul>
   <ul> <%= @empty_price_cny.any? ? error_icon:ok_icon %> Missing price CNY? <%= render 'show_products', collection: @empty_price_cny %> </ul>
-  <ul> <%= @missing_images.any? ? error_icon:ok_icon %> Missing picture test: <%= render 'show_products', collection: @missing_images %> </ul>
+  <ul> <%= @missing_images.any? ? error_icon:ok_icon %> Missing picture?: <%= render 'show_products', collection: @missing_images %> </ul>
 </ul>
 
 <ul>
   <h3> Prices </h3>  
   <ul> <%= @missing_price_rules.any? ? error_icon:ok_icon %> Missing Price Rules: <%= render 'show_price_rules', collection: @missing_price_rules %> </ul>
+  <ul> <%= @products_without_matching_price_rule.any? ? error_icon:ok_icon %> Products without matching price rule: <%= render 'show_products_without_rule', collection: @products_without_matching_price_rule.push %> </ul>
 </ul>
 
 <ul>

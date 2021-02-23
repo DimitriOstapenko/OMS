@@ -1,0 +1,12 @@
+<b><%= collection.count == 0 ? 'Ok' : collection.count %></b> 
+<% if collection.count > 0 %>
+  <% if collection.count > 1 %>
+    , including: 
+  <% end %>
+  <% collection[0..15].each do |product| %>
+    <%= product.ref_code %>
+  <% end %>
+  <% if collection.count > 15 %>
+  and <%= collection.count-15 %> more
+  <% end %>
+<% end %>
