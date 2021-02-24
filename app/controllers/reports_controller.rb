@@ -100,7 +100,7 @@ class ReportsController < ApplicationController
                       @pdf.render_file @report.filespec
                       redirect_to reports_path(category: @report.category) 
                     }
-        format.csv { send_data @orders.to_csv, filename: "#{@report.name}.csv" }
+        format.csv { send_data @orders.to_csv(detail = @report.detail), filename: "#{@report.name}.csv" }
       end
       flash.now[:info] = "New report created. Contains #{@orders.count} orders "
     else
@@ -143,6 +143,7 @@ private
     case report.category
       when CLIENT_REPORT
       orders = Order.all
+      orders = orders.where(geo: GEO_CN) if current_user.production?
       orders = orders.where(client_id: report.client_id) if report.client_id
       orders = orders.where(created_at: (report.sdate..report.edate))
       orders = orders.where(status: report.status) if report.status.present?
@@ -151,12 +152,14 @@ private
       placements = Placement.where(created_at: (report.sdate..report.edate))
       placements = placements.where(product_id: report.product_id) if report.product_id
       placements = placements.where(status: report.status) if report.status.present?
+      placements = placements.joins(:order).where('orders.geo': GEO_CN) if current_user.production?
       placements = placements.joins(:order).where('orders.client_id': report.client_id) if report.client_id
       return placements
     when SUMMARY_REPORT
 #p= Placement.joins(:order).where("orders.client_id":405).group(:product_id).pluck(:product_id,'sum(quantity)','sum(shipped)','sum(to_ship)','count(order_id)','sum(price)')
       placements = Placement.where(created_at: (report.sdate..report.edate))
       placements = placements.where(status: report.status) if report.status.present?
+      placements = placements.joins(:order).where('orders.geo': GEO_CN) if current_user.production?
       placements = placements.joins(:order).where('orders.client_id': report.client_id) if report.client_id
       return placements
     else 

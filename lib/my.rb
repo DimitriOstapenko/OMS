@@ -27,7 +27,8 @@ module My
 # Generate product report. Filter placements to include only product report was created for 
   def build_product_report (report, placements)  
     client_name = report.client.name rescue 'All'
-    if report.client && report.client.cn?
+    cn_report = (report.geo == GEO_CN) || report.client.cn?
+    if cn_report
       fx = ''
       locale = :cn
     else
@@ -44,21 +45,34 @@ module My
   
     pdf.move_down 5.mm
     pdf.font_size 9
-    rows =  [[ '#', 'Ref.Code', "Client", "Order#", "Ttl.Pcs", "Pending", "Shipped", "Ordered", "Order Status", "PO#", "Subtotal"]]
+
+    if cn_report
+      rows =  [[ '#', 'Ref.Code', "Client", "Order#", "Ttl.Pcs", "Pending", "Shipped", "Ordered", "Order Status", "PO#" ]]
+    else 
+      rows =  [[ '#', 'Ref.Code', "Client", "Order#", "Ttl.Pcs", "Pending", "Shipped", "Ordered", "Order Status", "PO#", "Subtotal"]]
+    end
     
     ttl_pcs = pending_pcs = shipped_pcs = num = 0; subtotal = ttl_amount = 0.0
     placements.each do |pl|
       o = pl.order
       num += 1
       subtotal = pl.price * pl.quantity
-      rows += [[num, pl.product.ref_code, o.client.code, o.id, pl.quantity, pl.pending, pl.shipped, o.created_at.to_date, pl.status_str, o.po_number, number_to_currency(subtotal,locale: o.client.locale) ]] 
+      if cn_report
+        rows += [[num, pl.product.ref_code, o.client.code, o.id, pl.quantity, pl.pending, pl.shipped, o.created_at.to_date, pl.status_str, o.po_number ]] 
+      else
+        rows += [[num, pl.product.ref_code, o.client.code, o.id, pl.quantity, pl.pending, pl.shipped, o.created_at.to_date, pl.status_str, o.po_number, number_to_currency(subtotal,locale: o.client.locale) ]] 
+      end
 
-        ttl_pcs += pl.quantity
-        pending_pcs += pl.pending
-        shipped_pcs += pl.shipped
-        ttl_amount += subtotal * o.client.fx_rate   # we convert all to euros
+      ttl_pcs += pl.quantity
+      pending_pcs += pl.pending
+      shipped_pcs += pl.shipped
+      ttl_amount += subtotal * o.client.fx_rate   # we convert all to euros
     end
-    rows += [['','','','',ttl_pcs,pending_pcs,shipped_pcs, '','','',  number_to_currency(ttl_amount, locale: locale)]]
+    if cn_report
+      rows += [['','','','',ttl_pcs,pending_pcs,shipped_pcs, '','','']]
+    else
+      rows += [['','','','',ttl_pcs,pending_pcs,shipped_pcs, '','','',  number_to_currency(ttl_amount, locale: locale)]]
+    end
 
     pdf.table rows, cell_style: {inline_format: true} do |t|
         t.cells.border_width = 0
@@ -80,7 +94,8 @@ module My
 # Generate Client Report
   def build_client_report( report, orders )
     client_name = report.client.name rescue 'All'
-    if report.client && report.client.cn?
+    cn_report = (report.geo == GEO_CN) || report.client.cn?
+    if cn_report
       fx = ''
       locale = :cn
     else
@@ -96,17 +111,29 @@ module My
   
     pdf.move_down 5.mm
     pdf.font_size 9
-    rows =  [[ '#', "Client", "Order", "Items", "Pcs", "Shipped", "Ordered", "Status", "Invoice", "Total"]]
+    if cn_report
+      rows =  [[ '#', "Client", "Order", "Items", "Pcs", "Shipped", "Ordered", "Status", "Invoice"]]
+    else
+      rows =  [[ '#', "Client", "Order", "Items", "Pcs", "Shipped", "Ordered", "Status", "Invoice", "Total"]]
+    end
     
     ttl_products = ttl_amount = ttl_pcs = ttl_shipped = num = 0
     orders.all.each do |o|
       num += 1
-      rows += [["<b>#{num}</b>", o.client.code, o.id, o.products.count, o.total_pcs, o.shipped, o.created_at.to_date, o.status_str.to_s, o.inv_number, number_to_currency(o.total,locale: o.client.locale)]]
+      if cn_report
+        rows += [["<b>#{num}</b>", o.client.code, o.id, o.products.count, o.total_pcs, o.shipped, o.created_at.to_date, o.status_str.to_s, o.inv_number ]]
+      else
+        rows += [["<b>#{num}</b>", o.client.code, o.id, o.products.count, o.total_pcs, o.shipped, o.created_at.to_date, o.status_str.to_s, o.inv_number, number_to_currency(o.total,locale: o.client.locale)]]
+      end
       if report.detail == ITEMIZED_REPORT
          o.placements.each do |pl|
            price  = number_to_currency(pl.price, locale: o.client.locale)
            total  = number_to_currency(pl.price * pl.quantity, locale: o.client.locale)
-           rows += [['','', {content: "<b>#{pl.product.ref_code}</b>: #{pl.product.scale_str}  #{pl.product.colour_str} x #{pl.quantity} pcs @ #{price}; Subtotal: #{total}; Status: '#{pl.status_str}', Shipped: #{pl.shipped} pcs", colspan: 6, align: :left} ]] 
+           if cn_report
+             rows += [['','', {content: "<b>#{pl.product.ref_code}</b>: #{pl.product.scale_str}  #{pl.product.colour_str} x #{pl.quantity} pcs Status: #{pl.status_str} Shipped: #{pl.shipped} pcs", colspan: 6, align: :left} ]] 
+           else
+             rows += [['', {content: "<b>#{pl.product.ref_code}</b>: #{pl.product.scale_str}  #{pl.product.colour_str} x #{pl.quantity} pcs @ #{price}; Subtotal: #{total}; Status: #{pl.status_str} Shipped: #{pl.shipped} pcs", colspan: 8, align: :left} ]] 
+           end
          end
          rows += [[ {size:25}, {size:20}, {size:20} ]]
       end
@@ -115,7 +142,11 @@ module My
       ttl_shipped += o.shipped
       ttl_amount += o.total * o.client.fx_rate   # we convert to euros for WRLD clients only
     end
-    rows += [['','','',ttl_products,ttl_pcs,ttl_shipped,'','','',  number_to_currency(ttl_amount, locale: locale)]]
+    if cn_report
+      rows += [['','','',ttl_products,ttl_pcs,ttl_shipped,'','','']]
+    else
+      rows += [['','','',ttl_products,ttl_pcs,ttl_shipped,'','','',  number_to_currency(ttl_amount, locale: locale)]]
+    end
 
     pdf.table rows, cell_style: {inline_format: true} do |t|
         t.cells.border_width = 0

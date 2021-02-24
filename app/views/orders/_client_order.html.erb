@@ -15,7 +15,7 @@
 <td class="text-center"><%= order.total_pcs %></td>
 <td class="text-center"><%= order.shipped %></td>
 <td class="text-center"><%= order.cre_date %></td>
-<td class="text-center"><%= order.weight.round(2) rescue 0 %></td>
+<td class="text-center"><%= order.weight rescue 0 %></td>
 <td class="text-center"><%= order.terms_str %></td>
 <td class="text-center"> <%= link_to order.po_number, download_po_order_path(order) %> </td>
 <td class="text-center"><%= order.delivery_by %></td>

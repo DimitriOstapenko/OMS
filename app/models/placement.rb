@@ -113,8 +113,13 @@ class Placement < ApplicationRecord
     self.order.cancel(by_email) if self.order.all_placements_cancelled?
   end
 
-  def self.to_csv
-    attributes = %w{ref_code client_code order_id quantity pending shipped to_ship ordered status_str price ptotal po_number inv_number ppo_id packing_list_id status_str}
+  def self.to_csv(detail = TOTALS_ONLY_REPORT)
+    cn_client  = all.first.order.client.cn? rescue false
+    if cn_client
+      attributes = %w{ref_code client_code order_id quantity pending shipped to_ship ordered status_str po_number inv_number ppo_id packing_list_id status_str}
+    else
+      attributes = %w{ref_code client_code order_id quantity pending shipped to_ship ordered status_str price ptotal po_number inv_number ppo_id packing_list_id status_str}
+    end
     CSV.generate(headers: attributes, write_headers: true) do |csv|
       all.each do |placement|
         csv << attributes.map{ |attr| placement.send(attr) }

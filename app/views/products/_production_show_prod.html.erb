@@ -22,7 +22,7 @@
   Active?      <%= @product.active_str %><br>
   Pending/Active pcs: <%= @product.quantity %> <br>
   Current Stock : <%= @product.stock %> <br>
-  Price: <%= to_currency @product.price_cny, locale: :cn  %>
+  Visible to: <%= @product.visible_to_str %>
 </div>
 </div>
 
