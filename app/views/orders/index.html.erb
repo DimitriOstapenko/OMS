@@ -18,13 +18,11 @@
 
 <div class="row">
   <div class="col-md-6 pt-3">
-<% unless current_user.production? %>
-    <% if show_totals %>
-      <%= render "totals_table" %>
-    <% else %>
-      <%= link_to 'Show Totals', orders_path(show_totals: 1) %>
-    <% end %> 
-<% end %>
+  <% if show_totals %>
+    <%= render "totals_table" %>
+  <% else %>
+    <%= link_to 'Show Totals', orders_path(show_totals: 1) %>
+  <% end %> 
   </div>
 
   <div class="col-md-6">

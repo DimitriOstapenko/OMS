@@ -2,14 +2,10 @@
 <% cl = 'table-danger' if order.cancelled? %>
 
 <tr class="<%= cl %>">
-<td><%= link_to order.client.name, client_path(order.client_id), remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %></td>
+  <td><%= order.client.name %></td>
 
 <td class="text-center">
-<% if order.shipped? %>
-  <%= link_to order.id, order, remote: true, 'data-toggle':  "modal", 'data-target': '#modal-window' %>
-<% else %>
-  <%= link_to order.id, order %>
-<% end %>
+  <%= order.id %>
 </td>
 
 <td class="text-center"><%= order.products.count %></td>
@@ -18,10 +14,9 @@
 <td class="text-center"><%= order.cre_date %></td>
 <td class="text-center"><%= order.weight %></td>
 <td class="text-center"><%= order.terms_str %></td>
-<td class="text-center"> <%= link_to order.po_number, download_po_order_path(order) %> </td>
+<td class="text-center"> <%= order.po_number %> </td>
 <td class="text-center"><%= order.delivery_by %></td>
 <td class="text-center"> <%= order.status_str %> </td>
-<td class="text-center"><%= to_currency order.grand_total, locale: order.client.locale %></td>
 <td class="text-center"> <%= order.paid_str %> </td>
 <td class="text-center">
   <% unless order.cancelled? || order.shipped? %>
