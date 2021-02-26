@@ -78,6 +78,7 @@ class ProductsController < ApplicationController
 
   def update
     @product = Product.find(params[:id])
+    @product.clients = []
     clients = params[:product][:'visible_to']
     clients = clients[1..] if clients.any?  # remove empty string
     clients.each do |cl|
@@ -87,7 +88,8 @@ class ProductsController < ApplicationController
       @product.clients.push(client) if client
     end
     if @product.update(product_params)
-      flash[:success] = "Product updated"
+      suff = "; marked as inactive until picture is uploaded" unless @product.image_file_present?
+      flash[:success] = "Product updated #{suff}"
       redirect_back(fallback_location: products_path)
     else
       render 'edit'

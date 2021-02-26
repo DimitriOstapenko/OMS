@@ -189,6 +189,11 @@ class Product < ApplicationRecord
     return "#{self.clients.count} clients"  
   end
 
+  def visible_to_list
+    return 'All' unless self.clients.any?
+    self.clients.pluck(:name).join(', ') rescue 'All'
+  end
+
   def visible?(client_id = nil)
     return unless client_id
     return true if self.visible_to.empty?
