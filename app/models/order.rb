@@ -242,7 +242,7 @@ class Order < ApplicationRecord
     CSV.generate(headers: headers, write_headers: true) do |csv|
       all.each do |order|
         csv << attributes.map{ |attr| order.send(attr) }
-        if order.placements.count > 1 && itemized
+        if order.placements.any? && itemized
           order.placements.each do |pl|
             ppo_name = pl.ppo.name rescue ''
             subtotal = pl.price * pl.quantity
