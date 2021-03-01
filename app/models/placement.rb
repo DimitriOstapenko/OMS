@@ -106,7 +106,7 @@ class Placement < ApplicationRecord
 # Cancel this placement, cancel order if all placements canceled 
   def cancel(by_email)
     return unless self.pending?
-    self.update_attributes(status: CANCELLED_ORDER)
+    self.update_attribute(:status, CANCELLED_ORDER)
     self.delete_pdfs
     self.order.save
     return if self.order.cancelled?

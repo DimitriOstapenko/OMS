@@ -89,7 +89,7 @@ private
       (errors.add(:wrong_pending_pcs, "- line #{lines}: wrong number of pcs (#{pcs}) to ship for order #{order.id}/#{product.ref_code}: we have #{pending_active_pcs} pending/active pcs  "); return) if pending_active_pcs < pcs
       (errors.add(:insufficient_pcs, "- line #{lines}: insufficient inventory for order #{order.id}/#{product.ref_code}: #{pcs} pcs marked for shipment, we only have #{product.stock} pcs in stock  "); return) if pcs > product.stock
       self.placements.push(placement)
-      placement.update_attributes(to_ship: pcs )
+      placement.update_attribute(:to_ship, pcs )
       orders[order_id] = 1 if order_id    
       products[ref_code] = 1 if ref_code  
       ttl_pcs += pcs 

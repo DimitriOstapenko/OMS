@@ -22,7 +22,7 @@ end
 def set_attributes!
 #  logger.debug "****** pcs: #{self.pcs} orders: #{self.orders}"
   self.product.pending_order_placements.each do |pl|
-    pl.update_attributes(ppo_id: self.id, status: ACTIVE_ORDER)
+    pl.update(ppo_id: self.id, status: ACTIVE_ORDER)
     pl.order.update_attribute(:status, ACTIVE_ORDER) #if pl.order.all_placements_active?
   end
 end
