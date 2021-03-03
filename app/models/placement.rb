@@ -102,11 +102,11 @@ class Placement < ApplicationRecord
     self.ppo.delete_pdf if self.ppo.present?
     self.order.delete_pdfs # invoice + PO
   end
-
+  
 # Cancel this placement, cancel order if all placements canceled 
   def cancel(by_email)
     return unless self.pending?
-    self.update_attribute(:status, CANCELLED_ORDER)
+    self.update(status: CANCELLED_ORDER, quantity: 0)
     self.delete_pdfs
     self.order.save
     return if self.order.cancelled?

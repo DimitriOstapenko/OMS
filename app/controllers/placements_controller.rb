@@ -35,7 +35,7 @@ class PlacementsController < ApplicationController
     id = params[:id] || params[:placement][:id]
     quantity = params[:quantity] || params[:placement][:quantity]
     if quantity.to_i.positive? && del_from_cart?(id) 
-       flash[:danger] = "Error updating number of product in cart. Only positive numbers are allowed." unless add_to_cart?(id, quantity)
+       flash[:danger] = "Error updating number of items in cart." unless add_to_cart?(id, quantity)
     end
     redirect_back(fallback_location: products_path) 
   end
@@ -43,11 +43,20 @@ class PlacementsController < ApplicationController
 # update this placement
   def update
     @placement = Placement.find(params[:id])
-    if @placement.update(placement_params)
-      @placement.delete_pdfs
+    new_qty = params[:placement][:quantity].to_i  rescue 0
+    email = current_user.email rescue ''
+
+    if new_qty.zero?
+      @placement.order.last_change_by = email
+      @placement.cancel(email)
+      flash[:warning] = "Placement cancelled" 
+    elsif @placement.update(placement_params)
       flash[:success] = "Placement updated" 
-      @placement.order.last_change_by = current_user.email
+      @placement.order.last_change_by = email
+      @placement.delete_pdfs
       @placement.order.save!
+    else 
+      flash[:danger] = "Error updating placement" 
     end
     redirect_back(fallback_location: order_path(@placement.order))
   end 
@@ -121,9 +130,9 @@ class PlacementsController < ApplicationController
     @placement.cancel(email)
     
     if @placement.order.all_placements_cancelled? 
-      flash[:warning] = "Order #{@placement.order_id} was canceled."
+      flash[:warning] = "Order #{@placement.order_id} was cancelled."
     else
-      flash[:warning] = "Placement #{@placement.id} was canceled."
+      flash[:warning] = "Placement cancelled."
     end
 
     redirect_back(fallback_location: @order)
