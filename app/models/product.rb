@@ -228,9 +228,9 @@ class Product < ApplicationRecord
     require 'barby'
     require 'barby/barcode/code_128'
     require 'barby/outputter/png_outputter'
-    barcode = Barby::Code128.new("#{self.id} : #{self.description}")
-    base64_output = Base64.encode64(barcode.to_png(:height => 35, :margin => 5))
-    return "data:image/png;base64,#{base64_output}"
+    barcode = Barby::Code128.new("#{self.id} : #{self.description}") rescue nil
+    base64_output = Base64.encode64(barcode.to_png(:height => 35, :margin => 5)) if barcode
+    return "data:image/png;base64,#{base64_output}" if base64_output.present?
   end
 
 # Inventory CSV template  
