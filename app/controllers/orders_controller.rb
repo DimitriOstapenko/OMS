@@ -150,13 +150,14 @@ class OrdersController < ApplicationController
 
 # Apply current product prices to all pending orders
   def apply_price_rules
-    orders = 0
-    Order.where(status: PENDING_ORDER).each do |order|
+    orders = placements = 0
+    Order.where.not(status: SHIPPED_ORDER).each do |order|
       changed_placements = false
-      order.placements.each do |placement|
+      order.placements.where(status: PENDING_ORDER).each do |placement|
         new_price = order.client.price(placement.product)
         next if (new_price - placement.price).abs < 1
         changed_placements = true
+        placements += 1
         placement.price = new_price
         placement.ppo.delete_pdfs if placement.ppo.present?
         placement.save!
@@ -170,7 +171,7 @@ class OrdersController < ApplicationController
     end
 
     redirect_back(fallback_location: prices_path)
-    flash[:info] = "#{orders} pending orders were modified"
+    flash[:info] = "#{orders} orders and #{placements} placements were modified"
   end  
 
 private
