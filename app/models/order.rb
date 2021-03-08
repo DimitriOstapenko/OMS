@@ -238,7 +238,7 @@ class Order < ApplicationRecord
   def self.to_csv(detail = TOTAL_ONLY_REPORT)
     itemized = (detail == ITEMIZED_REPORT)
     headres = attributes = %w{id client_code  product_count total_pcs pending shipped cre_date currency po_number inv_number pmt_method_str shipping discount tax total delivery_by status_str notes}
-    headers = attributes + %w(Ref Pcs Price Subtotal Status) if itemized
+    headers = attributes + %w(Ref Pcs Shipped Price Subtotal Status) if itemized
     CSV.generate(headers: headers, write_headers: true) do |csv|
       all.each do |order|
         csv << attributes.map{ |attr| order.send(attr) }
@@ -246,7 +246,7 @@ class Order < ApplicationRecord
           order.placements.each do |pl|
             ppo_name = pl.ppo.name rescue ''
             subtotal = pl.price * pl.quantity
-            csv << ['','','','','','','','','','','','','','','','','','', pl.product.ref_code, pl.quantity, pl.price, subtotal, pl.status_str, ppo_name]
+            csv << ['','','','','','','','','','','','','','','','','','', pl.product.ref_code, pl.quantity, pl.shipped, pl.price, subtotal, pl.status_str, ppo_name]
           end
         end
       end
