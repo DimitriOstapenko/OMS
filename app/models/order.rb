@@ -353,7 +353,8 @@ class Order < ApplicationRecord
   end
 
   def made_by 
-    self.by_client? ? 'Entered by client' : "Entered by staff #{self.user.email rescue ''}"
+    email = self.user.email rescue ''
+    self.by_client? ? "Entered by client (#{email})" : "Entered by staff (#{email})"
   end
 
   def by_client?
