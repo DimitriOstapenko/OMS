@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
 
 # devise redirect after login - if home page is different from products_path
   def after_sign_in_path_for(resource)
-    products_path
+    orders_path
   end
 
 # Confirms a logged-in user.

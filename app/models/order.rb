@@ -56,7 +56,7 @@ class Order < ApplicationRecord
        self.total += placement.price * placement.quantity
 #       self.weight += placement.product.weight *  placement.quantity rescue 0
     end
-    self.weight = placements.sum{|pl| pl.product.weight * pl.quantity} rescue 0
+    self.weight = placements.sum{|pl| pl.product.weight * pl.quantity} / 1000 rescue 0
     nextid = Order.maximum(:id).next rescue 1
     suff = nextid.to_s
     self.po_number = 'PO-' + suff 
