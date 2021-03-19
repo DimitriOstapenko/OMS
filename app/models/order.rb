@@ -112,6 +112,7 @@ class Order < ApplicationRecord
 
 # Send emails to client and staff only if total has changed  
   def send_change_order_emails!
+    return if self.cancelled?
 #    logger.debug("******************  changes : #{self.changes} prev: #{self.previous_changes}")
     if self.total_changed? && self.total_was
        self.notes = "#{self.notes} \n Previous total was: #{to_currency(self.total_was, locale: self.client.locale)}"
@@ -319,8 +320,7 @@ class Order < ApplicationRecord
 
 # Cancel this order, notify admins
   def cancel (by_email)
-    self.update_attribute(:status, CANCELLED_ORDER)
-    self.update_attribute(:notes, "#{self.notes} \n Cancelled by #{by_email} on #{Time.now}")
+    self.update( last_change_by: by_email, status: CANCELLED_ORDER, notes: "#{self.notes} \n Cancelled by #{by_email} on #{Time.now}")
     self.placements.each do |placement|
       placement.cancel(by_email)
     end
