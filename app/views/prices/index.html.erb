@@ -52,7 +52,7 @@
     </div>
 
     <div class="col-md-4">
-      <%= button_to "Apply Prices To All Pending Placements", apply_price_rules_to_orders_path, class: "btn btn-danger mr-1", method: :post,  data: { confirm: "Are you sure you want to modify prices of all pending orders? This might take a minite or two. Please do not interrupt"} %>
+      <%= button_to "Apply Prices To All Orders", apply_price_rules_to_orders_path, class: "btn btn-danger mr-1", method: :post,  data: { confirm: "Are you sure you want to modify prices of all orders, including partially shipped orders? This might take a minite or two. Please do not interrupt"} %>
     </div>
   </div>
 

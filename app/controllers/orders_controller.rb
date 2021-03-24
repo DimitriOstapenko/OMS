@@ -148,18 +148,18 @@ class OrdersController < ApplicationController
     redirect_to orders_path 
   end
 
-# Apply current product prices to all pending orders
+# Apply current product prices to all pending and  partially shipped orders
   def apply_price_rules
     orders = placements = 0
     Order.where.not(status: SHIPPED_ORDER).each do |order|
       changed_placements = false
-      order.placements.where(status: PENDING_ORDER).each do |placement|
+      order.placements.where(status: [PENDING_ORDER,ACTIVE_ORDER]).each do |placement|
         new_price = order.client.price(placement.product)
         next if (new_price - placement.price).abs < 1
         changed_placements = true
         placements += 1
         placement.price = new_price
-        placement.ppo.delete_pdfs if placement.ppo.present?
+        placement.ppo.delete_pdf if placement.ppo.present?
         placement.save!
       end
       if changed_placements
