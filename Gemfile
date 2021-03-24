@@ -1,9 +1,9 @@
 source 'https://rubygems.org'
-git_source(:github) { |repo| "https://github.com/#{repo}.git" }
+#git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 #ruby '2.6.4'
-gem 'bundler', '~> 2.1', '>= 2.1.4'
-gem 'rails', '~> 6.1'
+gem 'bundler', '~> 2.2', '>= 2.2.15'
+gem 'rails', '~> 6.1', '>= 6.1.3'
 gem 'pg'
 gem 'puma', '~> 5.1', '>= 5.1.1'
 gem 'devise', '~> 4.7', '>= 4.7.3'
