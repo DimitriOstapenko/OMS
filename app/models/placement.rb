@@ -94,10 +94,9 @@ class Placement < ApplicationRecord
     self.quantity - self.shipped 
   end
 
-# put in quotes
-#  def ref_code
-#    self.product.ref_code.inspect
-#  end
+  def ref_code
+    self.product.ref_code
+  end
 
   def delete_pdfs
     self.ppo.delete_pdf if self.ppo.present?
