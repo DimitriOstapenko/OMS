@@ -272,7 +272,8 @@ class Order < ApplicationRecord
 
 # for CSV not to trigger currency with 'TOP' 
   def product_list_quoted
-    self.products.pluck(:ref_code).join(':').inspect rescue ''
+#    self.products.pluck(:ref_code).join(':').inspect rescue ''
+     self.product_list  # reverted on Sandra's request
   end
 
   def product_count
