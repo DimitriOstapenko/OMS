@@ -79,6 +79,7 @@ private
       order = Order.find(order_id) rescue nil
       (errors.add(:missing_order, "- line #{lines}: order '#{row[0]}' does not exist"); return) unless order.present?
       ref_code = row[1].strip.gsub('"','')
+      (errors.add(:products, "line #{lines}: missing product code"); return) unless ref_code.present?
       product = Product.find_by(ref_code: ref_code)
       (errors.add(:products, "- line #{lines}: unknown product code #{ref_code}"); return) unless product
       placement = Placement.find_by(order_id: order_id, product_id: product.id)

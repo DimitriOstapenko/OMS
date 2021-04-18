@@ -69,7 +69,8 @@ class Inventory < ApplicationRecord
       next if row[1].blank? 
       pcs = row[1].to_i
       (errors.add(:pcs, "line #{lines}: bad number of pieces: '#{row[1]}'"); return) unless pcs.to_i == pcs # integer test
-      ref_code = row[0]
+      ref_code = row[0].strip rescue nil
+      (errors.add(:products, "line #{lines}: missing product code"); return) unless ref_code.present?
       product = Product.find_by(ref_code: ref_code)
       (errors.add(:products, "line #{lines}: unknown product code #{ref_code}"); return) unless product.present?
       products[ref_code] = 1 if ref_code

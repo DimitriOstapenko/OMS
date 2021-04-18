@@ -3,6 +3,9 @@ Rails.application.routes.draw do
   root 'static_pages#home'
 #  root 'products#index'
 
+# strange error appeared after upgrade to rails 6, hence this next line
+  get '/active', to: proc { [200, {}, ['']] }
+
   devise_for :users, controllers: { registrations: "my_registrations" } 
   get '/users/', to: 'users#index'
   get '/switch_to/:id', to: 'users#switch_to', as: :switch_user

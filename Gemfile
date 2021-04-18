@@ -28,7 +28,8 @@ gem 'turbolinks',              '~> 5.2.0'
 gem 'jquery-rails',            '4.3.1'
 gem 'jbuilder',                '~> 2.7.0'
 gem 'select2-rails', '~> 4.0', '>= 4.0.13'
-gem 'popper_js', '~> 1.14.3'
+#gem 'popper_js', '~> 1.14.3'
+gem 'popper_js', '~> 2.8', '>= 2.8.6'
 
 
 # Reduces boot times through caching; required in config/boot.rb
