@@ -94,7 +94,7 @@ module My
 # Generate Client Report
   def build_client_report( report, orders )
     client_name = report.client.name rescue 'All'
-    cn_report = (report.geo == GEO_CN) || report.client.cn?
+    cn_report = (report.geo == GEO_CN) || report.client.cn? rescue false
     if cn_report
       fx = ''
       locale = :cn
