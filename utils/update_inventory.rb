@@ -1,4 +1,4 @@
-# Set inventory for nown modeles; default to 0 for the rest
+# Set inventory for known modeles; default to 0 for the rest
 # Obsolete. Now quantity is calculated number which signifies outstanding Pending+Active Orders
 # Inventory is now in 'stock' column
 #
